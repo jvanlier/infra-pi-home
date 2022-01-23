@@ -15,7 +15,11 @@ services:
       - 10001:10001/udp
       - 8080:8080
       - 8443:8443
-      - 1900:1900/udp #optional
+      # - 1900:1900/udp #optional
+      # 1900 UDP is needed for "Make controller discoverable on L2 network" option.
+      # Seems to be for SSDP - Simple service discovery protocol.
+      # Home Assistant also uses it, and we don't use this option anyway in Unifi settings.
+      # It does mean that the unifi controller itself isn't discoverable, but we can add integration manually.
       - 8843:8843 #optional
       - 8880:8880 #optional
       - 6789:6789 #optional
