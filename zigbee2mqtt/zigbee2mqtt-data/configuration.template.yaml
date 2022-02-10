@@ -1,4 +1,5 @@
 permit_join: true
+homeassistant: true
 mqtt:
   base_topic: zigbee2mqtt
   server: mqtt://mqtt:1884
