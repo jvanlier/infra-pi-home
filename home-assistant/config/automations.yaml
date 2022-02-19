@@ -1,0 +1,19 @@
+- alias: Alert Dishwasher Done
+  id: "alert-dishwasher-done"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.robb_plug_power 
+      above: '1000'  # warming up
+      for: '00:00:10'
+  action:
+    - wait_for_trigger:
+        - platform: numeric_state
+          entity_id: sensor.robb_plug_power 
+          below: '1'
+          for: '00:00:05'
+    - service: notify.notify
+      data:
+        title: Dishwasher
+        message: 'Dishwasher done'
+  mode: restart
+

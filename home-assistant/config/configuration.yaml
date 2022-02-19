@@ -1,0 +1,49 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+camera:
+  platform: generic
+  name: Birdcam
+  still_image_url: https://192.168.2.50/snap.jpeg
+  verify_ssl: false
+  stream_source: !secret camera_birdcam_stream_source
+
+nest:
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret  
+  # "Project ID" in the Device Access Console (not Cloud Project ID!)
+  project_id: !secret nest_project_id 
+
+adaptive_lighting:
+- name: "living"
+  lights: 
+    - light.bloem
+  prefer_rgb_color: false  # allows the color lamp to go below 2000k if min_color_temp allows it
+  min_brightness: 30
+  max_brightness: 80
+  min_color_temp: 2000
+  max_color_temp: 4000
+  sunrise_time: "07:00:00" 
+  sunset_offset: "00:30:00"
+- name: "slaapkamer"  # Separate section, because we don't want automatic brightness control here. Only color.
+  lights: 
+#    - light.slaapkamer_1
+#    - light.slaapkamer_2
+#    - light.slaapkamer_3
+#    - light.slaapkamer_chantal
+    - light.slaapkamer_jori
+  min_color_temp: 2000  # lights can only go down to 2200k
+  max_color_temp: 4000
+  sunrise_time: "07:00:00"
+  sunset_offset: "00:30:00"
+

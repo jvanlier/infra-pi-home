@@ -1,11 +1,9 @@
 Home Assistant
 ==============
 
-The config directory is gitignored, but it should probably be backed up. It also contains the data.
+The config directory is mostly gitignored (except for non-secrets yaml files), but it should probably be backed up. It also contains the data.
 
 **TODO: backup config dir**
-
-The file `config/configuration.yaml` looks like something we'd like to place in Git, however it currently also contains secrets related to the Nest integration.
 
 ## Adaptive Lightning
 The Docker install disallows add-on installations. But add-ons can be installed manually:
