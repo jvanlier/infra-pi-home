@@ -20,7 +20,7 @@
 # The Dishwasher is a bit unreliable lately, and seems better if we power cycle
 # it before the next wash cycle.
 - alias: Power Cycle Dishwasher at night when idle
-  id: "power-cycle-dishwasher"
+  id: 'power-cycle-dishwasher'
   trigger:
     - platform: time
       at: '04:00:00'  # Check quite late to minimize chance that it's running
@@ -29,10 +29,10 @@
       conditions:
         - condition: state
           entity_id: switch.dishwasher
-          state: "on"
+          state: 'on'
         - condition: numeric_state
           entity_id: sensor.dishwasher_power
-          below: 1  # Drying is ~ 1.4 W, idle is 0.7 - 0.8 W
+          below: 1  # Lowest power use during cycle is 1.4 W (drying). Standby consumption is 0.7 - 0.8 W.
   action:
     - service: switch.turn_off
       target:
