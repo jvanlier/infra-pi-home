@@ -19,29 +19,25 @@
 
 # The Dishwasher is a bit unreliable lately, and seems better if we power cycle
 # it before the next wash cycle.
-# Possible improvement: prolong time switched off (0.7 W standby consumption).
 - alias: Power Cycle Dishwasher at night when idle
   id: "power-cycle-dishwasher"
   trigger:
     - platform: time
-      at: '00:00:00'
+      at: '04:00:00'  # Check quite late to minimize chance that it's running
   condition:
-    - condition: state
-      entity_id: switch.dishwasher
-      state: "on"
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: switch.dishwasher
+          state: "on"
+        - condition: numeric_state
+          entity_id: sensor.dishwasher_power
+          below: 1  # Drying is ~ 1.4 W, idle is 0.7 - 0.8 W
   action:
-    - wait_for_trigger:
-      # Ensure it is actually turned off and not still drying
-      - platform: numeric_state
-        entity_id: sensor.dishwasher_power
-        below: 1.2
-        for: '01:00:00'
-      timeout: '03:00:00'  # single cycle takes 2 hrs 45 mins
-      continue_on_timeout: false
     - service: switch.turn_off
       target:
         entity_id: switch.dishwasher
-    - delay: '03:00:00'  # worst case it turns back on @ 6
+    - delay: '02:00:00'  # turns back on at 6 
     - service: switch.turn_on
       target:
         entity_id: switch.dishwasher
