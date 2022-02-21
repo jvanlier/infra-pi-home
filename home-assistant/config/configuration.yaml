@@ -10,11 +10,12 @@ group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+sensor: !include sensor.yaml
 
 camera:
   platform: generic
   name: Birdcam
-  still_image_url: https://192.168.2.50/snap.jpeg
+  still_image_url: !secret camera_birdcam_still_image_url
   verify_ssl: false
   stream_source: !secret camera_birdcam_stream_source
 

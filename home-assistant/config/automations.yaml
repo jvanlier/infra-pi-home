@@ -1,16 +1,11 @@
 - alias: Alert Dishwasher Done
   id: 'alert-dishwasher-done'
   trigger:
-    - platform: numeric_state
+    - platform: state 
       entity_id: sensor.dishwasher_power 
-      above: 1000  # warming up
-      for: '00:00:10'
+      to: off
+      for: '00:01:00'
   action:
-    - wait_for_trigger:
-        - platform: numeric_state
-          entity_id: sensor.dishwasher_power 
-          below: 1
-          for: '00:00:05'
     - service: notify.notify
       data:
         title: Dishwasher
@@ -18,7 +13,7 @@
   mode: restart
 
 # The Dishwasher is a bit unreliable lately, and seems better if we power cycle
-# it before the next wash cycle.
+# it regularly.
 - alias: Power Cycle Dishwasher at night when idle
   id: 'power-cycle-dishwasher'
   trigger:
@@ -27,12 +22,13 @@
   condition:
     - condition: and
       conditions:
+        # may have turned if off manually, e.g. if on holiday. Leave off in that case. 
         - condition: state
           entity_id: switch.dishwasher
           state: 'on'
-        - condition: numeric_state
-          entity_id: sensor.dishwasher_power
-          below: 1  # Lowest power use during cycle is 1.4 W (drying). Standby consumption is 0.7 - 0.8 W.
+        - condition: state 
+          entity_id: sensor.dishwasher_state
+          state: 'off'
   action:
     - service: switch.turn_off
       target:
@@ -41,4 +37,6 @@
     - service: switch.turn_on
       target:
         entity_id: switch.dishwasher
+  mode: restart
+
 
