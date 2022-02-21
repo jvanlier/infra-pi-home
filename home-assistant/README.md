@@ -15,6 +15,3 @@ sudo mv adaptive-lightning/custom_components/adaptive_lightning config/custom_co
 ```
 Using sudo because unfortunately HASS runs as root in the stock Docker image, and so the config dir is owned by root.
 
-Curently using hash `83983e85fc2cc91d2c47bf0c018a34a1f2b7ab8f` from Dec 16, 2021 with HASS 2022.2.6.
-Seems to work fine, but some Python errors in the logs.
-

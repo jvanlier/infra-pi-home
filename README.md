@@ -24,5 +24,5 @@
 - 10001 UDP: Unifi controller (service discovery)
 
 N.b.: Home Assistant runs in privileged mode, no ports need to be forwarded explictly. 
-The list of ports above is not exhaustive for Home Assistant, just what I happened to know of
+The list of ports above is not exhaustive for Home Assistant, just what I happened to know of.
 
