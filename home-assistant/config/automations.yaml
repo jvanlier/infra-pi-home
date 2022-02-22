@@ -1,9 +1,10 @@
 - alias: Alert Dishwasher Done
   id: 'alert-dishwasher-done'
+  # TODO: should also send alert if stuck in idle state for 1 hour
   trigger:
     - platform: state 
       entity_id: sensor.dishwasher_power 
-      to: off
+      to: 'off'
       for: '00:01:00'
   action:
     - service: notify.notify

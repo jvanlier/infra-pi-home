@@ -1,0 +1,30 @@
+# Dishwasher state.
+#
+# Idle could be drying, or could be a small break in wash cycle.  Could also be stuck in a weir
+# state.
+# When cycle works as it should, it'll be in idle state for 40 mins to dry, then it goes
+# up briefly to 25 W to pump the remaining water out.
+# Then it drops to ~ 1 W for 5 min, after which it turns off, falling back to 0.7 W
+# standby consumption.
+# However, unfortunately sometimes the cycle ends at 1.4 W with a LED flashing. This is
+# the weird state I mentioned earlier. Stays like that until somebody opens the door, at
+# which point power drops to 0.7 W. No idea why.
+# Result: cannot use power-based state toggle to send "dishwasher done" alerts reliably.
+#
+# Off: Uses around ~ 0.7 W. When no LEDs active or when a LED active - doesn't matter.
+- platform: template
+  sensors:
+    dishwasher_state:
+       unique_id: 'dishwasher_state_v1'
+       friendly_name: Dishwasher
+       value_template: >-
+         {% if states('sensor.dishwasher_power')|float > 2000 %}
+           heating
+         {% elif states('sensor.dishwasher_power')|float > 2 %}
+           washing
+         {% elif states('sensor.dishwasher_power')|float > 1 %}
+           idle 
+         {% else %}
+           off
+         {% endif %}
+
