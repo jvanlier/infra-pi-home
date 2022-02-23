@@ -1,28 +1,34 @@
-# Dishwasher state.
+- platform: filter
+  name: 'dishwasher power filtered'
+  entity_id: 'sensor.dishwasher_power'
+  filters:
+    # We have unevenly spaced measurements so this seems more appropriate than low-pass filter.
+    # However, it'll break down if we have only 1 measurement within the window_size.
+    - filter: time_simple_moving_average
+      window_size: "00:01:30"
+
+# Infer dishwasher state: heating, washing, idle and off.
+# 
+# idle is a bit vague, and could mean a few things:
+# - drying in the last stage of the wash cycle
+# - off with door closed. After a normal wash cycle, power drops to 0.7 W which corresponds to
+#   the off state. Opening the door doesn't affect power. However, closing it again makes power
+#   jump to ~ 1.1 W which corresponds to idle  state.
+# - "stuck" in a weird state after wash cycle. After an abnormal wash cycle, a LED blinks in the
+#   panel and power doesn't drop to 0.7 W but stays at ~ 1.1 W.
 #
-# Idle could be drying, or could be a small break in wash cycle.  Could also be stuck in a weir
-# state.
-# When cycle works as it should, it'll be in idle state for 40 mins to dry, then it goes
-# up briefly to 25 W to pump the remaining water out.
-# Then it drops to ~ 1 W for 5 min, after which it turns off, falling back to 0.7 W
-# standby consumption.
-# However, unfortunately sometimes the cycle ends at 1.4 W with a LED flashing. This is
-# the weird state I mentioned earlier. Stays like that until somebody opens the door, at
-# which point power drops to 0.7 W. No idea why.
-# Result: cannot use power-based state toggle to send "dishwasher done" alerts reliably.
-#
-# Off: Uses around ~ 0.7 W. When no LEDs active or when a LED active - doesn't matter.
+# No idea what causes an abnormal wash cycle.
 - platform: template
   sensors:
     dishwasher_state:
        unique_id: 'dishwasher_state_v1'
        friendly_name: Dishwasher
        value_template: >-
-         {% if states('sensor.dishwasher_power')|float > 2000 %}
+         {% if states('sensor.dishwasher_power_filtered')|float >= 1500 %}
            heating
-         {% elif states('sensor.dishwasher_power')|float > 2 %}
+         {% elif states('sensor.dishwasher_power_filtered')|float >= 2 %}
            washing
-         {% elif states('sensor.dishwasher_power')|float > 1 %}
+         {% elif states('sensor.dishwasher_power_filtered')|float >= 1 %}
            idle 
          {% else %}
            off
