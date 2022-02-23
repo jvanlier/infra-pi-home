@@ -1,0 +1,12 @@
+.HA_VERSION
+.storage/
+blueprints/
+core
+custom_components/
+deps/
+image/
+secrets.yaml
+tts/
+*.log*
+*.log.*
+*.db*
