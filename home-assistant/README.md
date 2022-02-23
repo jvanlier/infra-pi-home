@@ -1,8 +1,6 @@
 Home Assistant
 ==============
 
-The config directory is mostly gitignored (except for non-secrets yaml files), but it should probably be backed up. It also contains the data.
-
 **TODO: backup config dir**
 
 ## Adaptive Lightning
