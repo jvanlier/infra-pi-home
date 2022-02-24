@@ -2,11 +2,18 @@
   id: 'alert-dishwasher-done'
   trigger:
     - platform: state 
-      entity_id: sensor.dishwasher_power_filtered
+      entity_id: sensor.dishwasher_state
       from: 'drying'
-      to: 'off_closed'
-      for: '00:01:00'
+      to: 'washing'  # not quite, pumping out water, but we don't have a state for that
+      for: '00:00:30'
   action:
+    - wait_for_trigger:
+      - platform:  state
+        entity_id: sensor.dishwasher_state
+        to: 'off_closed'
+        for: '00:00:30'
+      timeout: '00:05:00'
+      continue_on_timeout: false
     - service: notify.notify
       data:
         title: Dishwasher
@@ -17,11 +24,19 @@
   id: 'alert-dishwasher-stuck'
   trigger:
     - platform: state 
-      entity_id: sensor.dishwasher_power_filtered 
-      from: 'washing'
-      to: 'off_closed'
-      for: '00:45:00'
+      entity_id: sensor.dishwasher_state
+      from: 'heating'
+      to: 'washing'
+      for: '00:20:00'
   action:
+    - wait_for_trigger:
+      - platform:  state
+        entity_id: sensor.dishwasher_state
+        from: 'washing'
+        to: 'off_closed'
+        for: '00:05:00'
+      timeout: '00:30:00'
+      continue_on_timeout: false
     - service: notify.notify
       data:
         title: Dishwasher
@@ -31,7 +46,7 @@
   mode: restart
 
 # The Dishwasher is a bit unreliable lately, and seems better if we power cycle it regularly.
-- alias: Power Cycle Dishwasher at night when off
+- alias: Power cycle dishwasher at night when off
   id: 'power-cycle-dishwasher'
   trigger:
     - platform: time

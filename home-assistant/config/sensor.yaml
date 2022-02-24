@@ -5,7 +5,7 @@
     # We have unevenly spaced measurements so this seems more appropriate than low-pass filter.
     # However, it'll break down if we have only 1 measurement within the window_size.
     - filter: time_simple_moving_average
-      window_size: "00:01:30"
+      window_size: "00:01:00"
 
 - platform: template
   sensors:
