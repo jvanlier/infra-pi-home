@@ -1,0 +1,11 @@
+- alias: Amplifier upstairs off at end of workday 
+  id: 'amplifier-upstairs-off'
+  trigger:
+    - platform: time
+      at: "18:00:00"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.amplifier_upstairs 
+  mode: restart
+
