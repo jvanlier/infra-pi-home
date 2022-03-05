@@ -1,4 +1,4 @@
-- alias: Alert Dishwasher Done
+- alias: Alert dishwasher done
   id: 'alert-dishwasher-done'
   trigger:
     - platform: state 
@@ -20,7 +20,7 @@
         message: 'Dishwasher appears to be done.'
   mode: restart
 
-- alias: Alert Dishwasher Stuck
+- alias: Alert dishwasher stuck
   id: 'alert-dishwasher-stuck'
   trigger:
     - platform: state 

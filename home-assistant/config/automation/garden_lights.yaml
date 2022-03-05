@@ -1,0 +1,32 @@
+- alias: Garden lights on
+  id: 'garden-lights-on'
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "-00:30"
+  # TODO: also trigger if someone comes home after sundown but before 23:00
+  condition:
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: person.jori
+          state: 'Home'
+        - condition: state
+          entity_id: person.chantal
+          state: 'Home'
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.garden_lights
+  mode: restart
+
+- alias: Garden lights off
+  id: 'garden-lights-off'
+  trigger:
+    platform: time
+    at: "23:00:00"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.garden_lights
+  mode: restart

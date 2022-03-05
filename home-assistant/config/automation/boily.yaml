@@ -1,5 +1,7 @@
-- alias: Turn Boiler Off at Night
-  id: 'boiler-off-at-night'
+# TODO: also toggle when both of us are > 20 km away
+
+- alias: Boiler nightly energy saving - off
+  id: 'boiler-off'
   trigger:
     - platform: time
       at: "23:00:00"
@@ -9,8 +11,8 @@
         entity_id: switch.boiler 
   mode: restart
 
-- alias: Turn Boiler On in the Morning
-  id: 'boiler-on-in-morning'
+- alias: Boiler nightly energy saving - on
+  id: 'boiler-on'
   trigger:
     - platform: time
       at: "06:00:00"
