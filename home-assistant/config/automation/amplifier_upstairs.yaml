@@ -6,6 +6,6 @@
   action:
     - service: switch.turn_off
       target:
-        entity_id: switch.amplifier_stuy
+        entity_id: switch.amplifier_study
   mode: restart
 
