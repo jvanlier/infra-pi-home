@@ -1,0 +1,21 @@
+- alias: Turn Boiler Off at Night
+  id: 'boiler-off-at-night'
+  trigger:
+    - platform: time
+      at: "23:00:00"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.boiler 
+  mode: restart
+
+- alias: Turn Boiler On in the Morning
+  id: 'boiler-on-in-morning'
+  trigger:
+    - platform: time
+      at: "06:00:00"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.boiler 
+  mode: restart
