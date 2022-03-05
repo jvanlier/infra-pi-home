@@ -4,7 +4,7 @@
     - platform: sun
       event: sunset
       offset: "-00:30"
-  # TODO: also trigger if someone comes home after sundown but before 23:00
+  # TODO: also trigger if someone comes home after sundown but before 22:00
   condition:
     - condition: or
       conditions:
@@ -24,7 +24,7 @@
   id: 'garden-lights-off'
   trigger:
     platform: time
-    at: "23:00:00"
+    at: "22:00:00"
   action:
     - service: switch.turn_off
       target:
