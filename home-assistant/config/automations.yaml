@@ -61,8 +61,8 @@
         - condition: state 
           entity_id: sensor.dishwasher_state
           state: 
-            - 'off_door_open'
-            - 'off_door_closed'
+            - 'off_open'
+            - 'off_closed'
   action:
     - service: switch.turn_off
       target:
