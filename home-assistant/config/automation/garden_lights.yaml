@@ -10,10 +10,10 @@
       conditions:
         - condition: state
           entity_id: person.jori
-          state: 'Home'
+          state: 'home'
         - condition: state
           entity_id: person.chantal
-          state: 'Home'
+          state: 'home'
   action:
     - service: switch.turn_on
       target:
