@@ -32,7 +32,8 @@
     - wait_for_trigger:
       - platform:  state
         entity_id: sensor.dishwasher_state
-        from: 'washing'
+        # Usually from washing to off_closed, but may sometimes briefly touch drying
+        # due to smooting the power signal.
         to: 'off_closed'
         for: '00:05:00'
       timeout: '00:30:00'
