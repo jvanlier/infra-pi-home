@@ -50,3 +50,25 @@
          {% else %}
            off
          {% endif %}
+
+
+- platform: filter
+  name: 'dryer power filtered'
+  entity_id: 'sensor.dryer_power'
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "00:00:40"
+
+- platform: template
+  sensors:
+    dryer_state:
+       unique_id: 'dryer_state_v1'
+       friendly_name: Dryer
+       value_template: >-
+         {% if states('sensor.dryer_power_filtered')|float >= 100 %}
+           drying
+         {% elif states('sensor.washing_machine_power_filtered')|float > 1 %}
+           idle
+         {% else %}
+           off
+         {% endif %}
