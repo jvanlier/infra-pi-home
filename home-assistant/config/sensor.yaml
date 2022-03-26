@@ -26,3 +26,27 @@
            off_open
          {% endif %}
 
+- platform: filter
+  name: 'washing machine power filtered'
+  entity_id: 'sensor.washing_machine_power'
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "00:00:40"
+
+- platform: template
+  sensors:
+    washing_machine_state:
+       unique_id: 'washing_machine_state_v1'
+       friendly_name: Washing Machine
+       value_template: >-
+         {% if states('sensor.washing_machine_power_filtered')|float >= 500 %}
+           heating
+         {% elif states('sensor.washing_machine_power_filtered')|float >= 100 %}
+           spinning
+         {% elif states('sensor.washing_machine_power_filtered')|float >= 10 %}
+           washing
+         {% elif states('sensor.washing_machine_power_filtered')|float >= 1 %}
+           idle
+         {% else %}
+           off
+         {% endif %}
