@@ -17,7 +17,7 @@
     - service: notify.notify
       data:
         title: Dishwasher
-        message: 'Dishwasher appears to be done.'
+        message: 'Dishwasher done.'
   mode: restart
 
 - alias: Alert dishwasher stuck
@@ -41,9 +41,7 @@
     - service: notify.notify
       data:
         title: Dishwasher
-        message: >
-          Dishwasher appears to be in the failure mode where it skips the drying phase.
-          Consider it done and expect wetter-than-usual contents.
+        message: 'Dishwasher crashed without drying.'
   mode: restart
 
 # The Dishwasher is a bit unreliable lately, and seems better if we power cycle it regularly.
