@@ -11,6 +11,7 @@
         entity_id: switch.boiler 
   mode: restart
 
+# TODO: do not turn on if it was manually turned off
 - alias: Boiler nightly energy saving - on
   id: 'boiler-on'
   trigger:
