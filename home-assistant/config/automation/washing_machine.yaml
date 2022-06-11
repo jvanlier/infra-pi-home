@@ -1,0 +1,15 @@
+- alias: Alert washing machine done
+  id: 'alert-washing-machine-done'
+  trigger:
+    - platform: state
+      entity_id: sensor.washing_machine_state
+      from: 'washing'
+      to: 'idle'
+      for: '00:00:30'
+  action:
+    - service: notify.notify
+      data:
+        title: Washine machine
+        message: Done
+  mode: restart
+

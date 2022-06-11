@@ -39,9 +39,9 @@
        unique_id: 'washing_machine_state_v1'
        friendly_name: Washing Machine
        value_template: >-
-         {% if states('sensor.washing_machine_power_filtered')|float(default=0) >= 500 %}
+         {% if states('sensor.washing_machine_power_filtered')|float(default=0) >= 1000 %}
            heating
-         {% elif states('sensor.washing_machine_power_filtered')|float(default=0) >= 100 %}
+         {% elif states('sensor.washing_machine_power_filtered')|float(default=0) >= 300 %}
            spinning
          {% elif states('sensor.washing_machine_power_filtered')|float(default=0) >= 10 %}
            washing
