@@ -17,7 +17,7 @@
     - service: notify.notify
       data:
         title: Dishwasher
-        message: 'Dishwasher done.'
+        message: Done
   mode: restart
 
 - alias: Alert dishwasher stuck
@@ -41,7 +41,7 @@
     - service: notify.notify
       data:
         title: Dishwasher
-        message: 'Dishwasher crashed without drying.'
+        message: Crashed
   mode: restart
 
 # The Dishwasher is a bit unreliable lately, and seems better if we power cycle it regularly.
