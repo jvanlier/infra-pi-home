@@ -41,8 +41,6 @@
        value_template: >-
          {% if states('sensor.washing_machine_power_filtered')|float(default=0) >= 1000 %}
            heating
-         {% elif states('sensor.washing_machine_power_filtered')|float(default=0) >= 300 %}
-           spinning
          {% elif states('sensor.washing_machine_power_filtered')|float(default=0) >= 10 %}
            washing
          {% elif states('sensor.washing_machine_power_filtered')|float(default=0) >= 1 %}
