@@ -1,0 +1,45 @@
+- alias: Alert open windows to cool down
+  id: 'alert-open-windows-to-cool-down'
+  trigger:
+    - platform: state
+      entity_id: sensor.warmer_inside
+      from: 'false'
+      to: 'true'
+      for: '00:05:00'
+  condition: 
+    - condition: numeric_state
+      entity_id: sensor.living_room_temperature
+      above: 22
+  action:
+    - service: notify.notify
+      data:
+        title: Open windows
+        message: >
+          It's {{ states('sensor.living_room_temperature') }} °C inside and temperatures outside
+          seem to be dropping below that. Open windows to cool the house down.
+  mode: restart
+
+
+- alias: Alert close windows to stay cool
+  id: 'alert-close-windows-to-stay-cool'
+  trigger:
+    - platform: state
+      entity_id: sensor.warmer_inside
+      from: 'true'
+      to: 'false'
+      for: '00:05:00'
+  condition: 
+    - condition: numeric_state
+      entity_id: sensor.living_room_temperature
+      above: 22
+  # known flaw: if the true -> false state flip happens when it's still below 22, but the
+  # temperature rises above 22 sometime after that, the alert will never trigger.
+  action:
+    - service: notify.notify
+      data:
+        title: Close windows
+        message: >
+          It's {{ states('sensor.living_room_temperature') }} °C inside and temperatures outside
+          seem to be rising above that. Close windows and curtains to stay cool.
+  mode: restart
+

@@ -89,3 +89,13 @@
       unit_of_measurement: '°C'
       value_template: "{{ state_attr('weather.huis', 'temperature') }}"
 
+
+- platform: template
+  sensors:
+    warmer_inside:
+      friendly_name: Warmer Inside Than Outside
+      value_template: >
+        {% set in = states('sensor.living_room_temperature')|float(default=0) %}
+        {% set out = states('sensor.openweathermap_temperature')|float(default=0) %}
+        {{ in > out }}
+
