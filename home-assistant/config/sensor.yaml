@@ -99,3 +99,11 @@
         {% set out = states('sensor.openweathermap_temperature')|float(default=0) %}
         {{ in > out }}
 
+
+- platform: template
+  sensors:
+    at_least_one_person_home:
+      friendly_name: At Least One Person Home
+      value_template: >
+        {{ states('person.jori') == "home" or states('person.chantal') == "home"  }}
+

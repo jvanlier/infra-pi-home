@@ -1,5 +1,3 @@
-# TODO: also toggle when both of us are > 20 km away
-
 - alias: Boiler nightly energy saving - off
   id: 'boiler-off'
   trigger:
@@ -11,14 +9,56 @@
         entity_id: switch.boiler 
   mode: restart
 
-# TODO: do not turn on if it was manually turned off
+
 - alias: Boiler nightly energy saving - on
   id: 'boiler-on'
   trigger:
     - platform: time
       at: "06:00:00"
+  condition:
+    - condition: state
+      entity_id: sensor.at_least_one_person_home
+      state: 'true'
   action:
     - service: switch.turn_on
       target:
         entity_id: switch.boiler 
+  mode: restart
+
+
+- alias: Boiler off when last person leaves
+  id: 'boiler-off-away'
+  trigger:
+    - platform: state
+      entity_id: sensor.at_least_one_person_home 
+      from: 'true'
+      to: 'false'
+      for: '01:00:00'
+  condition:
+    - condition: state
+      entity_id: switch.boiler
+      state: 'on'
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.boiler
+  mode: restart
+
+
+- alias: Boiler on when someone comes home
+  id: 'boiler-on-coming-home'
+  trigger:
+    - platform: state
+      entity_id: sensor.at_least_one_person_home 
+      from: 'false'
+      to: 'true'
+      for: '00:00:05'
+  condition:
+    - condition: state
+      entity_id: switch.boiler
+      state: 'off'
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.boiler
   mode: restart
