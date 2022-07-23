@@ -7,6 +7,7 @@ deps/
 image/
 secrets.yaml
 tts/
+www/
 *.log*
 *.log.*
 *.db*
