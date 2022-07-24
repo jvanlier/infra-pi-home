@@ -6,14 +6,9 @@
       offset: "-00:30"
   # TODO: also trigger if someone comes home after sundown but before 22:00
   condition:
-    - condition: or
-      conditions:
-        - condition: state
-          entity_id: person.jori
-          state: 'home'
-        - condition: state
-          entity_id: person.chantal
-          state: 'home'
+    - condition: state
+      entity_id: sensor.at_least_one_person_home
+      state: true
   action:
     - service: switch.turn_on
       target:

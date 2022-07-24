@@ -3,8 +3,8 @@
   trigger:
     - platform: state
       entity_id: sensor.warmer_inside
-      from: 'false'
-      to: 'true'
+      from: false
+      to: true
       for: '00:05:00'
   condition: 
     - condition: numeric_state
@@ -25,8 +25,8 @@
   trigger:
     - platform: state
       entity_id: sensor.warmer_inside
-      from: 'true'
-      to: 'false'
+      from: true
+      to: false
       for: '00:05:00'
   condition: 
     - condition: numeric_state

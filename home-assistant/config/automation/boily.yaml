@@ -3,6 +3,10 @@
   trigger:
     - platform: time
       at: "23:00:00"
+  condition:
+    - condition: state
+      entity_id: switch.boiler
+      state: 'on'
   action:
     - service: switch.turn_off
       target:
@@ -16,9 +20,14 @@
     - platform: time
       at: "06:00:00"
   condition:
-    - condition: state
-      entity_id: sensor.at_least_one_person_home
-      state: 'true'
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: sensor.at_least_one_person_home
+          state: true
+        - condition: state
+          entity_id: switch.boiler
+          state: 'off'
   action:
     - service: switch.turn_on
       target:
@@ -31,8 +40,8 @@
   trigger:
     - platform: state
       entity_id: sensor.at_least_one_person_home 
-      from: 'true'
-      to: 'false'
+      from: true
+      to: false
       for: '01:00:00'
   condition:
     - condition: state
@@ -50,8 +59,8 @@
   trigger:
     - platform: state
       entity_id: sensor.at_least_one_person_home 
-      from: 'false'
-      to: 'true'
+      from: false
+      to: true
       for: '00:00:05'
   condition:
     - condition: state
