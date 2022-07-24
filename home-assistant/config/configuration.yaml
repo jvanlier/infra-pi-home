@@ -12,13 +12,6 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensor.yaml
 
-camera:
-  platform: generic
-  name: Birdcam
-  still_image_url: !secret camera_birdcam_still_image_url
-  verify_ssl: false
-  stream_source: !secret camera_birdcam_stream_source
-
 nest:
   client_id: !secret nest_client_id
   client_secret: !secret nest_client_secret  
