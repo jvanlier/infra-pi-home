@@ -94,16 +94,23 @@
   sensors:
     warmer_inside:
       friendly_name: Warmer Inside Than Outside
-      value_template: >
+      value_template: >-
         {% set in = states('sensor.living_room_temperature')|float(default=0) %}
         {% set out = states('sensor.openweathermap_temperature')|float(default=0) %}
-        {{ in > out }}
-
+        {% if in > out %}
+          yes
+        {% else %} 
+          no
+        {% endif %}
 
 - platform: template
   sensors:
     at_least_one_person_home:
       friendly_name: At Least One Person Home
-      value_template: >
-        {{ states('person.jori') == "home" or states('person.chantal') == "home"  }}
+      value_template: >-
+        {% if states('person.jori') == "home" or states('person.chantal') == "home"  %}
+          yes
+        {% else %} 
+          no
+        {% endif %}
 

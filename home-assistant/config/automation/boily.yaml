@@ -24,7 +24,7 @@
       conditions:
         - condition: state
           entity_id: sensor.at_least_one_person_home
-          state: true
+          state: 'yes'
         - condition: state
           entity_id: switch.boiler
           state: 'off'
@@ -40,8 +40,8 @@
   trigger:
     - platform: state
       entity_id: sensor.at_least_one_person_home 
-      from: true
-      to: false
+      from: 'yes'
+      to: 'no'
       for: '01:00:00'
   condition:
     - condition: state
@@ -59,8 +59,8 @@
   trigger:
     - platform: state
       entity_id: sensor.at_least_one_person_home 
-      from: false
-      to: true
+      from: 'no'
+      to: 'yes'
       for: '00:00:05'
   condition:
     - condition: state

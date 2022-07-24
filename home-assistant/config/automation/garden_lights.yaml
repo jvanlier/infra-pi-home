@@ -8,7 +8,7 @@
   condition:
     - condition: state
       entity_id: sensor.at_least_one_person_home
-      state: true
+      state: 'yes'
   action:
     - service: switch.turn_on
       target:
