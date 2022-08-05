@@ -92,6 +92,16 @@
 #      value_template: "{{ state_attr('weather.huis', 'temperature') }}"
 
 
+# Uses custom integration https://github.com/Limych/ha-average
+# TODO: use it for warmer inside than outside + alerts
+- platform: average
+  name: 'Home Average Temperature'
+  entities:
+    - sensor.living_room_temperature
+    - sensor.climate_bedroom_duco_temperature
+    - sensor.climate_study_temperature
+
+
 - platform: template
   sensors:
     warmer_inside:

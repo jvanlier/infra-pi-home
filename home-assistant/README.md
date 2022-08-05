@@ -22,3 +22,12 @@ mkdir -p config/www
 mv mini-graph-card-bundle.js config/www/
 ```
 
+## average sensor
+```bash
+cd custom_components/
+mkdir average
+cd average/
+curl -LO https://github.com/Limych/ha-average/releases/download/2.3.0/average.zip
+unzip average.zip
+rm average.zip
+```
