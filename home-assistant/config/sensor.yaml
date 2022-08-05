@@ -93,7 +93,7 @@
 
 
 # Uses custom integration https://github.com/Limych/ha-average
-# TODO: use it for warmer inside than outside + alerts
+# TODO: use it for warmer inside than outside + alert if it behaves well
 - platform: average
   name: 'Home Average Temperature'
   entities:
@@ -101,12 +101,33 @@
     - sensor.climate_bedroom_duco_temperature
     - sensor.climate_study_temperature
 
-
 - platform: average
   name: 'Outside Average Temperature'
   entities:
     - sensor.openweathermap_temperature
     - sensor.climate_garden_v3_temperature
+
+
+- platform: derivative
+  source: sensor.openweathermap_temperature
+  name: OpenWeatherMap Temperature Change Per 30m
+  round: 2
+  unit_time: h # the resulting "unit_of_measurement" will be °C/h if the source has set °C as its unit
+  time_window: "00:30:00"
+
+- platform: derivative
+  source: sensor.openweathermap_temperature
+  name: OpenWeatherMap Temperature Change Per Hour
+  round: 2
+  unit_time: h
+  time_window: "01:00:00"
+
+- platform: derivative
+  source: sensor.openweathermap_temperature
+  name: OpenWeatherMap Temperature Change Per 2 Hour
+  round: 2
+  unit_time: h
+  time_window: "02:00:00"
 
 
 - platform: template
