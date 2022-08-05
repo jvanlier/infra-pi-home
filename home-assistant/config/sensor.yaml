@@ -102,6 +102,13 @@
     - sensor.climate_study_temperature
 
 
+- platform: average
+  name: 'Outside Average Temperature'
+  entities:
+    - sensor.openweathermap_temperature
+    - sensor.climate_garden_v3_temperature
+
+
 - platform: template
   sensors:
     warmer_inside:
