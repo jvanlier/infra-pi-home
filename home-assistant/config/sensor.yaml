@@ -81,13 +81,15 @@
 
 
 # Extract temperature from the built-in weather functionality in order to use it elsewhere:
-- platform: template
-  sensors:
-    met_no_temperature:
-      unique_id: 'met_no_temperature'
-      friendly_name: "Met.no Temperature"
-      unit_of_measurement: '°C'
-      value_template: "{{ state_attr('weather.huis', 'temperature') }}"
+# Update: this temperature seems less accurate for my location than OpenWeatherMap, and also
+# updated frequently. Disabled it.
+#- platform: template
+#  sensors:
+#    met_no_temperature:
+#      unique_id: 'met_no_temperature'
+#      friendly_name: "Met.no Temperature"
+#      unit_of_measurement: '°C'
+#      value_template: "{{ state_attr('weather.huis', 'temperature') }}"
 
 
 - platform: template
@@ -97,11 +99,15 @@
       value_template: >-
         {% set in = states('sensor.living_room_temperature')|float(default=0) %}
         {% set out = states('sensor.openweathermap_temperature')|float(default=0) %}
-        {% if in > out %}
+        {% set delta = 0.25 %}
+        {% if in - delta > out %}
           yes
-        {% else %} 
+        {% elif in < out - delta  %} 
           no
+        {% else %}
+          undecisive
         {% endif %}
+
 
 - platform: template
   sensors:

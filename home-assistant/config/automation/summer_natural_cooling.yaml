@@ -1,11 +1,16 @@
+# TODOs: 
+# - use derivative to be sure of dropping/rising temps outside.
+# - perhaps add a timer at the end to prevent triggering again quickly. Once a day is sufficient.
+#   But this may not even be needed with the delta indicator sensor and the 10 minute wait on the
+#   state change.
+
 - alias: Alert open windows to cool down
   id: 'alert-open-windows-to-cool-down'
   trigger:
     - platform: state
       entity_id: sensor.warmer_inside
-      from: 'no'
       to: 'yes'
-      for: '00:05:00'
+      for: '00:10:00'
   condition: 
     - condition: numeric_state
       entity_id: sensor.living_room_temperature
@@ -25,14 +30,13 @@
   trigger:
     - platform: state
       entity_id: sensor.warmer_inside
-      from: 'yes'
       to: 'no'
-      for: '00:05:00'
+      for: '00:10:00'
   condition: 
     - condition: numeric_state
       entity_id: sensor.living_room_temperature
       above: 22
-  # known flaw: if the yes -> no state flip happens when it's still below 22, but the
+  # known flaw: if the state change to 'no' happens when it's still below 22, but the
   # temperature rises above 22 sometime after that, the alert will never trigger.
   action:
     - service: notify.notify
