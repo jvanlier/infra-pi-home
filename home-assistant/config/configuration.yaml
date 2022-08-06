@@ -12,11 +12,6 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensor.yaml
 
-nest:
-  client_id: !secret nest_client_id
-  client_secret: !secret nest_client_secret  
-  # "Project ID" in the Device Access Console (not Cloud Project ID!)
-  project_id: !secret nest_project_id 
 
 adaptive_lighting:
 - name: "living"
