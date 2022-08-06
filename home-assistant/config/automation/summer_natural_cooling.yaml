@@ -12,15 +12,20 @@
       to: 'yes'
       for: '00:10:00'
   condition: 
-    - condition: numeric_state
-      entity_id: sensor.living_room_temperature
-      above: 22
+    - condition: and
+      conditions:
+      - condition: numeric_state
+        entity_id: sensor.home_average_temperature
+        above: 22
+      - condition: numeric_state
+        entity_id: sensor.outside_temperature_change_per_2_hour
+        below: 0
   action:
     - service: notify.notify
       data:
         title: Open windows
         message: >
-          It's {{ states('sensor.living_room_temperature') }} °C inside and temperatures outside
+          It's {{ states('sensor.home_average_temperature') }} °C inside and temperatures outside
           seem to be dropping below that. Open windows to cool the house down.
   mode: restart
 
@@ -33,9 +38,14 @@
       to: 'no'
       for: '00:10:00'
   condition: 
-    - condition: numeric_state
-      entity_id: sensor.living_room_temperature
-      above: 22
+    - condition: and
+      conditions:
+      - condition: numeric_state
+        entity_id: sensor.home_average_temperature
+        above: 22
+      - condition: numeric_state
+        entity_id: sensor.outside_temperature_change_per_2_hour
+        above: 0
   # known flaw: if the state change to 'no' happens when it's still below 22, but the
   # temperature rises above 22 sometime after that, the alert will never trigger.
   action:
@@ -43,7 +53,7 @@
       data:
         title: Close windows
         message: >
-          It's {{ states('sensor.living_room_temperature') }} °C inside and temperatures outside
+          It's {{ states('sensor.home_average_temperature') }} °C inside and temperatures outside
           seem to be rising above that. Close windows and curtains to stay cool.
   mode: restart
 

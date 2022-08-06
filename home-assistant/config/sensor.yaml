@@ -81,8 +81,8 @@
 
 
 # Extract temperature from the built-in weather functionality in order to use it elsewhere:
-# Update: this temperature seems less accurate for my location than OpenWeatherMap, and also
-# updated frequently. Disabled it.
+# Update: this temperature seems less accurate for my location than OpenWeatherMap, and is also
+# updated less frequently. Disabled it.
 #- platform: template
 #  sensors:
 #    met_no_temperature:
@@ -93,9 +93,9 @@
 
 
 # Uses custom integration https://github.com/Limych/ha-average
-# TODO: use it for warmer inside than outside + alert if it behaves well
 - platform: average
   name: 'Home Average Temperature'
+  unique_id: 'home_average_temperature'
   entities:
     - sensor.living_room_temperature
     - sensor.climate_bedroom_duco_temperature
@@ -103,28 +103,22 @@
 
 - platform: average
   name: 'Outside Average Temperature'
+  unique_id: 'outside_average_temperature'
   entities:
     - sensor.openweathermap_temperature
     - sensor.climate_garden_v3_temperature
 
 
 - platform: derivative
-  source: sensor.openweathermap_temperature
-  name: OpenWeatherMap Temperature Change Per 30m
-  round: 2
-  unit_time: h # the resulting "unit_of_measurement" will be °C/h if the source has set °C as its unit
-  time_window: "00:30:00"
-
-- platform: derivative
-  source: sensor.openweathermap_temperature
-  name: OpenWeatherMap Temperature Change Per Hour
+  source: sensor.outside_average_temperature
+  name: Outside Temperature Change Per Hour
   round: 2
   unit_time: h
   time_window: "01:00:00"
 
 - platform: derivative
-  source: sensor.openweathermap_temperature
-  name: OpenWeatherMap Temperature Change Per 2 Hour
+  source: sensor.outside_average_temperature
+  name: Outside Temperature Change Per 2 Hour
   round: 2
   unit_time: h
   time_window: "02:00:00"
@@ -135,15 +129,15 @@
     warmer_inside:
       friendly_name: Warmer Inside Than Outside
       value_template: >-
-        {% set in = states('sensor.living_room_temperature')|float(default=0) %}
-        {% set out = states('sensor.openweathermap_temperature')|float(default=0) %}
+        {% set in = states('sensor.home_average_temperature')|float(default=0) %}
+        {% set out = states('sensor.outside_average_temperature')|float(default=0) %}
         {% set delta = 0.25 %}
         {% if in - delta > out %}
           yes
         {% elif in < out - delta  %} 
           no
         {% else %}
-          undecisive
+          indecisive
         {% endif %}
 
 
