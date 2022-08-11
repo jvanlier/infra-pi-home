@@ -1,32 +1,27 @@
-# TODOs: 
-# - use derivative to be sure of dropping/rising temps outside.
-# - perhaps add a timer at the end to prevent triggering again quickly. Once a day is sufficient.
-#   But this may not even be needed with the delta indicator sensor and the 10 minute wait on the
-#   state change.
-
 - alias: Alert open windows to cool down
   id: 'alert-open-windows-to-cool-down'
   trigger:
     - platform: state
       entity_id: sensor.warmer_inside
       to: 'yes'
-      for: '00:10:00'
+      for: '00:05:00'
   condition: 
     - condition: and
       conditions:
       - condition: numeric_state
         entity_id: sensor.home_average_temperature
-        above: 22
+        above: 22  # probably not worth the hassle if it's cooler than 22 deg already
       - condition: numeric_state
-        entity_id: sensor.outside_temperature_change_per_2_hour
+        entity_id: sensor.outside_temperature_change_per_hour
         below: 0
   action:
     - service: notify.notify
       data:
         title: Open windows
         message: >
-          It's {{ states('sensor.home_average_temperature') }} °C inside and temperatures outside
-          seem to be dropping below that. Open windows to cool the house down.
+          It's {{ states('sensor.home_average_temperature')|round(1) }} °C inside.
+          Temps outside are similar and dropping by {{ states('sensor.outside_temperature_change_per_hour')|round(1)|abs }} °C/h.
+    - delay: "12:00"  # Prevent it from triggering again today (temps may fluctuate)
   mode: restart
 
 
@@ -36,24 +31,21 @@
     - platform: state
       entity_id: sensor.warmer_inside
       to: 'no'
-      for: '00:10:00'
+      for: '00:05:00'
   condition: 
     - condition: and
       conditions:
+      # TODO, maybe, if there's lots of false positives: check today's forecast, only trigger if actually gets hot today
       - condition: numeric_state
-        entity_id: sensor.home_average_temperature
-        above: 22
-      - condition: numeric_state
-        entity_id: sensor.outside_temperature_change_per_2_hour
+        entity_id: sensor.outside_temperature_change_per_hour
         above: 0
-  # known flaw: if the state change to 'no' happens when it's still below 22, but the
-  # temperature rises above 22 sometime after that, the alert will never trigger.
   action:
     - service: notify.notify
       data:
         title: Close windows
         message: >
-          It's {{ states('sensor.home_average_temperature') }} °C inside and temperatures outside
-          seem to be rising above that. Close windows and curtains to stay cool.
+          It's {{ states('sensor.home_average_temperature')|round(1) }} °C inside.
+          Temps outside are similar and rising by {{ states('sensor.outside_temperature_change_per_hour')|round(1) }} °C/h.
+    - delay: "12:00"  # Prevent it from triggering again today (temps may fluctuate)
   mode: restart
 

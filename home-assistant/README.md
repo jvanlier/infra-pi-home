@@ -31,3 +31,9 @@ curl -LO https://github.com/Limych/ha-average/releases/download/2.3.0/average.zi
 unzip average.zip
 rm average.zip
 ```
+
+## apex chart
+```bash
+cd config/www
+curl -oL https://github.com/RomRider/apexcharts-card/releases/download/v2.0.1/apexcharts-card.js
+```
