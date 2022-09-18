@@ -1,0 +1,35 @@
+# Roomba docking station uses 4.3 W idle! Or 25 kWh per year just for being on.
+# Let's turn it on only during peak solar generation for 2 hours to give it a chance
+# to top up the battery.
+
+- alias: Rooma docking station energy saving - off
+  id: 'roomba-off'
+  trigger:
+    - platform: time
+      at: "14:00:00"
+  condition:
+    - condition: state
+      entity_id: switch.roomba
+      state: 'on'
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.roomba
+  mode: restart
+
+
+- alias: Rooma docking station energy saving - on
+  id: 'roomba-on'
+  trigger:
+    - platform: time
+      at: "12:00:00"
+  condition:
+    - condition: state
+      entity_id: switch.roomba
+      state: 'off'
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.roomba 
+  mode: restart
+
