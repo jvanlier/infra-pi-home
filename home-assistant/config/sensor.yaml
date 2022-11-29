@@ -97,17 +97,17 @@
   name: 'Home Average Temperature'
   unique_id: 'home_average_temperature'
   entities:
-    - sensor.living_room_temperature
+    - sensor.climate_living_room_temperature
     - sensor.climate_bedroom_jc_temperature
     - sensor.climate_bedroom_duco_temperature
+    - sensor.climate_bedroom_olivier_temperature
     - sensor.climate_study_temperature
 
 - platform: average
   name: 'Outside Average Temperature'
   unique_id: 'outside_average_temperature'
   entities:
-    - sensor.openweathermap_temperature 
-
+    - sensor.openweathermap_temperature
 
 - platform: derivative
   source: sensor.outside_average_temperature

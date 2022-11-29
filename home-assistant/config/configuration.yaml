@@ -12,7 +12,6 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensor.yaml
 
-
 adaptive_lighting:
 - name: "living"
   lights: 
