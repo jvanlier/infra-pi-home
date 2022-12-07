@@ -1,0 +1,22 @@
+- alias: Motion-activated Light Entree
+  id: mov-entree
+  description: ""
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.motion_entrance_occupancy
+      light_target:
+        entity_id: light.entree
+#      no_motion_wait: 1
+
+- alias: Motion-activated Light WC
+  id: mov-boog
+  description: ""
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.movement_aqara_p1_occupancy
+      light_target:
+        entity_id: light.WC
+      no_motion_wait: 300
+
