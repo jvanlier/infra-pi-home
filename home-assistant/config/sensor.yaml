@@ -16,14 +16,12 @@
        value_template: >-
          {% if states('sensor.dishwasher_power_filtered')|float(default=0) >= 1500 %}
            heating
-         {% elif states('sensor.dishwasher_power_filtered')|float(default=0) >= 2 %}
+         {% elif states('sensor.dishwasher_power_filtered')|float(default=0) >= 5 %}
            washing
-         {% elif states('sensor.dishwasher_power_filtered')|float(default=0) >= 1.34 %}
-           drying
          {% elif states('sensor.dishwasher_power_filtered')|float(default=0) >= 1 %}
-           off_closed 
+           idle
          {% else %}
-           off_open
+           off
          {% endif %}
 
 - platform: filter
