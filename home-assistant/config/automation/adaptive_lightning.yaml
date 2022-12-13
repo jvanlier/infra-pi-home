@@ -1,0 +1,30 @@
+- alias: Adaptive light sleep mode - on
+  id: 'adaptive-sleep-on'
+  trigger:
+  - platform: time
+    at: "22:00:00"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: 
+          - switch.adaptive_lighting_sleep_mode_in_motion
+          - switch.adaptive_lighting_sleep_mode_in_motion_ikea 
+          - switch.adaptive_lighting_sleep_mode_in_motion_floor_1
+          - switch.adaptive_lighting_sleep_mode_in_motion_floor_1_ikea
+  mode: restart
+
+- alias: Adaptive light sleep mode - off
+  id: 'adaptive-sleep-off'
+  trigger:
+  - platform: time
+    at: "07:00:00"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: 
+          - switch.adaptive_lighting_sleep_mode_in_motion
+          - switch.adaptive_lighting_sleep_mode_in_motion_ikea 
+          - switch.adaptive_lighting_sleep_mode_in_motion_floor_1
+          - switch.adaptive_lighting_sleep_mode_in_motion_floor_1_ikea
+  mode: restart
+

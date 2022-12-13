@@ -1,22 +1,97 @@
-- alias: Motion-activated Light Entree
-  id: mov-entree
+- alias: Motion-activated Light Hall 0
+  id: mal-hall-0
   description: ""
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
-      motion_entity: binary_sensor.motion_entrance_occupancy
+      motion_entity: binary_sensor.motion_hall_0_occupancy
       light_target:
-        entity_id: light.entree
-#      no_motion_wait: 1
+        entity_id: light.light_hall_0
+#      no_motion_wait: 30
 
-- alias: Motion-activated Light WC
-  id: mov-boog
+- alias: Motion-activated Light Hall 1
+  id: mal_hall_1
   description: ""
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
-      motion_entity: binary_sensor.movement_aqara_p1_occupancy
+      motion_entity: binary_sensor.motion_hall_1_occupancy
       light_target:
-        entity_id: light.WC
+        entity_id: light.light_hall_1
+ #     no_motion_wait: 30
+
+- alias: Motion-activated Light Hall 2
+  id: mal-hall-2
+  description: ""
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.motion_hall_2_occupancy
+      light_target:
+        entity_id: light.light_hall_2
+#      no_motion_wait: 30
+
+- alias: Motion-activated Light Dressing
+  id: mal-dressing
+  description: ""
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.motion_dressing_occupancy
+      light_target:
+        entity_id: light.light_dressing
+      no_motion_wait: 60
+
+- alias: Motion-activated Light Walk-in Closet
+  id: mal-wal
+  description: ""
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.motion_walk_in_closet_occupancy
+      light_target:
+        entity_id: light.light_walk_in_closet
+
+- alias: Motion-activated Light Toilet 0
+  id: mal-toilet-0
+  description: ""
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.motion_toilet_0_occupancy
+      light_target:
+        entity_id: light.light_toilet_0
       no_motion_wait: 300
+
+- alias: Motion-activated Light Toilet 1
+  id: mal-toilet-1
+  description: ""
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.motion_toilet_1_occupancy
+      light_target:
+        entity_id: light.light_toilet_1
+      no_motion_wait: 300
+
+# Ikea bulbs don't dim sufficiently. And Nest pathlight is sufficient.
+- alias: Motion-activated Light Hall 1 - off at Night
+  id: mal_hall_1_off
+  trigger:
+  - platform: time
+    at: "22:00:00"
+  action:
+    - service: switch.turn_off
+      entity_id: light.light_hall_1
+    - service: automation.turn_off
+      entity_id: automation.motion_activated_light_hall_1
+
+- alias: Motion-activated Light Hall 1 - on in Morning
+  id: mal_hall_1_on
+  trigger:
+  - platform: time
+    at: "07:00:00"
+  action:
+    - service: automation.turn_on
+      entity_id: automation.motion_activated_light_hall_1
 

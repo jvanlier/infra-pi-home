@@ -7,7 +7,7 @@ Home Assistant
 The Docker install disallows add-on installations. But add-ons can be installed manually:
 
 ```bash
-git clone --max-depth 1 https://github.com/basnijholt/adaptive-lighting
+git clone --depth 1 https://github.com/basnijholt/adaptive-lighting
 sudo mkdir -p config/custom_components
 sudo mv adaptive-lightning/custom_components/adaptive_lightning config/custom_components/
 ```

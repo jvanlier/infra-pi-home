@@ -12,26 +12,87 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensor.yaml
 
+# ---- How to make make Tradfri lights behave (somewhat) with adaptive lightning + transitions ----
+# Known bug: Tradfri can't transition both color and brightness at the same time.
+# When both are sent in 1 command, transition is only applied to color and brightness is instant.
+# In addition, if a color command is sent while a brightness transition is in progress, it will
+# cancel the brightness transition. The bulb will stay dimmed if it was an off->on transition.
+# The bulb does not think it is dimmed though! The brightness value in Z2M/HA is then reported 
+# incorrectly at the value it was transitioning towards.
+# But I want transitions to be smooth when the bulbs turn on, like Hue!
+# Boy, these bulbs are crappy.
+#
+# Workarounds to make them behave:
+# - set transition in Z2M to 1 sec (to get the on-transition)
+# - wait 1 sec before adapting, to prevent breaking the on-transition using `adapt_delay` 
+# - use `only_once`, because the every 90 sec adjustment may also interfere with an on-transition.
+#   These motion activated lights turn off all the time anyway, so no need to keep adjusting. 
+# - adjust color and brightness separately, to actually get a brightness transition instead of 
+#   a jarring instant change using `separate_turn_on_commands` + an appropriate `send_split_delay`. 
+#
+# Result: first, transition to last known on state [1s], followed directly a color transition [0.5s],
+# 0.05s pause, then a brightness transition [0.5s] to the desired brightness. It can still come
+# across as somewhat jerky if the last known on state brightness is quite different from what we
+# want now, but at least it's all transitioned smoothly instead of direct or "flickery".
+
 adaptive_lighting:
-- name: "living"
+- name: "in-motion"
   lights: 
-    - light.bloem
-  prefer_rgb_color: false  # allows the color lamp to go below 2000k if min_color_temp allows it
-  min_brightness: 30
+    - light.light_hall_0
+    - light.light_walk_in_closet
+#    - light.light_laundry  # not yet installed
+  min_brightness: 50
   max_brightness: 80
-  min_color_temp: 2000
+  sleep_brightness: 30
+  min_color_temp: 2400
   max_color_temp: 4000
   sunrise_time: "07:00:00" 
-  sunset_offset: "00:30:00"
-- name: "slaapkamer"  # Separate section, because we don't want automatic brightness control here. Only color.
+  # Not needed to keep adapting for lights that toggle often:
+  only_once: true
+
+- name: "in-motion-ikea"
   lights: 
-#    - light.slaapkamer_1
-#    - light.slaapkamer_2
-#    - light.slaapkamer_3
-#    - light.slaapkamer_chantal
-    - light.slaapkamer_jori
-  min_color_temp: 2000  # lights can only go down to 2200k
+    - light.light_toilet_0
+  min_brightness: 50
+  max_brightness: 80
+  sleep_brightness: 30
+  min_color_temp: 2400
   max_color_temp: 4000
-  sunrise_time: "07:00:00"
-  sunset_offset: "00:30:00"
+  sunrise_time: "07:00:00" 
+  # Ikea Tradfri workaround:
+  only_once: true
+  adapt_delay: 1
+  separate_turn_on_commands: true
+  send_split_delay: 550
+
+# We want lights much more dimmed around the first floor due to sleeping kids.
+# This includes the second floor hall light, because a lot of the light it 
+# produces goes down to the first floor.
+- name: "in-motion-floor-1"
+  lights: 
+    - light.light_hall_2 
+  min_brightness: 1
+  max_brightness: 50
+  min_color_temp: 2400
+  max_color_temp: 4000
+  sunrise_time: "07:00:00" 
+  # Not needed to keep adapting for lights that toggle often:
+  only_once: true
+
+- name: "in-motion-floor-1-ikea"
+  lights: 
+    - light.light_hall_1
+    - light.light_hall_2 
+    - light.light_dressing
+    - light.light_toilet_1
+  min_brightness: 1
+  max_brightness: 50
+  min_color_temp: 2400
+  max_color_temp: 4000
+  sunrise_time: "07:00:00" 
+  # Ikea Tradfri workaround:
+  only_once: true
+  adapt_delay: 1
+  separate_turn_on_commands: true
+  send_split_delay: 550
 
