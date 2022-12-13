@@ -71,8 +71,8 @@ adaptive_lighting:
 - name: "in-motion-floor-1"
   lights: 
     - light.light_hall_2 
-  min_brightness: 1
-  max_brightness: 50
+  min_brightness: 30
+  max_brightness: 60
   min_color_temp: 2400
   max_color_temp: 4000
   sunrise_time: "07:00:00" 
@@ -85,8 +85,8 @@ adaptive_lighting:
     - light.light_hall_2 
     - light.light_dressing
     - light.light_toilet_1
-  min_brightness: 1
-  max_brightness: 50
+  min_brightness: 30
+  max_brightness: 60
   min_color_temp: 2400
   max_color_temp: 4000
   sunrise_time: "07:00:00" 
