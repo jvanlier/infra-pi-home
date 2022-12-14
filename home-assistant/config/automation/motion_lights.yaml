@@ -7,7 +7,6 @@
       motion_entity: binary_sensor.motion_hall_0_occupancy
       light_target:
         entity_id: light.light_hall_0
-#      no_motion_wait: 30
 
 - alias: Motion-activated Light Hall 1
   id: mal_hall_1
@@ -18,7 +17,6 @@
       motion_entity: binary_sensor.motion_hall_1_occupancy
       light_target:
         entity_id: light.light_hall_1
- #     no_motion_wait: 30
 
 - alias: Motion-activated Light Hall 2
   id: mal-hall-2
@@ -29,7 +27,6 @@
       motion_entity: binary_sensor.motion_hall_2_occupancy
       light_target:
         entity_id: light.light_hall_2
-#      no_motion_wait: 30
 
 - alias: Motion-activated Light Dressing
   id: mal-dressing
@@ -51,6 +48,16 @@
       motion_entity: binary_sensor.motion_walk_in_closet_occupancy
       light_target:
         entity_id: light.light_walk_in_closet
+
+- alias: Motion-activated Light Laundry
+  id: mal-laundry
+  description: ""
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.motion_laundry_occupancy
+      light_target:
+        entity_id: light.light_laundry
 
 - alias: Motion-activated Light Toilet 0
   id: mal-toilet-0
@@ -74,24 +81,25 @@
         entity_id: light.light_toilet_1
       no_motion_wait: 300
 
-# Ikea bulbs don't dim sufficiently. And Nest pathlight is sufficient.
+# Ikea bulbs at 1% are still too bright unfortunately. And Nest Protect pathlight is sufficient.
 - alias: Motion-activated Light Hall 1 - off at Night
   id: mal_hall_1_off
   trigger:
   - platform: time
-    at: "22:00:00"
+    at: "21:59:55"
   action:
-    - service: switch.turn_off
-      entity_id: light.light_hall_1
     - service: automation.turn_off
-      entity_id: automation.motion_activated_light_hall_1
+      entity_id: automation.motion_activated_light_hall_1_2
+    - service: light.turn_off
+      target:
+        entity_id: light.light_hall_1
 
 - alias: Motion-activated Light Hall 1 - on in Morning
   id: mal_hall_1_on
   trigger:
   - platform: time
-    at: "07:00:00"
+    at: "07:00:05"
   action:
     - service: automation.turn_on
-      entity_id: automation.motion_activated_light_hall_1
+      entity_id: automation.motion_activated_light_hall_1_2
 
