@@ -40,13 +40,14 @@ adaptive_lighting:
   lights: 
     - light.light_hall_0
     - light.light_walk_in_closet
-#    - light.light_laundry  # not yet installed
+    - light.light_laundry
+    - light.light_hall_2 
   min_brightness: 50
   max_brightness: 80
   sleep_brightness: 30
   min_color_temp: 2400
   max_color_temp: 4000
-  sunrise_time: "07:00:00" 
+  sunrise_time: "08:00:00" 
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
 
@@ -58,26 +59,12 @@ adaptive_lighting:
   sleep_brightness: 30
   min_color_temp: 2400
   max_color_temp: 4000
-  sunrise_time: "07:00:00" 
+  sunrise_time: "08:00:00" 
   # Ikea Tradfri workaround:
   only_once: true
   adapt_delay: 1
   separate_turn_on_commands: true
   send_split_delay: 550
-
-# We want lights much more dimmed around the first floor due to sleeping kids.
-# This includes the second floor hall light, because a lot of the light it 
-# produces goes down to the first floor.
-- name: "in-motion-floor-1"
-  lights: 
-    - light.light_hall_2 
-  min_brightness: 30
-  max_brightness: 60
-  min_color_temp: 2400
-  max_color_temp: 4000
-  sunrise_time: "07:00:00" 
-  # Not needed to keep adapting for lights that toggle often:
-  only_once: true
 
 - name: "in-motion-floor-1-ikea"
   lights: 
@@ -89,7 +76,7 @@ adaptive_lighting:
   max_brightness: 60
   min_color_temp: 2400
   max_color_temp: 4000
-  sunrise_time: "07:00:00" 
+  sunrise_time: "08:00:00" 
   # Ikea Tradfri workaround:
   only_once: true
   adapt_delay: 1
