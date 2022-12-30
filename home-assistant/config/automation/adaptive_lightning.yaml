@@ -7,24 +7,51 @@
     - service: switch.turn_on
       target:
         entity_id: 
-          - switch.adaptive_lighting_sleep_mode_in_motion
-          - switch.adaptive_lighting_sleep_mode_in_motion_ikea 
-          - switch.adaptive_lighting_sleep_mode_in_motion_floor_1
-          - switch.adaptive_lighting_sleep_mode_in_motion_floor_1_ikea
+          - switch.adaptive_lighting_sleep_mode_motion
+          - switch.adaptive_lighting_sleep_mode_motion_floor_1
+          - switch.adaptive_lighting_sleep_mode_motion_ikea 
+          - switch.adaptive_lighting_sleep_mode_motion_floor_1_ikea
   mode: restart
 
-- alias: Adaptive light sleep mode - off
-  id: 'adaptive-sleep-off'
+- alias: Adaptive light sleep mode - off daycare days
+  id: 'adaptive-sleep-off-daycare'
   trigger:
   - platform: time
     at: "07:00:00"
+  condition:
+  - condition: time
+    weekday:
+      - thu
+      - fri
   action:
     - service: switch.turn_off
       target:
         entity_id: 
-          - switch.adaptive_lighting_sleep_mode_in_motion
-          - switch.adaptive_lighting_sleep_mode_in_motion_ikea 
-          - switch.adaptive_lighting_sleep_mode_in_motion_floor_1
-          - switch.adaptive_lighting_sleep_mode_in_motion_floor_1_ikea
+          - switch.adaptive_lighting_sleep_mode_motion
+          - switch.adaptive_lighting_sleep_mode_motion_floor_1
+          - switch.adaptive_lighting_sleep_mode_motion_ikea 
+          - switch.adaptive_lighting_sleep_mode_motion_floor_1_ikea
   mode: restart
 
+- alias: Adaptive light sleep mode - off non-daycare days
+  id: 'adaptive-sleep-off-non-daycare'
+  trigger:
+  - platform: time
+    at: "08:00:00"
+  condition:
+  - condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - sat
+      - sun
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: 
+          - switch.adaptive_lighting_sleep_mode_motion
+          - switch.adaptive_lighting_sleep_mode_motion_floor_1
+          - switch.adaptive_lighting_sleep_mode_motion_ikea 
+          - switch.adaptive_lighting_sleep_mode_motion_floor_1_ikea
+  mode: restart

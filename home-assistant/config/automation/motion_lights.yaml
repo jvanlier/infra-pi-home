@@ -63,7 +63,7 @@
   id: mal-toilet-0
   description: ""
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: homeassistant/motion_light_custom_long_off_transition.yaml
     input:
       motion_entity: binary_sensor.motion_toilet_0_occupancy
       light_target:
@@ -74,7 +74,7 @@
   id: mal-toilet-1
   description: ""
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: homeassistant/motion_light_custom_long_off_transition.yaml
     input:
       motion_entity: binary_sensor.motion_toilet_1_occupancy
       light_target:
@@ -94,12 +94,33 @@
       target:
         entity_id: light.light_hall_1
 
-- alias: Motion-activated Light Hall 1 - on in Morning
-  id: mal_hall_1_on
+- alias: Motion-activated Light Hall 1 - on in Morning daycare days
+  id: mal_hall_1_on_daycare
   trigger:
   - platform: time
     at: "07:00:05"
+  condition:
+  - condition: time
+    weekday:
+      - thu
+      - fri
   action:
     - service: automation.turn_on
       entity_id: automation.motion_activated_light_hall_1_2
 
+- alias: Motion-activated Light Hall 1 - on in Morning non-daycare days
+  id: mal_hall_1_on_non_daycare
+  trigger:
+  - platform: time
+    at: "08:00:05"
+  condition:
+  - condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - sat
+      - sun
+  action:
+    - service: automation.turn_on
+      entity_id: automation.motion_activated_light_hall_1_2
