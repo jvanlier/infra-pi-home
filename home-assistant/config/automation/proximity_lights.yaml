@@ -1,0 +1,54 @@
+- alias: Proximity-activated Light Study - on
+  description: "There isn't a dedicated motion sensor here, but lighting up this area when someone is nearby is pretty useful."
+  trigger:
+    - platform: state
+      entity_id: 
+        - light.light_walk_in_closet
+        - light.light_hall_2
+      to: 'on'
+  condition:
+    # Only checking 1 is sufficient
+    - condition: state
+      entity_id: light.light_study_spot_center
+      state: 'off'
+  action:
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_study_spot_cabinet 
+          - light.light_study_spot_center
+          - light.light_study_spot_painting
+      data:
+        brightness: 50 
+        color_temp: 370
+  mode: restart
+
+- alias: Proximity-activated Light Study - off
+  description: "Turn the study lights off again, unless they were changed manually."
+  trigger:
+    - platform: state
+      entity_id: 
+        - light.light_walk_in_closet
+        - light.light_hall_2
+      to: 'off'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.light_walk_in_closet
+        state: 'off'
+      - condition: state
+        entity_id: light.light_hall_2
+        state: 'off'
+      # Only checking 1 is sufficient
+      - condition: template
+        value_template: '{{state_attr(''light.light_study_spot_center'', ''brightness'')|int==50}}'
+  action:
+    - service: light.turn_off
+      target:
+        entity_id:
+          - light.light_study_spot_cabinet 
+          - light.light_study_spot_center
+          - light.light_study_spot_painting
+  mode: restart
+
