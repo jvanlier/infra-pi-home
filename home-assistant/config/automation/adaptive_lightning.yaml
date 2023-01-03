@@ -10,7 +10,6 @@
           - switch.adaptive_lighting_sleep_mode_motion
           - switch.adaptive_lighting_sleep_mode_motion_floor_1
           - switch.adaptive_lighting_sleep_mode_motion_ikea 
-          - switch.adaptive_lighting_sleep_mode_motion_floor_1_ikea
   mode: restart
 
 - alias: Adaptive light sleep mode - off daycare days
@@ -30,7 +29,6 @@
           - switch.adaptive_lighting_sleep_mode_motion
           - switch.adaptive_lighting_sleep_mode_motion_floor_1
           - switch.adaptive_lighting_sleep_mode_motion_ikea 
-          - switch.adaptive_lighting_sleep_mode_motion_floor_1_ikea
   mode: restart
 
 - alias: Adaptive light sleep mode - off non-daycare days
@@ -53,5 +51,4 @@
           - switch.adaptive_lighting_sleep_mode_motion
           - switch.adaptive_lighting_sleep_mode_motion_floor_1
           - switch.adaptive_lighting_sleep_mode_motion_ikea 
-          - switch.adaptive_lighting_sleep_mode_motion_floor_1_ikea
   mode: restart

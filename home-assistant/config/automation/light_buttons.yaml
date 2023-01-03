@@ -1,0 +1,93 @@
+# new trigger requires adresses, example:
+# trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 2690a0977157622e90d45ed7a489344f
+#     type: action
+#     subtype: left_press
+#     discovery_id: 0x001788010cc472c2 action_left_press
+# Use legacy trigger for more templating convenience unless we run into problems
+# TODO: blueprint
+
+- alias: Switch Light Toilet 0 
+  trigger:
+    platform: state
+    entity_id: sensor.switch_toilet_0_action
+    to: 'left_press'
+  action:
+    - service: light.toggle
+      target:
+        entity_id: light.light_toilet_0
+  mode: single
+
+- alias: Switch Light Toilet 1 
+  trigger:
+    platform: state
+    entity_id: sensor.switch_toilet_1_action
+    to: 'left_press'
+  action:
+    - service: light.toggle
+      target:
+        entity_id: light.light_toilet_1
+  mode: single
+
+- alias: Switch Light Dressing 
+  trigger:
+    platform: state
+    entity_id: sensor.switch_dressing_action
+    to: 'left_press'
+  action:
+    - service: light.toggle
+      target:
+        entity_id: light.light_dressing
+  mode: single
+
+- alias: Switch Light Hall 0 
+  trigger:
+    platform: state
+    entity_id: sensor.switch_hall_0_action
+    to: 'left_press'
+  action:
+    - service: light.toggle
+      target:
+        entity_id: light.light_hall_0
+  mode: single
+
+- alias: Switch Light Hall 1 
+  trigger:
+    platform: state
+    entity_id: sensor.switch_hall_1_action
+    to: 'left_press'
+  action:
+    - service: light.toggle
+      target:
+        entity_id: light.light_hall_1
+  mode: single
+
+- alias: Switch Light Bedroom Duco
+  trigger:
+    platform: state
+    entity_id: sensor.switch_bedroom_duco_action
+    to: 'left_press'
+  action:
+    - service: light.toggle
+      target:
+        entity_id: light.light_bedroom_duco
+      # Allow Duco to turn on his own light. Need to supply data in case light was previously
+      # dimmed to very low levels.
+      data:
+        brightness: 179
+        color_temp: 370 # 370 mired = 2700 k
+  mode: single
+
+- alias: Switch Light Bedroom Olivier 
+  trigger:
+    platform: state
+    entity_id: sensor.switch_bedroom_olivier_action
+    to: 'left_press'
+  action:
+    - service: light.toggle
+      target:
+        entity_id: light.light_bedroom_olivier
+  mode: single
+

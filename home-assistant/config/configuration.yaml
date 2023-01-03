@@ -39,6 +39,7 @@ adaptive_lighting:
 - name: "motion"
   lights: 
     - light.light_hall_0
+    - light.light_toilet_0
     - light.light_walk_in_closet
     - light.light_laundry
   min_brightness: 50
@@ -70,8 +71,8 @@ adaptive_lighting:
 - name: "motion-floor-1"
   lights: 
     - light.light_hall_1
-    - light.light_toilet_0
     - light.light_toilet_1
+    - light.light_dressing
   min_brightness: 10
   max_brightness: 50
   min_color_temp: 2200
@@ -79,19 +80,4 @@ adaptive_lighting:
 #  sunrise_time: "08:00:00" 
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
-
-- name: "motion-floor-1-ikea"
-  lights: 
-    - light.light_dressing
-  min_brightness: 30
-  max_brightness: 60
-  # Don't go below 2400k with ikea, it looks like an awful yellow rather than orange:
-  min_color_temp: 2400
-  max_color_temp: 4000
-#  sunrise_time: "08:00:00" 
-  # Ikea Tradfri workaround:
-  only_once: true
-  adapt_delay: 1
-  separate_turn_on_commands: true
-  send_split_delay: 550
 

@@ -63,7 +63,8 @@
   id: mal-toilet-0
   description: ""
   use_blueprint:
-    path: homeassistant/motion_light_custom_long_off_transition.yaml
+#    path: homeassistant/motion_light_custom_long_off_transition.yaml
+    path: homeassistant/motion_light.yaml
     input:
       motion_entity: binary_sensor.motion_toilet_0_occupancy
       light_target:
@@ -74,7 +75,8 @@
   id: mal-toilet-1
   description: ""
   use_blueprint:
-    path: homeassistant/motion_light_custom_long_off_transition.yaml
+#    path: homeassistant/motion_light_custom_long_off_transition.yaml
+    path: homeassistant/motion_light.yaml
     input:
       motion_entity: binary_sensor.motion_toilet_1_occupancy
       light_target:
