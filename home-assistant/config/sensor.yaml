@@ -1,6 +1,6 @@
 - platform: filter
   name: 'dishwasher power filtered'
-  entity_id: 'sensor.dishwasher_power'
+  entity_id: 'sensor.plug_dishwasher_power'
   filters:
     # We have unevenly spaced measurements so this seems more appropriate than low-pass filter.
     # However, it'll break down if we have only 1 measurement within the window_size, so it should
@@ -14,11 +14,11 @@
        unique_id: 'dishwasher_state_v1'
        friendly_name: Dishwasher
        value_template: >-
-         {% if states('sensor.dishwasher_power_filtered')|float(default=0) >= 1500 %}
+         {% if states('sensor.plug_dishwasher_power_filtered')|float(default=0) >= 1500 %}
            heating
-         {% elif states('sensor.dishwasher_power_filtered')|float(default=0) >= 5 %}
+         {% elif states('sensor.plug_dishwasher_power_filtered')|float(default=0) >= 5 %}
            washing
-         {% elif states('sensor.dishwasher_power_filtered')|float(default=0) >= 1 %}
+         {% elif states('sensor.plug_dishwasher_power_filtered')|float(default=0) >= 1 %}
            idle
          {% else %}
            off
@@ -26,7 +26,7 @@
 
 - platform: filter
   name: 'washing machine power filtered'
-  entity_id: 'sensor.washing_machine_power'
+  entity_id: 'sensor.plug_washing_machine_power'
   filters:
     - filter: time_simple_moving_average
       window_size: "00:00:40"
@@ -37,11 +37,11 @@
        unique_id: 'washing_machine_state_v1'
        friendly_name: Washing Machine
        value_template: >-
-         {% if states('sensor.washing_machine_power_filtered')|float(default=0) >= 1000 %}
+         {% if states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 1000 %}
            heating
-         {% elif states('sensor.washing_machine_power_filtered')|float(default=0) >= 10 %}
+         {% elif states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 10 %}
            washing
-         {% elif states('sensor.washing_machine_power_filtered')|float(default=0) >= 1 %}
+         {% elif states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 1 %}
            idle
          {% else %}
            off
@@ -56,9 +56,9 @@
        unique_id: 'dryer_state_v1'
        friendly_name: Dryer
        value_template: >-
-         {% if states('sensor.dryer_power')|float(default=0) >= 100 %}
+         {% if states('sensor.plug_dryer_power')|float(default=0) >= 100 %}
            drying
-         {% elif states('sensor.dryer_power')|float(default=0) > 1 %}
+         {% elif states('sensor.plug_dryer_power')|float(default=0) > 1 %}
            idle
          {% else %}
            off

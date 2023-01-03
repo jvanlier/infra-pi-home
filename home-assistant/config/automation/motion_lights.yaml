@@ -1,6 +1,4 @@
 - alias: Motion-activated Light Hall 0
-  id: mal-hall-0
-  description: ""
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
@@ -9,8 +7,6 @@
         entity_id: light.light_hall_0
 
 - alias: Motion-activated Light Hall 1
-  id: mal_hall_1
-  description: ""
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
@@ -19,8 +15,6 @@
         entity_id: light.light_hall_1
 
 - alias: Motion-activated Light Hall 2
-  id: mal-hall-2
-  description: ""
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
@@ -29,8 +23,6 @@
         entity_id: light.light_hall_2
 
 - alias: Motion-activated Light Dressing
-  id: mal-dressing
-  description: ""
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
@@ -40,8 +32,6 @@
       no_motion_wait: 60
 
 - alias: Motion-activated Light Walk-in Closet
-  id: mal-wal
-  description: ""
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
@@ -50,8 +40,6 @@
         entity_id: light.light_walk_in_closet
 
 - alias: Motion-activated Light Laundry
-  id: mal-laundry
-  description: ""
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
@@ -60,8 +48,6 @@
         entity_id: light.light_laundry
 
 - alias: Motion-activated Light Toilet 0
-  id: mal-toilet-0
-  description: ""
   use_blueprint:
 #    path: homeassistant/motion_light_custom_long_off_transition.yaml
     path: homeassistant/motion_light.yaml
@@ -72,8 +58,6 @@
       no_motion_wait: 300
 
 - alias: Motion-activated Light Toilet 1
-  id: mal-toilet-1
-  description: ""
   use_blueprint:
 #    path: homeassistant/motion_light_custom_long_off_transition.yaml
     path: homeassistant/motion_light.yaml
@@ -85,7 +69,6 @@
 
 # Ikea bulbs at 1% are still too bright unfortunately. And Nest Protect pathlight is sufficient.
 - alias: Motion-activated Light Hall 1 - off at Night
-  id: mal_hall_1_off
   trigger:
   - platform: time
     at: "21:59:55"
@@ -97,7 +80,6 @@
         entity_id: light.light_hall_1
 
 - alias: Motion-activated Light Hall 1 - on in Morning daycare days
-  id: mal_hall_1_on_daycare
   trigger:
   - platform: time
     at: "07:00:05"
@@ -111,7 +93,6 @@
       entity_id: automation.motion_activated_light_hall_1_2
 
 - alias: Motion-activated Light Hall 1 - on in Morning non-daycare days
-  id: mal_hall_1_on_non_daycare
   trigger:
   - platform: time
     at: "08:00:05"
@@ -126,3 +107,4 @@
   action:
     - service: automation.turn_on
       entity_id: automation.motion_activated_light_hall_1_2
+

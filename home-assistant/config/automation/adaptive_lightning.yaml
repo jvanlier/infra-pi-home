@@ -1,5 +1,4 @@
 - alias: Adaptive light sleep mode - on
-  id: 'adaptive-sleep-on'
   trigger:
   - platform: time
     at: "22:00:00"
@@ -13,7 +12,6 @@
   mode: restart
 
 - alias: Adaptive light sleep mode - off daycare days
-  id: 'adaptive-sleep-off-daycare'
   trigger:
   - platform: time
     at: "07:00:00"
@@ -32,7 +30,6 @@
   mode: restart
 
 - alias: Adaptive light sleep mode - off non-daycare days
-  id: 'adaptive-sleep-off-non-daycare'
   trigger:
   - platform: time
     at: "08:00:00"
@@ -52,3 +49,4 @@
           - switch.adaptive_lighting_sleep_mode_motion_floor_1
           - switch.adaptive_lighting_sleep_mode_motion_ikea 
   mode: restart
+

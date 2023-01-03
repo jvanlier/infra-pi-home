@@ -1,5 +1,4 @@
 - alias: Alert washing machine done
-  id: 'alert-washing-machine-done'
   trigger:
     - platform: state
       entity_id: sensor.washing_machine_state

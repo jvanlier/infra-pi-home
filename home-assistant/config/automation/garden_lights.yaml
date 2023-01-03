@@ -1,5 +1,4 @@
 - alias: Garden lights on
-  id: 'garden-lights-on'
   trigger:
     - platform: sun
       event: sunset
@@ -12,16 +11,15 @@
   action:
     - service: switch.turn_on
       target:
-        entity_id: switch.garden_lights
+        entity_id: switch.plug_garden_lights
   mode: restart
 
 - alias: Garden lights off
-  id: 'garden-lights-off'
   trigger:
     platform: time
     at: "22:00:00"
   action:
     - service: switch.turn_off
       target:
-        entity_id: switch.garden_lights
+        entity_id: switch.plug_garden_lights
   mode: restart
