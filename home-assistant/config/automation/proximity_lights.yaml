@@ -52,3 +52,75 @@
           - light.light_study_spot_painting
   mode: restart
 
+- alias: Proximity-activated Light Living + Kitchen - on
+  description: "There isn't a dedicated motion sensor here, but lighting up this area when someone is nearby is pretty useful."
+  trigger:
+    - platform: state
+      entity_id: light.light_hall_0
+      to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.light_kitchen_m
+        state: 'off'
+      - condition: state
+        entity_id: light.light_arc
+        state: 'off'
+      - condition: state
+        entity_id: light.light_lightguide
+        state: 'off'
+      - condition: state
+        entity_id: light.light_dining_kitchen_side
+        state: 'off'
+  action:
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_kitchen_l
+          - light.light_kitchen_ml
+          - light.light_kitchen_m
+          - light.light_kitchen_mr
+          - light.light_kitchen_r
+      data:
+        brightness: 1
+        color_temp: 455  # 2200k
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_dining_kitchen_side
+          - light.light_lightguide
+          - light.light_arc
+      data:
+        brightness: 20
+        color_temp: 455
+  mode: restart
+
+- alias: Proximity-activated Light Living + Kitchen - off
+  description: "Turn the living room + kitchen lights off again, unless they were changed manually."
+  id: pal-living-kitchen-off
+  trigger:
+    - platform: state
+      entity_id: light.light_hall_0
+      to: 'off'
+  condition:
+    condition: and
+    conditions:
+      # Only checking a few is sufficient, because we change the entire room at once
+      - condition: template
+        value_template: '{{state_attr(''light.light_kitchen_m'', ''brightness'')|int==1}}'
+      - condition: template
+        value_template: '{{state_attr(''light.light_lightguide'', ''brightness'')|int==20}}'
+  action:
+    - service: light.turn_off
+      target:
+        entity_id:
+          - light.light_kitchen_l
+          - light.light_kitchen_ml
+          - light.light_kitchen_m
+          - light.light_kitchen_mr
+          - light.light_kitchen_r
+          - light.light_dining_kitchen_side
+          - light.light_lightguide
+          - light.light_arc
+  mode: restart
