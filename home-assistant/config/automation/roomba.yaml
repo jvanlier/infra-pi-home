@@ -3,6 +3,7 @@
 # to top up the battery.
 
 - alias: Rooma docking station energy saving - off
+  id: roomba-off
   trigger:
     - platform: time
       at: "02:30:00"
@@ -18,6 +19,7 @@
 
 
 - alias: Rooma docking station energy saving - on
+  id: roomba-on
   trigger:
     - platform: time
       at: "02:00:00"

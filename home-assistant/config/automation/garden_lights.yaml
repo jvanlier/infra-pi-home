@@ -1,4 +1,5 @@
 - alias: Garden lights on
+  id: garden-on
   trigger:
     - platform: sun
       event: sunset
@@ -15,6 +16,7 @@
   mode: restart
 
 - alias: Garden lights off
+  id: garden-off
   trigger:
     platform: time
     at: "22:00:00"

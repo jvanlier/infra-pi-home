@@ -1,4 +1,5 @@
 - alias: Alert dishwasher done
+  id: alert-dishwasher-done
   trigger:
     - platform: state 
       entity_id: sensor.dishwasher_state

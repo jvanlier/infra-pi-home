@@ -1,4 +1,5 @@
 - alias: Alert open windows to cool down
+  id: alert-windows-open
   trigger:
     - platform: state
       entity_id: sensor.warmer_inside
@@ -25,6 +26,7 @@
 
 
 - alias: Alert close windows to stay cool
+  id: alert-windows-close
   trigger:
     - platform: state
       entity_id: sensor.warmer_inside

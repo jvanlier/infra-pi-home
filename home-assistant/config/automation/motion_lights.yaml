@@ -21,6 +21,9 @@
       motion_entity: binary_sensor.motion_hall_2_occupancy
       light_target:
         entity_id: light.light_hall_2
+      # TESTING: moved the no_motion_wait to device to conserve power.
+      # 120 (default in blueprint) + 20 (default setting on device) = 140 configured on device
+      no_motion_wait: 0
 
 - alias: Motion-activated Light Dressing
   use_blueprint:

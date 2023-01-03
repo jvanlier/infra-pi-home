@@ -1,4 +1,5 @@
 - alias: Adaptive light sleep mode - on
+  id: al-sleep-on
   trigger:
   - platform: time
     at: "22:00:00"
@@ -12,6 +13,7 @@
   mode: restart
 
 - alias: Adaptive light sleep mode - off daycare days
+  id: al-sleep-off-daycare
   trigger:
   - platform: time
     at: "07:00:00"
@@ -30,6 +32,7 @@
   mode: restart
 
 - alias: Adaptive light sleep mode - off non-daycare days
+  id: al-sleep-off-non-daycare
   trigger:
   - platform: time
     at: "08:00:00"

@@ -1,4 +1,5 @@
 - alias: Proximity-activated Light Study - on
+  id: pal-study-on
   description: "There isn't a dedicated motion sensor here, but lighting up this area when someone is nearby is pretty useful."
   trigger:
     - platform: state
@@ -24,6 +25,7 @@
   mode: restart
 
 - alias: Proximity-activated Light Study - off
+  id: pal-study-off
   description: "Turn the study lights off again, unless they were changed manually."
   trigger:
     - platform: state
@@ -53,6 +55,7 @@
   mode: restart
 
 - alias: Proximity-activated Light Living + Kitchen - on
+  id: pal-living-kitchen-on
   description: "There isn't a dedicated motion sensor here, but lighting up this area when someone is nearby is pretty useful."
   trigger:
     - platform: state
@@ -97,8 +100,8 @@
   mode: restart
 
 - alias: Proximity-activated Light Living + Kitchen - off
-  description: "Turn the living room + kitchen lights off again, unless they were changed manually."
   id: pal-living-kitchen-off
+  description: "Turn the living room + kitchen lights off again, unless they were changed manually."
   trigger:
     - platform: state
       entity_id: light.light_hall_0
