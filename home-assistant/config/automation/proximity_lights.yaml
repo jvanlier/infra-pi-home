@@ -1,3 +1,5 @@
+# TODO: use lightgroups for smoother toggling
+
 - alias: Proximity-activated Light Study - on
   id: pal-study-on
   description: "There isn't a dedicated motion sensor here, but lighting up this area when someone is nearby is pretty useful."
