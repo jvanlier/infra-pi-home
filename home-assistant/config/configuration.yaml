@@ -42,6 +42,7 @@ adaptive_lighting:
     - light.light_toilet_0
     - light.light_walk_in_closet
     - light.light_laundry
+    - light.light_dressing
   min_brightness: 50
   max_brightness: 80
   sleep_brightness: 30
@@ -67,12 +68,11 @@ adaptive_lighting:
   separate_turn_on_commands: true
   send_split_delay: 550
 
-# 1st floor is a little less bright and warmer due to sleeping kids, so it gets its own section.
+# specific lights on 1st floor are a little less bright due to sleeping kids, so it gets its own section.
 - name: "motion-floor-1"
   lights: 
     - light.light_hall_1
     - light.light_toilet_1
-    - light.light_dressing
   min_brightness: 10
   max_brightness: 50
   min_color_temp: 2200
