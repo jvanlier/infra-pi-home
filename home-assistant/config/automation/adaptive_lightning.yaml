@@ -8,7 +8,6 @@
       target:
         entity_id: 
           - switch.adaptive_lighting_sleep_mode_motion
-          - switch.adaptive_lighting_sleep_mode_motion_floor_1
           - switch.adaptive_lighting_sleep_mode_motion_ikea 
   mode: restart
 
@@ -27,7 +26,6 @@
       target:
         entity_id: 
           - switch.adaptive_lighting_sleep_mode_motion
-          - switch.adaptive_lighting_sleep_mode_motion_floor_1
           - switch.adaptive_lighting_sleep_mode_motion_ikea 
   mode: restart
 
@@ -49,7 +47,6 @@
       target:
         entity_id: 
           - switch.adaptive_lighting_sleep_mode_motion
-          - switch.adaptive_lighting_sleep_mode_motion_floor_1
           - switch.adaptive_lighting_sleep_mode_motion_ikea 
   mode: restart
 
