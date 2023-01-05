@@ -5,6 +5,7 @@
       motion_entity: binary_sensor.motion_hall_0_occupancy
       light_target:
         entity_id: light.light_hall_0
+      no_motion_wait: 180
 
 - alias: Motion-activated Light Hall 1
   use_blueprint:
