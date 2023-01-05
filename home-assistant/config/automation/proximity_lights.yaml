@@ -1,5 +1,3 @@
-# TODO: use lightgroups for smoother toggling
-
 - alias: Proximity-activated Light Study - on
   id: pal-study-on
   description: "There isn't a dedicated motion sensor here, but lighting up this area when someone is nearby is pretty useful."
@@ -10,17 +8,18 @@
         - light.light_hall_2
       to: 'on'
   condition:
-    # Only checking 1 is sufficient
+    # Can't check light groups here because they can't go "unavailable" if power is cut to the
+    # entire group. Stay "on" if they were on before.
+    # In this case, only checking 1 light is sufficient because they are always toggled together.
     - condition: state
       entity_id: light.light_study_spot_center
-      state: 'off'
+      state: 
+        - 'off'
+        - 'unavailable'
   action:
     - service: light.turn_on
       target:
-        entity_id:
-          - light.light_study_spot_cabinet 
-          - light.light_study_spot_center
-          - light.light_study_spot_painting
+        entity_id: light.hue_light_group_study
       data:
         brightness: 50 
         color_temp: 370
@@ -39,21 +38,16 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: light.light_walk_in_closet
+        entity_id: 
+          - light.light_walk_in_closet
+          - light.light_hall_2
         state: 'off'
-      - condition: state
-        entity_id: light.light_hall_2
-        state: 'off'
-      # Only checking 1 is sufficient
       - condition: template
-        value_template: '{{state_attr(''light.light_study_spot_center'', ''brightness'')|int==50}}'
+        value_template: '{{state_attr(''light.hue_light_group_study'', ''brightness'') | int(0) == 50}}'
   action:
     - service: light.turn_off
       target:
-        entity_id:
-          - light.light_study_spot_cabinet 
-          - light.light_study_spot_center
-          - light.light_study_spot_painting
+        entity_id: light.hue_light_group_study
   mode: restart
 
 - alias: Proximity-activated Light Living + Kitchen - on
@@ -67,37 +61,29 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: light.light_kitchen_m
-        state: 'off'
+        entity_id: 
+          - light.light_kitchen_m
+          - light.light_arc
+          - light.light_lightguide
+          - light.light_dining_kitchen_side
+        state: 
+          - 'off'
+          - 'unavailable'
       - condition: state
-        entity_id: light.light_arc
-        state: 'off'
-      - condition: state
-        entity_id: light.light_lightguide
-        state: 'off'
-      - condition: state
-        entity_id: light.light_dining_kitchen_side
-        state: 'off'
+        entity_id: sun.sun
+        state: "below_horizon"
   action:
     - service: light.turn_on
       target:
-        entity_id:
-          - light.light_kitchen_l
-          - light.light_kitchen_ml
-          - light.light_kitchen_m
-          - light.light_kitchen_mr
-          - light.light_kitchen_r
+        entity_id: light.hue_light_group_kitchen
       data:
         brightness: 1
         color_temp: 455  # 2200k
     - service: light.turn_on
       target:
-        entity_id:
-          - light.light_dining_kitchen_side
-          - light.light_lightguide
-          - light.light_arc
+        entity_id: light.hue_light_group_living
       data:
-        brightness: 20
+        brightness: 50
         color_temp: 455
   mode: restart
 
@@ -111,21 +97,14 @@
   condition:
     condition: and
     conditions:
-      # Only checking a few is sufficient, because we change the entire room at once
       - condition: template
-        value_template: '{{state_attr(''light.light_kitchen_m'', ''brightness'')|int==1}}'
+        value_template: '{{state_attr(''light.hue_light_group_kitchen'', ''brightness'') | int(0) == 1}}'
       - condition: template
-        value_template: '{{state_attr(''light.light_lightguide'', ''brightness'')|int==20}}'
+        value_template: '{{state_attr(''light.hue_light_group_living'', ''brightness'') | int(0) == 50}}'
   action:
     - service: light.turn_off
       target:
-        entity_id:
-          - light.light_kitchen_l
-          - light.light_kitchen_ml
-          - light.light_kitchen_m
-          - light.light_kitchen_mr
-          - light.light_kitchen_r
-          - light.light_dining_kitchen_side
-          - light.light_lightguide
-          - light.light_arc
+        entity_id: 
+          - light.hue_light_group_kitchen
+          - light.hue_light_group_living
   mode: restart
