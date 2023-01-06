@@ -8,7 +8,7 @@
       target:
         entity_id: 
           - switch.adaptive_lighting_sleep_mode_motion
-          - switch.adaptive_lighting_sleep_mode_motion_ikea 
+          - switch.adaptive_lighting_sleep_mode_motion_floor_1
   mode: restart
 
 - alias: Adaptive light sleep mode - off daycare days
@@ -26,7 +26,7 @@
       target:
         entity_id: 
           - switch.adaptive_lighting_sleep_mode_motion
-          - switch.adaptive_lighting_sleep_mode_motion_ikea 
+          - switch.adaptive_lighting_sleep_mode_motion_floor_1
   mode: restart
 
 - alias: Adaptive light sleep mode - off non-daycare days
@@ -47,6 +47,6 @@
       target:
         entity_id: 
           - switch.adaptive_lighting_sleep_mode_motion
-          - switch.adaptive_lighting_sleep_mode_motion_ikea 
+          - switch.adaptive_lighting_sleep_mode_motion_floor_1
   mode: restart
 
