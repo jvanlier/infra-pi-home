@@ -69,32 +69,3 @@
         entity_id: light.light_hall_1
   mode: single
 
-- alias: Switch Light Bedroom Duco
-  id: switch-bedroom-duco
-  trigger:
-    platform: state
-    entity_id: sensor.switch_bedroom_duco_action
-    to: 'left_press'
-  action:
-    - service: light.toggle
-      target:
-        entity_id: light.light_bedroom_duco
-      # Allow Duco to turn on his own light. Need to supply data in case light was previously
-      # dimmed to very low levels.
-      data:
-        brightness: 179
-        color_temp: 370 # 370 mired = 2700 k
-  mode: single
-
-- alias: Switch Light Bedroom Olivier 
-  id: switch-bedroom-olivier
-  trigger:
-    platform: state
-    entity_id: sensor.switch_bedroom_olivier_action
-    to: 'left_press'
-  action:
-    - service: light.toggle
-      target:
-        entity_id: light.light_bedroom_olivier
-  mode: single
-
