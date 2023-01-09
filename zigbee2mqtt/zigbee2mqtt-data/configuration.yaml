@@ -1,0 +1,115 @@
+permit_join: false
+homeassistant: true
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://mqtt:1884
+availability: true
+serial:
+  port: >-
+    /dev/serial/by-id/usb-Silicon_Labs_slae.sh_cc2652rb_stick_-_slaesh_s_iot_stuff_00_12_4B_00_23_90_DB_6C-if00-port0
+frontend:
+  port: 8080
+advanced:
+  channel: 25
+  pan_id: 19243
+  network_key: '!secret.yaml network_key'
+  homeassistant_legacy_entity_attributes: false
+  legacy_api: false
+  log_level: debug
+  legacy_availability_payload: false
+device_options:
+  legacy: false
+devices:
+  '0x54ef4410003134b1':
+    friendly_name: Plug Dryer
+  '0x9035eafffe5f8d28':
+    friendly_name: Plug Dishwasher
+  '0x0015bc002f00e692':
+    friendly_name: Plug Boiler
+  '0x54ef4410002c8e06':
+    friendly_name: Plug Roomba
+  '0x54ef4410002c99b3':
+    friendly_name: Plug Workstation
+  '0x9035eafffe5f9085':
+    friendly_name: Plug Washing Machine
+  '0x0015bc002f00e6f5':
+    friendly_name: Plug Entertainment
+  '0x00158d0007f82b0b':
+    friendly_name: Climate Living Room
+    temperature_calibration: 0
+    temperature_precision: 2
+    humidity_precision: 0
+  '0x00158d0007ef3720':
+    friendly_name: Climate Bedroom Duco
+  '0x00158d0007f82928':
+    friendly_name: Climate Study
+  '0x001788010d344736':
+    friendly_name: '0x001788010d344736'
+  '0x0017880108b473c4':
+    friendly_name: '0x0017880108b473c4'
+  '0x00158d000838465a':
+    friendly_name: Climate Bedroom JC
+  '0x00158d0008328d5e':
+    friendly_name: Climate Bathroom
+  '0x00158d0008980cd7':
+    friendly_name: Climate Bedroom Olivier
+  '0x00158d0008328d33':
+    friendly_name: Climate Shed
+  '0x54ef4410004e474a':
+    friendly_name: Motion Toilet 0
+  '0x0015bc001a0228a1':
+    friendly_name: Motion Hall 0
+  '0x001788010ba4b8dd':
+    friendly_name: '0x001788010ba4b8dd'
+  '0x001788010baaaab7':
+    friendly_name: '0x001788010baaaab7'
+  '0x001788010bf7528b':
+    friendly_name: '0x001788010bf7528b'
+  '0x001788010bf73aab':
+    friendly_name: '0x001788010bf73aab'
+  '0x0015bc001a022a06':
+    friendly_name: Motion Walk-in Closet
+  '0x0015bc001a022855':
+    friendly_name: Motion Dressing
+  '0x0015bc001a022868':
+    friendly_name: Motion Hall 1
+  '0x54ef44100053e5c4':
+    friendly_name: Motion Toilet 1
+  '0x001788010b99b7d9':
+    friendly_name: '0x001788010b99b7d9'
+  '0x001788010b96e6f3':
+    friendly_name: '0x001788010b96e6f3'
+  '0x001788010b8090f3':
+    friendly_name: '0x001788010b8090f3'
+  '0x001788010bf78479':
+    friendly_name: '0x001788010bf78479'
+  '0x001788010b809cae':
+    friendly_name: '0x001788010b809cae'
+  '0x00178801093c4e7b':
+    friendly_name: Light Toilet 1
+  '0x54ef4410004dbaa3':
+    friendly_name: Plug Garden Lights
+  '0x0015bc001a02277b':
+    friendly_name: Motion Hall 2
+  '0x04cd15fffed20dfe':
+    friendly_name: Light Storage Range Extender
+  '0x001788010bf99149':
+    friendly_name: Light Hall 0
+  '0x001788010b9bc267':
+    friendly_name: Light Dressing
+  '0x001788010b962adc':
+    friendly_name: Light Toilet 0
+  '0x0015bc001a02378a':
+    friendly_name: Motion Laundry
+  '0x001788010cc47291':
+    friendly_name: Switch Toilet 0
+  '0x001788010cc472f2':
+    friendly_name: Switch Hall 0
+  '0x001788010cc472a6':
+    friendly_name: Switch Toilet 1
+  '0x001788010cc472d2':
+    friendly_name: Switch Dressing
+blocklist:
+  - '0xec1bbdfffe7f3c18'
+  - '0x001788010c690db7'
+  - '0x001788010c5c2da3'
