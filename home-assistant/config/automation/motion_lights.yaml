@@ -1,12 +1,66 @@
 - alias: Motion-activated Light Hall 0
   id: mal-hall-0
-  use_blueprint:
-    path: homeassistant/motion_light.yaml
-    input:
-      motion_entity: binary_sensor.motion_hall_0_occupancy
-      light_target:
+  description: "A motion activated light that stays on (but dimmed) if nearby lights are also on and the sun is down. Prevents a dark hallway when people are in the living room."
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_hall_0_occupancy
+    from: "off"
+    to: "on"
+  action:
+    - alias: "Enable adaptive brightness"
+      service: switch.turn_on
+      target:
+        entity_id: switch.adaptive_lighting_adapt_brightness_motion_hall_0
+      # TODO the wall switch also needs to do this
+    - alias: "Turn on the light"
+      service: light.turn_on
+      target: 
         entity_id: light.light_hall_0
-      no_motion_wait: 180
+    - alias: "Force apply in case it was already on"
+      service: adaptive_lighting.apply
+      data:
+        entity_id: switch.adaptive_lighting_motion_hall_0
+        lights: light.light_hall_0
+    - alias: "Wait until there is no motion from device"
+      wait_for_trigger:
+        platform: state
+        entity_id: binary_sensor.motion_hall_0_occupancy
+        from: "on"
+        to: "off"
+    - alias: "Wait the number of seconds that has been set"
+      delay: 180
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: "below_horizon"
+        - condition: state
+          entity_id: light.light_hall_0
+          state: "on"
+        - condition: state
+          entity_id: light.hue_light_group_living
+          state: "on"
+        - condition: template
+          value_template: "{{ state_attr('light.hue_light_group_living', 'brightness') > states('input_number.proximity_activated_light_living_brightness') | int(0) }}"
+        sequence:
+          - alias: "Disable adaptive brightness"
+            service: switch.turn_off
+            target:
+              entity_id: switch.adaptive_lighting_adapt_brightness_motion_hall_0
+          - alias: "Set brightness to 50% of previous value"
+            service: light.turn_on  # it's already on so this just updates brightness
+            target: 
+              entity_id: light.light_hall_0
+            data:
+              brightness: '{{ state_attr("light.light_hall_0", "brightness") / 2 | int }}'
+              transition: 3
+      default:  
+        - alias: "Turn off the light"
+          service: light.turn_off
+          target:
+            entity_id: light.light_hall_0
+  mode: restart
+  max_exceeded: silent
 
 - alias: Motion-activated Light Hall 1
   id: mal-hall-1
@@ -57,7 +111,6 @@
 - alias: Motion-activated Light Toilet 0
   id: mal-toilet-0
   use_blueprint:
-#    path: homeassistant/motion_light_custom_long_off_transition.yaml
     path: homeassistant/motion_light.yaml
     input:
       motion_entity: binary_sensor.motion_toilet_0_occupancy
@@ -68,7 +121,6 @@
 - alias: Motion-activated Light Toilet 1
   id: mal-toilet-1
   use_blueprint:
-#    path: homeassistant/motion_light_custom_long_off_transition.yaml
     path: homeassistant/motion_light.yaml
     input:
       motion_entity: binary_sensor.motion_toilet_1_occupancy
@@ -76,7 +128,7 @@
         entity_id: light.light_toilet_1
       no_motion_wait: 300
 
-# Ikea bulbs at 1% are still too bright unfortunately. And Nest Protect pathlight is sufficient.
+# Nest Protect pathlight is sufficient.
 - alias: Motion-activated Light Hall 1 - off at Night
   id: mal-hall-1-off-night
   trigger:

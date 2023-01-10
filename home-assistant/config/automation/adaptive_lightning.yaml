@@ -8,6 +8,7 @@
       target:
         entity_id: 
           - switch.adaptive_lighting_sleep_mode_motion
+          - switch.adaptive_lighting_sleep_mode_motion_hall_0
           - switch.adaptive_lighting_sleep_mode_motion_floor_1
   mode: restart
 
@@ -19,6 +20,7 @@
   condition:
   - condition: time
     weekday:
+      - mon
       - thu
       - fri
   action:
@@ -26,6 +28,7 @@
       target:
         entity_id: 
           - switch.adaptive_lighting_sleep_mode_motion
+          - switch.adaptive_lighting_sleep_mode_motion_hall_0
           - switch.adaptive_lighting_sleep_mode_motion_floor_1
   mode: restart
 
@@ -37,7 +40,6 @@
   condition:
   - condition: time
     weekday:
-      - mon
       - tue
       - wed
       - sat
@@ -47,6 +49,7 @@
       target:
         entity_id: 
           - switch.adaptive_lighting_sleep_mode_motion
+          - switch.adaptive_lighting_sleep_mode_motion_hall_0
           - switch.adaptive_lighting_sleep_mode_motion_floor_1
   mode: restart
 

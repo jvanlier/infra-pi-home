@@ -26,13 +26,13 @@
       target:
         entity_id: light.hue_light_group_study
       data:
-        brightness: 50 
+        brightness: "{{ states('input_number.proximity_activated_light_study_brightness') | int }}"
         color_temp: 370
   mode: restart
 
 - alias: Proximity-activated Light Study - off
   id: pal-study-off
-  description: "Turn the study lights off again, unless they were changed manually."
+  description: "Turn the study lights off again, unless the brightness was changed."
   trigger:
     - platform: state
       entity_id: 
@@ -48,7 +48,7 @@
           - light.light_hall_2
         state: 'off'
       - condition: template
-        value_template: '{{state_attr(''light.hue_light_group_study'', ''brightness'') | int(0) == 50}}'
+        value_template: '{{state_attr(''light.hue_light_group_study'', ''brightness'') | int(0) == states("input_number.proximity_activated_light_study_brightness") | int }}'
   action:
     - service: light.turn_off
       target:
@@ -82,13 +82,13 @@
       target:
         entity_id: light.hue_light_group_kitchen
       data:
-        brightness: 1
+        brightness: '{{ states("input_number.proximity_activated_light_kitchen_brightness") | int }}'
         color_temp: 455  # 2200k
     - service: light.turn_on
       target:
         entity_id: light.hue_light_group_living
       data:
-        brightness: 50
+        brightness: '{{ states("input_number.proximity_activated_light_living_brightness") | int }}'
         color_temp: 455
   mode: restart
 
@@ -103,9 +103,9 @@
     condition: and
     conditions:
       - condition: template
-        value_template: '{{state_attr(''light.hue_light_group_kitchen'', ''brightness'') | int(0) == 1}}'
+        value_template: '{{ state_attr(''light.hue_light_group_kitchen'', ''brightness'') | int(0) == states("input_number.proximity_activated_light_kitchen_brightness") | int }}'
       - condition: template
-        value_template: '{{state_attr(''light.hue_light_group_living'', ''brightness'') | int(0) == 50}}'
+        value_template: '{{state_attr(''light.hue_light_group_living'', ''brightness'') | int(0) == states("input_number.proximity_activated_light_living_brightness") | int }}'
   action:
     - service: light.turn_off
       target:
@@ -113,3 +113,4 @@
           - light.hue_light_group_kitchen
           - light.hue_light_group_living
   mode: restart
+
