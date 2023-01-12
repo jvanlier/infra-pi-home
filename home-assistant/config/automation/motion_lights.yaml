@@ -28,7 +28,7 @@
         from: "on"
         to: "off"
     - alias: "Wait the number of seconds that has been set"
-      delay: 180
+      delay: 120
     - choose:
       - conditions:
         - condition: state
