@@ -1,5 +1,5 @@
 - platform: filter
-  name: 'dishwasher power filtered'
+  name: 'Plug Dishwasher power filtered'
   entity_id: 'sensor.plug_dishwasher_power'
   filters:
     # We have unevenly spaced measurements so this seems more appropriate than low-pass filter.
@@ -25,7 +25,7 @@
          {% endif %}
 
 - platform: filter
-  name: 'washing machine power filtered'
+  name: 'Plug Washing Machine power filtered'
   entity_id: 'sensor.plug_washing_machine_power'
   filters:
     - filter: time_simple_moving_average
@@ -47,7 +47,6 @@
            off
          {% endif %}
 
-
 # Not using filtered power for dryer, since it has an Aqara plug that 
 # stops reporting when power is 0 W. Only starts again when it changes.
 - platform: template
@@ -64,7 +63,6 @@
            off
          {% endif %}
 
-
 - platform: template
   sensors:
     nighttime:
@@ -76,19 +74,6 @@
          {% else %}
            1
          {% endif %}
-
-
-# Extract temperature from the built-in weather functionality in order to use it elsewhere:
-# Update: this temperature seems less accurate for my location than OpenWeatherMap, and is also
-# updated less frequently. Disabled it.
-#- platform: template
-#  sensors:
-#    met_no_temperature:
-#      unique_id: 'met_no_temperature'
-#      friendly_name: "Met.no Temperature"
-#      unit_of_measurement: '°C'
-#      value_template: "{{ state_attr('weather.huis', 'temperature') }}"
-
 
 # Uses custom integration https://github.com/Limych/ha-average
 - platform: average
@@ -121,7 +106,6 @@
   unit_time: h
   time_window: "02:00:00"
 
-
 - platform: template
   sensors:
     warmer_inside:
@@ -137,7 +121,6 @@
         {% else %}
           indecisive
         {% endif %}
-
 
 - platform: template
   sensors:
