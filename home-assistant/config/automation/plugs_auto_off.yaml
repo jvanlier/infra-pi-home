@@ -1,0 +1,27 @@
+- alias: Entertainment off after 30 min idle
+  id: entertainment-off
+  trigger:
+    - platform: state
+      entity_id: sensor.entertainment_state 
+      from: 'on'
+      to: 'off'
+      for: '00:30:00'
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.plug_entertainment
+  mode: restart
+
+- alias: Workstation off after 30 min idle
+  id: workstation-off
+  trigger:
+    - platform: state
+      entity_id: sensor.workstation_state 
+      from: 'on'
+      to: 'off'
+      for: '00:30:00'
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.plug_workstation
+  mode: restart

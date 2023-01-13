@@ -65,6 +65,30 @@
 
 - platform: template
   sensors:
+    workstation_state:
+       unique_id: 'workstation_state_v1'
+       friendly_name: Workstation
+       value_template: >-
+         {% if states('sensor.plug_workstation_power')|float(default=0) >= 10 %}
+           on
+         {% else %}
+           off
+         {% endif %}
+
+- platform: template
+  sensors:
+    entertainment_state:
+       unique_id: 'entertainment_state_v1'
+       friendly_name: Entertainment
+       value_template: >-
+         {% if states('sensor.plug_entertainment_power')|float(default=0) >= 10 %}
+           on
+         {% else %}
+           off
+         {% endif %}
+
+- platform: template
+  sensors:
     nighttime:
        unique_id: 'nighttime_v2'
        friendly_name: Nighttime
