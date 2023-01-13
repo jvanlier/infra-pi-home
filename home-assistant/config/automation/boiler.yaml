@@ -6,16 +6,11 @@
       from: 'yes'
       to: 'no'
       for: '00:30:00'
-  condition:
-    - condition: state
-      entity_id: switch.plug_boiler
-      state: 'on'
   action:
     - service: switch.turn_off
       target:
         entity_id: switch.plug_boiler
   mode: restart
-
 
 - alias: Boiler on when someone comes home
   id: boiler-on-return
@@ -25,10 +20,6 @@
       from: 'no'
       to: 'yes'
       for: '00:00:05'
-  condition:
-    - condition: state
-      entity_id: switch.plug_boiler
-      state: 'off'
   action:
     - service: switch.turn_on
       target:
