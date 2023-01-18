@@ -27,7 +27,7 @@ mv mini-graph-card-bundle.js config/www/
 cd custom_components/
 mkdir average
 cd average/
-curl -LO https://github.com/Limych/ha-average/releases/download/2.3.0/average.zip
+curl -OL https://github.com/Limych/ha-average/releases/download/2.3.0/average.zip
 unzip average.zip
 rm average.zip
 ```
@@ -35,5 +35,10 @@ rm average.zip
 ## apex chart
 ```bash
 cd config/www
-curl -oL https://github.com/RomRider/apexcharts-card/releases/download/v2.0.1/apexcharts-card.js
+curl -OL https://github.com/RomRider/apexcharts-card/releases/download/v2.0.1/apexcharts-card.js
 ```
+
+## lovelace-muchroom
+cd config/www
+curl -OL https://github.com/piitaya/lovelace-mushroom/releases/download/v2.4.1/mushroom.js
+
