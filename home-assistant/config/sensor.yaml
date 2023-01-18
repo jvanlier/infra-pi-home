@@ -108,7 +108,39 @@
     - sensor.climate_bedroom_jc_temperature
     - sensor.climate_bedroom_duco_temperature
     - sensor.climate_bedroom_olivier_temperature
+    - sensor.climate_bathroom_temperature
     - sensor.climate_study_temperature
+    - sensor.climate_laundry_temperature
+
+# The frient motion sensor pro temperature seems pretty good. The Aqara one, not so much (too high).
+# Using the first and not the latter.
+- platform: average
+  name: 'Ground Floor Average Temperature'
+  unique_id: 'ground_floor_average_temperature'
+  entities:
+    - sensor.climate_living_room_temperature
+    - sensor.motion_hall_0_temperature
+
+- platform: average
+  name: 'First Floor Average Temperature'
+  unique_id: 'first_floor_average_temperature'
+  entities:
+    - sensor.climate_bedroom_jc_temperature
+    - sensor.climate_bedroom_duco_temperature
+    - sensor.climate_bedroom_olivier_temperature
+    - sensor.climate_bathroom_temperature
+    - sensor.motion_hall_1_temperature
+    - sensor.motion_dressing_temperature
+
+- platform: average
+  name: 'Second Floor Average Temperature'
+  unique_id: 'second_floor_average_temperature'
+  entities:
+    - sensor.motion_hall_2_temperature
+    - sensor.motion_walk_in_closet_temperature
+    - sensor.motion_laundry_temperature
+    - sensor.climate_study_temperature
+    - sensor.climate_laundry_temperature
 
 - platform: average
   name: 'Outside Average Temperature'
