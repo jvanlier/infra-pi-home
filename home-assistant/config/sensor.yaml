@@ -100,6 +100,7 @@
          {% endif %}
 
 # Uses custom integration https://github.com/Limych/ha-average
+# DEPRECATED: use sensor.home_temperature. Remove this once sufficient history has accumulated in the new one.
 - platform: average
   name: 'Home Average Temperature'
   unique_id: 'home_average_temperature'
@@ -111,19 +112,21 @@
     - sensor.climate_bathroom_temperature
     - sensor.climate_study_temperature
     - sensor.climate_laundry_temperature
+  precision: 1
 
 # The frient motion sensor pro temperature seems pretty good. The Aqara one, not so much (too high).
-# Using the first and not the latter.
+# Using frient, not Aqara.
 - platform: average
-  name: 'Ground Floor Average Temperature'
-  unique_id: 'ground_floor_average_temperature'
+  name: 'Floor 0 Temperature'
+  unique_id: 'floor_0_temperature'
   entities:
     - sensor.climate_living_room_temperature
     - sensor.motion_hall_0_temperature
+  precision: 1
 
 - platform: average
-  name: 'First Floor Average Temperature'
-  unique_id: 'first_floor_average_temperature'
+  name: 'Floor 1 Temperature'
+  unique_id: 'floor_1_temperature'
   entities:
     - sensor.climate_bedroom_jc_temperature
     - sensor.climate_bedroom_duco_temperature
@@ -131,22 +134,84 @@
     - sensor.climate_bathroom_temperature
     - sensor.motion_hall_1_temperature
     - sensor.motion_dressing_temperature
+  precision: 1
 
 - platform: average
-  name: 'Second Floor Average Temperature'
-  unique_id: 'second_floor_average_temperature'
+  name: 'Floor 2 Temperature'
+  unique_id: 'floor_2_temperature'
   entities:
     - sensor.motion_hall_2_temperature
     - sensor.motion_walk_in_closet_temperature
     - sensor.motion_laundry_temperature
     - sensor.climate_study_temperature
     - sensor.climate_laundry_temperature
+  precision: 1
+
+- platform: average
+  name: 'Home Temperature'
+  unique_id: 'home_temperature'
+  entities:
+#  This would be ideal, unweighted average across floors, but it doesn't propagate the unit:
+#    - sensor.floor_0_temperature
+#    - sensor.floor_1_temperature
+#    - sensor.floor_2_temperature
+    - sensor.climate_living_room_temperature
+    - sensor.climate_bedroom_jc_temperature
+    - sensor.climate_bedroom_duco_temperature
+    - sensor.climate_bedroom_olivier_temperature
+    - sensor.climate_bathroom_temperature
+    - sensor.climate_study_temperature
+    - sensor.climate_laundry_temperature
+  precision: 1
+
+- platform: average
+  name: 'Floor 0 Humidity'
+  unique_id: 'floor_0_humidity'
+  entities:
+    - sensor.climate_living_room_humidity
+  precision: 1
+
+- platform: average
+  name: 'Floor 1 Humidity'
+  unique_id: 'floor_1_humidity'
+  entities:
+    - sensor.climate_bedroom_jc_humidity
+    - sensor.climate_bedroom_duco_humidity
+    - sensor.climate_bedroom_olivier_humidity
+    - sensor.climate_bathroom_humidity
+  precision: 1
+
+- platform: average
+  name: 'Floor 2 Humidity'
+  unique_id: 'floor_2_humidity'
+  entities:
+    - sensor.climate_study_humidity
+    - sensor.climate_laundry_humidity
+  precision: 1
+
+- platform: average
+  name: 'Home Humidity'
+  unique_id: 'home_humidity'
+  entities:
+#  This would be ideal, unweighted average across floors, but it doesn't propagate the unit:
+#    - sensor.floor_0_humidity 
+#    - sensor.floor_1_humidity 
+#    - sensor.floor_2_humidity 
+    - sensor.climate_living_room_humidity
+    - sensor.climate_bedroom_jc_humidity
+    - sensor.climate_bedroom_duco_humidity
+    - sensor.climate_bedroom_olivier_humidity
+    - sensor.climate_bathroom_humidity
+    - sensor.climate_study_humidity
+    - sensor.climate_laundry_humidity
+  precision: 1
 
 - platform: average
   name: 'Outside Average Temperature'
   unique_id: 'outside_average_temperature'
   entities:
     - sensor.openweathermap_temperature
+  precision: 1
 
 - platform: derivative
   source: sensor.outside_average_temperature
