@@ -12,6 +12,21 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensor.yaml
 
+input_boolean:
+  adaptive_lighting:
+    name: Adaptive Lighting (TODO)
+    icon: mdi:theme-light-dark
+  motion_activated_lights:
+    name: Motion Activated Lights (TODO)
+    icon: mdi:motion-sensor
+  sleep_mode:
+    name: Sleep Mode
+    icon: mdi:sleep
+  housekeeping_mode:
+    # Toggle Adaptive Lighting + all motion sensors and set lights to max white.
+    name: Housekeeping Mode (TODO)
+    icon: mdi:broom
+
 input_number:
   proximity_activated_light_living_brightness: 
     initial: 50
@@ -31,6 +46,14 @@ input_number:
     max: 255
     step: 1
     mode: box
+  electricity_price_power_conservation_threshold:
+    name: Price Conservation Thr.
+    unit_of_measurement: "EUR/kWh"
+    initial: 0.40
+    min: 0.20
+    step: 0.05
+    max: 1.00
+    mode: slider
 
 adaptive_lighting:
 - name: "motion"
@@ -73,4 +96,3 @@ adaptive_lighting:
 #  sunrise_time: "08:00:00" 
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
-
