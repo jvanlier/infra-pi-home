@@ -1,0 +1,16 @@
+- alias: "Adaptive light: toggle"
+  id: "adaptive-light-toggle"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.adaptive_lighting
+    - platform: homeassistant
+      event: start  # in case the states aren't properly restored
+  variables:
+    new_state: "{{ states('input_boolean.adaptive_lighting') }}"
+  action:
+    - service: "switch.turn_{{ new_state }}"
+      entity_id:
+        - switch.adaptive_lighting_motion
+        - switch.adaptive_lighting_motion_hall_0
+        - switch.adaptive_lighting_motion_floor_1
+

@@ -14,7 +14,7 @@ sensor: !include sensor.yaml
 
 input_boolean:
   adaptive_lighting:
-    name: Adaptive Lighting (TODO)
+    name: Adaptive Lighting
     icon: mdi:theme-light-dark
   motion_activated_lights:
     name: Motion Activated Lights (TODO)
@@ -46,10 +46,18 @@ input_number:
     max: 255
     step: 1
     mode: box
-  electricity_price_power_conservation_threshold:
-    name: Price Conservation Thr.
+  boiler_price_threshold:
+    name: Boiler Price Thr.
     unit_of_measurement: "EUR/kWh"
     initial: 0.40
+    min: 0.20
+    step: 0.05
+    max: 1.00
+    mode: slider
+  garden_lights_price_threshold:
+    name: Garden Lights Price Thr.
+    unit_of_measurement: "EUR/kWh"
+    initial: 0.25
     min: 0.20
     step: 0.05
     max: 1.00
