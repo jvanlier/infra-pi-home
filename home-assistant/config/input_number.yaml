@@ -16,6 +16,8 @@ proximity_activated_light_study_brightness:
   max: 255
   step: 1
   mode: box
+
+# Power price thresholds to intelligently turn devices on/off depending on how expensive power is:
 boiler_price_threshold:
   name: Boiler Price Thr.
   unit_of_measurement: "EUR/kWh"
@@ -32,3 +34,104 @@ garden_lights_price_threshold:
   step: 0.05
   max: 1.00
   mode: slider
+
+base_load_power_unifi_aps:
+  name: BLP Unifi APs
+  unit_of_measurement: W
+  initial: 8.8  # measurement of 2x UniFi AP AC Pro
+  min: 0
+  max: 20  
+  mode: box
+base_load_power_router:
+  name: BLP Router
+  unit_of_measurement: W
+  initial: 2.8  # measurement of UniFi EdgeRouter X
+  min: 0
+  max: 10
+  mode: box
+base_load_power_fiber:
+  name: BLP Fiber
+  unit_of_measurement: W
+  initial: 2.7  # measurement of Reggefiber unit 
+  min: 0
+  max: 10
+  mode: box
+base_load_power_switch:
+  name: BLP Switch
+  unit_of_measurement: W
+  initial: 2.4  # measurement of 8-port D-Link switch
+  min: 0
+  max: 10
+  mode: box
+base_load_power_raspberry_pi:
+  name: BLP Raspberry Pi
+  unit_of_measurement: W
+  initial: 5
+  min: 0
+  max: 10
+  mode: box
+base_load_power_z2m:
+  name: BLP Z2M
+  unit_of_measurement: W
+  initial: 6.5  # 13 devices @ 0.5 W each
+  min: 0
+  max: 20
+  mode: box
+base_load_power_hue_lights:
+  name: BLP Hue Lights
+  unit_of_measurement: W
+  initial: 10.5  # 21 devices @ 0.5 W wach
+  min: 0
+  max: 20
+  mode: box
+base_load_power_hue_hub:
+  name: BLP Hue Hub
+  unit_of_measurement: W
+  initial: 1.6
+  min: 0
+  max: 10
+  mode: box
+base_load_power_district_heating:
+  name: BLP District Heating
+  unit_of_measurement: W
+  initial: 3.7  # measurement of that adapter that goes into the district heating thing
+  min: 0
+  max: 10
+  mode: box
+base_load_power_floor_heating_pump:
+  name: BLP Floor Heating Pump
+  unit_of_measurement: W
+  initial: 14.4
+  min: 0
+  max: 30
+  mode: box
+base_load_power_central_ventilation:
+  name: BLP Central Ventilation
+  unit_of_measurement: W
+  initial: 10  # total guess for lowest setting
+  min: 0
+  max: 50
+  mode: box
+base_load_power_smoke_detectors:
+  name: BLP Smoke Detectors
+  unit_of_measurement: W
+  initial: 3  # guess
+  min: 0
+  max: 10
+  mode: box
+base_load_power_nanny_cams:
+  name: BLP Nanny Cams
+  unit_of_measurement: W
+  initial: 4
+  min: 0
+  max: 10
+  mode: box
+base_load_power_misc:
+  # Intended to quickly add something without config change
+  name: BLP Misc
+  unit_of_measurement: W
+  initial: 0
+  min: 0
+  max: 1000
+  mode: box
+

@@ -1,0 +1,47 @@
+- platform: template
+  sensors:
+    electricity_meter_power_consumption_watt:
+      friendly_name: Electricity Meter Power Consumption Watt
+      value_template: "{{ states('sensor.electricity_meter_power_consumption') | float(0) * 1000 }}"
+      unit_of_measurement: W
+
+    known_power_use:
+      friendly_name: Known Power Use 
+      value_template: >
+          {{ states('sensor.base_load_power') | float(0) + 
+             states('sensor.plug_entertainment_power') | float(0) +
+             states('sensor.plug_garden_lights_power') | float(0) +
+             states('sensor.plug_workstation_power') | float(0) +
+             states('sensor.plug_boiler_power') | float(0) +
+             states('sensor.plug_roomba_power') | float(0) +
+             states('sensor.plug_dishwasher_power') | float(0) +
+             states('sensor.plug_washing_machine_power') | float(0)
+          }} 
+      unit_of_measurement: W
+
+    unknown_power_use:
+      friendly_name: Unknown Power Use
+      # TODO: this only works if we're not producing any solar power. Without access to inverter,
+      #       best I can do is set to null if predicted solar > some epsilon ?
+      value_template: >
+          {{ states('sensor.electricity_meter_power_consumption_watt_filtered') | float(0) - 
+             states('sensor.known_power_use_filtered') | float(0)
+          }}
+      unit_of_measurement: W
+
+- platform: filter
+  name: 'Electricity Meter Power Consumption Watt filtered'
+  entity_id: 'sensor.electricity_meter_power_consumption_watt'
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "00:00:30"
+    #- filter: lowpass
+    #  # time_constant: 10
+    #  precision: 0
+
+- platform: filter
+  name: 'Known Power Use filtered'
+  entity_id: 'sensor.known_power_use'
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "00:00:30"

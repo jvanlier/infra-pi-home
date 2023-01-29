@@ -15,3 +15,42 @@ input_boolean: !include input_boolean.yaml
 input_number: !include input_number.yaml
 adaptive_lighting: !include adaptive_lighting.yaml
 
+template:
+  - trigger:
+      - platform: time_pattern
+        seconds: 0
+    sensor:  
+      - name: Base Load power
+        unique_id: base_load_power
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        state: >
+          {{ states('input_number.base_load_power_unifi_aps') | float + 
+             states('input_number.base_load_power_router') | float +
+             states('input_number.base_load_power_fiber') | float +
+             states('input_number.base_load_power_switch') | float +
+             states('input_number.base_load_power_raspberry_pi') | float +
+             states('input_number.base_load_power_z2m') | float +
+             states('input_number.base_load_power_hue_lights') | float +
+             states('input_number.base_load_power_hue_hub') | float +
+             states('input_number.base_load_power_district_heating') | float +
+             states('input_number.base_load_power_floor_heating_pump') | float +
+             states('input_number.base_load_power_central_ventilation') | float +
+             states('input_number.base_load_power_smoke_detectors') | float +
+             states('input_number.base_load_power_nanny_cams') | float +
+             states('input_number.base_load_power_misc') | float
+          }} 
+
+
+  - trigger:
+      - platform: time_pattern
+        minutes: 59
+    sensor:  
+      - name: Base Load energy
+        unique_id: base_load_energy
+        unit_of_measurement: kWh
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ states('sensor.base_load_energy') | float(0) + states('sensor.base_load_power') | float(0) / 1000 }}"
+
