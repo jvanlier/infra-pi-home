@@ -54,7 +54,7 @@ devices:
   '0x00158d0008980cd7':
     friendly_name: Climate Bedroom Olivier
   '0x00158d0008328d33':
-    friendly_name: Climate Shed
+    friendly_name: Climate Laundry
   '0x54ef4410004e474a':
     friendly_name: Motion Toilet 0
   '0x0015bc001a0228a1':
@@ -109,6 +109,8 @@ devices:
     friendly_name: Switch Toilet 1
   '0x001788010cc472d2':
     friendly_name: Switch Dressing
+  '0x84b4dbfffe246e78':
+    friendly_name: Light Storage Range Extender 2
 blocklist:
   - '0xec1bbdfffe7f3c18'
   - '0x001788010c690db7'
