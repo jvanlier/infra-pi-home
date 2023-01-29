@@ -59,8 +59,9 @@
   id: pal-living-kitchen-on
   description: "There isn't a dedicated motion sensor here, but lighting up this area when someone is nearby is pretty useful."
   trigger:
+    # Trigger on motion sensor state rather than light state, because this light has soft-off
     - platform: state
-      entity_id: light.light_hall_0
+      entity_id: binary_sensor.motion_hall_0_occupancy
       to: 'on'
   condition:
     condition: and
