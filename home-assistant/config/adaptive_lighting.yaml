@@ -1,0 +1,40 @@
+- name: "motion"
+  lights: 
+    - light.light_hall_2 
+    - light.light_toilet_0
+    - light.light_walk_in_closet
+    - light.light_laundry
+    - light.light_dressing
+  min_brightness: 50
+  max_brightness: 80
+  sleep_brightness: 30
+  min_color_temp: 2200
+  max_color_temp: 4000
+# Not needed in winter, but we probably want to use this to not get blasted with white light at 5 am in summer:
+#  sunrise_time: "08:00:00" 
+  # Not needed to keep adapting for lights that toggle often:
+  only_once: true
+
+# Under some circumstances, hall 0 dims itself instead of going off. Therefore, it needs its own section to be able
+# to disable adaptive brightness. Also keep adjusting this (only_once: false, the default).
+- name: "motion-hall-0"
+  lights: 
+    - light.light_hall_0
+  min_brightness: 50
+  max_brightness: 80
+  sleep_brightness: 30
+  min_color_temp: 2200
+  max_color_temp: 4000
+
+# specific lights on 1st floor are a little less bright due to sleeping kids, so it gets its own section.
+- name: "motion-floor-1"
+  lights: 
+    - light.light_hall_1
+    - light.light_toilet_1
+  min_brightness: 10
+  max_brightness: 50
+  min_color_temp: 2200
+  max_color_temp: 4000
+#  sunrise_time: "08:00:00" 
+  # Not needed to keep adapting for lights that toggle often:
+  only_once: true
