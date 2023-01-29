@@ -1,0 +1,11 @@
+- platform: template
+  sensors:
+    nighttime:
+       unique_id: 'nighttime_v2'
+       friendly_name: Nighttime
+       value_template: >-
+         {% if states('sun.sun') == "above_horizon" %}
+           0
+         {% else %}
+           1
+         {% endif %}

@@ -10,7 +10,7 @@ group: !include groups.yaml
 automation: !include_dir_merge_list automation/
 script: !include scripts.yaml
 scene: !include scenes.yaml
-sensor: !include sensor.yaml
+sensor: !include_dir_merge_list sensor/
 input_boolean: !include input_boolean.yaml
 input_number: !include input_number.yaml
 adaptive_lighting: !include adaptive_lighting.yaml

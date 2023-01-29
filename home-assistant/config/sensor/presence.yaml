@@ -1,0 +1,11 @@
+- platform: template
+  sensors:
+    at_least_one_person_home:
+      friendly_name: At Least One Person Home
+      value_template: >-
+        {% if states('person.jori') == "home" or states('person.chantal') == "home"  %}
+          yes
+        {% else %} 
+          no
+        {% endif %}
+
