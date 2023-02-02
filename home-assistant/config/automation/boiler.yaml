@@ -5,7 +5,13 @@
       entity_id: sensor.at_least_one_person_home 
       from: 'yes'
       to: 'no'
-      for: '00:30:00'
+      # This used to be 30 min, but that no longer works well with dynamic energy prices:
+      # if we're out for the day, we usually come home when energy is expensive and have
+      # missed out on cheap mid-day energy (solar).
+      # Turning the boiler off briefly hardly conserve power, it merely shifts the power
+      # consumption to a later point in time. 
+      # Set to 12 hrs, the intention now is to capture multi-day holidays.
+      for: '12:00:00'
   action:
     - service: switch.turn_off
       target:
