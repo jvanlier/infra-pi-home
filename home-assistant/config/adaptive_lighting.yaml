@@ -20,8 +20,8 @@
 - name: "motion-hall-0"
   lights: 
     - light.light_hall_0
-  min_brightness: 50
-  max_brightness: 80
+  min_brightness: 70
+  max_brightness: 90
   sleep_brightness: 30
   min_color_temp: 2200
   max_color_temp: 4000
