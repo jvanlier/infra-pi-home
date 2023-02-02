@@ -26,7 +26,7 @@ template:
         device_class: power
         state_class: measurement
         state: >
-          {{ states('input_number.base_load_power_unifi_aps') | float + 
+          {{ states('input_number.base_load_power_wifi_aps') | float + 
              states('input_number.base_load_power_router') | float +
              states('input_number.base_load_power_fiber') | float +
              states('input_number.base_load_power_switch') | float +
@@ -36,6 +36,7 @@ template:
              states('input_number.base_load_power_hue_hub') | float +
              states('input_number.base_load_power_district_heating') | float +
              states('input_number.base_load_power_floor_heating_pump') | float +
+             states('input_number.base_load_power_alarm') | float +
              states('input_number.base_load_power_central_ventilation') | float +
              states('input_number.base_load_power_smoke_detectors') | float +
              states('input_number.base_load_power_nanny_cams') | float +

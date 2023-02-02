@@ -35,8 +35,8 @@ garden_lights_price_threshold:
   max: 1.00
   mode: slider
 
-base_load_power_unifi_aps:
-  name: BLP Unifi APs
+base_load_power_wifi_aps:
+  name: BLP Wifi APs
   unit_of_measurement: W
   initial: 8.8  # measurement of 2x UniFi AP AC Pro
   min: 0
@@ -102,6 +102,13 @@ base_load_power_floor_heating_pump:
   name: BLP Floor Heating Pump
   unit_of_measurement: W
   initial: 14.4
+  min: 0
+  max: 30
+  mode: box
+base_load_power_alarm:
+  name: BLP Alarm
+  unit_of_measurement: W
+  initial: 2  # total guess, TODO measure
   min: 0
   max: 30
   mode: box
