@@ -1,14 +1,3 @@
-# new trigger requires adresses, example:
-# trigger:
-#   - platform: device
-#     domain: mqtt
-#     device_id: 2690a0977157622e90d45ed7a489344f
-#     type: action
-#     subtype: left_press
-#     discovery_id: 0x001788010cc472c2 action_left_press
-# Use legacy trigger for more templating convenience unless we run into problems
-# TODO: blueprint
-
 - alias: Switch Light Toilet 0 
   id: switch-toilet-0
   trigger:
@@ -57,15 +46,51 @@
         entity_id: light.light_hall_0
   mode: single
 
-- alias: Switch Light Hall 1 
-  id: switch-hall-1
+- alias: Switch Light Hall 1 Downstairs Left Press 
+  id: switch-hall-1-downstairs-left-press
   trigger:
     platform: state
-    entity_id: sensor.switch_hall_1_action
+    entity_id: sensor.switch_hall_1_downstairs_action
     to: 'left_press'
   action:
     - service: light.toggle
       target:
         entity_id: light.light_hall_1
+  mode: single
+
+- alias: Switch Light Hall 1 Downstairs Right Press 
+  id: switch-hall-1-downstairs-right-press
+  trigger:
+    platform: state
+    entity_id: sensor.switch_hall_1_downstairs_action
+    to: 'right_press'
+  action:
+    - service: input_boolean.toggle
+      target:
+        entity_id: input_boolean.sleep_mode
+  mode: single
+
+- alias: Switch Light Hall 1 Upstairs Left Press
+  id: switch-hall-1-upstairs-left-press
+  trigger:
+    platform: state
+    entity_id: sensor.switch_hall_1_upstairs_action
+    to: 'left_press'
+  action:
+    - service: light.toggle
+      target:
+        entity_id: light.light_hall_1
+  mode: single
+
+- alias: Switch Light Hall 1 Upstairs Right Press 
+  id: switch-hall-1-upstairs-right-press
+  trigger:
+    platform: state
+    entity_id: sensor.switch_hall_1_upstairs_action
+    to: 'right_press'
+  action:
+    - service: input_boolean.toggle
+      target:
+        entity_id: input_boolean.sleep_mode
   mode: single
 
