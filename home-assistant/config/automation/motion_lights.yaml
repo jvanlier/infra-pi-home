@@ -128,3 +128,25 @@
         entity_id: light.light_toilet_1
       no_motion_wait: 300
 
+- alias: "Motion-activated Lights: toggle"
+  id: "motion-activated-lights-toggle"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.motion_activated_lights
+    - platform: homeassistant
+      event: start  # in case the states aren't properly restored
+  variables:
+    mal: "{{ states('input_boolean.motion_activated_lights') }}"
+  action:
+    - service: "automation.turn_{{ mal }}"
+      entity_id:
+        - automation.motion_activated_light_dressing
+        - automation.motion_activated_light_hall_0
+        # If hall 1 is toggled off, it  will turn on again in the morning, usually shouldn't be a problem.
+        - automation.motion_activated_light_hall_1
+        - automation.motion_activated_light_hall_2
+        - automation.motion_activated_light_laundry
+        - automation.motion_activated_light_toilet_0
+        - automation.motion_activated_light_toilet_1
+        - automation.motion_activated_light_walk_in_closet
+
