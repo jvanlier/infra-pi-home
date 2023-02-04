@@ -39,7 +39,7 @@
        value_template: >-
          {% if states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 1000 %}
            heating
-         {% elif states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 10 %}
+         {% elif states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 4.5 %}
            washing
          {% elif states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 1 %}
            idle
