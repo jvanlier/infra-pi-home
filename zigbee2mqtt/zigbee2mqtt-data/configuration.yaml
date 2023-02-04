@@ -111,6 +111,10 @@ devices:
     friendly_name: Switch Dressing
   '0x84b4dbfffe246e78':
     friendly_name: Light Storage Range Extender 2
+  '0x001788010cc472e5':
+    friendly_name: Switch Hall 1 Downstairs
+  '0x001788010cc472d7':
+    friendly_name: Switch Hall 1 Upstairs
 blocklist:
   - '0xec1bbdfffe7f3c18'
   - '0x001788010c690db7'
