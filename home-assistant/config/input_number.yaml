@@ -33,6 +33,7 @@ base_load_power_wifi_aps:
   initial: 8.8  # measurement of 2x UniFi AP AC Pro
   min: 0
   max: 20  
+  step: 0.1
   mode: box
 base_load_power_router:
   name: BLP Router
@@ -40,6 +41,7 @@ base_load_power_router:
   initial: 2.8  # measurement of UniFi EdgeRouter X
   min: 0
   max: 10
+  step: 0.1
   mode: box
 base_load_power_fiber:
   name: BLP Fiber
@@ -47,6 +49,7 @@ base_load_power_fiber:
   initial: 2.7  # measurement of Reggefiber unit 
   min: 0
   max: 10
+  step: 0.1
   mode: box
 base_load_power_switch:
   name: BLP Switch
@@ -54,6 +57,7 @@ base_load_power_switch:
   initial: 2.4  # measurement of 8-port D-Link switch
   min: 0
   max: 10
+  step: 0.1
   mode: box
 base_load_power_raspberry_pi:
   name: BLP Raspberry Pi
@@ -61,6 +65,7 @@ base_load_power_raspberry_pi:
   initial: 5
   min: 0
   max: 10
+  step: 0.1
   mode: box
 base_load_power_z2m:
   name: BLP Z2M
@@ -68,6 +73,7 @@ base_load_power_z2m:
   initial: 6.5  # 13 devices @ 0.5 W each
   min: 0
   max: 20
+  step: 0.1
   mode: box
 base_load_power_hue_lights:
   name: BLP Hue Lights
@@ -75,6 +81,7 @@ base_load_power_hue_lights:
   initial: 10.5  # 21 devices @ 0.5 W wach
   min: 0
   max: 20
+  step: 0.1
   mode: box
 base_load_power_hue_hub:
   name: BLP Hue Hub
@@ -82,6 +89,7 @@ base_load_power_hue_hub:
   initial: 1.6
   min: 0
   max: 10
+  step: 0.1
   mode: box
 base_load_power_district_heating:
   name: BLP District Heating
@@ -89,6 +97,7 @@ base_load_power_district_heating:
   initial: 3.7  # measurement of that adapter that goes into the district heating thing
   min: 0
   max: 10
+  step: 0.1
   mode: box
 base_load_power_floor_heating_pump:
   name: BLP Floor Heating Pump
@@ -96,6 +105,7 @@ base_load_power_floor_heating_pump:
   initial: 14.4
   min: 0
   max: 30
+  step: 0.1
   mode: box
 base_load_power_alarm:
   name: BLP Alarm
@@ -103,6 +113,7 @@ base_load_power_alarm:
   initial: 2  # total guess, TODO measure
   min: 0
   max: 30
+  step: 0.1
   mode: box
 base_load_power_central_ventilation:
   name: BLP Central Ventilation
@@ -110,6 +121,7 @@ base_load_power_central_ventilation:
   initial: 10  # total guess for lowest setting
   min: 0
   max: 50
+  step: 0.1
   mode: box
 base_load_power_smoke_detectors:
   name: BLP Smoke Detectors
@@ -117,6 +129,7 @@ base_load_power_smoke_detectors:
   initial: 3  # guess
   min: 0
   max: 10
+  step: 0.1
   mode: box
 base_load_power_nanny_cams:
   name: BLP Nanny Cams
@@ -124,6 +137,7 @@ base_load_power_nanny_cams:
   initial: 4
   min: 0
   max: 10
+  step: 0.1
   mode: box
 base_load_power_misc:
   # Intended to quickly add something without config change
@@ -132,5 +146,6 @@ base_load_power_misc:
   initial: 0
   min: 0
   max: 1000
+  step: 0.1
   mode: box
 
