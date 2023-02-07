@@ -1,6 +1,44 @@
+# Motion sensor approach: prefer using on-device occupancy_timeout.
+# Advantages:
+# - better battery life (less messages)
+# - less Zigbee traffic
+# - less noise in HA, e.g. frequent toggles in Logbook
+# Devices have limits. If more time is desired, handle it in HA.
+# Use "no_motion_wait" in the default blueprint.
+#
+# Each motion sensor I have seems to be quirky in a different way:
+#
+# - Aqara P1 @ 0.0.0_0005: Toilet 0
+#   Bought Nov '22. Appears to be able to handle the maximum advertised `detection_interval` of 200.
+#   Detection quality is pretty bad, unfortunately: limited range, needs to be chest-mounted to work
+#   well, even in an area as small as a toilet.
+#
+# - Aqara P1 @ 0.0.0_0006: Toilet 1
+#   Also bought Nov '22. Unlike the one for Toilet 0, appears to be unable to handle a 
+#   `detection_interval` 200 sec.
+#   Occupancy never clears. From reddit/HA forums, anything >= 60 appears to break it.
+#   59 seems to work just fine, so use that.
+#   On the plus side, the detection quality for this sensor does seem better than the one in
+#   use for Toilet 0. It works fine in a corner at the ceiling.
+#
+# - Frient Motion Sensor Pro @ 3.6.6: Hall 0, Hall 1, Hall 2, Dressing, Walk-in closet.
+#   There's no led control in this firmware version.
+#   OTA updates are available in Z2M, but don't seem to work. Not even immediately after a factory
+#   reset & re-pair. 
+#   `occupancy_timeout` defaults to 20 and can be changed successfully by first triggering occupancy
+#   and setting a new value immediately after. Point it at a wall and wave your hand in front of
+#   the sensor, then send.
+#   The highest value tested is 180, which works just fine.
+#  
+# - Frient Motion Sensor Pro @ 4.0.3: Laundry
+#   Now has led control: managed to change it to `fault_only`.
+#   For `occupancy_timeout`, 180 sec no longer works!
+#   It makes it no longer clear occupancy or accept new values. Requires a factory reset.
+#   Values < 180 work just fine. Set to 179.
+
 - alias: Motion-activated Light Hall 0
   id: mal-hall-0
-  description: "A motion activated light that stays on (but dimmed) if nearby lights are also on and the sun is down. Prevents a dark hallway when people are in the living room."
+  description: "A motion activated light that stays on, (but dimmed) if nearby lights are also on and the sun is down. Prevents a dark hallway when people are in the living room."
   trigger:
     platform: state
     entity_id: binary_sensor.motion_hall_0_occupancy
@@ -28,7 +66,7 @@
         from: "on"
         to: "off"
     - alias: "Wait the number of seconds that has been set"
-      delay: 120
+      delay: "{{ max(180 - states('number.motion_hall_0_occupancy_timeout') | int(0), 0) }}"
     - choose:
       - conditions:
         - condition: state
@@ -70,6 +108,7 @@
       motion_entity: binary_sensor.motion_hall_1_occupancy
       light_target:
         entity_id: light.light_hall_1
+      no_motion_wait: "{{ max(180 - states('number.motion_hall_1_occupancy_timeout') | int(0), 0) }}"
 
 - alias: Motion-activated Light Hall 2
   id: mal-hall-2
@@ -79,6 +118,7 @@
       motion_entity: binary_sensor.motion_hall_2_occupancy
       light_target:
         entity_id: light.light_hall_2
+      no_motion_wait: "{{ max(180 - states('number.motion_hall_2_occupancy_timeout') | int(0), 0) }}"
 
 - alias: Motion-activated Light Dressing
   id: mal-dressing
@@ -88,7 +128,7 @@
       motion_entity: binary_sensor.motion_dressing_occupancy
       light_target:
         entity_id: light.light_dressing
-      no_motion_wait: 60
+      no_motion_wait: "{{ max(60 - states('number.motion_dressing_occupancy_timeout') | int(0), 0) }}"
 
 - alias: Motion-activated Light Walk-in Closet
   id: mal-walk-in-closet
@@ -98,6 +138,7 @@
       motion_entity: binary_sensor.motion_walk_in_closet_occupancy
       light_target:
         entity_id: light.light_walk_in_closet
+      no_motion_wait: "{{ max(180 - states('number.motion_walk_in_closet_occupancy_timeout') | int(0), 0) }}"
 
 - alias: Motion-activated Light Laundry
   id: mal-laundry
@@ -107,6 +148,7 @@
       motion_entity: binary_sensor.motion_laundry_occupancy
       light_target:
         entity_id: light.light_laundry
+      no_motion_wait: "{{ max(180 - states('number.motion_laundry_occupancy_timeout') | int(0), 0) }}"
 
 - alias: Motion-activated Light Toilet 0
   id: mal-toilet-0
@@ -116,7 +158,7 @@
       motion_entity: binary_sensor.motion_toilet_0_occupancy
       light_target:
         entity_id: light.light_toilet_0
-      no_motion_wait: 300
+      no_motion_wait: "{{ max(300 - states('number.motion_toilet_0_detection_interval') | int(0), 0) }}"
 
 - alias: Motion-activated Light Toilet 1
   id: mal-toilet-1
@@ -126,7 +168,7 @@
       motion_entity: binary_sensor.motion_toilet_1_occupancy
       light_target:
         entity_id: light.light_toilet_1
-      no_motion_wait: 300
+      no_motion_wait: "{{ max(300 - states('number.motion_toilet_1_detection_interval') | int(0), 0) }}"
 
 - alias: "Motion-activated Lights: toggle"
   id: "motion-activated-lights-toggle"
@@ -142,7 +184,9 @@
       entity_id:
         - automation.motion_activated_light_dressing
         - automation.motion_activated_light_hall_0
-        # If hall 1 is toggled off, it  will turn on again in the morning, usually shouldn't be a problem.
+        # If hall 1 is toggled off manually, it will turn on again when this boolean changes state
+        # (e.g. in the morning).
+        # May want to make this more sophisticated, but usually it shouldn't be a problem.
         - automation.motion_activated_light_hall_1
         - automation.motion_activated_light_hall_2
         - automation.motion_activated_light_laundry
