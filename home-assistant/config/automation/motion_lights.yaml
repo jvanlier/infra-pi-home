@@ -44,6 +44,7 @@
     entity_id: binary_sensor.motion_hall_0_occupancy
     from: "off"
     to: "on"
+  # No lux condition because this hall never exceeds the threshold value - no direct sunlight
   action:
     - alias: "Enable adaptive brightness"
       service: switch.turn_on
@@ -103,52 +104,58 @@
 - alias: Motion-activated Light Hall 1
   id: mal-hall-1
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: custom/motion_light_lux_aware.yaml
     input:
       motion_entity: binary_sensor.motion_hall_1_occupancy
+      lux_entity: sensor.motion_hall_1_illuminance_lux
+      device_no_motion_wait: number.motion_hall_1_occupancy_timeout
       light_target:
         entity_id: light.light_hall_1
-      no_motion_wait: "{{ max(180 - states('number.motion_hall_1_occupancy_timeout') | int(0), 0) }}"
 
 - alias: Motion-activated Light Hall 2
   id: mal-hall-2
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: custom/motion_light_lux_aware.yaml
     input:
       motion_entity: binary_sensor.motion_hall_2_occupancy
+      lux_entity: sensor.motion_hall_2_illuminance_lux
+      device_no_motion_wait: number.motion_hall_2_occupancy_timeout
       light_target:
         entity_id: light.light_hall_2
-      no_motion_wait: "{{ max(180 - states('number.motion_hall_2_occupancy_timeout') | int(0), 0) }}"
 
-- alias: Motion-activated Light Dressing
+- alias: Motion-activated Dressing
   id: mal-dressing
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: custom/motion_light_lux_aware.yaml
     input:
+      total_no_motion_wait: 60 
       motion_entity: binary_sensor.motion_dressing_occupancy
+      lux_entity: sensor.motion_dressing_illuminance_lux
+      device_no_motion_wait: number.motion_dressing_occupancy_timeout
       light_target:
         entity_id: light.light_dressing
-      no_motion_wait: "{{ max(60 - states('number.motion_dressing_occupancy_timeout') | int(0), 0) }}"
 
 - alias: Motion-activated Light Walk-in Closet
   id: mal-walk-in-closet
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: custom/motion_light_lux_aware.yaml
     input:
       motion_entity: binary_sensor.motion_walk_in_closet_occupancy
+      lux_entity: sensor.motion_walk_in_closet_illuminance_lux
+      device_no_motion_wait: number.motion_walk_in_closet_occupancy_timeout
       light_target:
         entity_id: light.light_walk_in_closet
-      no_motion_wait: "{{ max(180 - states('number.motion_walk_in_closet_occupancy_timeout') | int(0), 0) }}"
 
 - alias: Motion-activated Light Laundry
   id: mal-laundry
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: custom/motion_light_lux_aware.yaml
     input:
       motion_entity: binary_sensor.motion_laundry_occupancy
+      lux_entity: sensor.motion_laundry_illuminance_lux
+      device_no_motion_wait: number.motion_laundry_occupancy_timeout
       light_target:
         entity_id: light.light_laundry
-      no_motion_wait: "{{ max(180 - states('number.motion_laundry_occupancy_timeout') | int(0), 0) }}"
 
 - alias: Motion-activated Light Toilet 0
   id: mal-toilet-0

@@ -1,7 +1,8 @@
 .HA_VERSION
 .storage/
-blueprints/
 core
+blueprints/automation/homeassistant/
+blueprints/script/
 custom_components/
 deps/
 image/
