@@ -1,27 +1,32 @@
-- alias: Garden lights on
+# These lights are nice to have on (ambiance, security), but they're also quite expensive to run
+# at 35 watt. Ensure we only turn them on when not too expensive. Recheck every hour after the 
+# hourly price has updated.
+
+- alias: Garden lights conditional on
   id: garden-on
   trigger:
-    - platform: sun
-      event: sunset
-      offset: "-00:30"
-  # TODO: also trigger if someone comes home after sundown but before 22:00
+    - platform: time_pattern
+      minutes: 1
   condition:
     - condition: state
-      entity_id: sensor.at_least_one_person_home
-      state: 'yes'
+      entity_id: sun.sun
+      state: 'below_horizon'
+  variables:
+    desired_state: "{% if states('sensor.electricity_price') < states('input_number.garden_lights_price_threshold') %} on {% else %} off {% endif %}" 
   action:
-    - service: switch.turn_on
+    - service: "switch.turn_{{ desired_state }}"
       target:
         entity_id: switch.plug_garden_lights
   mode: restart
 
-- alias: Garden lights off
-  id: garden-off
+- alias: Garden lights off at sunrise
+  id: garden-off-sunrise
   trigger:
-    platform: time
-    at: "22:00:00"
+    - platform: sun
+      event: sunrise
   action:
     - service: switch.turn_off
       target:
         entity_id: switch.plug_garden_lights
   mode: restart
+
