@@ -140,7 +140,7 @@ base_load_power_nanny_cams:
   step: 0.1
   mode: box
 base_load_power_misc:
-  # Intended to quickly add something without config change
+  # Intended to quickly add something without config change. Also useful as a fudge factor.
   name: BLP Misc
   unit_of_measurement: W
   initial: 0

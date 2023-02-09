@@ -1,2 +1,5 @@
 .env
 .htpasswd
+*.swo
+*.swp
+

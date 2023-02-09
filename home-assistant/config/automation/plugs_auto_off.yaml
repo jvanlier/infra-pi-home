@@ -1,4 +1,4 @@
-- alias: Entertainment off after 30 min idle
+- alias: "Plug off after 30 min idle - Entertainment"
   id: entertainment-off
   trigger:
     - platform: state
@@ -12,7 +12,7 @@
         entity_id: switch.plug_entertainment
   mode: restart
 
-- alias: Workstation off after 30 min idle
+- alias: "Plug off after 30 min idle - Workstation"
   id: workstation-off
   trigger:
     - platform: state

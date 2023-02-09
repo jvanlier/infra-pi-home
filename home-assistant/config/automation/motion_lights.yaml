@@ -123,7 +123,7 @@
       light_target:
         entity_id: light.light_hall_2
 
-- alias: Motion-activated Dressing
+- alias: Motion-activated Light Dressing
   id: mal-dressing
   use_blueprint:
     path: custom/motion_light_lux_aware.yaml
