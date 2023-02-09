@@ -6,6 +6,8 @@
 - alias: Garden lights conditional on
   id: garden-on
   trigger:
+    - platform: state
+      entity_id: input_number.garden_lights_price_threshold 
     - platform: sun
       event: sunset
     - platform: time_pattern
