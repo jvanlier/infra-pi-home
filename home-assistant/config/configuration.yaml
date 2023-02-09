@@ -35,7 +35,6 @@ template:
              states('input_number.base_load_power_hue_lights') | float +
              states('input_number.base_load_power_hue_hub') | float +
              states('input_number.base_load_power_district_heating') | float +
-             states('input_number.base_load_power_floor_heating_pump') | float +
              states('input_number.base_load_power_alarm') | float +
              states('input_number.base_load_power_central_ventilation') | float +
              states('input_number.base_load_power_smoke_detectors') | float +

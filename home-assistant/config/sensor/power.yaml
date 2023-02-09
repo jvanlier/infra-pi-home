@@ -15,7 +15,9 @@
              states('sensor.plug_boiler_power') | float(0) +
              states('sensor.plug_roomba_power') | float(0) +
              states('sensor.plug_dishwasher_power') | float(0) +
-             states('sensor.plug_washing_machine_power') | float(0)
+             states('sensor.plug_washing_machine_power') | float(0) +
+             states('sensor.plug_dryer_power') | float(0) +
+             states('sensor.plug_floor_heating_pump_power') | float(0)
           }} 
       unit_of_measurement: W
 
@@ -25,9 +27,6 @@
   filters:
     - filter: time_simple_moving_average
       window_size: "00:00:30"
-    #- filter: lowpass
-    #  # time_constant: 10
-    #  precision: 0
 
 - platform: filter
   name: 'Known Power Use filtered'
