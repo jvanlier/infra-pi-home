@@ -2,7 +2,7 @@ adaptive_lighting:
   name: Adaptive Lighting
   icon: mdi:theme-light-dark
 motion_activated_lights:
-  name: Motion Activated Lights (TODO)
+  name: Motion Activated Lights
   icon: mdi:motion-sensor
 sleep_mode:
   name: Sleep Mode
