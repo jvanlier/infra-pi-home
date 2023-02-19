@@ -86,3 +86,16 @@
          {% else %}
            off
          {% endif %}
+
+- platform: template
+  sensors:
+    roomba_state:
+       unique_id: 'roomba_state_v1'
+       friendly_name: Roomba
+       value_template: >-
+         {% if states('sensor.plug_roomba_power')|float(default=0) >= 6 %}
+           on
+         {% else %}
+           off
+         {% endif %}
+

@@ -25,3 +25,18 @@
       target:
         entity_id: switch.plug_workstation
   mode: restart
+
+- alias: "Plug off after 2h idle - Roomba"
+  id: roomba-idle-auto-off
+  trigger:
+    - platform: state
+      entity_id: sensor.roomba_state
+      from: 'on'
+      to: 'off'
+      for: '02:00:00'
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.plug_roomba
+  mode: restart
+
