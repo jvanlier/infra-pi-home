@@ -1,0 +1,74 @@
+- alias: "Floor Heating Pump toggle"
+  id: floor-heating-pump-toggle
+  trigger:
+    - platform: time_pattern
+      seconds: 0
+  variables:
+    hour: "{{ now().hour }}"
+    temp: "{{ states('sensor.climate_living_room_temperature') | float }}"
+    # This is a bit conservative, may want to reduce it:
+    turn_on_below: "{{ 19.25 if hour >= 5 and hour <= 21 else 18.25 }}"
+    turn_off_above: "{{ turn_on_below + 0.25 }}"
+    desired_state: >-
+      {{ "on" if temp < turn_on_below else
+         "off" if temp > turn_off_above else
+         "undefined"
+      }}
+  action:
+    - choose:
+      - conditions:
+          condition: template
+          value_template: >- 
+            {{ desired_state != 'undefined' and 
+               desired_state != states('switch.plug_floor_heating_pump') 
+            }}
+        sequence:
+          - service: "switch.turn_{{ desired_state }}"
+            target:
+              entity_id: switch.plug_floor_heating_pump
+  mode: restart
+
+# Run pump for 30 mins daily when power's cheap, intended to keep the water flowing regularly
+# outside of the heating season.
+# This can probably by improved by checking first whether the pump ran at all today.
+- alias: "Floor Heating Pump Nightly Flush"
+  id: floor-heating-pump-nightly-flush
+  trigger:
+    - platform: time
+      at: '03:00:00'
+  condition:
+    - condition: state
+      entity_id: switch.plug_floor_heating_pump
+      state: "off"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.plug_floor_heating_pump
+    - delay: '00:30:00'
+    - service: switch.turn_off
+      target:
+        entity_id: switch.plug_floor_heating_pump
+  mode: restart
+
+- alias: "Alert Floor Heating Pump toggle possibly compromised"
+  id: alert-floor-heating-pump-toggle
+  trigger:
+    - platform: time
+      at: '07:00:00'
+  condition:
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: switch.plug_floor_heating_pump
+          state: "off"
+        # Use this temp sensor in case Aqara sensor lost connection
+        - condition: numeric_state
+          entity_id: sensor.motion_hall_0_temperature 
+          below: 18.5
+  action:
+    - service: notify.notify
+      data:
+        title: Floor Heating Pump
+        message: Expected to be on, but is off
+  mode: restart
+
