@@ -6,8 +6,8 @@
   variables:
     hour: "{{ now().hour }}"
     temp: "{{ states('sensor.climate_living_room_temperature') | float }}"
-    # This is a bit conservative, may want to reduce it:
-    turn_on_below: "{{ 19.25 if hour >= 5 and hour <= 21 else 18.25 }}"
+    # Hour <= 20 makes water flow until 20:59. Heat runs until 19:59. 1 hour to spread the heat.
+    turn_on_below: "{{ 19.25 if hour >= 5 and hour <= 20 else 18.25 }}"
     turn_off_above: "{{ turn_on_below + 0.25 }}"
     desired_state: >-
       {{ "on" if temp < turn_on_below else
@@ -41,6 +41,8 @@
       entity_id: switch.plug_floor_heating_pump
       state: "off"
   action:
+    - service: automation.turn_off
+      entity_id: automation.floor_heating_pump_toggle
     - service: switch.turn_on
       target:
         entity_id: switch.plug_floor_heating_pump
@@ -48,6 +50,9 @@
     - service: switch.turn_off
       target:
         entity_id: switch.plug_floor_heating_pump
+    - delay: '00:05:00'  # prevent super-quick power cycle (in case it's really cold)
+    - service: automation.turn_on
+      entity_id: automation.floor_heating_pump_toggle
   mode: restart
 
 - alias: "Alert Floor Heating Pump toggle possibly compromised"
