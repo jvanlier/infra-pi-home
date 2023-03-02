@@ -110,9 +110,9 @@ base_load_power_alarm:
 base_load_power_central_ventilation:
   name: BLP Central Ventilation
   unit_of_measurement: W
-  initial: 10  # total guess for lowest setting
+  initial: 5.6  # on lowest setting
   min: 0
-  max: 50
+  max: 20
   step: 0.1
   mode: box
 base_load_power_smoke_detectors:
@@ -135,7 +135,7 @@ base_load_power_misc:
   # Intended to quickly add something without config change. Also useful as a fudge factor.
   name: BLP Misc
   unit_of_measurement: W
-  initial: 0
+  initial: 5
   min: 0
   max: 1000
   step: 0.1
