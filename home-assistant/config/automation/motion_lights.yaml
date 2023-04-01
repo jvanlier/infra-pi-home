@@ -177,6 +177,16 @@
         entity_id: light.light_toilet_1
       no_motion_wait: "{{ max(300 - states('number.motion_toilet_1_detection_interval') | int(0), 0) }}"
 
+- alias: Motion-activated Light Bathroom
+  id: mal-bathroom
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.motion_bathroom_occupancy
+      light_target:
+        entity_id: light.light_bathroom
+      no_motion_wait: "{{ max(300 - states('number.motion_bathroom_detection_interval') | int(0), 0) }}"
+
 - alias: "Motion-activated Lights: toggle"
   id: "motion-activated-lights-toggle"
   trigger:
