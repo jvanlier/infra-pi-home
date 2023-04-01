@@ -39,7 +39,7 @@ blueprint:
     lux_threshold:
       name: Lux threshold
       description: Turn on only if measured lux is below this value.
-      default: 400
+      default: 350
       selector:
         number:
           min: 0
