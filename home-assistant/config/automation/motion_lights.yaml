@@ -30,11 +30,12 @@
 #   the sensor, then send.
 #   The highest value tested is 180, which works just fine.
 #  
-# - Frient Motion Sensor Pro @ 4.0.3: Laundry
+# - Frient Motion Sensor Pro @ 4.0.3 @ 20220307 10:08: Laundry
 #   Now has led control: managed to change it to `fault_only`.
 #   For `occupancy_timeout`, 180 sec no longer works!
 #   It makes it no longer clear occupancy or accept new values. Requires a factory reset.
 #   Values < 180 work just fine. Set to 179.
+#   Be aware: 179 no longer works for 4.0.3 @ 20220329 02:52 @ Bathroom.
 
 - alias: Motion-activated Light Hall 0
   id: mal-hall-0

@@ -9,6 +9,6 @@ sleep_mode:
   icon: mdi:sleep
 housekeeping_mode:
   # Toggle Adaptive Lighting + all motion sensors and set lights to max white.
-  name: Housekeeping Mode (TODO)
+  name: Housekeeping Mode
   icon: mdi:broom
 
