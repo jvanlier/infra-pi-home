@@ -13,4 +13,5 @@
         - switch.adaptive_lighting_motion
         - switch.adaptive_lighting_motion_hall_0
         - switch.adaptive_lighting_motion_floor_1
+        - switch.adaptive_lighting_motion_bathroom
 

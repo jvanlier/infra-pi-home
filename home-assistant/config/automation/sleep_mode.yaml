@@ -59,6 +59,7 @@
         - switch.adaptive_lighting_sleep_mode_motion
         - switch.adaptive_lighting_sleep_mode_motion_hall_0
         - switch.adaptive_lighting_sleep_mode_motion_floor_1
+        - switch.adaptive_lighting_sleep_mode_motion_bathroom
     # Nest Protect pathlight is sufficient.
     - service: "automation.turn_{{ 'off' if sleep_mode == 'on' else 'on' }}"
       entity_id: automation.motion_activated_light_hall_1
