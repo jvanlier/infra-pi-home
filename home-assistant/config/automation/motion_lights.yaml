@@ -186,7 +186,11 @@
       motion_entity: binary_sensor.motion_bathroom_occupancy
       light_target:
         entity_id: light.light_bathroom
-      no_motion_wait: "{{ max(300 - states('number.motion_bathroom_detection_interval') | int(0), 0) }}"
+      no_motion_wait: >-
+        {{ max((30 if states('input_boolean.sleep_mode') == "on" else 300) - 
+                   states('number.motion_bathroom_occupancy_timeout') | int(0),
+               0) 
+        }}
 
 - alias: "Motion-activated Lights: toggle"
   id: "motion-activated-lights-toggle"
