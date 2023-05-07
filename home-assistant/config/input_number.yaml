@@ -18,8 +18,17 @@ proximity_activated_light_study_brightness:
   mode: box
 
 # Power price thresholds to intelligently turn devices on/off depending on how expensive power is:
-garden_lights_price_threshold:
-  name: Garden Lights Price Thr.
+garden_lights_price_threshold_evening:
+  name: Garden Lights Price Thr. Evening
+  unit_of_measurement: "EUR/kWh"
+  initial: 0.40
+  min: 0.20
+  step: 0.01
+  max: 0.5
+  mode: box
+
+garden_lights_price_threshold_night:
+  name: Garden Lights Price Thr. Night
   unit_of_measurement: "EUR/kWh"
   initial: 0.30
   min: 0.20
