@@ -8,8 +8,9 @@
   trigger:
     - platform: state
       entity_id: input_number.garden_lights_price_threshold 
-    - platform: sun
-      event: sunset
+    - platform: state
+      entity_id: sun.sun
+      to: "below_horizon"
     - platform: time_pattern
       minutes: 1
   condition:
