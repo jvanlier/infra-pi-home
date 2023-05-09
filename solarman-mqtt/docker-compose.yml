@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  solarman-mqtt:
+    build: 
+      context: ./solarman-mqtt
+      dockerfile: Dockerfile
+    container_name: "solarman-mqtt"
+    environment:
+    - TZ=Europe/Amsterdam
+    volumes:
+      - ./config.json:/opt/app-root/src/config.json
+    restart: unless-stopped
+    network_mode: host
+

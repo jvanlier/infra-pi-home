@@ -54,3 +54,31 @@ template:
         state_class: total_increasing
         state: "{{ states('sensor.base_load_energy') | float(0) + states('sensor.base_load_power') | float(0) / 1000 }}"
 
+  - sensor:
+    - name: "Solarman Current Power"
+      unique_id: "solarman_current_power"
+      unit_of_measurement: 'W'
+      state: "{{ state_attr('sensor.solarmanpv_inverter', 'Total_AC_Output_Power_(Active)') }}"
+      state_class: measurement
+
+    - name: "Solarman Lifetime Energy"
+      unique_id: "solarman_lifetime_energy"
+      unit_of_measurement: 'kWh'
+      state: "{{ state_attr('sensor.solarmanpv_inverter', 'Cumulative_Production_(Active)') }}"
+      state_class: total_increasing
+      device_class: energy
+
+    - name: "Solarman Daily Energy"
+      unique_id: "solarman_daily_energy"
+      unit_of_measurement: 'kWh'
+      state: "{{ state_attr('sensor.solarmanpv_inverter', 'Daily_Production_(Active)') }}"
+      state_class: total_increasing
+      device_class: energy
+
+mqtt:
+  sensor:
+    - state_topic: "solarmanpv/inverter/deviceState"
+      name: "solarmanpv_inverter"
+      unique_id: "solarmanpv_inverter"
+      json_attributes_topic: "solarmanpv/inverter/attributes"
+
