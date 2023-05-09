@@ -1,0 +1,27 @@
+- alias: Alert inverter hot
+  id: alert-inverter-hot
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.climate_laundry_temperature
+      above: 30
+      for: '01:00:00'
+    - platform: numeric_state
+      entity_id: sensor.climate_laundry_temperature
+      above: 40
+      for: '01:00:00'
+    - platform: numeric_state
+      entity_id: sensor.climate_laundry_temperature
+      above: 50
+      for: '01:00:00'
+    - platform: numeric_state
+      entity_id: sensor.climate_laundry_temperature
+      above: 60
+      for: '01:00:00'
+  action:
+    - service: notify.notify
+      data:
+        title: Attic inverter temperature
+        message: >
+          The ambient temperature around the SolarEdge inverter on the attic is above {{ sensor.climate_laundry_temperature }} °C degrees.
+  mode: restart
+

@@ -35,12 +35,3 @@
     - filter: time_simple_moving_average
       window_size: "00:00:30"
 
-- platform: average
-  name: 'electricity_meter_power_production_hourly_average'
-  unique_id: 'elec_hourly_avg'
-  duration:
-    hours: 1
-  entities:
-    - sensor.electricity_meter_power_production 
-  precision: 3
-
