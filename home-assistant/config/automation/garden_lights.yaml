@@ -22,7 +22,7 @@
       state: 'below_horizon'
   variables:
     active_threshold: "{% if 12 < now().hour < 23 %} input_number.garden_lights_price_threshold_evening {% else %} input_number.garden_lights_price_threshold_night {% endif %} "
-    desired_state: "{% if states('sensor.electricity_price') < active_threshold %} on {% else %} off {% endif %}" 
+    desired_state: "{% if states('sensor.electricity_price') < states(active_threshold) %} on {% else %} off {% endif %}" 
   action:
     - service: "switch.turn_{{ desired_state }}"
       target:
