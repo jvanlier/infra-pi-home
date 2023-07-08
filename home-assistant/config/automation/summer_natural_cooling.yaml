@@ -10,7 +10,7 @@
       conditions:
       - condition: numeric_state
         entity_id: sensor.home_average_temperature
-        above: 22  # probably not worth the hassle if it's cooler than 22 deg already
+        above: 23  # probably not worth the hassle if it's cooler than 23 deg already
       - condition: numeric_state
         entity_id: sensor.outside_temperature_change_per_hour
         below: 0
@@ -21,8 +21,9 @@
         message: >
           It's {{ states('sensor.home_average_temperature')|round(1) }} °C inside.
           Temps outside are similar and dropping by {{ states('sensor.outside_temperature_change_per_hour')|round(1)|abs }} °C/h.
-    - delay: "12:00"  # Prevent it from triggering again today (temps may fluctuate)
-  mode: restart
+    - delay:
+        hours: 12 # Prevent it from triggering again today (temps may fluctuate)
+  mode: queued
 
 
 - alias: Alert close windows to stay cool
@@ -46,6 +47,7 @@
         message: >
           It's {{ states('sensor.home_average_temperature')|round(1) }} °C inside.
           Temps outside are similar and rising by {{ states('sensor.outside_temperature_change_per_hour')|round(1) }} °C/h.
-    - delay: "12:00"  # Prevent it from triggering again today (temps may fluctuate)
-  mode: restart
+    - delay: 
+        hours: 12  # Prevent it from triggering again today (temps may fluctuate)
+  mode: queued
 
