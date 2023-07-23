@@ -7,11 +7,9 @@
     - light.light_dressing
   min_brightness: 50
   max_brightness: 80
-  sleep_brightness: 30
+  sleep_brightness: 40
   min_color_temp: 2200
   max_color_temp: 4000
-# Not needed in winter, but we probably want to use this to not get blasted with white light at 5 am in summer:
-#  sunrise_time: "08:00:00" 
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
 
@@ -36,19 +34,17 @@
   min_color_temp: 2200
   max_color_temp: 4000
   sleep_brightness: 5
-#  sunrise_time: "08:00:00" 
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
 
 - name: "motion-bathroom"
   lights:
     - light.light_bathroom
-  min_brightness: 60
-  max_brightness: 80
+  min_brightness: 70
+  max_brightness: 100
   min_color_temp: 2700
   max_color_temp: 4000
   sleep_brightness: 5
-#  sunrise_time: "08:00:00"
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
 
