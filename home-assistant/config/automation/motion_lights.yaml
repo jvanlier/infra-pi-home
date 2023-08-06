@@ -215,4 +215,6 @@
         - automation.motion_activated_light_toilet_0
         - automation.motion_activated_light_toilet_1
         - automation.motion_activated_light_walk_in_closet
+        - automation.motion_activated_light_bathroom
+
 
