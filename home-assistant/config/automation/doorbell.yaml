@@ -1,0 +1,25 @@
+- id: doorbell
+  alias: Notify Doorbell
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.doorbell
+    from: 'off'
+    to: 'on'
+  action:
+    - service: notify.notify
+      data:
+        title: Deurbel gaat
+        data:
+          push:
+            sound: "doorbell-ding-dong.wav"
+        message: Er belt iemand aan
+    # when flashing, with hue, light doesn't actually change state
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.hue_light_group_living
+          - light.hue_light_group_study
+      data:
+        flash: short
+
