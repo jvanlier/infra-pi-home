@@ -11,5 +11,8 @@
       data:
         title: Washine machine
         message: Done
+        data:
+          push:
+            sound: "washing-machine-done.wav"
   mode: restart
 
