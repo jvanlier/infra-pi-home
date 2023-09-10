@@ -14,6 +14,15 @@
           push:
             sound: "doorbell-ding-dong.wav"
         message: Er belt iemand aan
+    - service: shell_command.front_camera_snap
+    - service: shell_command.front_camera_crop
+    - service: notify.notify
+      data:
+        title: Deurbel foto
+        # N.b.: actually in /media, local is imaginary
+        data:
+          image: "/media/local/front-snap-cropped.jpeg"
+        message: Foto
     # when flashing, with hue, light doesn't actually change state
     - service: light.turn_on
       target:
