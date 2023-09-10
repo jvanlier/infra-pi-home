@@ -15,7 +15,7 @@ advanced:
   network_key: '!secret.yaml network_key'
   homeassistant_legacy_entity_attributes: false
   legacy_api: false
-  log_level: info
+  log_level: debug
   legacy_availability_payload: false
 device_options:
   legacy: false
@@ -119,6 +119,18 @@ devices:
     friendly_name: Light Storage Range Extender 3
   '0x0015bc001a026fbf':
     friendly_name: Motion Bathroom
+  '0x00158d00091ead1d':
+    friendly_name: Climate SolarEdge
+  '0xa4c138e50b8266d1':
+    friendly_name: Soil Inside Floor 2
+  '0xa4c1387a936c28f7':
+    friendly_name: Soil Back Left
+  '0xa4c138e44f6f21a7':
+    friendly_name: Soil Back Right
+  '0xa4c138951089df55':
+    friendly_name: Soil Inside Floor 0
+  '0xa4c138b1aa9af402':
+    friendly_name: Soil Front
 blocklist:
   - '0xec1bbdfffe7f3c18'
   - '0x001788010c690db7'
