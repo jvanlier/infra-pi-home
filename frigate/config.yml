@@ -3,6 +3,9 @@ mqtt:
   port: 1884
 cameras:
   doorbell:
+    # 0.11.1 workaround, disable rtmp otherwise crash at startup:
+    rtmp:
+      enabled: False
     ffmpeg:
       inputs:
         - path: rtsp://viewer:{FRIGATE_RTSP_PASSWORD}@192.168.2.151:554/h264Preview_01_sub
@@ -20,9 +23,15 @@ detectors:
     type: edgetpu
     device: usb
 
-# For some reason this does not meaningfully reduce cpu usage, to be investigated:
+# For some reason this does not meaningfully reduce cpu usage, to be investigated.
+# Apparently worked better with 0.11.1: https://github.com/blakeblackshear/frigate/issues/3780#issuecomment-1676078252
+# 0.12.0:
+#ffmpeg:
+#  hwaccel_args: preset-rpi-64-h264
+
+# 0.11.1:
 ffmpeg:
-  hwaccel_args: preset-rpi-64-h264
+  hwaccel_args: -c:v h264_v4l2m2m
 
 snapshots:
   enabled: True 

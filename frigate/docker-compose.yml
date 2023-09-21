@@ -4,7 +4,9 @@ services:
     container_name: frigate
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
-    image: ghcr.io/blakeblackshear/frigate:stable
+    # Old repo for versions pre 0.12; using this version for better h264 hwaccel support:
+    image: blakeblackshear/frigate:0.11.1
+    # image: ghcr.io/blakeblackshear/frigate:stable
     # update shm_size if there are more than 2 cameras at 720p, see: 
     # https://docs.frigate.video/frigate/installation#calculating-required-shm-size
     shm_size: "64mb" 
