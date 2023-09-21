@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  frigate:
+    container_name: frigate
+    privileged: true # this may not be necessary for all setups
+    restart: unless-stopped
+    image: ghcr.io/blakeblackshear/frigate:stable
+    # update shm_size if there are more than 2 cameras at 720p, see: 
+    # https://docs.frigate.video/frigate/installation#calculating-required-shm-size
+    shm_size: "64mb" 
+    devices:
+      - /dev/bus/usb:/dev/bus/usb # for USB Coral
+      - /dev/video10  # for h264 hwaccell
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config.yml:/config/config.yml
+      - /frigate:/media/frigate
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    network_mode: host
+      #ports:
+      #  - "5000:5000"
+      #  - "8554:8554" # RTSP feeds
+      #  - "8555:8555/tcp" # WebRTC over tcp
+      #  - "8555:8555/udp" # WebRTC over udp
+    environment:
+      FRIGATE_RTSP_PASSWORD: "${FRIGATE_RTSP_PASSWORD}"
