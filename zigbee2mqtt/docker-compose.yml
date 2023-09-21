@@ -25,7 +25,7 @@ services:
     # The alternative is to mount /dev/ttyUSB* in the devices section, but if a device gets reconnected, the container
     # has to be restarted.
     ports:
-      # Defaults to 8080 but that is in use by Unify controller (and that was there first).
+      # Defaults to 8080 but that is in use by Unifi controller (and that was there first).
       - 8002:8080
     environment:
       - TZ=Europe/Amsterdam
