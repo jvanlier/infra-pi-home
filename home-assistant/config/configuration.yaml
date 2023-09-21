@@ -82,3 +82,8 @@ mqtt:
       unique_id: "solarmanpv_inverter"
       json_attributes_topic: "solarmanpv/inverter/attributes"
 
+
+shell_command:
+  front_camera_snap: curl http://192.168.2.40/snap.jpeg --output /media/front-snap.jpeg 
+  front_camera_crop: ffmpeg -y -i /media/front-snap.jpeg -vf "crop=1000:800:100:600" /media/front-snap-cropped.jpeg
+  
