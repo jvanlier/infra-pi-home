@@ -129,7 +129,7 @@
   use_blueprint:
     path: custom/motion_light_lux_aware.yaml
     input:
-      total_no_motion_wait: 60 
+      total_no_motion_wait: 120
       motion_entity: binary_sensor.motion_dressing_occupancy
       lux_entity: sensor.motion_dressing_illuminance_lux
       device_no_motion_wait: number.motion_dressing_occupancy_timeout
@@ -166,7 +166,7 @@
       motion_entity: binary_sensor.motion_toilet_0_occupancy
       light_target:
         entity_id: light.light_toilet_0
-      no_motion_wait: "{{ max(300 - states('number.motion_toilet_0_detection_interval') | int(0), 0) }}"
+      no_motion_wait: "{{ max(420 - states('number.motion_toilet_0_detection_interval') | int(0), 0) }}"
 
 - alias: Motion-activated Light Toilet 1
   id: mal-toilet-1
@@ -176,7 +176,7 @@
       motion_entity: binary_sensor.motion_toilet_1_occupancy
       light_target:
         entity_id: light.light_toilet_1
-      no_motion_wait: "{{ max(300 - states('number.motion_toilet_1_detection_interval') | int(0), 0) }}"
+      no_motion_wait: "{{ max(420 - states('number.motion_toilet_1_detection_interval') | int(0), 0) }}"
 
 - alias: Motion-activated Light Bathroom
   id: mal-bathroom
@@ -187,7 +187,7 @@
       light_target:
         entity_id: light.light_bathroom
       no_motion_wait: >-
-        {{ max((60 if states('input_boolean.sleep_mode') == "on" else 300) - 
+        {{ max((120 if states('input_boolean.sleep_mode') == "on" else 300) - 
                    states('number.motion_bathroom_occupancy_timeout') | int(0),
                0) 
         }}
