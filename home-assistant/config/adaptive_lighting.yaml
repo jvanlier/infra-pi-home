@@ -33,7 +33,9 @@
   max_brightness: 50
   min_color_temp: 2200
   max_color_temp: 4000
-  sleep_brightness: 5
+  sleep_brightness: 10
+  # so that we can see something in winter, when we need to dress the kids in the morning:
+  max_sunrise_time: "07:00:00"  
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
 
