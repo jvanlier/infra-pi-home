@@ -1,3 +1,39 @@
+- alias: "Housekeeping mode: scheduled on"
+  id: housekeeping-scheduled-on
+  trigger:
+  - platform: time
+    at: "11:55:00"
+  condition:
+    - condition: time
+      weekday:
+        - mon
+    # Only even weeknumbers:
+    - condition: template
+      value_template: "{{ (as_timestamp(now())|timestamp_custom ('%W') | int % 2) == 0 }}"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.housekeeping_mode
+  mode: restart
+
+- alias: "Housekeeping mode: scheduled off"
+  id: housekeeping-scheduled-off
+  trigger:
+  - platform: time
+    at: "16:15:00"
+  condition:
+    - condition: time
+      weekday:
+        - mon
+    # Only even weeknumbers:
+    - condition: template
+      value_template: "{{ (as_timestamp(now())|timestamp_custom ('%W') | int % 2) == 0 }}"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.housekeeping_mode
+  mode: restart
+
 - alias: "Housekeeping Mode: turn on"
   id: "housekeeping-mode-turn-on"
   trigger:
@@ -35,7 +71,8 @@
       entity_id: input_boolean.housekeeping_mode
       to: 'off'
   action:
-    # This kinda assumes daylight, which would usually be the case.
+    # Turning everything off assumes it's still daylight, which would usually be the case.
+    # Except perhaps deep winter. We'll see in winter '23-'24.
     - service: light.turn_off
       entity_id:
         - light.hue_light_group_living
@@ -56,4 +93,5 @@
       entity_id: 
         - input_boolean.motion_activated_lights
         - input_boolean.adaptive_lighting
+
 
