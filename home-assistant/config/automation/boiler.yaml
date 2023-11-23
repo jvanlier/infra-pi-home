@@ -2,15 +2,10 @@
   id: boiler-off-away
   trigger:
     - platform: state
-      entity_id: sensor.at_least_one_person_home 
+      entity_id: sensor.at_least_one_person_home
       from: 'yes'
       to: 'no'
-      # This used to be 30 min, but that no longer works well with dynamic energy prices:
-      # if we're out for the day, we usually come home when energy is expensive and have
-      # missed out on cheap mid-day energy (solar).
-      # Turning the boiler off briefly hardly conserve power, it merely shifts the power
-      # consumption to a later point in time. 
-      # Set to 12 hrs, the intention now is to capture multi-day holidays.
+      # This is rather long; the intention now is to capture holidays.
       for: '12:00:00'
   action:
     - service: switch.turn_off
@@ -22,7 +17,7 @@
   id: boiler-on-return
   trigger:
     - platform: state
-      entity_id: sensor.at_least_one_person_home 
+      entity_id: sensor.at_least_one_person_home
       from: 'no'
       to: 'yes'
       for: '00:00:05'

@@ -1,42 +1,26 @@
 # These lights are nice to have on for ambiance and security, but they're also quite expensive to
-# run at 35 watt. Ensure we only turn them on when not too expensive. 
+# run at 35 watt. Ensure we only turn them on when not too expensive.
 # The seemingly random on/off switches may also serve as a deterrent.
 
-- alias: Garden lights conditional on
-  id: garden-on
+- alias: Garden lights on at sunset
+  id: garden-lights-on-sunset
   trigger:
-    # Check after threshold change:
-    - platform: state
-      entity_id: input_number.garden_lights_price_threshold_evening 
-    - platform: state
-      entity_id: input_number.garden_lights_price_threshold_night 
-    # Check after electricity price update (should be hourly):
-    - platform: state
-      entity_id: sensor.electricity_price
     - platform: state
       entity_id: sun.sun
-      to: "below_horizon"
-  condition:
-    - condition: state
-      entity_id: sun.sun
-      state: 'below_horizon'
-  variables:
-    active_threshold: "{% if 12 < now().hour < 23 %} input_number.garden_lights_price_threshold_evening {% else %} input_number.garden_lights_price_threshold_night {% endif %} "
-    desired_state: "{% if states('sensor.electricity_price') < states(active_threshold) %} on {% else %} off {% endif %}" 
+      to: below_horizon
   action:
-    - service: "switch.turn_{{ desired_state }}"
+    - service: switch.turn_on
       target:
         entity_id: switch.plug_garden_lights
   mode: restart
 
-- alias: Garden lights off at sunrise
-  id: garden-off-sunrise
+- alias: Garden lights off at 23
+  id: garden-lights-off-23
   trigger:
-    - platform: sun
-      event: sunrise
+    - platform: time
+      at: "23:00:00"
   action:
     - service: switch.turn_off
       target:
         entity_id: switch.plug_garden_lights
   mode: restart
-
