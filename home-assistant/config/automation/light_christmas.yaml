@@ -1,0 +1,23 @@
+- alias: Outdoor Christmas lights on at sunset
+  id: outdoor-christmas-lights-on-sunset
+  trigger:
+    - platform: state
+      entity_id: sun.sun
+      to: below_horizon
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.plug_outdoor_christmas_lights
+  mode: restart
+
+- alias: Outdoor Christmas lights off at sunrise
+  id: outdoor-christmas-lights-off-sunrise
+  trigger:
+    - platform: sun
+      event: sunrise
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.plug_outdoor_christmas_lights
+  mode: restart
+
