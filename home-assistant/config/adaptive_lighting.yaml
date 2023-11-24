@@ -8,8 +8,8 @@
   min_brightness: 50
   max_brightness: 80
   sleep_brightness: 40
-  min_color_temp: 2200
-  max_color_temp: 4000
+  min_color_temp: 2400
+  max_color_temp: 4500
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
 
@@ -22,19 +22,19 @@
   max_brightness: 90
   sleep_brightness: 30
   # so that we can see something in winter, when we need to dress the kids in the morning:
-  max_sunrise_time: "07:00:00"
-  min_color_temp: 2200
-  max_color_temp: 4000
+  max_sunrise_time: "07:30:00"
+  min_color_temp: 2400
+  max_color_temp: 4500
 
 # specific lights on 1st floor are a little less bright due to sleeping kids, so it gets its own section.
 - name: "motion-floor-1"
   lights:
     - light.light_hall_1
     - light.light_toilet_1
-  min_brightness: 20
-  max_brightness: 50
-  min_color_temp: 2200
-  max_color_temp: 4000
+  min_brightness: 30
+  max_brightness: 60
+  min_color_temp: 2400
+  max_color_temp: 4500
   sleep_brightness: 10
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
@@ -42,10 +42,10 @@
 - name: "motion-bathroom"
   lights:
     - light.light_bathroom
-  min_brightness: 70
-  max_brightness: 90
+  min_brightness: 65
+  max_brightness: 85
   min_color_temp: 2700
-  max_color_temp: 4000
+  max_color_temp: 4500
   sleep_brightness: 5
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
