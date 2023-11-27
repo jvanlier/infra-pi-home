@@ -1,14 +1,14 @@
 - alias: Alert solar production
   id: alert-solar-production
   trigger:
-    - platform: state
-      entity_id: sun.sun
-      to: below_horizon
+    - platform: sun
+      event: sunset
+      offset: "00:30:00"
   action:
     - service: notify.mobile_app_J12P
       data:
         title: Solar production today
         message: >
-          Solarman: {{ states('sensor.solarman_daily_energy') }} kWh,
-          SolarEdge: TODO
+          Solarman: {{ states('sensor.solarman_daily_energy') | round(2) }} kWh,
+          SolarEdge: {{ (states('sensor.solaredge_energy_today') | float(0) / 1000) | round(2) }} kWh
   mode: restart
