@@ -1,0 +1,39 @@
+- alias: Alert Soil Humidity Heptapleurum
+  id: alert-soil-humidity-heptapleurum
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_heptapleurum_humidity
+      # Does not like wet feet, rots quickly
+      humidity_threshold: 60
+      plant_name: Heptapleurum (Vingersboom)
+
+- alias: Alert Soil Humidity Dracaena
+  id: alert-soil-humidity-dracaena
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_dracaena_humidity
+      # Soil can be dry before watering, does not use a lot
+      humidity_threshold: 70
+      plant_name: Dracaena (Drakenbloedboom)
+
+- alias: Alert Soil Humidity Rhipsalis
+  id: alert-soil-humidity-rhipsalis
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_rhipsalis_humidity
+      # Does not like to be in wet soil
+      humidity_threshold: 70
+      plant_name: Rhipsalis (hangplant)
+
+- alias: Alert Soil Humidity Spathiphyllum
+  id: alert-soil-humidity-spathiphyllum
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_spathiphyllum_humidity
+      # Likes humidity, can't give too much water
+      humidity_threshold: 80
+      plant_name: Spathiphyllum (Peace Lily)

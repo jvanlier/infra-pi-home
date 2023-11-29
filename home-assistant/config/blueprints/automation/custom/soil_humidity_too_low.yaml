@@ -1,0 +1,42 @@
+blueprint:
+  name: Soil Humidity too low
+  description: Alert when a plant needs water.
+  domain: automation
+  input:
+    plant_name:
+      name: Plant name
+      description: Human readable plant name
+    humidity_entity:
+      name: Humidity sensor
+      selector:
+        entity:
+          domain: sensor
+          device_class: humidity
+    humidity_threshold:
+      name: Humidity threshold
+      description: Alert when humidity gets below this value.
+      default: 70
+      selector:
+        number:
+          min: 1
+          max: 100
+          unit_of_measurement: percentage
+
+mode: restart
+
+trigger:
+  platform: numeric_state
+  below: !input humidity_threshold
+  entity_id: !input humidity_entity
+  for: "01:00:00"
+
+variables:
+  plant_name: !input plant_name
+  humidity_entity: !input humidity_entity
+  humidity_threshold: !input humidity_threshold
+
+action:
+  - service: notify.notify
+    data:
+      title: "{{ plant_name }}"
+      message: "Need water, Humidity is {{ states(humidity_entity) }} % and threshold is {{ humidity_threshold }} %"
