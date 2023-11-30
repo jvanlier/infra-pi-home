@@ -12,31 +12,29 @@ blueprint:
         entity:
           domain: sensor
           device_class: humidity
-    humidity_threshold:
+    humidity_threshold_entity:
       name: Humidity threshold
       description: Alert when humidity gets below this value.
-      default: 70
       selector:
-        number:
-          min: 1
-          max: 100
-          unit_of_measurement: percentage
+        entity:
+          domain: input_number
 
 mode: restart
 
 trigger:
   platform: numeric_state
-  below: !input humidity_threshold
+  below: !input humidity_threshold_entity
   entity_id: !input humidity_entity
   for: "01:00:00"
 
 variables:
   plant_name: !input plant_name
   humidity_entity: !input humidity_entity
-  humidity_threshold: !input humidity_threshold
+  humidity_threshold_entity: !input humidity_threshold_entity
 
 action:
   - service: notify.notify
+    #  - service: notify.mobile_app_J12P
     data:
       title: "{{ plant_name }}"
-      message: "Need water, Humidity is {{ states(humidity_entity) }} % and threshold is {{ humidity_threshold }} %"
+      message: "Need water, Humidity is {{ states(humidity_entity) }} % and threshold is {{ states(humidity_threshold_entity) }} %"

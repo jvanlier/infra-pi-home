@@ -4,8 +4,7 @@
     path: custom/soil_humidity_too_low.yaml
     input:
       humidity_entity: sensor.soil_heptapleurum_humidity
-      # Does not like wet feet, rots quickly
-      humidity_threshold: 60
+      humidity_threshold_entity: input_number.soil_humidity_threshold_heptapleurum
       plant_name: Heptapleurum (Vingersboom)
 
 - alias: Alert Soil Humidity Dracaena
@@ -14,8 +13,7 @@
     path: custom/soil_humidity_too_low.yaml
     input:
       humidity_entity: sensor.soil_dracaena_humidity
-      # Soil can be dry before watering, does not use a lot
-      humidity_threshold: 70
+      humidity_threshold_entity: input_number.soil_humidity_threshold_dracaena
       plant_name: Dracaena (Drakenbloedboom)
 
 - alias: Alert Soil Humidity Rhipsalis
@@ -24,8 +22,7 @@
     path: custom/soil_humidity_too_low.yaml
     input:
       humidity_entity: sensor.soil_rhipsalis_humidity
-      # Does not like to be in wet soil
-      humidity_threshold: 70
+      humidity_threshold_entity: input_number.soil_humidity_threshold_rhipsalis
       plant_name: Rhipsalis (hangplant)
 
 - alias: Alert Soil Humidity Spathiphyllum
@@ -34,6 +31,14 @@
     path: custom/soil_humidity_too_low.yaml
     input:
       humidity_entity: sensor.soil_spathiphyllum_humidity
-      # Likes humidity, can't give too much water
-      humidity_threshold: 80
+      humidity_threshold_entity: input_number.soil_humidity_threshold_spathiphyllum
       plant_name: Spathiphyllum (Peace Lily)
+
+- alias: Alert Soil Humidity Alocasia
+  id: alert-soil-humidity-alocasia
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_alocasia_humidity
+      humidity_threshold_entity: input_number.soil_humidity_threshold_alocasia
+      plant_name: Alocasia (Zebraplant)
