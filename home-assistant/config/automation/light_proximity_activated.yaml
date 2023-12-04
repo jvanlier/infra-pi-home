@@ -3,7 +3,7 @@
   description: "There isn't a dedicated motion sensor here, but lighting up this area when someone is nearby is pretty useful."
   trigger:
     - platform: state
-      entity_id: 
+      entity_id:
         - light.light_walk_in_closet
         - light.light_hall_2
       to: 'on'
@@ -15,7 +15,7 @@
       # In this case, only checking 1 light is sufficient because they are always toggled together.
       - condition: state
         entity_id: light.light_study_spot_center
-        state: 
+        state:
           - 'off'
           - 'unavailable'
       - condition: state
@@ -35,7 +35,7 @@
   description: "Turn the study lights off again, unless the brightness was changed."
   trigger:
     - platform: state
-      entity_id: 
+      entity_id:
         - light.light_walk_in_closet
         - light.light_hall_2
       to: 'off'
@@ -43,7 +43,7 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: 
+        entity_id:
           - light.light_walk_in_closet
           - light.light_hall_2
         state: 'off'
@@ -67,12 +67,12 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: 
+        entity_id:
           - light.light_kitchen_m
           - light.light_arc
           - light.light_lightguide
           - light.light_dining_kitchen_side
-        state: 
+        state:
           - 'off'
           - 'unavailable'
       - condition: state
@@ -110,8 +110,89 @@
   action:
     - service: light.turn_off
       target:
-        entity_id: 
+        entity_id:
           - light.hue_light_group_kitchen
           - light.hue_light_group_living
   mode: restart
 
+- alias: Proximity-activated Light Bathroom - on
+  id: pal-bathroom-on
+  description: >-
+    Light up the bathroom just slightly when there is motion in the hallway, so that it is
+    not completely dark when you walk in.
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_hall_1_occupancy
+      to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.light_bathroom
+        state: "off"
+      - condition: state
+        entity_id: input_boolean.sleep_mode
+        state: "off"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.adaptive_lighting_adapt_brightness_motion_bathroom
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_bathroom
+      data:
+        brightness: 50
+  mode: restart
+
+- alias: Proximity-activated Light Bathroom - off
+  id: pal-bathroom-off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_hall_1_occupancy
+      to: 'off'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.light_bathroom
+        state: "on"
+      # FIXME: motion bathroom clears too quickly for this to work, need to make it 180s in total
+      - condition: state
+        entity_id: binary_sensor.motion_bathroom_occupancy
+        state: "off"
+  action:
+    - service: light.turn_off
+      target:
+        entity_id:
+          - light.light_bathroom
+    # Might need a delay here, could reset off transition
+    - service: switch.turn_on
+      target:
+        entity_id: switch.adaptive_lighting_adapt_brightness_motion_bathroom
+  mode: restart
+
+- alias: Proximity-activated Light Bathroom - re-enable adaptive on motion
+  id: pal-bathroom-re-enable-adaptive-motion
+  description: >-
+    Adaptive light brightness gets disabled when it starts on proximity activation, in order to get a low
+    brightness. Turn it back on when motion is detected.
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_bathroom_occupancy
+      to: "on"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.adaptive_lighting_adapt_brightness_motion_bathroom
+    - condition: "state"
+      entity_id: switch.adaptive_lighting_motion_bathroom
+      state: "on"
+    - service: light.turn_on
+      target:
+        entity_id: light.light_bathroom
+      # Have to set brightness manually, just light.turn_on is not sufficient
+      data:
+        brightness: '{{ state_attr("switch.adaptive_lighting_motion_bathroom", "brightness_pct") / 100 * 255 }}'
+
+# TODO: go back to low brightness when light goes off in bathroom, but motion in hall 1 is still occupied.
