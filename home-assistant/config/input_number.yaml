@@ -131,17 +131,17 @@ base_load_power_misc:
   step: 0.1
   mode: box
 
-soil_humidity_threshold_heptapleurum:
-  name: Soil Humidity Threshold Heptapleurum
+soil_heptapleurum_humidity_threshold:
+  name: Soil Heptapleurum Humidity Threshold
   unit_of_measurement: '%'
   # Does not like wet feet, rots quickly
-  initial: 60
+  initial: 65
   min: 1
   max: 100
   step: 1
   mode: box
-soil_humidity_threshold_dracaena:
-  name: Soil Humidity Threshold Dracaena
+soil_drakenbloedboom_humidity_threshold:
+  name: Soil Drakenbloedboom Humidity Threshold
   unit_of_measurement: '%'
   # Let soil dry before watering, does not use a lot
   initial: 70
@@ -149,8 +149,8 @@ soil_humidity_threshold_dracaena:
   max: 100
   step: 1
   mode: box
-soil_humidity_threshold_rhipsalis:
-  name: Soil Humidity Threshold Rhipsalis
+soil_koraalcactus_humidity_threshold:
+  name: Soil Koraalcactus Humidity Threshold
   unit_of_measurement: '%'
   # Does not like to be in wet soil
   initial: 70
@@ -158,8 +158,8 @@ soil_humidity_threshold_rhipsalis:
   max: 100
   step: 1
   mode: box
-soil_humidity_threshold_spathiphyllum:
-  name: Soil Humidity Threshold Spathiphyllum
+soil_lepelplant_humidity_threshold:
+  name: Soil Lepelplant Humidity Threshold
   unit_of_measurement: '%'
   # Loves humidity, impossible to give too much water
   initial: 80
@@ -167,8 +167,8 @@ soil_humidity_threshold_spathiphyllum:
   max: 100
   step: 1
   mode: box
-soil_humidity_threshold_alocasia:
-  name: Soil Humidity Threshold Alocasia
+soil_alocasia_humidity_threshold:
+  name: Soil Alocasia Humidity Threshold
   unit_of_measurement: '%'
   # Soil needs to be slightly humid it all times, however, does not like wet roots
   initial: 75

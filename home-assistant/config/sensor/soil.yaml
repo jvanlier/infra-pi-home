@@ -1,0 +1,39 @@
+- platform: filter
+  name: Soil Heptapleurum humidity average
+  unique_id: soil_heptapleurum_humidity_average
+  entity_id: sensor.soil_heptapleurum_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "01:00:00"
+
+- platform: filter
+  name: Soil Drakenbloedboom humidity average
+  unique_id: soil_drakenbloedboom_humidity_average
+  entity_id: sensor.soil_drakenbloedboom_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "01:00:00"
+
+- platform: filter
+  name: Soil Koraalcactus humidity average
+  unique_id: soil_koraalcactus_humidity_average
+  entity_id: sensor.soil_koraalcactus_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "01:00:00"
+
+- platform: filter
+  name: Soil Lepelplant humidity average
+  unique_id: soil_lepelplant_humidity_average
+  entity_id: sensor.soil_lepelplant_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "01:00:00"
+
+- platform: filter
+  name: Soil Alocasia humidity average
+  unique_id: soil_alocasia_humidity_average
+  entity_id: sensor.soil_alocasia_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "01:00:00"

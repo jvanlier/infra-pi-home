@@ -1,44 +1,44 @@
-- alias: Alert Soil Humidity Heptapleurum
-  id: alert-soil-humidity-heptapleurum
+- alias: Alert Soil Heptapleurum Humidity
+  id: alert-soil-heptapleurum-humidity
   use_blueprint:
     path: custom/soil_humidity_too_low.yaml
     input:
-      humidity_entity: sensor.soil_heptapleurum_humidity
-      humidity_threshold_entity: input_number.soil_humidity_threshold_heptapleurum
+      humidity_entity: sensor.soil_heptapleurum_humidity_average
+      humidity_threshold_entity: input_number.soil_heptapleurum_humidity_threshold
       plant_name: Heptapleurum (Vingersboom)
 
-- alias: Alert Soil Humidity Dracaena
-  id: alert-soil-humidity-dracaena
+- alias: Alert Soil Drakenbloedboom Humidity
+  id: alert-soil-drakenbloedboom-humidity
   use_blueprint:
     path: custom/soil_humidity_too_low.yaml
     input:
-      humidity_entity: sensor.soil_dracaena_humidity
-      humidity_threshold_entity: input_number.soil_humidity_threshold_dracaena
-      plant_name: Dracaena (Drakenbloedboom)
+      humidity_entity: sensor.soil_drakenbloedboom_humidity_average
+      humidity_threshold_entity: input_number.soil_drakenbloedboom_humidity_threshold
+      plant_name: Drakenbloedboom
 
-- alias: Alert Soil Humidity Rhipsalis
-  id: alert-soil-humidity-rhipsalis
+- alias: Alert Soil Koraalcactus Humidity
+  id: alert-soil-koraalcactus-humidity
   use_blueprint:
     path: custom/soil_humidity_too_low.yaml
     input:
-      humidity_entity: sensor.soil_rhipsalis_humidity
-      humidity_threshold_entity: input_number.soil_humidity_threshold_rhipsalis
-      plant_name: Rhipsalis (hangplant)
+      humidity_entity: sensor.soil_koraalcactus_humidity_average
+      humidity_threshold_entity: input_number.soil_koraalcactus_humidity_threshold
+      plant_name: Koraalcactus
 
-- alias: Alert Soil Humidity Spathiphyllum
-  id: alert-soil-humidity-spathiphyllum
+- alias: Alert Soil Lepelplant Humidity
+  id: alert-soil-lepelplant-humidity
   use_blueprint:
     path: custom/soil_humidity_too_low.yaml
     input:
-      humidity_entity: sensor.soil_spathiphyllum_humidity
-      humidity_threshold_entity: input_number.soil_humidity_threshold_spathiphyllum
-      plant_name: Spathiphyllum (Peace Lily)
+      humidity_entity: sensor.soil_lepelplant_humidity_average
+      humidity_threshold_entity: input_number.soil_lepelplant_humidity_threshold
+      plant_name: Lepelplant
 
-- alias: Alert Soil Humidity Alocasia
-  id: alert-soil-humidity-alocasia
+- alias: Alert Soil Alocasia Humidity
+  id: alert-soil-alocasia-humidity
   use_blueprint:
     path: custom/soil_humidity_too_low.yaml
     input:
-      humidity_entity: sensor.soil_alocasia_humidity
-      humidity_threshold_entity: input_number.soil_humidity_threshold_alocasia
+      humidity_entity: sensor.soil_alocasia_humidity_average
+      humidity_threshold_entity: input_number.soil_alocasia_humidity_threshold
       plant_name: Alocasia (Zebraplant)
