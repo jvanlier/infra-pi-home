@@ -1,18 +1,3 @@
-# Uses custom integration https://github.com/Limych/ha-average
-# DEPRECATED: use sensor.home_temperature. Remove this once sufficient history has accumulated in the new one.
-- platform: average
-  name: 'Home Average Temperature'
-  unique_id: 'home_average_temperature'
-  entities:
-    - sensor.climate_living_room_temperature
-    - sensor.climate_bedroom_jc_temperature
-    - sensor.climate_bedroom_duco_temperature
-    - sensor.climate_bedroom_olivier_temperature
-    - sensor.climate_bathroom_temperature
-    - sensor.climate_study_temperature
-    - sensor.climate_laundry_temperature
-  precision: 1
-
 # The frient motion sensor pro temperature seems pretty good. The Aqara one, not so much (too high).
 # Using frient, not Aqara.
 - platform: average
@@ -93,9 +78,9 @@
   unique_id: 'home_humidity'
   entities:
 #  This would be ideal, unweighted average across floors, but it doesn't propagate the unit:
-#    - sensor.floor_0_humidity 
-#    - sensor.floor_1_humidity 
-#    - sensor.floor_2_humidity 
+#    - sensor.floor_0_humidity
+#    - sensor.floor_1_humidity
+#    - sensor.floor_2_humidity
     - sensor.climate_living_room_humidity
     - sensor.climate_bedroom_jc_humidity
     - sensor.climate_bedroom_duco_humidity
@@ -131,14 +116,13 @@
     warmer_inside:
       friendly_name: Warmer Inside Than Outside
       value_template: >-
-        {% set in = states('sensor.home_average_temperature')|float(default=0) %}
+        {% set in = states('sensor.home_temperature')|float(default=0) %}
         {% set out = states('sensor.outside_average_temperature')|float(default=0) %}
         {% set delta = 0.25 %}
         {% if in - delta > out %}
           yes
-        {% elif in < out - delta  %} 
+        {% elif in < out - delta  %}
           no
         {% else %}
           indecisive
         {% endif %}
-

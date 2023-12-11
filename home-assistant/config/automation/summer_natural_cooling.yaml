@@ -5,11 +5,11 @@
       entity_id: sensor.warmer_inside
       to: 'yes'
       for: '00:05:00'
-  condition: 
+  condition:
     - condition: and
       conditions:
       - condition: numeric_state
-        entity_id: sensor.home_average_temperature
+        entity_id: sensor.home_temperature
         above: 23  # probably not worth the hassle if it's cooler than 23 deg already
       - condition: numeric_state
         entity_id: sensor.outside_temperature_change_per_hour
@@ -19,7 +19,7 @@
       data:
         title: Open windows
         message: >
-          It's {{ states('sensor.home_average_temperature')|round(1) }} °C inside.
+          It's {{ states('sensor.home_temperature')|round(1) }} °C inside.
           Temps outside are similar and dropping by {{ states('sensor.outside_temperature_change_per_hour')|round(1)|abs }} °C/h.
     - delay:
         hours: 12 # Prevent it from triggering again today (temps may fluctuate)
@@ -33,7 +33,7 @@
       entity_id: sensor.warmer_inside
       to: 'no'
       for: '00:05:00'
-  condition: 
+  condition:
     - condition: and
       conditions:
       # TODO, maybe, if there's lots of false positives: check today's forecast, only trigger if actually gets hot today
@@ -45,9 +45,8 @@
       data:
         title: Close windows
         message: >
-          It's {{ states('sensor.home_average_temperature')|round(1) }} °C inside.
+          It's {{ states('sensor.home_temperature')|round(1) }} °C inside.
           Temps outside are similar and rising by {{ states('sensor.outside_temperature_change_per_hour')|round(1) }} °C/h.
-    - delay: 
+    - delay:
         hours: 12  # Prevent it from triggering again today (temps may fluctuate)
   mode: queued
-
