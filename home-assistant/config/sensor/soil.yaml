@@ -4,7 +4,7 @@
   entity_id: sensor.soil_heptapleurum_humidity
   filters:
     - filter: time_simple_moving_average
-      window_size: "01:00:00"
+      window_size: "02:00:00"
 
 - platform: filter
   name: Soil Drakenbloedboom humidity average
@@ -12,7 +12,7 @@
   entity_id: sensor.soil_drakenbloedboom_humidity
   filters:
     - filter: time_simple_moving_average
-      window_size: "01:00:00"
+      window_size: "02:00:00"
 
 - platform: filter
   name: Soil Koraalcactus humidity average
@@ -20,7 +20,7 @@
   entity_id: sensor.soil_koraalcactus_humidity
   filters:
     - filter: time_simple_moving_average
-      window_size: "01:00:00"
+      window_size: "02:00:00"
 
 - platform: filter
   name: Soil Lepelplant humidity average
@@ -28,7 +28,7 @@
   entity_id: sensor.soil_lepelplant_humidity
   filters:
     - filter: time_simple_moving_average
-      window_size: "01:00:00"
+      window_size: "02:00:00"
 
 - platform: filter
   name: Soil Alocasia humidity average
@@ -36,4 +36,4 @@
   entity_id: sensor.soil_alocasia_humidity
   filters:
     - filter: time_simple_moving_average
-      window_size: "01:00:00"
+      window_size: "02:00:00"
