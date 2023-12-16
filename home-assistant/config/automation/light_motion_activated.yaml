@@ -14,7 +14,7 @@
 #   well, even in an area as small as a toilet.
 #
 # - Aqara P1 @ 0.0.0_0006: Toilet 1
-#   Also bought Nov '22. Unlike the one for Toilet 0, appears to be unable to handle a 
+#   Also bought Nov '22. Unlike the one for Toilet 0, appears to be unable to handle a
 #   `detection_interval` 200 sec.
 #   Occupancy never clears. From reddit/HA forums, anything >= 60 appears to break it.
 #   59 seems to work just fine, so use that.
@@ -24,12 +24,12 @@
 # - Frient Motion Sensor Pro @ 3.6.6: Hall 0, Hall 1, Hall 2, Dressing, Walk-in closet.
 #   There's no led control in this firmware version.
 #   OTA updates are available in Z2M, but don't seem to work. Not even immediately after a factory
-#   reset & re-pair. 
+#   reset & re-pair.
 #   `occupancy_timeout` defaults to 20 and can be changed successfully by first triggering occupancy
 #   and setting a new value immediately after. Point it at a wall and wave your hand in front of
 #   the sensor, then send.
 #   The highest value tested is 180, which works just fine.
-#  
+#
 # - Frient Motion Sensor Pro @ 4.0.3 @ 20220307 10:08: Laundry
 #   Now has led control: managed to change it to `fault_only`.
 #   For `occupancy_timeout`, 180 sec no longer works!
@@ -54,7 +54,7 @@
       # TODO the wall switch also needs to do this
     - alias: "Turn on the light"
       service: light.turn_on
-      target: 
+      target:
         entity_id: light.light_hall_0
     - alias: "Force apply in case it was already on"
       service: adaptive_lighting.apply
@@ -89,12 +89,12 @@
               entity_id: switch.adaptive_lighting_adapt_brightness_motion_hall_0
           - alias: "Set brightness to 50% of previous value"
             service: light.turn_on  # it's already on so this just updates brightness
-            target: 
+            target:
               entity_id: light.light_hall_0
             data:
               brightness: '{{ state_attr("light.light_hall_0", "brightness") / 2 | int }}'
               transition: 3
-      default:  
+      default:
         - alias: "Turn off the light"
           service: light.turn_off
           target:
@@ -187,9 +187,9 @@
       light_target:
         entity_id: light.light_bathroom
       no_motion_wait: >-
-        {{ max((120 if states('input_boolean.sleep_mode') == "on" else 300) - 
+        {{ max((180 if states('input_boolean.sleep_mode') == "on" else 300) -
                    states('number.motion_bathroom_occupancy_timeout') | int(0),
-               0) 
+               0)
         }}
 
 - alias: "Motion-activated Lights: toggle"
@@ -216,5 +216,3 @@
         - automation.motion_activated_light_toilet_1
         - automation.motion_activated_light_walk_in_closet
         - automation.motion_activated_light_bathroom
-
-
