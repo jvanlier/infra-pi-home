@@ -116,15 +116,15 @@ devices:
   '0x00158d00091ead1d':
     friendly_name: Climate SolarEdge
   '0xa4c138e50b8266d1':
-    friendly_name: Soil Spathiphyllum
+    friendly_name: Soil Lepelplant
   '0xa4c1387a936c28f7':
-    friendly_name: Soil Heptapleurum
+    friendly_name: Soil Calathea
   '0xa4c138e44f6f21a7':
     friendly_name: Soil Alocasia
   '0xa4c138951089df55':
-    friendly_name: Soil Dracaena
+    friendly_name: Soil Drakenbloedboom
   '0xa4c138b1aa9af402':
-    friendly_name: Soil Rhipsalis
+    friendly_name: Soil Koraalcactus
   '0x54ef4410004dc729':
     friendly_name: Plug Floor Heating Pump
   '0x0015bc002f00e692':
