@@ -131,11 +131,12 @@ base_load_power_misc:
   step: 0.1
   mode: box
 
-soil_heptapleurum_humidity_threshold:
-  name: Soil Heptapleurum Humidity Threshold
+soil_calathea_humidity_threshold:
+  name: Soil Calathea Humidity Threshold
   unit_of_measurement: '%'
-  # Does not like wet feet, rots quickly
-  initial: 65
+  # Grows in rain forest, likes high humidity, but hates
+  # wet roots.
+  initial: 70
   min: 1
   max: 100
   step: 1

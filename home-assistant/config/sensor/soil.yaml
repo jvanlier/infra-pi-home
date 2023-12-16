@@ -1,7 +1,7 @@
 - platform: filter
-  name: Soil Heptapleurum humidity average
-  unique_id: soil_heptapleurum_humidity_average
-  entity_id: sensor.soil_heptapleurum_humidity
+  name: Soil Calathea humidity average
+  unique_id: soil_calathea_humidity_average
+  entity_id: sensor.soil_calathea_humidity
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
