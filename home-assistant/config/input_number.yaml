@@ -134,8 +134,6 @@ base_load_power_misc:
 soil_calathea_humidity_threshold:
   name: Soil Calathea Humidity Threshold
   unit_of_measurement: '%'
-  # Grows in rain forest, likes high humidity, but hates
-  # wet roots.
   initial: 70
   min: 1
   max: 100
@@ -144,8 +142,7 @@ soil_calathea_humidity_threshold:
 soil_drakenbloedboom_humidity_threshold:
   name: Soil Drakenbloedboom Humidity Threshold
   unit_of_measurement: '%'
-  # Let soil dry before watering, does not use a lot
-  initial: 70
+  initial: 65
   min: 1
   max: 100
   step: 1
@@ -153,8 +150,7 @@ soil_drakenbloedboom_humidity_threshold:
 soil_koraalcactus_humidity_threshold:
   name: Soil Koraalcactus Humidity Threshold
   unit_of_measurement: '%'
-  # Does not like to be in wet soil
-  initial: 70
+  initial: 60
   min: 1
   max: 100
   step: 1
@@ -163,7 +159,7 @@ soil_lepelplant_humidity_threshold:
   name: Soil Lepelplant Humidity Threshold
   unit_of_measurement: '%'
   # Loves humidity, impossible to give too much water
-  initial: 80
+  initial: 75
   min: 1
   max: 100
   step: 1
@@ -171,8 +167,7 @@ soil_lepelplant_humidity_threshold:
 soil_alocasia_humidity_threshold:
   name: Soil Alocasia Humidity Threshold
   unit_of_measurement: '%'
-  # Soil needs to be slightly humid it all times, however, does not like wet roots
-  initial: 75
+  initial: 70
   min: 1
   max: 100
   step: 1

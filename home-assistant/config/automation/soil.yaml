@@ -6,6 +6,11 @@
       humidity_entity: sensor.soil_calathea_humidity_average
       humidity_threshold_entity: input_number.soil_calathea_humidity_threshold
       plant_name: Calathea Orbifolia
+      instruction: >-
+        Houd grond licht vochtig.
+        Houdt niet van natte voeten.
+        Dus vaak een beetje water geven.
+        Liefst regenwater op kamertemperatuur, anders bruine randen.
 
 - alias: Alert Soil Drakenbloedboom Humidity
   id: alert-soil-drakenbloedboom-humidity
@@ -15,6 +20,9 @@
       humidity_entity: sensor.soil_drakenbloedboom_humidity_average
       humidity_threshold_entity: input_number.soil_drakenbloedboom_humidity_threshold
       plant_name: Drakenbloedboom
+      instruction: >-
+        Grond mag bijna helemaal uitdrogen.
+        Houdt niet van natte voeten.
 
 - alias: Alert Soil Koraalcactus Humidity
   id: alert-soil-koraalcactus-humidity
@@ -24,6 +32,10 @@
       humidity_entity: sensor.soil_koraalcactus_humidity_average
       humidity_threshold_entity: input_number.soil_koraalcactus_humidity_threshold
       plant_name: Koraalcactus
+      instruction: >-
+        Grond mag bijna helemaal uitdrogen.
+        Liefst regenwater op kamertemperatuur.
+        Houdt niet van natte voeten.
 
 - alias: Alert Soil Lepelplant Humidity
   id: alert-soil-lepelplant-humidity
@@ -33,6 +45,10 @@
       humidity_entity: sensor.soil_lepelplant_humidity_average
       humidity_threshold_entity: input_number.soil_lepelplant_humidity_threshold
       plant_name: Lepelplant
+      instruction: >-
+        Verbruikt redelijk veel water.
+        Niet gevoelig voor wortelrot.
+
 
 - alias: Alert Soil Alocasia Humidity
   id: alert-soil-alocasia-humidity
@@ -42,3 +58,7 @@
       humidity_entity: sensor.soil_alocasia_humidity_average
       humidity_threshold_entity: input_number.soil_alocasia_humidity_threshold
       plant_name: Alocasia (Zebraplant)
+      instruction: >-
+        Houd grond licht vochtig
+        Houdt niet van natte voeten.
+        Dus vaak een beetje water geven.

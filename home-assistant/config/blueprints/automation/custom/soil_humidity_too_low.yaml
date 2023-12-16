@@ -6,6 +6,9 @@ blueprint:
     plant_name:
       name: Plant name
       description: Human readable plant name
+    instruction:
+      name: Instruction
+      description: Additional watering instruction
     humidity_entity:
       name: Humidity sensor
       selector:
@@ -31,10 +34,14 @@ variables:
   plant_name: !input plant_name
   humidity_entity: !input humidity_entity
   humidity_threshold_entity: !input humidity_threshold_entity
+  instruction: !input instruction
+
 
 action:
   - service: notify.notify
-    #  - service: notify.mobile_app_J12P
+    #- service: notify.mobile_app_J12P
     data:
-      title: "{{ plant_name }}"
-      message: "Need water, Humidity is {{ states(humidity_entity) }} % and threshold is {{ states(humidity_threshold_entity) }} %"
+      title: "{{ plant_name }} heeft dorst"
+      message: >-
+        Vochtigheid {{ states(humidity_entity)|round }}% (grens is {{ states(humidity_threshold_entity)|round }})%.
+        {{ instruction }}
