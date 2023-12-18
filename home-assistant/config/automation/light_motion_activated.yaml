@@ -191,7 +191,8 @@
   action:
     - alias: "Turn on the light"
       service: light.turn_on
-      target: light.light_bathroom
+      target:
+        entity_id: light.light_bathroom
     - alias: "Wait until there is no motion from device"
       wait_for_trigger:
         platform: state
@@ -207,16 +208,21 @@
         - condition: state
           entity_id: sensor.motion_hall_1_occupancy
           state: "on"
-        - sequence:
+        sequence:
           - alias: "Set light to low brightness because there is still motion in the hallway"
             service: light.turn_on
-            target: light.light_bathroom
+            target:
+              entity_id: light.light_bathroom
             data:
               brightness: 50
+              transition: 10
       default:
         - alias: "Turn off the light"
           service: light.turn_off
-          target: light.light_bathroom
+          target:
+            entity_id: light.light_bathroom
+          data:
+            transition: 10
   mode: restart
   max_exceeded: silent
 

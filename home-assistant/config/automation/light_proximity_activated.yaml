@@ -157,7 +157,6 @@
       - condition: state
         entity_id: light.light_bathroom
         state: "on"
-      # FIXME: motion bathroom clears too quickly for this to work, need to make it 180s in total
       - condition: state
         entity_id: binary_sensor.motion_bathroom_occupancy
         state: "off"
@@ -194,5 +193,3 @@
       # Have to set brightness manually, just light.turn_on is not sufficient
       data:
         brightness: '{{ state_attr("switch.adaptive_lighting_motion_bathroom", "brightness_pct") / 100 * 255 }}'
-
-# TODO: go back to low brightness when light goes off in bathroom, but motion in hall 1 is still occupied.
