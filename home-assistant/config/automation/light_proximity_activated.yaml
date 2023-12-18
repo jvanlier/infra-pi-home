@@ -11,7 +11,7 @@
     condition: and
     conditions:
       # Can't check light groups here because they can't go "unavailable" if power is cut to the
-      # entire group. Stay "on" if they were on before.
+      # entire group. They stay "on" if they were on before.
       # In this case, only checking 1 light is sufficient because they are always toggled together.
       - condition: state
         entity_id: light.light_study_spot_center
