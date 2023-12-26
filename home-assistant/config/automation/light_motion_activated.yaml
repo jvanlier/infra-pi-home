@@ -178,19 +178,53 @@
         entity_id: light.light_toilet_1
       no_motion_wait: "{{ max(420 - states('number.motion_toilet_1_detection_interval') | int(0), 0) }}"
 
+# The Bathroom light does not use any blueprint, because it also activates on proximity using hall 1.
+# This makes the unconditional turn_off to not work well: it will go off while there still is motion in hall 1.
+# Instead, if should go to low light level.
 - alias: Motion-activated Light Bathroom
   id: mal-bathroom
-  use_blueprint:
-    path: homeassistant/motion_light.yaml
-    input:
-      motion_entity: binary_sensor.motion_bathroom_occupancy
-      light_target:
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_bathroom_occupancy
+    from: "off"
+    to: "on"
+  action:
+    - alias: "Turn on the light"
+      service: light.turn_on
+      target:
         entity_id: light.light_bathroom
-      no_motion_wait: >-
-        {{ max((180 if states('input_boolean.sleep_mode') == "on" else 300) -
-                   states('number.motion_bathroom_occupancy_timeout') | int(0),
-               0)
-        }}
+    - alias: "Wait until there is no motion from device"
+      wait_for_trigger:
+        platform: state
+        entity_id: binary_sensor.motion_bathroom_occupancy
+        from: "on"
+        to: "off"
+    - alias: "Wait the number of seconds that has been set"
+      # 180s on device, add 120s for 5 min in total
+      # N.b.: this was originally reduced to just 180s when sleep mode is on, consider putting that back in.
+      delay: 120
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.motion_hall_1_occupancy
+          state: "on"
+        sequence:
+          - alias: "Set light to low brightness because there is still motion in the hallway"
+            service: light.turn_on
+            target:
+              entity_id: light.light_bathroom
+            data:
+              brightness: 50
+              transition: 10
+      default:
+        - alias: "Turn off the light"
+          service: light.turn_off
+          target:
+            entity_id: light.light_bathroom
+          data:
+            transition: 10
+  mode: restart
+  max_exceeded: silent
 
 - alias: "Motion-activated Lights: toggle"
   id: "motion-activated-lights-toggle"
