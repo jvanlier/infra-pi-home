@@ -1,6 +1,6 @@
 blueprint:
-  name: Motion-activated Light Lux-Aware
-  description: Turn on a light when motion is detected, if there is insufficient daylight. Turns it off gently.
+  name: Motion-activated Light
+  description: Turn on a light when motion is detected. Turns it off gently.
   domain: automation
   input:
     motion_entity:
@@ -9,12 +9,6 @@ blueprint:
         entity:
           domain: binary_sensor
           device_class: motion
-    lux_entity:
-      name: Lux sensor
-      selector:
-        entity:
-          domain: sensor
-          device_class: illuminance
     device_no_motion_wait:
       name: Device wait time
       selector:
@@ -35,15 +29,6 @@ blueprint:
           min: 0
           max: 3600
           unit_of_measurement: seconds
-    lux_threshold:
-      name: Lux threshold
-      description: Turn on only if measured lux is below this value.
-      default: 350
-      selector:
-        number:
-          min: 0
-          max: 5000
-          unit_of_measurement: lux
     off_transition_sec:
       name: Off transition seconds
       description: Off transition seconds (requires only_once to be true in adaptive lighting)
@@ -66,12 +51,6 @@ trigger:
   entity_id: !input motion_entity
   from: "off"
   to: "on"
-
-condition:
-  - alias: "Is there insufficient daylight?"
-    condition: numeric_state
-    entity_id: !input lux_entity
-    below: !input lux_threshold
 
 variables:
   total_no_motion_wait: !input total_no_motion_wait

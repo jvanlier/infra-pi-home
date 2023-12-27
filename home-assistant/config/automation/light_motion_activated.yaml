@@ -95,10 +95,23 @@
               brightness: '{{ state_attr("light.light_hall_0", "brightness") / 2 | int }}'
               transition: 3
       default:
+        - alias: "Disable adaptive lighting (for off transition)"
+          service: switch.turn_off
+          target:
+            entity_id: switch.adaptive_lighting_motion_hall_0
         - alias: "Turn off the light"
           service: light.turn_off
           target:
             entity_id: light.light_hall_0
+          data:
+            transition: 10
+              # This may need to be finetuned; it may have been off from the start:
+        - alias: "Wait for transition"
+          delay: "00:00:10"
+        - alias: "Enable adaptive lighting"
+          service: switch.turn_on
+          target:
+              entity_id: switch.adaptive_lighting_motion_hall_0
   mode: restart
   max_exceeded: silent
 
@@ -161,25 +174,27 @@
 - alias: Motion-activated Light Toilet 0
   id: mal-toilet-0
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: custom/motion_light.yaml
     input:
       motion_entity: binary_sensor.motion_toilet_0_occupancy
+      device_no_motion_wait: number.motion_toilet_0_detection_interval
+      total_no_motion_wait: 420
       light_target:
         entity_id: light.light_toilet_0
-      no_motion_wait: "{{ max(420 - states('number.motion_toilet_0_detection_interval') | int(0), 0) }}"
 
 - alias: Motion-activated Light Toilet 1
   id: mal-toilet-1
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: custom/motion_light.yaml
     input:
       motion_entity: binary_sensor.motion_toilet_1_occupancy
+      device_no_motion_wait: number.motion_toilet_1_detection_interval
+      total_no_motion_wait: 420
       light_target:
         entity_id: light.light_toilet_1
-      no_motion_wait: "{{ max(420 - states('number.motion_toilet_1_detection_interval') | int(0), 0) }}"
 
 # The Bathroom light does not use any blueprint, because it also activates on proximity using hall 1.
-# This makes the unconditional turn_off to not work well: it will go off while there still is motion in hall 1.
+# This makes the unconditional turn_off not work well: it will go off while there still is motion in hall 1.
 # Instead, if should go to low light level.
 - alias: Motion-activated Light Bathroom
   id: mal-bathroom
