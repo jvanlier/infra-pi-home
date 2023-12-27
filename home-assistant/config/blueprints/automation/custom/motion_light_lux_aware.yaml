@@ -47,7 +47,7 @@ blueprint:
     off_transition_sec:
       name: Off transition seconds
       description: Off transition seconds (requires only_once to be true in adaptive lighting)
-      # without only_once: true, a new brightness/color instruction may come while the off transition is in progres,
+      # without only_once: true, a new brightness/color instruction may come while the off transition is in progress,
       # thereby canceling it.
       default: 10
       selector:
