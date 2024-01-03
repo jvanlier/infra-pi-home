@@ -56,6 +56,8 @@
       service: light.turn_on
       target:
         entity_id: light.light_hall_0
+      data:
+        transition: 1
     - alias: "Force apply in case it was already on"
       service: adaptive_lighting.apply
       data:

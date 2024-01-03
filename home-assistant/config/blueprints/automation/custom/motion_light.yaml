@@ -60,6 +60,11 @@ action:
   - alias: "Turn on the light"
     service: light.turn_on
     target: !input light_target
+    # An explicit on-transition was originally not needed with Hue bulbs, but after adding the off transition, the
+    # bulbs connected to Zigbee2MQTT started coming on immediately. No idea why.
+    # Does not happen with bulbs connected to the Hue hub. Workaround:
+    data:
+      transition: 1
   - alias: "Wait until there is no motion from device"
     wait_for_trigger:
       platform: state
