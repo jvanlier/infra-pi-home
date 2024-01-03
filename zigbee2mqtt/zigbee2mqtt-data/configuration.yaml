@@ -135,6 +135,14 @@ devices:
     friendly_name: Plug Veranda Lights
   '0xf0d1b8be2409045a':
     friendly_name: Plug Outdoor Christmas Lights
+  '0xa4c1389d0325ace4':
+    friendly_name: Soil Ginseng
+  '0xa4c138499137d23c':
+    friendly_name: Soil Monstera
+  '0xa4c13856658db029':
+    friendly_name: Soil Dwergpalm
+  '0xa4c13809f5c260be':
+    friendly_name: Soil Bonsai Ficus
 blocklist:
   - '0xec1bbdfffe7f3c18'
   - '0x001788010c690db7'
