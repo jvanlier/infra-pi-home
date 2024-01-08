@@ -49,7 +49,6 @@
         Verbruikt redelijk veel water.
         Niet gevoelig voor wortelrot.
 
-
 - alias: Alert Soil Alocasia Humidity
   id: alert-soil-alocasia-humidity
   use_blueprint:

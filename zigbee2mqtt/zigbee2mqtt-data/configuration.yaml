@@ -142,7 +142,9 @@ devices:
   '0xa4c13856658db029':
     friendly_name: Soil Dwergpalm
   '0xa4c13809f5c260be':
-    friendly_name: Soil Bonsai Ficus
+    friendly_name: Soil Treurvijg
+  '0xa4c1388f91db6152':
+    friendly_name: Soil Philodendron
 blocklist:
   - '0xec1bbdfffe7f3c18'
   - '0x001788010c690db7'

@@ -172,3 +172,43 @@ soil_alocasia_humidity_threshold:
   max: 100
   step: 1
   mode: box
+soil_treurvijg_humidity_threshold:
+  name: Soil Treurvijg Humidity Threshold
+  unit_of_measurement: '%'
+  initial: 70
+  min: 1
+  max: 100
+  step: 1
+  mode: box
+soil_dwergpalm_humidity_threshold:
+  name: Soil Dwergpalm Humidity Threshold
+  unit_of_measurement: '%'
+  initial: 70
+  min: 1
+  max: 100
+  step: 1
+  mode: box
+soil_ginseng_humidity_threshold:
+  name: Soil Ginseng Humidity Threshold
+  unit_of_measurement: '%'
+  initial: 70
+  min: 1
+  max: 100
+  step: 1
+  mode: box
+soil_monstera_humidity_threshold:
+  name: Soil Monstera Humidity Threshold
+  unit_of_measurement: '%'
+  initial: 70
+  min: 1
+  max: 100
+  step: 1
+  mode: box
+soil_philodendron_humidity_threshold:
+  name: Soil Philodendron Humidity Threshold
+  unit_of_measurement: '%'
+  initial: 70
+  min: 1
+  max: 100
+  step: 1
+  mode: box

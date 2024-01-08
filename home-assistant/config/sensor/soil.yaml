@@ -37,3 +37,43 @@
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
+
+- platform: filter
+  name: Soil Treurvijg humidity average
+  unique_id: soil_treurvijg_humidity_average
+  entity_id: sensor.soil_treurvijg_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "02:00:00"
+
+- platform: filter
+  name: Soil Dwergpalm humidity average
+  unique_id: soil_dwergpalm_humidity_average
+  entity_id: sensor.soil_dwergpalm_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "02:00:00"
+
+- platform: filter
+  name: Soil Ginseng humidity average
+  unique_id: soil_ginseng_humidity_average
+  entity_id: sensor.soil_ginseng_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "02:00:00"
+
+- platform: filter
+  name: Soil Monstera humidity average
+  unique_id: soil_monstera_humidity_average
+  entity_id: sensor.soil_monstera_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "02:00:00"
+
+- platform: filter
+  name: Soil Philodendron humidity average
+  unique_id: soil_philodendron_humidity_average
+  entity_id: sensor.soil_philodendron_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "02:00:00"
