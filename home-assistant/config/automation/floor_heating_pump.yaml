@@ -7,7 +7,7 @@
     hour: "{{ now().hour }}"
     temp: "{{ states('sensor.climate_living_room_temperature') | float }}"
     # Hour <= 20 makes water flow until 20:59. Heat runs until 19:59. 1 hour to spread the heat.
-    turn_on_below: "{{ 19.25 if hour >= 5 and hour <= 20 else 18.25 }}"
+    turn_on_below: "{{ 19.25 if hour >= 5 and hour <= 20 else 18.75 }}"
     turn_off_above: "{{ turn_on_below + 0.25 }}"
     desired_state: >-
       {{ "on" if temp < turn_on_below else
@@ -18,9 +18,9 @@
     - choose:
       - conditions:
           condition: template
-          value_template: >- 
-            {{ desired_state != 'undefined' and 
-               desired_state != states('switch.plug_floor_heating_pump') 
+          value_template: >-
+            {{ desired_state != 'undefined' and
+               desired_state != states('switch.plug_floor_heating_pump')
             }}
         sequence:
           - service: "switch.turn_{{ desired_state }}"
@@ -68,12 +68,11 @@
           state: "off"
         # Use this temp sensor in case Aqara sensor lost connection
         - condition: numeric_state
-          entity_id: sensor.motion_hall_0_temperature 
-          below: 18.5
+          entity_id: sensor.motion_hall_0_temperature
+          below: 19
   action:
     - service: notify.notify
       data:
         title: Floor Heating Pump
         message: Expected to be on, but is off
   mode: restart
-
