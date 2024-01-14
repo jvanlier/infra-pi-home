@@ -245,3 +245,10 @@
         - automation.motion_activated_light_toilet_1
         - automation.motion_activated_light_walk_in_closet
         - automation.motion_activated_light_bathroom
+        - automation.proximity_activated_light_living_kitchen_off
+        - automation.proximity_activated_light_living_kitchen_on
+        - automation.proximity_activated_light_study_off
+        - automation.proximity_activated_light_study_on
+        - automation.proximity_activated_light_bathroom_off
+        - automation.proximity_activated_light_bathroom_on
+        - automation.proximity_activated_light_bathroom_re_enable_adaptive_on_motion
