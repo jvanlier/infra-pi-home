@@ -2,22 +2,25 @@
   id: floor-heating-pump-toggle
   trigger:
     - platform: template
+      alias: "Temp rose sufficiently to turn off"
       value_template: >-
-        {{ (states('sensor.climate_living_room_temperature') | float(0)) >
-           (states('input_number.living_room_temperature_target') +
-            states('input_number.living_room_temperature_pump_offset') +
-            states('input_number.living_room_temperature_pump_margin')
+        {{ states('sensor.climate_living_room_temperature') | float(100) >
+           (states('input_number.living_room_temperature_target') | float(0) +
+            states('input_number.living_room_temperature_pump_offset') | float(0) +
+            states('input_number.living_room_temperature_pump_margin') | float(0)
            )
         }}
     - platform: template
+      alias: "Temp dropped sufficiently to turn on"
       value_template: >-
-        {{ (states('sensor.climate_living_room_temperature') | float(0)) <
-           (states('input_number.living_room_temperature_target') +
-            states('input_number.living_room_temperature_pump_offset') -
-            states('input_number.living_room_temperature_pump_margin')
+        {{ states('sensor.climate_living_room_temperature') | float(0) <
+           (states('input_number.living_room_temperature_target') | float(0) +
+            states('input_number.living_room_temperature_pump_offset') | float(0) -
+            states('input_number.living_room_temperature_pump_margin') | float(0)
            )
         }}
-    # Fallback trigger, remove if we get enough comfort that numeric_state trigger does the job.
+    # Fallback trigger, consider removing if there is sufficient comfort that temp-based triggers
+    # do the job.
     # Used by to be every minute, but it led to a lot of spam in the Logbook.
     - platform: time_pattern
       hours: 1
