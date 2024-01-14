@@ -1,14 +1,26 @@
 - alias: "Floor Heating Pump toggle"
   id: floor-heating-pump-toggle
   trigger:
+    # TODO: Think of a better trigger that doesn't lead to log spam.
+    #       Want to use numeric_state on temperature, but fear it is
+    #       not reliable enough.
     - platform: time_pattern
-      seconds: 0
+      minutes: 5
+    - platform: home_assistant
+      event: start
   variables:
-    hour: "{{ now().hour }}"
-    temp: "{{ states('sensor.climate_living_room_temperature') | float }}"
-    # Hour <= 20 makes water flow until 20:59. Heat runs until 19:59. 1 hour to spread the heat.
-    turn_on_below: "{{ 19.25 if hour >= 5 and hour <= 20 else 18.75 }}"
-    turn_off_above: "{{ turn_on_below + 0.25 }}"
+    target_plus_offset: >-
+      {{ states('input_number.living_room_temperature_target') +
+         states('input_number.living_room_temperature_pump_offset')
+      }}
+    margin: >-
+      {{ states('input_number.living_room_temperature_pump_margin') }}
+    temp: >-
+      # The default of 0 makes the pump always go on if the sensor is dead, which is useful to
+      # ensure continuation of service:
+      {{ states('sensor.climate_living_room_temperature') | float(0) }}
+    turn_on_below: "{{ target_plus_offset - margin }}"
+    turn_off_above: "{{ target_plus_offset + margin }}"
     desired_state: >-
       {{ "on" if temp < turn_on_below else
          "off" if temp > turn_off_above else
@@ -28,18 +40,23 @@
               entity_id: switch.plug_floor_heating_pump
   mode: restart
 
-# Run pump for 30 mins daily when power's cheap, intended to keep the water flowing regularly
-# outside of the heating season.
-# This can probably by improved by checking first whether the pump ran at all today.
+# Run pump for 30 mins daily at night outside of the heating season,
+# intended to keep the water flowing regularly.
 - alias: "Floor Heating Pump Nightly Flush"
   id: floor-heating-pump-nightly-flush
   trigger:
     - platform: time
       at: '03:00:00'
   condition:
-    - condition: state
-      entity_id: switch.plug_floor_heating_pump
-      state: "off"
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: switch.plug_floor_heating_pump
+        state: "off"
+      # Proxy for "not in heating season":
+      - condition: numeric_state
+        entity_id: sensor.climate_living_room_temperature
+        above: "{{ states('input_number.living_room_temperature_target') + 1 }}"
   action:
     - service: automation.turn_off
       entity_id: automation.floor_heating_pump_toggle
@@ -50,7 +67,7 @@
     - service: switch.turn_off
       target:
         entity_id: switch.plug_floor_heating_pump
-    - delay: '00:05:00'  # prevent super-quick power cycle (in case it's really cold)
+    - delay: '00:05:00'  # prevent super-quick power cycle
     - service: automation.turn_on
       entity_id: automation.floor_heating_pump_toggle
   mode: restart
