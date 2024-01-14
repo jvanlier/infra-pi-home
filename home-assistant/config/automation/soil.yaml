@@ -5,7 +5,7 @@
     input:
       humidity_entity: sensor.soil_calathea_humidity_average
       humidity_threshold_entity: input_number.soil_calathea_humidity_threshold
-      plant_name: Calathea Orbifolia
+      plant_name: Calathea Orbifolia (woonkamer)
       instruction: >-
         Houd grond licht vochtig.
         Houdt niet van natte voeten.
@@ -19,7 +19,7 @@
     input:
       humidity_entity: sensor.soil_drakenbloedboom_humidity_average
       humidity_threshold_entity: input_number.soil_drakenbloedboom_humidity_threshold
-      plant_name: Drakenbloedboom
+      plant_name: Drakenbloedboom (woonkamer)
       instruction: >-
         Grond mag bijna helemaal uitdrogen.
         Houdt niet van natte voeten.
@@ -31,7 +31,7 @@
     input:
       humidity_entity: sensor.soil_koraalcactus_humidity_average
       humidity_threshold_entity: input_number.soil_koraalcactus_humidity_threshold
-      plant_name: Koraalcactus
+      plant_name: Koraalcactus (woonkamer)
       instruction: >-
         Grond mag bijna helemaal uitdrogen.
         Liefst regenwater op kamertemperatuur.
@@ -44,7 +44,7 @@
     input:
       humidity_entity: sensor.soil_lepelplant_humidity_average
       humidity_threshold_entity: input_number.soil_lepelplant_humidity_threshold
-      plant_name: Lepelplant
+      plant_name: Lepelplant (zolder)
       instruction: >-
         Verbruikt redelijk veel water.
         Niet gevoelig voor wortelrot.
@@ -56,8 +56,75 @@
     input:
       humidity_entity: sensor.soil_alocasia_humidity_average
       humidity_threshold_entity: input_number.soil_alocasia_humidity_threshold
-      plant_name: Alocasia (Zebraplant)
+      plant_name: Alocasia (Zebraplant; zolder)
       instruction: >-
         Houd grond licht vochtig
         Houdt niet van natte voeten.
         Dus vaak een beetje water geven.
+
+- alias: Alert Soil Treurvijg Humidity
+  id: alert-soil-treurvijg-humidity
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_treurvijg_humidity_average
+      humidity_threshold_entity: input_number.soil_treurvijg_humidity_threshold
+      plant_name: Treurvijg (zolder)
+      instruction: >-
+        Houd grond licht vochtig
+        Houdt niet van natte voeten.
+        Dus vaak een beetje water geven.
+        Liefst regenwater op kamertemperatuur (houdt niet van kalk).
+
+- alias: Alert Soil Dwergpalm Humidity
+  id: alert-soil-dwergpalm-humidity
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_dwergpalm_humidity_average
+      humidity_threshold_entity: input_number.soil_dwergpalm_humidity_threshold
+      plant_name: Dwergpalm (slaapkamer)
+      instruction: >-
+        Houd grond licht vochtig
+        Houdt niet van natte voeten.
+        Dus vaak een beetje water geven.
+
+- alias: Alert Soil Ginseng Humidity
+  id: alert-soil-ginseng-humidity
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_ginseng_humidity_average
+      humidity_threshold_entity: input_number.soil_ginseng_humidity_threshold
+      plant_name: Ginseng (keuken)
+      instruction: >-
+        Houd grond licht vochtig
+        Houdt niet van natte voeten.
+        Dus vaak een beetje water geven.
+        Liefst lauw water.
+
+- alias: Alert Soil Monstera Humidity
+  id: alert-soil-monstera-humidity
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_monstera_humidity_average
+      humidity_threshold_entity: input_number.soil_monstera_humidity_threshold
+      plant_name: Monstera (zolder)
+      instruction: >-
+        Grond mag bijna helemaal uitdrogen.
+        Houdt niet van natte voeten.
+
+- alias: Alert Soil Philodendron Humidity
+  id: alert-soil-philodendron-humidity
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_philodendron_humidity_average
+      humidity_threshold_entity: input_number.soil_philodendron_humidity_threshold
+      plant_name: Philodendron (kastenkamer)
+      instruction: >-
+        Houd grond licht vochtig
+        Houdt niet van natte voeten.
+        Dus vaak een beetje water geven.
+        Liefst lauw water.

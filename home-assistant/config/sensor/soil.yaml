@@ -76,4 +76,5 @@
   entity_id: sensor.soil_philodendron_humidity
   filters:
     - filter: time_simple_moving_average
-      window_size: "02:00:00"
+      # This sensor is very noisy for some reason:
+      window_size: "06:00:00"
