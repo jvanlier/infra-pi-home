@@ -21,6 +21,10 @@
 #   On the plus side, the detection quality for this sensor does seem better than the one in
 #   use for Toilet 0. It works fine in a corner at the ceiling.
 #
+# - Aqara P1 @ 0.0.0_0010: Actually managed to firmware upgrade it directly after pairing.
+#   For Motion Stairs 0. Firmware build date Jan 4 2023.
+#   No quirks known yet.
+#
 # - Frient Motion Sensor Pro @ 3.6.6: Hall 0, Hall 1, Hall 2, Dressing, Walk-in closet.
 #   There's no led control in this firmware version.
 #   OTA updates are available in Z2M, but don't seem to work. Not even immediately after a factory
@@ -29,6 +33,9 @@
 #   and setting a new value immediately after. Point it at a wall and wave your hand in front of
 #   the sensor, then send.
 #   The highest value tested is 180, which works just fine.
+#
+#   Update 2024-01: finally managed to upgrade all of these to 4.0.2 (not 4.0.3!), by repeatedly
+#   trying. They all expose led control now.
 #
 # - Frient Motion Sensor Pro @ 4.0.3 @ 20220307 10:08: Laundry
 #   Now has led control: managed to change it to `fault_only`.
