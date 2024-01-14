@@ -1,12 +1,27 @@
 - alias: "Floor Heating Pump toggle"
   id: floor-heating-pump-toggle
   trigger:
-    # TODO: Think of a better trigger that doesn't lead to log spam.
-    #       Want to use numeric_state on temperature, but fear it is
-    #       not reliable enough.
+    - platform: template
+      value_template: >-
+        {{ (states('sensor.climate_living_room_temperature') | float(0)) >
+           (states('input_number.living_room_temperature_target') +
+            states('input_number.living_room_temperature_pump_offset') +
+            states('input_number.living_room_temperature_pump_margin')
+           )
+        }}
+    - platform: template
+      value_template: >-
+        {{ (states('sensor.climate_living_room_temperature') | float(0)) <
+           (states('input_number.living_room_temperature_target') +
+            states('input_number.living_room_temperature_pump_offset') -
+            states('input_number.living_room_temperature_pump_margin')
+           )
+        }}
+    # Fallback trigger, remove if we get enough comfort that numeric_state trigger does the job.
+    # Used by to be every minute, but it led to a lot of spam in the Logbook.
     - platform: time_pattern
-      minutes: 5
-    - platform: home_assistant
+      hours: 1
+    - platform: homeassistant
       event: start
   variables:
     target_plus_offset: >-
@@ -56,7 +71,7 @@
       # Proxy for "not in heating season":
       - condition: numeric_state
         entity_id: sensor.climate_living_room_temperature
-        above: "{{ states('input_number.living_room_temperature_target') + 1 }}"
+        above: 22
   action:
     - service: automation.turn_off
       entity_id: automation.floor_heating_pump_toggle
@@ -67,7 +82,6 @@
     - service: switch.turn_off
       target:
         entity_id: switch.plug_floor_heating_pump
-    - delay: '00:05:00'  # prevent super-quick power cycle
     - service: automation.turn_on
       entity_id: automation.floor_heating_pump_toggle
   mode: restart
