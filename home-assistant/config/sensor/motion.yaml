@@ -1,0 +1,36 @@
+- platform: template
+  sensors:
+    motion_stairs_1_or_hall_2_occupancy:
+      friendly_name: Motion Stairs 1 or Hall 2 Occupancy
+      value_template: >-
+        {% if states('binary_sensor.motion_stairs_1_occupancy') == "on"
+           or states('binary_sensor.motion_hall_2_occupancy') == "on" -%}
+          on
+        {% else -%}
+          off
+        {% endif %}
+
+- platform: template
+  sensors:
+    motion_stairs_0_or_hall_0_occupancy:
+      friendly_name: Motion Stairs 0 or Hall 0 Occupancy
+      value_template: >-
+        {% if states('binary_sensor.motion_stairs_0_occupancy') == "on"
+           or states('binary_sensor.motion_hall_0_occupancy') == "on" -%}
+          on
+        {% else -%}
+          off
+        {% endif %}
+
+- platform: template
+  sensors:
+    motion_stairs_or_hall_1_occupancy:
+      friendly_name: Motion Stairs or Hall 1 Occupancy
+      value_template: >-
+        {% if states('binary_sensor.motion_stairs_0_occupancy') == "on"
+           or states('binary_sensor.motion_stairs_1_occupancy') == "on"
+           or states('binary_sensor.motion_hall_1_occupancy') == "on" -%}
+          on
+        {% else -%}
+          off
+        {% endif %}

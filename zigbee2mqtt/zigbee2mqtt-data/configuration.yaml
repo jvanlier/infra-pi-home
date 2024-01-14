@@ -83,8 +83,6 @@ devices:
     friendly_name: Light Toilet 1
   '0x54ef4410004dbaa3':
     friendly_name: Plug Garden Lights
-  '0x0015bc001a02277b':
-    friendly_name: Motion Hall 2
   '0x04cd15fffed20dfe':
     friendly_name: Light Storage Range Extender
   '0x001788010bf99149':
@@ -153,6 +151,8 @@ devices:
     friendly_name: Motion Stairs 0
   '0x00158d000911ddbb':
     friendly_name: Door Bathroom
+  '0x0015bc001a02277b':
+    friendly_name: Motion Hall 2
 blocklist:
   - '0xec1bbdfffe7f3c18'
   - '0x001788010c690db7'
