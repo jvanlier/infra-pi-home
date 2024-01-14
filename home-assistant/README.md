@@ -1,7 +1,19 @@
 Home Assistant
 ==============
 
-**TODO: backup config dir**
+Approach: run official Docker image on Pi.
+Add custom extensions manually.
+Maintain YAMLs directly on Pi with vim.
+
+Should probably make a custom Docker image at some point, preferably in GHA, run some container-structure-tests, and deploy that.
+But time is limited at the moment.
+
+## Backup
+Crontab entry for backups:
+
+```
+42 4 1 * * cd /home/ubuntu/infra-pi-home/home-assistant && ./backup.sh
+```
 
 ## Adaptive Lightning
 The Docker install disallows add-on installations. But add-ons can be installed manually:
@@ -38,7 +50,6 @@ cd config/www
 curl -OL https://github.com/RomRider/apexcharts-card/releases/download/v2.0.1/apexcharts-card.js
 ```
 
-## lovelace-muchroom
+## lovelace-mushroom
 cd config/www
 curl -OL https://github.com/piitaya/lovelace-mushroom/releases/download/v2.4.1/mushroom.js
-
