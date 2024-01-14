@@ -6,19 +6,20 @@
       unit_of_measurement: W
 
     known_power_use:
-      friendly_name: Known Power Use 
+      friendly_name: Known Power Use
       value_template: >
-          {{ states('sensor.base_load_power') | float(0) + 
+          {{ states('sensor.base_load_power') | float(0) +
              states('sensor.plug_entertainment_power') | float(0) +
              states('sensor.plug_garden_lights_power') | float(0) +
              states('sensor.plug_workstation_power') | float(0) +
+             states('sensor.plug_bathroom_heater_power') | float(0) +
              states('sensor.plug_boiler_power') | float(0) +
              states('sensor.plug_roomba_power') | float(0) +
              states('sensor.plug_dishwasher_power') | float(0) +
              states('sensor.plug_washing_machine_power') | float(0) +
              states('sensor.plug_dryer_power') | float(0) +
              states('sensor.plug_floor_heating_pump_power') | float(0)
-          }} 
+          }}
       unit_of_measurement: W
 
 - platform: filter
@@ -34,4 +35,3 @@
   filters:
     - filter: time_simple_moving_average
       window_size: "00:00:30"
-
