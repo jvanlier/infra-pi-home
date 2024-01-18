@@ -9,6 +9,13 @@
         {% else -%}
           off
         {% endif %}
+    motion_stairs_1_or_hall_2_occupancy_timeout:
+      friendly_name: Motion Stairs 1 or Hall 2 Occupancy Timeout
+      # Get the lowest value to prevent lights from going off too quickly.
+      value_template: >-
+        {{ min(states('number.motion_stairs_1_detection_interval') | int(0),
+               states('number.motion_hall_2_occupancy_timeout') | int(0))
+        }}
 
 - platform: template
   sensors:
@@ -21,6 +28,13 @@
         {% else -%}
           off
         {% endif %}
+    motion_stairs_0_or_hall_0_occupancy_timeout:
+      friendly_name: Motion Stairs 0 or Hall 0 Occupancy Timeout
+      # Get the lowest value to prevent lights from going off too quickly.
+      value_template: >-
+        {{ min(states('number.motion_stairs_0_detection_interval') | int(0),
+               states('number.motion_hall_0_occupancy_timeout') | int(0))
+        }}
 
 - platform: template
   sensors:
@@ -34,3 +48,11 @@
         {% else -%}
           off
         {% endif %}
+    motion_stairs_or_hall_1_occupancy_timeout:
+      friendly_name: Motion Stairs or Hall 1 Ocupancy Timeout
+      # Get the lowest value to prevent lights from going off too quickly.
+      value_template: >-
+        {{ min(states('number.motion_stairs_0_detection_interval') | int(0),
+               states('number.motion_stairs_1_detection_interval') | int(0),
+               states('number.motion_hall_1_occupancy_timeout') | int(0))
+        }}

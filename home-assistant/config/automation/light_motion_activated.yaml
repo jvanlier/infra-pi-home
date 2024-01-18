@@ -1,37 +1,3 @@
-# Motion sensor approach: standardize occupancy_timeout / detection interval to 30s.
-#
-# Initally I tried to use 180 for everything to mimize zigbee traffic / log spam and maximize
-# battery life, but support for that has been hit-and-miss. It occasionally temporarily bricks
-# devices, requiring a factory reset (which is quite time consuming).
-#
-# Could go for 59, but that's pretty arbitrary.
-#
-# Optimizing per device is undesired, because for complex automations when combining different
-# sensors, it's nice for them to be in sync. Having to first sync them is time consuming.
-# It also makes automation testing take more time.
-# Each device on 30s is predictable, and also is the default for Frient devices so it makes setup
-# easier.
-#
-# Each motion sensor I have seems to be quirky in a different way:
-#
-# - Aqara P1 @ 0.0.0_0005: able to handle `detection_interval` of 200 (as advertised).
-#   Detection quality is pretty bad, unfortunately: limited range, needs to be chest-mounted to work
-#   well, even in an area as small as a toilet.
-# - Aqara P1 @ 0.0.0_0006: unable to handle a `detection_interval` of 200 sec.
-#   Occupancy never clears. From reddit/HA forums, anything >= 60 appears to break it.
-#   59 seems to work just fine, so use that.
-#   On the plus side, the detection quality for this sensor does seem better than the one in
-#   use for Toilet 0. It works fine in a corner at the ceiling.
-# - Aqara P1 @ 0.0.0_0010: Actually managed to firmware upgrade it directly after pairing.
-#   For Motion Stairs 0. Firmware build date Jan 4 2023.
-#   Has same issue with never clearing 60s detection interval.
-# - Frient Motion Sensor Pro @ 3.6.6.
-#   Can handle 180s occupancy timeout, but I have since OTA'd them all to 4.0.2.
-# - Frient Motion Sensor Pro @ 4.0.3.
-#   180s occupancy timeout support is spotty: in one case it worked, in another it no longer clears
-#   occupancy or accepted new values, requiring a factory reset.
-#   Hardware version may be a factor here (sticker on the bottom).
-
 - alias: Motion-activated Light Hall 0
   id: mal-hall-0
   description: "A motion activated light that stays on, (but dimmed) if nearby lights are also on and the sun is down. Prevents a dark hallway when people are in the living room."
@@ -63,7 +29,7 @@
         from: "on"
         to: "off"
     - alias: "Wait the number of seconds that has been set"
-      delay: "{{ max(180 - states('number.motion_hall_0_occupancy_timeout') | int(0), 0) }}"
+      delay: "{{ max(180 - states('sensor.motion_stairs_0_or_hall_0_occupancy_timeout') | int(0), 0) }}"
     - choose:
       - conditions:
         - condition: state
@@ -104,7 +70,7 @@
     input:
       motion_entity: sensor.motion_stairs_or_hall_1_occupancy
       lux_entity: sensor.motion_hall_1_illuminance_lux
-      device_no_motion_wait: number.motion_hall_1_occupancy_timeout
+      device_no_motion_wait: sensor.motion_stairs_or_hall_1_occupancy_timeout
       light_target:
         entity_id: light.light_hall_1
 
@@ -115,7 +81,7 @@
     input:
       motion_entity: sensor.motion_stairs_1_or_hall_2_occupancy
       lux_entity: sensor.motion_hall_2_illuminance_lux
-      device_no_motion_wait: number.motion_hall_2_occupancy_timeout
+      device_no_motion_wait: sensor.motion_stairs_1_or_hall_2_occupancy_timeout
       light_target:
         entity_id: light.light_hall_2
 
