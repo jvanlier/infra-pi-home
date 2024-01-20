@@ -1,6 +1,7 @@
 mqtt:
-  host: localhost
-  port: 1884
+  # Disabled for now, let's first test if it's stable for a few months
+  enabled: False
+
 cameras:
   doorbell:
     ffmpeg:
@@ -20,9 +21,11 @@ detectors:
     type: edgetpu
     device: usb
 
-# For some reason this does not meaningfully reduce cpu usage, to be investigated:
-ffmpeg:
-  hwaccel_args: preset-rpi-64-h264
+# Commented for Raspberry Pi 5 which no longer has h264 acceleration.
+# (It does have h265 decode, but not sure how to turn that on).
+# N.b.: if you enable this on a Pi 4, make device /dev/video10 available as well.
+#ffmpeg:
+#  hwaccel_args: preset-rpi-64-h264
 
 snapshots:
   enabled: True 
