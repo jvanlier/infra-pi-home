@@ -30,11 +30,6 @@ devices:
     friendly_name: Plug Workstation
   '0x0015bc002f00e6f5':
     friendly_name: Plug Entertainment
-  '0x00158d0007f82b0b':
-    friendly_name: Climate Living Room
-    temperature_calibration: 0
-    temperature_precision: 2
-    humidity_precision: 0
   '0x00158d0007ef3720':
     friendly_name: Climate Bedroom Duco
   '0x00158d0007f82928':
@@ -153,6 +148,8 @@ devices:
     friendly_name: Door Bathroom
   '0x0015bc001a02277b':
     friendly_name: Motion Hall 2
+  '0x00158d0007f82b0b':
+    friendly_name: Climate Living Room
 blocklist:
   - '0xec1bbdfffe7f3c18'
   - '0x001788010c690db7'
