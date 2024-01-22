@@ -163,7 +163,7 @@ base_load_power_misc:
 #   under the sensor but dry in other places, requiring a higher threshold.
 # - I am also not sure how consistently different sensors measure, some appear to be much noiser
 #   than others, i.e. having a high(er) statistical uncertaincy. This leads me to believe that
-#   there may also be different value sof systematic uncertaincy, i.e. bias.
+#   there may also be different values of systematic uncertaincy, i.e. bias.
 soil_calathea_humidity_threshold:
   name: Soil Calathea Humidity Threshold
   unit_of_measurement: '%'
