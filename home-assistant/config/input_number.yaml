@@ -154,20 +154,10 @@ base_load_power_misc:
   step: 0.1
   mode: box
 
-# N.b.: these thresholds are not directly comparable across plants, because the measured moisture
-# value depends heavily on:
-# - location of the sensor in the pot, center v.s. edge
-# - depth of the sensor
-# - whether plant's roots are close to the pins, making it use moisture close to the sensor, or
-#   whether it mostly takes it from elsewhere. In the latter case, it typically stays moist
-#   under the sensor but dry in other places, requiring a higher threshold.
-# - I am also not sure how consistently different sensors measure, some appear to be much noiser
-#   than others, i.e. having a high(er) statistical uncertaincy. This leads me to believe that
-#   there may also be different values of systematic uncertaincy, i.e. bias.
 soil_calathea_humidity_threshold:
   name: Soil Calathea Humidity Threshold
   unit_of_measurement: '%'
-  initial: 80
+  initial: 85
   min: 1
   max: 100
   step: 1
@@ -175,7 +165,7 @@ soil_calathea_humidity_threshold:
 soil_drakenbloedboom_humidity_threshold:
   name: Soil Drakenbloedboom Humidity Threshold
   unit_of_measurement: '%'
-  initial: 65
+  initial: 80
   min: 1
   max: 100
   step: 1
@@ -183,7 +173,7 @@ soil_drakenbloedboom_humidity_threshold:
 soil_koraalcactus_humidity_threshold:
   name: Soil Koraalcactus Humidity Threshold
   unit_of_measurement: '%'
-  initial: 70
+  initial: 80
   min: 1
   max: 100
   step: 1
@@ -191,8 +181,7 @@ soil_koraalcactus_humidity_threshold:
 soil_lepelplant_humidity_threshold:
   name: Soil Lepelplant Humidity Threshold
   unit_of_measurement: '%'
-  # Loves humidity, impossible to give too much water
-  initial: 75
+  initial: 90
   min: 1
   max: 100
   step: 1
