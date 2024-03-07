@@ -11,7 +11,7 @@
       to: "off"  # off = door closed, weirdly
     - platform: numeric_state
       entity_id: sensor.climate_bathroom_temperature
-      below: 18.4  # TODO input number
+      below: 19.8  # TODO input number
   condition:
     condition: and
     conditions:
@@ -26,7 +26,7 @@
         state: "off"
       - condition: numeric_state
         entity_id: sensor.climate_bathroom_temperature
-        below: 18.4  # TODO input number
+        below: 19.8  # TODO input number
   action:
     - service: switch.turn_on
       target:
@@ -48,7 +48,7 @@
       for: "00:01:00"
     - platform: numeric_state
       entity_id: sensor.climate_bathroom_temperature
-      above: 18.6 # TODO input number
+      above: 20 # TODO input number
   action:
     - service: switch.turn_off
       target:
