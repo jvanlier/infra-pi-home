@@ -6,6 +6,9 @@ default_config:
 tts:
   - platform: google_translate
 
+recorder:
+  purge_keep_days: 30  # default is 10 days
+
 group: !include groups.yaml
 automation: !include_dir_merge_list automation/
 script: !include scripts.yaml
@@ -19,14 +22,14 @@ template:
   - trigger:
       - platform: time_pattern
         seconds: 0
-    sensor:  
+    sensor:
       - name: Base Load power
         unique_id: base_load_power
         unit_of_measurement: W
         device_class: power
         state_class: measurement
         state: >
-          {{ states('input_number.base_load_power_wifi_aps') | float + 
+          {{ states('input_number.base_load_power_wifi_aps') | float +
              states('input_number.base_load_power_router') | float +
              states('input_number.base_load_power_fiber') | float +
              states('input_number.base_load_power_switch') | float +
@@ -40,13 +43,13 @@ template:
              states('input_number.base_load_power_smoke_detectors') | float +
              states('input_number.base_load_power_nanny_cams') | float +
              states('input_number.base_load_power_misc') | float
-          }} 
+          }}
 
 
   - trigger:
       - platform: time_pattern
         minutes: 59
-    sensor:  
+    sensor:
       - name: Base Load energy
         unique_id: base_load_energy
         unit_of_measurement: kWh
@@ -81,4 +84,3 @@ mqtt:
       name: "solarmanpv_inverter"
       unique_id: "solarmanpv_inverter"
       json_attributes_topic: "solarmanpv/inverter/attributes"
-
