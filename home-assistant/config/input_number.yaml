@@ -7,10 +7,10 @@ living_room_temperature_target:
   mode: box
 living_room_temperature_pump_offset:
   name: Offset to add to target to ensure pump doesn't switch off too early.
-  initial: 0.5
+  initial: 0.25
   min: 0.1
   max: 2.0
-  step: 0.1
+  step: 0.01
   mode: box
 living_room_temperature_pump_margin:
   name: Margin around (target + offset) where no action is performed.

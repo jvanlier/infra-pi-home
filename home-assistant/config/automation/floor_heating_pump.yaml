@@ -28,11 +28,11 @@
       event: start
   variables:
     target_plus_offset: >-
-      {{ states('input_number.living_room_temperature_target') +
-         states('input_number.living_room_temperature_pump_offset')
+      {{ states('input_number.living_room_temperature_target') | float(19) +
+         states('input_number.living_room_temperature_pump_offset') | float(0)
       }}
     margin: >-
-      {{ states('input_number.living_room_temperature_pump_margin') }}
+      {{ states('input_number.living_room_temperature_pump_margin') | float(0) }}
     temp: >-
       # The default of 0 makes the pump always go on if the sensor is dead, which is useful to
       # ensure continuation of service:
@@ -40,8 +40,8 @@
     turn_on_below: "{{ target_plus_offset - margin }}"
     turn_off_above: "{{ target_plus_offset + margin }}"
     desired_state: >-
-      {{ "on" if temp < turn_on_below else
-         "off" if temp > turn_off_above else
+      {{ "on" if temp | float(0) < turn_on_below | float(0) else
+         "off" if temp | float(0) > turn_off_above | float(0) else
          "undefined"
       }}
   action:
