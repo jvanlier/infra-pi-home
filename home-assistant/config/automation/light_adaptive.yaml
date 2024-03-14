@@ -11,7 +11,7 @@
     - service: "switch.turn_{{ new_state }}"
       entity_id:
         - switch.adaptive_lighting_motion
+        - switch.adaptive_lighting_motion_floor_2_storage
         - switch.adaptive_lighting_motion_hall_0
         - switch.adaptive_lighting_motion_floor_1
         - switch.adaptive_lighting_motion_bathroom
-
