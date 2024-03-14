@@ -2,14 +2,24 @@
   lights:
     - light.light_hall_2
     - light.light_toilet_0
-    - light.light_walk_in_closet
-    - light.light_laundry
     - light.light_dressing
   min_brightness: 50
   max_brightness: 80
   sleep_brightness: 40
   min_color_temp: 2400
   max_color_temp: 4500
+  # Not needed to keep adapting for lights that toggle often:
+  only_once: true
+
+# Needed to separate these out for war on Silverfish, want lights on at night, exclude from
+# sleep mode toggle.
+- name: "motion-floor-2-storage"
+  lights:
+    - light.light_laundry
+    - light.light_dressing
+  min_brightness: 50
+  max_brightness: 80
+  sleep_brightness: 100
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
 

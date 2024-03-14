@@ -1,0 +1,93 @@
+- alias: "Silverfish war: Study lights on at sunset"
+  id: silverfish-war-study-lights-on-sunset
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "-00:30:00"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.hue_light_group_study
+      data:
+        brightness: 255
+        color_temp: 153
+        transition: 30
+  mode: restart
+
+- alias: "Silverfish war: Study lights off at sunrise"
+  id: silverfish-war-study-lights-off-sunrise
+  trigger:
+    - platform: sun
+      event: sunrise
+      offset: "+00:30:00"
+  action:
+    - service: light.turn_off
+      target:
+        entity_id: light.hue_light_group_study
+  mode: restart
+
+- alias: "Silverfish war: WAC light on at sunset"
+  id: silverfish-war-wac-light-on-sunset
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "-00:30:00"
+  action:
+    - service: automation.turn_off
+      target:
+        entity_id: automation.motion_activated_light_walk_in_closet
+    - service: light.turn_on
+      target:
+        entity_id: light.light_walk_in_closet
+      data:
+        brightness: 255
+        transition: 30
+  mode: restart
+
+- alias: "Silverfish war: WAC light off at sunrise"
+  id: silverfish-war-wac-light-off-sunrise
+  trigger:
+    - platform: sun
+      event: sunrise
+      offset: "+00:30:00"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.light_walk_in_closet
+    - service: automation.turn_on
+      target:
+        entity_id: automation.motion_activated_light_walk_in_closet
+  mode: restart
+
+- alias: "Silverfish war: laundry light on at sunset"
+  id: silverfish-war-laundry-light-on-sunset
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "-00:30:00"
+  action:
+    - service: automation.turn_off
+      target:
+        entity_id: automation.motion_activated_light_laundry
+    - service: light.turn_on
+      target:
+        entity_id: light.light_laundry
+      data:
+        brightness: 255
+        transition: 30
+  mode: restart
+
+- alias: "Silverfish war: laundry light off at sunrise"
+  id: silverfish-war-laundry-light-off-sunrise
+  trigger:
+    - platform: sun
+      event: sunrise
+      offset: "+00:30:00"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.light_laundry
+    - service: automation.turn_on
+      target:
+        entity_id: automation.motion_activated_light_laundry
+  mode: restart
