@@ -5,9 +5,8 @@
 - alias: Garden lights on at sunset
   id: garden-lights-on-sunset
   trigger:
-    - platform: state
-      entity_id: sun.sun
-      to: below_horizon
+    - platform: sun
+      event: sunset
   action:
     - service: switch.turn_on
       target:
