@@ -33,18 +33,28 @@
       }}
     margin: >-
       {{ states('input_number.living_room_temperature_pump_margin') | float(0) }}
+    # The default of 0 makes the pump always go on if the sensor is dead, which is useful to
+    # ensure continuation of service:
     temp: >-
-      # The default of 0 makes the pump always go on if the sensor is dead, which is useful to
-      # ensure continuation of service:
       {{ states('sensor.climate_living_room_temperature') | float(0) }}
     turn_on_below: "{{ target_plus_offset - margin }}"
     turn_off_above: "{{ target_plus_offset + margin }}"
     desired_state: >-
-      {{ "on" if temp | float(0) < turn_on_below | float(0) else
-         "off" if temp | float(0) > turn_off_above | float(0) else
+      {{ "on" if (temp | float(0)) < (turn_on_below | float(0)) else
+         "off" if (temp | float(0)) > (turn_off_above | float(0)) else
          "undefined"
       }}
   action:
+    #    - service: notify.mobile_app_J12P
+    #      data:
+    #        title: Debug FHP toggle
+    #        message: >
+    #          target_plus_offset: {{ target_plus_offset }},
+    #          margin: {{ margin }},
+    #          temp: {{ temp }},
+    #          turn_on_below: {{ turn_on_below }},
+    #          turn_off_below: {{ turn_off_below }},
+    #          desired_state: {{ desired_state }}
     - choose:
       - conditions:
           condition: template
