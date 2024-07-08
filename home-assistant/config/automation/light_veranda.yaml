@@ -1,9 +1,25 @@
-- alias: Veranda lights on at sunset
-  id: veranda-lights-on-sunset
+- alias: Veranda lights on at sunset when home
+  id: veranda-lights-on-sunset-when-home
   trigger:
     - platform: sun
       event: sunset
       offset: "-00:30:00"
+      # This trigger is intended in case somebody came home between 30 mins before sunset and sunset:
+    - platform: sun
+      event: sunset
+  condition:
+    condition: state
+    entity_id: sensor.at_least_one_person_home
+    state: "yes"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.plug_veranda_lights
+  mode: restart
+
+- alias: Veranda lights on when coming home after sunet
+  id: veranda-lights-on-sunset-when-coming-home-after-sunset
+  trigger:
     - platform: state
       entity_id: sensor.at_least_one_person_home
       from: "no"
@@ -14,9 +30,6 @@
       - condition: state
         entity_id: sun.sun
         state: "below_horizon"
-      - condition: state
-        entity_id: sensor.at_least_one_person_home
-        state: "yes"
       - condition: time
         before: "23:00:00"
   action:
