@@ -154,6 +154,14 @@ base_load_power_misc:
   step: 0.1
   mode: box
 
+soil_outside_humidity_threshold:
+  name: Soil Outside Humidity Threshold
+  unit_of_measurement: '%'
+  initial: 60
+  min: 1
+  max: 100
+  step: 1
+  mode: box
 soil_calathea_humidity_threshold:
   name: Soil Calathea Humidity Threshold
   unit_of_measurement: '%'
@@ -182,14 +190,6 @@ soil_lepelplant_humidity_threshold:
   name: Soil Lepelplant Humidity Threshold
   unit_of_measurement: '%'
   initial: 90
-  min: 1
-  max: 100
-  step: 1
-  mode: box
-soil_alocasia_humidity_threshold:
-  name: Soil Alocasia Humidity Threshold
-  unit_of_measurement: '%'
-  initial: 70
   min: 1
   max: 100
   step: 1

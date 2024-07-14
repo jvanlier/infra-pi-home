@@ -1,3 +1,15 @@
+# Outside
+
+- platform: filter
+  name: Soil Outside humidity average
+  unique_id: soil_outside_humidity_average
+  entity_id: sensor.outside_humidity
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "02:00:00"
+
+# Inside
+
 - platform: filter
   name: Soil Calathea humidity average
   unique_id: soil_calathea_humidity_average
@@ -30,13 +42,6 @@
     - filter: time_simple_moving_average
       window_size: "02:00:00"
 
-- platform: filter
-  name: Soil Alocasia humidity average
-  unique_id: soil_alocasia_humidity_average
-  entity_id: sensor.soil_alocasia_humidity
-  filters:
-    - filter: time_simple_moving_average
-      window_size: "02:00:00"
 
 - platform: filter
   name: Soil Treurvijg humidity average

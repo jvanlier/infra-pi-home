@@ -1,3 +1,17 @@
+# Outside:
+
+- alias: Alert Soil Outside Humidity
+  id: alert-soil-outside-humidity
+  use_blueprint:
+    path: custom/soil_humidity_too_low.yaml
+    input:
+      humidity_entity: sensor.soil_outside_humidity_average
+      humidity_threshold_entity: input_number.soil_outside_humidity_threshold
+      plant_name: Buiten (achtertuin rechts)
+      instruction: ""
+
+# Inside:
+
 - alias: Alert Soil Calathea Humidity
   id: alert-soil-calathea-humidity
   use_blueprint:
@@ -48,19 +62,6 @@
       instruction: >-
         Verbruikt redelijk veel water.
         Niet gevoelig voor wortelrot.
-
-- alias: Alert Soil Alocasia Humidity
-  id: alert-soil-alocasia-humidity
-  use_blueprint:
-    path: custom/soil_humidity_too_low.yaml
-    input:
-      humidity_entity: sensor.soil_alocasia_humidity_average
-      humidity_threshold_entity: input_number.soil_alocasia_humidity_threshold
-      plant_name: Alocasia (Zebraplant; zolder)
-      instruction: >-
-        Houd grond licht vochtig
-        Houdt niet van natte voeten.
-        Dus vaak een beetje water geven.
 
 - alias: Alert Soil Treurvijg Humidity
   id: alert-soil-treurvijg-humidity
