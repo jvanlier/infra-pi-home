@@ -3,7 +3,7 @@
 - platform: filter
   name: Soil Outside humidity average
   unique_id: soil_outside_humidity_average
-  entity_id: sensor.outside_humidity
+  entity_id: sensor.soil_outside_humidity
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
