@@ -38,7 +38,7 @@
       entity_id: sensor.electricity_meter_current_phase_l3
       above: 23
   action:
-    - service: notify.mobile_app_J12P
+    - service: notify.mobile_app_JX
       data:
         title: Electricity overload warning
         message: >

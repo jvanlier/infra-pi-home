@@ -39,7 +39,7 @@ variables:
 
 action:
   - service: notify.notify
-    #- service: notify.mobile_app_J12P
+    #- service: notify.mobile_app_JX
     data:
       title: "{{ plant_name }} heeft dorst"
       message: >-

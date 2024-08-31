@@ -5,7 +5,7 @@
       event: sunset
       offset: "00:30:00"
   action:
-    - service: notify.mobile_app_J12P
+    - service: notify.mobile_app_JX
       data:
         title: Solar production today
         message: >
