@@ -14,7 +14,7 @@
       alias: "Temp dropped sufficiently to turn on"
       value_template: >-
         {{ states('sensor.climate_living_room_temperature') | float(0) <
-           (states('input_number.living_room_temperature_target') | float(0) +
+           (states('input_number.living_room_temperature_target') | float(50) +
             states('input_number.living_room_temperature_pump_offset') | float(0) -
             states('input_number.living_room_temperature_pump_margin') | float(0)
            )
@@ -23,12 +23,12 @@
     # do the job.
     # Used by to be every minute, but it led to a lot of spam in the Logbook.
     - platform: time_pattern
-      hours: 1
+      minutes: 0
     - platform: homeassistant
       event: start
   variables:
     target_plus_offset: >-
-      {{ states('input_number.living_room_temperature_target') | float(19) +
+      {{ states('input_number.living_room_temperature_target') | float(20) +
          states('input_number.living_room_temperature_pump_offset') | float(0)
       }}
     margin: >-
@@ -113,10 +113,10 @@
         # Use this temp sensor in case Aqara sensor lost connection
         - condition: numeric_state
           entity_id: sensor.motion_hall_0_temperature
-          below: 19
+          below: input_number.living_room_temperature_target
   action:
     - service: notify.notify
       data:
         title: Floor Heating Pump
-        message: Expected to be on, but is off
+        message: Expected to be on due to low temperature, but is off
   mode: restart

@@ -1,6 +1,6 @@
 living_room_temperature_target:
   name: Living Room Temperature Target (workaround due to lacking a smart thermostat)
-  initial: 19
+  initial: 20
   min: 16
   max: 22
   step: 0.5
