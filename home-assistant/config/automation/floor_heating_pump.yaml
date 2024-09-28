@@ -4,19 +4,19 @@
     - platform: template
       alias: "Temp rose sufficiently to turn off"
       value_template: >-
+        # High default ensures it it doesn't trigger if sensor is unavailable
         {{ states('sensor.climate_living_room_temperature') | float(100) >
-           (states('input_number.living_room_temperature_target') | float(0) +
-            states('input_number.living_room_temperature_pump_offset') | float(0) +
-            states('input_number.living_room_temperature_pump_margin') | float(0)
+           (states('input_number.living_room_temperature_target') | float +
+            states('input_number.living_room_temperature_turn_off_above_target_plus_this') | float
            )
         }}
     - platform: template
       alias: "Temp dropped sufficiently to turn on"
       value_template: >-
+        # Low default ensures it doesn't trigger if sensor is unavailable
         {{ states('sensor.climate_living_room_temperature') | float(0) <
-           (states('input_number.living_room_temperature_target') | float(50) +
-            states('input_number.living_room_temperature_pump_offset') | float(0) -
-            states('input_number.living_room_temperature_pump_margin') | float(0)
+           (states('input_number.living_room_temperature_target') | float +
+            states('input_number.living_room_temperature_turn_on_below_target_plus_this') | float
            )
         }}
     # Fallback trigger, consider removing if there is sufficient comfort that temp-based triggers
@@ -27,34 +27,30 @@
     - platform: homeassistant
       event: start
   variables:
-    target_plus_offset: >-
-      {{ states('input_number.living_room_temperature_target') | float(20) +
-         states('input_number.living_room_temperature_pump_offset') | float(0)
-      }}
-    margin: >-
-      {{ states('input_number.living_room_temperature_pump_margin') | float(0) }}
     # The default of 0 makes the pump always go on if the sensor is dead, which is useful to
     # ensure continuation of service:
     temp: >-
       {{ states('sensor.climate_living_room_temperature') | float(0) }}
-    turn_on_below: "{{ target_plus_offset - margin }}"
-    turn_off_above: "{{ target_plus_offset + margin }}"
+    target: >-
+      {{ states('input_number.living_room_temperature_target') | float }}
+    turn_on_below: >-
+      {{ target + states('input_number.living_room_temperature_turn_on_below_target_plus_this') | float }}
+    turn_off_above: >-
+      {{ target + states('input_number.living_room_temperature_turn_off_above_target_plus_this') | float }}
     desired_state: >-
       {{ "on" if (temp | float(0)) < (turn_on_below | float(0)) else
          "off" if (temp | float(0)) > (turn_off_above | float(0)) else
          "undefined"
       }}
   action:
-    #    - service: notify.mobile_app_JX
-    #      data:
-    #        title: Debug FHP toggle
-    #        message: >
-    #          target_plus_offset: {{ target_plus_offset }},
-    #          margin: {{ margin }},
-    #          temp: {{ temp }},
-    #          turn_on_below: {{ turn_on_below }},
-    #          turn_off_below: {{ turn_off_below }},
-    #          desired_state: {{ desired_state }}
+    - service: notify.mobile_app_JX
+      data:
+        title: Debug FHP toggle
+        message: >
+          temp: {{ temp }},
+          turn_on_below: {{ turn_on_below }},
+          turn_off_above: {{ turn_off_above }},
+          desired_state: {{ desired_state }}
     - choose:
       - conditions:
           condition: template
