@@ -9,7 +9,7 @@
         - mon
     # Only even weeknumbers:
     - condition: template
-      value_template: "{{ (as_timestamp(now())|timestamp_custom ('%W') | int % 2) == 0 }}"
+      value_template: "{{ (as_timestamp(now())|timestamp_custom ('%W') | int % 1) == 0 }}"
   action:
     - service: input_boolean.turn_on
       target:
@@ -27,7 +27,7 @@
         - mon
     # Only even weeknumbers:
     - condition: template
-      value_template: "{{ (as_timestamp(now())|timestamp_custom ('%W') | int % 2) == 0 }}"
+      value_template: "{{ (as_timestamp(now())|timestamp_custom ('%W') | int % 1) == 0 }}"
   action:
     - service: input_boolean.turn_off
       target:
@@ -42,7 +42,7 @@
       to: 'on'
   action:
     - service: input_boolean.turn_off
-      entity_id: 
+      entity_id:
         - input_boolean.motion_activated_lights
         - input_boolean.adaptive_lighting
     - service: light.turn_on
@@ -90,8 +90,6 @@
     # short delay appears to be needed to prevent adaptive light from immediately turning lights on again
     - delay: "00:00:01"
     - service: input_boolean.turn_on
-      entity_id: 
+      entity_id:
         - input_boolean.motion_activated_lights
         - input_boolean.adaptive_lighting
-
-
