@@ -115,17 +115,3 @@
       instruction: >-
         Grond mag bijna helemaal uitdrogen.
         Houdt niet van natte voeten.
-
-- alias: Alert Soil Philodendron Humidity
-  id: alert-soil-philodendron-humidity
-  use_blueprint:
-    path: custom/soil_humidity_too_low.yaml
-    input:
-      humidity_entity: sensor.soil_philodendron_humidity_average
-      humidity_threshold_entity: input_number.soil_philodendron_humidity_threshold
-      plant_name: Philodendron (kastenkamer)
-      instruction: >-
-        Houd grond licht vochtig
-        Houdt niet van natte voeten.
-        Dus vaak een beetje water geven.
-        Liefst lauw water.

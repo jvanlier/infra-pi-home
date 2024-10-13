@@ -74,12 +74,3 @@
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
-
-- platform: filter
-  name: Soil Philodendron humidity average
-  unique_id: soil_philodendron_humidity_average
-  entity_id: sensor.soil_philodendron_humidity
-  filters:
-    - filter: time_simple_moving_average
-      # This sensor is very noisy for some reason:
-      window_size: "06:00:00"
