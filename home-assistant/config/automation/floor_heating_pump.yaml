@@ -43,7 +43,7 @@
          "undefined"
       }}
   action:
-    #    - service: notify.mobile_app_JX
+    #    - service: notify.mobile_app_J16
     #      data:
     #        title: Debug FHP toggle
     #        message: >
