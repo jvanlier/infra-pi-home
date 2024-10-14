@@ -43,14 +43,14 @@
          "undefined"
       }}
   action:
-    - service: notify.mobile_app_JX
-      data:
-        title: Debug FHP toggle
-        message: >
-          temp: {{ temp }},
-          turn_on_below: {{ turn_on_below }},
-          turn_off_above: {{ turn_off_above }},
-          desired_state: {{ desired_state }}
+    #    - service: notify.mobile_app_JX
+    #      data:
+    #        title: Debug FHP toggle
+    #        message: >
+    #          temp: {{ temp }},
+    #          turn_on_below: {{ turn_on_below }},
+    #          turn_off_above: {{ turn_off_above }},
+    #          desired_state: {{ desired_state }}
     - choose:
       - conditions:
           condition: template
