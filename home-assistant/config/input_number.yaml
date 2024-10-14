@@ -153,72 +153,72 @@ base_load_power_misc:
   step: 0.1
   mode: box
 
-soil_outside_humidity_threshold:
-  name: Soil Outside Humidity Threshold
+soil_outside_soil_moisture_threshold:
+  name: Soil Outside Soil Moisture Threshold
   unit_of_measurement: '%'
   initial: 60
   min: 1
   max: 100
   step: 1
   mode: box
-soil_calathea_humidity_threshold:
-  name: Soil Calathea Humidity Threshold
+soil_calathea_soil_moisture_threshold:
+  name: Soil Calathea Soil Moisture Threshold
   unit_of_measurement: '%'
   initial: 85
   min: 1
   max: 100
   step: 1
   mode: box
-soil_drakenbloedboom_humidity_threshold:
-  name: Soil Drakenbloedboom Humidity Threshold
+soil_drakenbloedboom_soil_moisture_threshold:
+  name: Soil Drakenbloedboom Soil Moisture Threshold
   unit_of_measurement: '%'
   initial: 80
   min: 1
   max: 100
   step: 1
   mode: box
-soil_koraalcactus_humidity_threshold:
-  name: Soil Koraalcactus Humidity Threshold
+soil_koraalcactus_soil_moisture_threshold:
+  name: Soil Koraalcactus Soil Moisture Threshold
   unit_of_measurement: '%'
   initial: 80
   min: 1
   max: 100
   step: 1
   mode: box
-soil_lepelplant_humidity_threshold:
-  name: Soil Lepelplant Humidity Threshold
+soil_lepelplant_soil_moisture_threshold:
+  name: Soil Lepelplant Soil Moisture Threshold
   unit_of_measurement: '%'
   initial: 90
   min: 1
   max: 100
   step: 1
   mode: box
-soil_treurvijg_humidity_threshold:
-  name: Soil Treurvijg Humidity Threshold
+soil_treurvijg_soil_moisture_threshold:
+  name: Soil Treurvijg Soil Moisture Threshold
   unit_of_measurement: '%'
   initial: 70
   min: 1
   max: 100
   step: 1
   mode: box
-soil_dwergpalm_humidity_threshold:
-  name: Soil Dwergpalm Humidity Threshold
+soil_dwergpalm_soil_moisture_threshold:
+  name: Soil Dwergpalm Soil Moisture Threshold
   unit_of_measurement: '%'
   initial: 70
   min: 1
   max: 100
   step: 1
   mode: box
-soil_ginseng_humidity_threshold:
-  name: Soil Ginseng Humidity Threshold
+soil_ginseng_soil_moisture_threshold:
+  name: Soil Ginseng Soil Moisture Threshold
   unit_of_measurement: '%'
   initial: 70
   min: 1
   max: 100
   step: 1
   mode: box
-soil_monstera_humidity_threshold:
-  name: Soil Monstera Humidity Threshold
+soil_monstera_soil_moisture_threshold:
+  name: Soil Monstera Soil Moisture Threshold
   unit_of_measurement: '%'
   initial: 65
   min: 1

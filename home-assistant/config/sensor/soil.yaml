@@ -1,9 +1,9 @@
 # Outside
 
 - platform: filter
-  name: Soil Outside humidity average
-  unique_id: soil_outside_humidity_average
-  entity_id: sensor.soil_outside_humidity
+  name: Soil Outside soil moisture average
+  unique_id: soil_outside_soil_moisture_average
+  entity_id: sensor.soil_outside_soil_moisture
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
@@ -11,66 +11,66 @@
 # Inside
 
 - platform: filter
-  name: Soil Calathea humidity average
-  unique_id: soil_calathea_humidity_average
-  entity_id: sensor.soil_calathea_humidity
+  name: Soil Calathea soil moisture average
+  unique_id: soil_calathea_soil_moisture_average
+  entity_id: sensor.soil_calathea_soil_moisture
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
 
 - platform: filter
-  name: Soil Drakenbloedboom humidity average
-  unique_id: soil_drakenbloedboom_humidity_average
-  entity_id: sensor.soil_drakenbloedboom_humidity
+  name: Soil Drakenbloedboom soil moisture average
+  unique_id: soil_drakenbloedboom_soil_moisture_average
+  entity_id: sensor.soil_drakenbloedboom_soil_moisture
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
 
 - platform: filter
-  name: Soil Koraalcactus humidity average
-  unique_id: soil_koraalcactus_humidity_average
-  entity_id: sensor.soil_koraalcactus_humidity
+  name: Soil Koraalcactus soil moisture average
+  unique_id: soil_koraalcactus_soil_moisture_average
+  entity_id: sensor.soil_koraalcactus_soil_moisture
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
 
 - platform: filter
-  name: Soil Lepelplant humidity average
-  unique_id: soil_lepelplant_humidity_average
-  entity_id: sensor.soil_lepelplant_humidity
+  name: Soil Lepelplant soil moisture average
+  unique_id: soil_lepelplant_soil_moisture_average
+  entity_id: sensor.soil_lepelplant_soil_moisture
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
 
 
 - platform: filter
-  name: Soil Treurvijg humidity average
-  unique_id: soil_treurvijg_humidity_average
-  entity_id: sensor.soil_treurvijg_humidity
+  name: Soil Treurvijg soil moisture average
+  unique_id: soil_treurvijg_soil_moisture_average
+  entity_id: sensor.soil_treurvijg_soil_moisture
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
 
 - platform: filter
-  name: Soil Dwergpalm humidity average
-  unique_id: soil_dwergpalm_humidity_average
-  entity_id: sensor.soil_dwergpalm_humidity
+  name: Soil Dwergpalm soil moisture average
+  unique_id: soil_dwergpalm_soil_moisture_average
+  entity_id: sensor.soil_dwergpalm_soil_moisture
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
 
 - platform: filter
-  name: Soil Ginseng humidity average
-  unique_id: soil_ginseng_humidity_average
-  entity_id: sensor.soil_ginseng_humidity
+  name: Soil Ginseng soil moisture average
+  unique_id: soil_ginseng_soil_moisture_average
+  entity_id: sensor.soil_ginseng_soil_moisture
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"
 
 - platform: filter
-  name: Soil Monstera humidity average
-  unique_id: soil_monstera_humidity_average
-  entity_id: sensor.soil_monstera_humidity
+  name: Soil Monstera soil moisture average
+  unique_id: soil_monstera_soil_moisture_average
+  entity_id: sensor.soil_monstera_soil_moisture
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"

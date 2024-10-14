@@ -113,7 +113,7 @@ devices:
   '0xa4c1387a936c28f7':
     friendly_name: Soil Calathea
   '0xa4c138e44f6f21a7':
-    friendly_name: Soil Alocasia
+    friendly_name: Soil Outside
   '0xa4c138951089df55':
     friendly_name: Soil Drakenbloedboom
   '0xa4c138b1aa9af402':
@@ -124,8 +124,6 @@ devices:
     friendly_name: Plug Boiler
   '0x9035eafffe5f9085':
     friendly_name: Plug Washing Machine
-  '0xf0d1b8be2408fa70':
-    friendly_name: Plug Veranda Lights
   '0xf0d1b8be2409045a':
     friendly_name: Plug Outdoor Christmas Lights
   '0xa4c1389d0325ace4':
@@ -136,8 +134,6 @@ devices:
     friendly_name: Soil Dwergpalm
   '0xa4c13809f5c260be':
     friendly_name: Soil Treurvijg
-  '0xa4c1388f91db6152':
-    friendly_name: Soil Philodendron
   '0x54ef4410008b3f42':
     friendly_name: Plug Bathroom Heater
   '0x54ef44100053d284':
@@ -150,6 +146,8 @@ devices:
     friendly_name: Motion Hall 2
   '0x00158d0007f82b0b':
     friendly_name: Climate Living Room
+  '0xa4c138631f04a21d':
+    friendly_name: Plug Veranda Lights
 blocklist:
   - '0xec1bbdfffe7f3c18'
   - '0x001788010c690db7'

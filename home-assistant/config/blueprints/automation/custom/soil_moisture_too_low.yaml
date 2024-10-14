@@ -1,5 +1,5 @@
 blueprint:
-  name: Soil Humidity too low
+  name: Soil Moisture too low
   description: Alert when a plant needs water.
   domain: automation
   input:
@@ -9,15 +9,15 @@ blueprint:
     instruction:
       name: Instruction
       description: Additional watering instruction
-    humidity_entity:
-      name: Humidity sensor
+    moisture_entity:
+      name: Moisture sensor
       selector:
         entity:
           domain: sensor
-          device_class: humidity
-    humidity_threshold_entity:
-      name: Humidity threshold
-      description: Alert when humidity gets below this value.
+          device_class: moisture
+    moisture_threshold_entity:
+      name: Moisture threshold
+      description: Alert when moisture gets below this value.
       selector:
         entity:
           domain: input_number
@@ -26,14 +26,14 @@ mode: restart
 
 trigger:
   platform: numeric_state
-  below: !input humidity_threshold_entity
-  entity_id: !input humidity_entity
+  below: !input moisture_threshold_entity
+  entity_id: !input moisture_entity
   for: "01:00:00"
 
 variables:
   plant_name: !input plant_name
-  humidity_entity: !input humidity_entity
-  humidity_threshold_entity: !input humidity_threshold_entity
+  moisture_entity: !input moisture_entity
+  moisture_threshold_entity: !input moisture_threshold_entity
   instruction: !input instruction
 
 
@@ -43,5 +43,5 @@ action:
     data:
       title: "{{ plant_name }} heeft dorst"
       message: >-
-        Vochtigheid {{ states(humidity_entity)|round }}% (grens is {{ states(humidity_threshold_entity)|round }})%.
+        Vochtigheid {{ states(moisture_entity)|round }}% (grens is {{ states(moisture_threshold_entity)|round }})%.
         {{ instruction }}
