@@ -27,7 +27,7 @@ mv mini-graph-card-bundle.js config/www/
 cd custom_components/
 mkdir average
 cd average/
-curl -OL https://github.com/Limych/ha-average/releases/download/2.3.0/average.zip
+curl -OL https://github.com/Limych/ha-average/releases/download/2.4.0/average.zip
 unzip average.zip
 rm average.zip
 ```
