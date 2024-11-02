@@ -1,5 +1,13 @@
 - platform: template
   sensors:
+    outside_temperature:
+      unique_id: "outside_temperature"
+      friendly_name: "Outside temperature"
+      value_template: >-
+        {{ state_attr("weather.buienradar", "temperature") | float(0) }}
+
+- platform: template
+  sensors:
     nighttime:
        unique_id: 'nighttime_v2'
        friendly_name: Nighttime

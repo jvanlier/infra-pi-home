@@ -94,7 +94,7 @@
   name: 'Outside Average Temperature'
   unique_id: 'outside_average_temperature'
   entities:
-    - sensor.openweathermap_temperature
+    - sensor.buienradar
   precision: 1
 
 - platform: derivative
