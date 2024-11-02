@@ -1,7 +1,11 @@
 Home Assistant
 ==============
 
-**TODO: backup config dir**
+## Backup crontab
+
+```sh
+42 4 1 * * cd /home/jori/infra-pi-home/home-assistant && ./backup.sh
+```
 
 ## Adaptive Lightning
 The Docker install disallows add-on installations. But add-ons can be installed manually:
