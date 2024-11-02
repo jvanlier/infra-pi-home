@@ -1,3 +1,4 @@
 .env
-init-mongo.js
 config/
+data/
+
