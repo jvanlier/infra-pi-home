@@ -2,7 +2,7 @@ version: "3"
 
 services:
   teslamate:
-    image: teslamate/teslamate:1.27.4
+    image: teslamate/teslamate:1.31.1
     restart: always
     depends_on:
       - database
@@ -16,12 +16,15 @@ services:
       - TZ=${TM_TZ}
     ports:
       - 4000:4000
-    volumes:
-      - ./import:/opt/app/import
+#    volumes:
+#      - ./import:/opt/app/import
     cap_drop:
       - all
 
   database:
+    # latest on website has postgres:17 but it's not compatible with our DB
+    # TODO: migrate
+    # But 13 seems to work just fine.
     image: postgres:13
     restart: always
     environment:
@@ -32,7 +35,7 @@ services:
       - teslamate-db:/var/lib/postgresql/data
 
   grafana:
-    image: teslamate/grafana:1.27.4
+    image: teslamate/grafana:1.31
     restart: always
     environment:
       - DATABASE_USER=${TM_DB_USER}

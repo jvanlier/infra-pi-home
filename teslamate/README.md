@@ -10,7 +10,7 @@ Setup the .env and .htpasswd files locally following the instructions in the tes
 Crontab entry for backups:
 
 ```
-42 3 1 * * cd /home/ubuntu/infra-pi-home/teslamate && ./backup-db-v2.sh
+42 3 1 * * cd /home/jori/infra-pi-home/teslamate && ./backup-db-v2.sh
 ```
 
 NOTE: data is stored in Docker volume, not in the infra-pi-home dir.
