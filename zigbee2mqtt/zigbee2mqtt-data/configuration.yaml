@@ -5,11 +5,16 @@ mqtt:
   server: mqtt://mqtt:1884
 availability: true
 serial:
-  port: >-
-    /dev/serial/by-id/usb-Silicon_Labs_slae.sh_cc2652rb_stick_-_slaesh_s_iot_stuff_00_12_4B_00_23_90_DB_6C-if00-port0
+  # Location of SLZB-06
+  port: tcp://192.168.2.35:6638
+  baudrate: 115200
+  # Disable green led?
+  disable_led: false
 frontend:
   port: 8080
 advanced:
+  # Set output power to max 20
+  transmit_power: 20
   channel: 25
   pan_id: 19243
   network_key: '!secret.yaml network_key'
