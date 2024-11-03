@@ -1,6 +1,7 @@
 - platform: template
   sensors:
     outside_temperature:
+      unit_of_measurement: "°C"
       unique_id: "outside_temperature"
       friendly_name: "Outside temperature"
       value_template: >-
