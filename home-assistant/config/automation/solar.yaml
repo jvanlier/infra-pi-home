@@ -9,6 +9,6 @@
       data:
         title: Solar production today
         message: >
-          Solarman: {{ states('sensor.solarman_daily_energy') | round(1) }} kWh,
-          SolarEdge: {{ (states('sensor.solaredge_energy_today') | float(0) / 1000) | round(1) }} kWh
+          Solarman: {{ states('sensor.solarman_daily_energy') | float(-1) | round(1) }} kWh,
+          SolarEdge: {{ (states('sensor.solaredge_energy_today') | float(-1) / 1000) | round(1) }} kWh
   mode: restart

@@ -19,8 +19,8 @@
       data:
         title: Open windows
         message: >
-          It's {{ states('sensor.home_temperature')|round(1) }} °C inside.
-          Temps outside are similar and dropping by {{ states('sensor.outside_temperature_change_per_hour')|round(1)|abs }} °C/h.
+          It's {{ states('sensor.home_temperature') | float(-1) | round(1) }} °C inside.
+          Temps outside are similar and dropping by {{ states('sensor.outside_temperature_change_per_hour') | float(0) | round(1) | abs }} °C/h.
     - delay:
         hours: 12 # Prevent it from triggering again today (temps may fluctuate)
   mode: queued
@@ -45,8 +45,8 @@
       data:
         title: Close windows
         message: >
-          It's {{ states('sensor.home_temperature')|round(1) }} °C inside.
-          Temps outside are similar and rising by {{ states('sensor.outside_temperature_change_per_hour')|round(1) }} °C/h.
+          It's {{ states('sensor.home_temperature') | float(-1) | round(1) }} °C inside.
+          Temps outside are similar and rising by {{ states('sensor.outside_temperature_change_per_hour') | float(-1) | round(1) }} °C/h.
     - delay:
         hours: 12  # Prevent it from triggering again today (temps may fluctuate)
   mode: queued
