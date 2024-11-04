@@ -9,7 +9,7 @@
         - mon
     # Only even weeknumbers:
     - condition: template
-      value_template: "{{ (as_timestamp(now())|timestamp_custom ('%W') | int % 1) == 0 }}"
+      value_template: "{{ (as_timestamp(now())|timestamp_custom ('%W') | int % 2) == 1 }}"
   action:
     - service: input_boolean.turn_on
       target:
@@ -27,7 +27,7 @@
         - mon
     # Only even weeknumbers:
     - condition: template
-      value_template: "{{ (as_timestamp(now())|timestamp_custom ('%W') | int % 1) == 0 }}"
+      value_template: "{{ (as_timestamp(now())|timestamp_custom ('%W') | int % 2) == 1 }}"
   action:
     - service: input_boolean.turn_off
       target:
