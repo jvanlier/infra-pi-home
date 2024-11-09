@@ -5,22 +5,19 @@ mqtt:
   server: mqtt://mqtt:1884
 availability: true
 serial:
-  # Location of SLZB-06
   port: tcp://192.168.2.35:6638
   baudrate: 115200
-  # Disable green led?
   disable_led: false
 frontend:
   port: 8080
 advanced:
-  # Set output power to max 20
   transmit_power: 20
   channel: 25
   pan_id: 19243
   network_key: '!secret.yaml network_key'
   homeassistant_legacy_entity_attributes: false
   legacy_api: false
-  log_level: debug
+  log_level: warning
   legacy_availability_payload: false
 device_options:
   legacy: false
@@ -153,6 +150,8 @@ devices:
     friendly_name: Climate Living Room
   '0xa4c138631f04a21d':
     friendly_name: Plug Veranda Lights
+  '0x0017880100dbc8a0':
+    friendly_name: Light Veranda Wall
 blocklist:
   - '0xec1bbdfffe7f3c18'
   - '0x001788010c690db7'

@@ -61,7 +61,7 @@ condition:
   - alias: "Is there insufficient daylight?"
     condition: numeric_state
     entity_id: !input lux_entity
-    below: !input lux_threshold 
+    below: !input lux_threshold
 
 variables:
   total_no_motion_wait: !input total_no_motion_wait
@@ -82,4 +82,3 @@ action:
   - alias: "Turn off the light"
     service: light.turn_off
     target: !input light_target
-

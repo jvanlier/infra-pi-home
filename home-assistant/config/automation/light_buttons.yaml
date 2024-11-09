@@ -1,4 +1,4 @@
-- alias: Switch Light Toilet 0 
+- alias: Switch Light Toilet 0
   id: switch-toilet-0
   trigger:
     platform: state
@@ -10,7 +10,7 @@
         entity_id: light.light_toilet_0
   mode: single
 
-- alias: Switch Light Toilet 1 
+- alias: Switch Light Toilet 1
   id: switch-toilet-1
   trigger:
     platform: state
@@ -22,7 +22,7 @@
         entity_id: light.light_toilet_1
   mode: single
 
-- alias: Switch Light Dressing 
+- alias: Switch Light Dressing
   id: switch-dressing
   trigger:
     platform: state
@@ -34,7 +34,7 @@
         entity_id: light.light_dressing
   mode: single
 
-- alias: Switch Light Hall 0 
+- alias: Switch Light Hall 0
   id: switch-hall-0
   trigger:
     platform: state
@@ -46,7 +46,7 @@
         entity_id: light.light_hall_0
   mode: single
 
-- alias: Switch Light Hall 1 Downstairs Left Press 
+- alias: Switch Light Hall 1 Downstairs Left Press
   id: switch-hall-1-downstairs-left-press
   trigger:
     platform: state
@@ -58,7 +58,7 @@
         entity_id: light.light_hall_1
   mode: single
 
-- alias: Switch Light Hall 1 Downstairs Right Press 
+- alias: Switch Light Hall 1 Downstairs Right Press
   id: switch-hall-1-downstairs-right-press
   trigger:
     platform: state
@@ -82,7 +82,7 @@
         entity_id: light.light_hall_1
   mode: single
 
-- alias: Switch Light Hall 1 Upstairs Right Press 
+- alias: Switch Light Hall 1 Upstairs Right Press
   id: switch-hall-1-upstairs-right-press
   trigger:
     platform: state
@@ -93,4 +93,3 @@
       target:
         entity_id: input_boolean.sleep_mode
   mode: single
-

@@ -16,4 +16,3 @@ pbzip2 ${FN}
 aws s3 cp ${FN}.bz2 s3://jvl-bak
 rm ${FN}.bz2
 aws s3 rm s3://jvl-bak/${FN_DELETE}
-

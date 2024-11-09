@@ -2,7 +2,7 @@
   id: entertainment-off
   trigger:
     - platform: state
-      entity_id: sensor.entertainment_state 
+      entity_id: sensor.entertainment_state
       from: 'on'
       to: 'off'
       for: '00:30:00'
@@ -16,7 +16,7 @@
   id: workstation-off
   trigger:
     - platform: state
-      entity_id: sensor.workstation_state 
+      entity_id: sensor.workstation_state
       from: 'on'
       to: 'off'
       for: '00:30:00'
@@ -39,4 +39,3 @@
       target:
         entity_id: switch.plug_roomba
   mode: restart
-

@@ -60,4 +60,3 @@
   sleep_brightness: 5
   # Not needed to keep adapting for lights that toggle often:
   only_once: true
-

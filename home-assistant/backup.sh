@@ -13,7 +13,7 @@ echo "Date now: ${DATE}, filename now: ${FN}"
 echo "Date to delete: ${DATE_DELETE}, filename to delete: ${FN_DELETE}"
 
 docker-compose stop
-sudo tar cvf ${FN} config/ 
+sudo tar cvf ${FN} config/
 sudo chown jori:jori ${FN}
 pbzip2 ${FN}
 docker-compose up -d
@@ -21,4 +21,3 @@ docker-compose up -d
 aws s3 cp ${FN}.bz2 s3://jvl-bak
 rm ${FN}.bz2
 aws s3 rm s3://jvl-bak/${FN_DELETE}
-

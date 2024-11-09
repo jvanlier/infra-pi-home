@@ -47,7 +47,7 @@
            off
          {% endif %}
 
-# Not using filtered power for dryer, since it has an Aqara plug that 
+# Not using filtered power for dryer, since it has an Aqara plug that
 # stops reporting when power is 0 W. Only starts again when it changes.
 - platform: template
   sensors:
@@ -98,4 +98,3 @@
          {% else %}
            off
          {% endif %}
-

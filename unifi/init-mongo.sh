@@ -17,4 +17,3 @@ db.createUser({
   ]
 })
 EOF
-

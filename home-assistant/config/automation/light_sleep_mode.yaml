@@ -5,7 +5,7 @@
     at: "23:00:00"
   action:
     # if someone is in the bathroom, don't put them in the dark:
-    - wait_template: '{{ states("light.light_bathroom") != "on" }}' 
+    - wait_template: '{{ states("light.light_bathroom") != "on" }}'
       continue_on_timeout: 'true'
       timeout: '00:30:00'  # it can't take longer than this, right?
     - service: input_boolean.turn_on
@@ -78,7 +78,7 @@
     - delay: "00:00:01"
     - service: light.turn_off
       entity_id: light.light_hall_1
-    
+
 - alias: "Sleep mode: toggle off, turn on light hall 1 if motion detected"
   id: "sleep-off"
   trigger:
@@ -87,11 +87,10 @@
       to: "off"
   condition:
     - condition: state
-      entity_id: binary_sensor.motion_hall_1_occupancy 
+      entity_id: binary_sensor.motion_hall_1_occupancy
       state: "on"
   action:
     - delay: "00:00:01"
     - service: automation.trigger
       target:
         entity_id: automation.motion_activated_light_hall_1
-

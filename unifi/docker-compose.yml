@@ -3,7 +3,7 @@ services:
   unifi-network-application:
     image: lscr.io/linuxserver/unifi-network-application:8.5.6
     container_name: unifi-network-application
-    depends_on: 
+    depends_on:
       - unifi-db
     environment:
       - PUID=1000
@@ -28,7 +28,7 @@ services:
       # 1900 UDP is needed for "Make controller discoverable on L2 network" option.
       # Seems to be for SSDP - Simple service discovery protocol.
       # The port is in use by Home Assistant, and we don't use this option anyway in Unifi
-      # settings. It does mean that the Unifi controller itself isn't discoverable in Home 
+      # settings. It does mean that the Unifi controller itself isn't discoverable in Home
       # Assistant, but we can just add the integration manually.
       - 8843:8843 #optional
       - 8880:8880 #optional
@@ -50,4 +50,3 @@ services:
       - ./data:/data/db
       - ./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
     restart: unless-stopped
-

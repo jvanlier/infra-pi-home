@@ -5,7 +5,6 @@
       value_template: >-
         {% if states('person.jori') == "home" or states('person.chantal') == "home"  %}
           yes
-        {% else %} 
+        {% else %}
           no
         {% endif %}
-

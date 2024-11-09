@@ -1,7 +1,7 @@
 unifi
 =====
 
-Using image from https://hub.docker.com/r/linuxserver/unifi-network-application 
+Using image from https://hub.docker.com/r/linuxserver/unifi-network-application
 
 Git repo: https://github.com/linuxserver/docker-unifi-network-application
 
@@ -33,7 +33,7 @@ Update integration in Home Assistant.
 
 ## AP recovery
 
-Factory reset, hold reset button 10 sec. 
+Factory reset, hold reset button 10 sec.
 Led will flash.
 (Hold it too short, and it will merely reboot).
 
@@ -49,7 +49,6 @@ mca-cli
 set-inform http://x.x.x.x:8080/inform
 ```
 
-After adopting, ubnt/ubnt will no longer work. 
-The creds can be found in the UniFI UI. 
+After adopting, ubnt/ubnt will no longer work.
+The creds can be found in the UniFI UI.
 Store them in a password manager.
-

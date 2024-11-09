@@ -11,4 +11,3 @@ housekeeping_mode:
   # Toggle Adaptive Lighting + all motion sensors and set lights to max white.
   name: Housekeeping Mode
   icon: mdi:broom
-

@@ -11,4 +11,3 @@ docker-compose up
 ```
 
 Fill `config.json` using instructions in [README.md](https://github.com/mpepping/solarman-mqtt).
-

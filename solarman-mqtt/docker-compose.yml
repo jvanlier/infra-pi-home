@@ -2,7 +2,7 @@ version: '3'
 
 services:
   solarman-mqtt:
-    build: 
+    build:
       context: ./solarman-mqtt
       dockerfile: Dockerfile
     container_name: "solarman-mqtt"
@@ -12,4 +12,3 @@ services:
       - ./config.json:/opt/app-root/src/config.json
     restart: unless-stopped
     network_mode: host
-

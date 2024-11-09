@@ -15,4 +15,3 @@
           push:
             sound: "washing-machine-done.wav"
   mode: restart
-
