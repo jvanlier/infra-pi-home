@@ -42,7 +42,7 @@ proximity_activated_light_study_brightness:
 base_load_power_wifi_aps:
   name: BLP Wifi APs
   unit_of_measurement: W
-  initial: 8.8  # measurement of 2x UniFi AP AC Pro
+  initial: 16.8  # measurement of 2x UniFi AP AC Pro (=8.8W) + 1x UniFi WiFI 6 Ap
   min: 0
   max: 20
   step: 0.1
@@ -66,7 +66,7 @@ base_load_power_fiber:
 base_load_power_switch:
   name: BLP Switch
   unit_of_measurement: W
-  initial: 2.4  # measurement of 8-port D-Link switch
+  initial: 5.9  # Linksys PoE (downstairs; 5.1 W) + TP-link (attic; 0.8 W)
   min: 0
   max: 10
   step: 0.1
@@ -74,7 +74,7 @@ base_load_power_switch:
 base_load_power_raspberry_pi:
   name: BLP Raspberry Pi
   unit_of_measurement: W
-  initial: 5
+  initial: 5  # Was Pi 4, haven't measured Pi 5 yet
   min: 0
   max: 10
   step: 0.1
@@ -82,7 +82,7 @@ base_load_power_raspberry_pi:
 base_load_power_z2m:
   name: BLP Z2M
   unit_of_measurement: W
-  initial: 6.5  # 13 devices @ 0.5 W each
+  initial: 4.7  # 12 smart plugs
   min: 0
   max: 20
   step: 0.1
@@ -90,7 +90,7 @@ base_load_power_z2m:
 base_load_power_hue_lights:
   name: BLP Hue Lights
   unit_of_measurement: W
-  initial: 10.5  # 21 devices @ 0.5 W wach
+  initial: 13  # 26 devices @ 0.5 W wach
   min: 0
   max: 20
   step: 0.1
@@ -138,7 +138,7 @@ base_load_power_smoke_detectors:
 base_load_power_nanny_cams:
   name: BLP Nanny Cams
   unit_of_measurement: W
-  initial: 4
+  initial: 1.17
   min: 0
   max: 10
   step: 0.1
@@ -147,9 +147,9 @@ base_load_power_misc:
   # Intended to quickly add something without config change. Also useful as a fudge factor.
   name: BLP Misc
   unit_of_measurement: W
-  initial: 5
+  initial: 1
   min: 0
-  max: 1000
+  max: 50
   step: 0.1
   mode: box
 
