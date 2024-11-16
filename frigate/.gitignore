@@ -1,0 +1,7 @@
+config/*.db*
+config/model_cache
+config/.exports
+config/.jwt_secret
+config/.timeline
+config/.vacuum
+config/backup_config.yaml

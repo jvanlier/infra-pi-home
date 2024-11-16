@@ -4,7 +4,7 @@ services:
     container_name: frigate
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
-    image: ghcr.io/blakeblackshear/frigate:stable
+    image: ghcr.io/blakeblackshear/frigate:0.14.1
     # update shm_size if there are more than 2 cameras at 720p, see:
     # https://docs.frigate.video/frigate/installation#calculating-required-shm-size
     shm_size: "64mb"
@@ -12,7 +12,7 @@ services:
       - /dev/bus/usb:/dev/bus/usb # for USB Coral
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./config.yml:/config/config.yml
+      - ./config:/config
       - /frigate:/media/frigate
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache

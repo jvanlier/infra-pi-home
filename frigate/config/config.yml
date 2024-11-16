@@ -1,6 +1,6 @@
 mqtt:
   # Disabled for now, let's first test if it's stable for a few months
-  enabled: False
+  enabled: false
 
 cameras:
   doorbell:
@@ -13,7 +13,7 @@ cameras:
           roles:
             - record
     detect:
-      enabled: True
+      enabled: true
       width: 640
       height: 480
 detectors:
@@ -28,12 +28,13 @@ detectors:
 #  hwaccel_args: preset-rpi-64-h264
 
 snapshots:
-  enabled: True
+  enabled: true
 
 record:
-  enabled: True
+  enabled: true
 
 logger:
   logs:
     ffmpeg.doorbell.detect: debug
     ffmpeg.doorbell.record: debug
+version: 0.14
