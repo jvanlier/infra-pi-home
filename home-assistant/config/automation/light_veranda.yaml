@@ -48,3 +48,15 @@
       target:
         entity_id: switch.plug_veranda_lights
   mode: restart
+
+- alias: Veranda lights off at sunrise
+  id: veranda-lights-off-sunrise
+  trigger:
+    - platform: sun
+      event: sunrise
+      offset: "+00:30:00"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.plug_veranda_lights
+  mode: restart
