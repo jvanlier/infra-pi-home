@@ -35,9 +35,9 @@
       window_size: "02:00:00"
 
 - platform: filter
-  name: Soil Lepelplant soil moisture average
-  unique_id: soil_lepelplant_soil_moisture_average
-  entity_id: sensor.soil_lepelplant_soil_moisture
+  name: Soil Vrouwentong soil moisture average
+  unique_id: soil_vrouwentong_soil_moisture_average
+  entity_id: sensor.soil_vrouwentong_soil_moisture
   filters:
     - filter: time_simple_moving_average
       window_size: "02:00:00"

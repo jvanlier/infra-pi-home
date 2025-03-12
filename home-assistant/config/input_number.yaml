@@ -185,10 +185,10 @@ soil_koraalcactus_soil_moisture_threshold:
   max: 100
   step: 1
   mode: box
-soil_lepelplant_soil_moisture_threshold:
-  name: Soil Lepelplant Soil Moisture Threshold
+soil_vrouwentong_soil_moisture_threshold:
+  name: Soil Vrouwentong Soil Moisture Threshold
   unit_of_measurement: '%'
-  initial: 90
+  initial: 70
   min: 1
   max: 100
   step: 1

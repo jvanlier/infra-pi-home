@@ -51,14 +51,14 @@
         Liefst regenwater op kamertemperatuur.
         Houdt niet van natte voeten.
 
-- alias: Alert Soil Lepelplant Moisture
-  id: alert-soil-lepelplant-moisture
+- alias: Alert Soil Vrouwentong Moisture
+  id: alert-soil-vrouwentong-moisture
   use_blueprint:
     path: custom/soil_moisture_too_low.yaml
     input:
-      moisture_entity: sensor.soil_lepelplant_moisture_average
-      moisture_threshold_entity: input_number.soil_lepelplant_moisture_threshold
-      plant_name: Lepelplant (zolder)
+      moisture_entity: sensor.soil_vrouwentong_moisture_average
+      moisture_threshold_entity: input_number.soil_vrouwentong_moisture_threshold
+      plant_name: Vrouwentong (zolder)
       instruction: >-
         Verbruikt redelijk veel water.
         Niet gevoelig voor wortelrot.
