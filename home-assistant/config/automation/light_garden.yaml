@@ -1,7 +1,3 @@
-# These lights are nice to have on for ambiance and security, but they're also quite expensive to
-# run at 35 watt. Ensure we only turn them on when not too expensive.
-# The seemingly random on/off switches may also serve as a deterrent.
-
 - alias: Garden lights on at sunset
   id: garden-lights-on-sunset
   trigger:
@@ -13,11 +9,11 @@
         entity_id: switch.plug_garden_lights
   mode: restart
 
-- alias: Garden lights off at 23
-  id: garden-lights-off-23
+- alias: Garden lights off at sunrise
+  id: garden-lights-off-sunrise
   trigger:
-    - platform: time
-      at: "23:00:00"
+    - platform: sun
+      event: sunrise
   action:
     - service: switch.turn_off
       target:
