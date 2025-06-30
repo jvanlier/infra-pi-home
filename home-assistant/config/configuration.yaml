@@ -44,8 +44,6 @@ template:
              states('input_number.base_load_power_nanny_cams') | float +
              states('input_number.base_load_power_misc') | float
           }}
-
-
   - trigger:
       - platform: time_pattern
         minutes: 59
@@ -56,6 +54,24 @@ template:
         device_class: energy
         state_class: total_increasing
         state: "{{ states('sensor.base_load_energy') | float(0) + states('sensor.base_load_power') | float(0) / 1000 }}"
+
+  # Extract met.no weather forecast into sensor.weather_forecast_hourly:
+  - trigger:
+      - platform: time_pattern
+        hours: /1
+    action:
+      service: weather.get_forecasts
+      data:
+        type: hourly
+      target:
+        entity_id: weather.forecast_home
+      response_variable: forecast_data
+    sensor:
+      name: Weather Forecast Hourly
+      state: "{{ forecast_data['weather.forecast_home'].forecast[0].temperature }}"
+      attributes:
+        forecast: "{{ forecast_data['weather.forecast_home'].forecast }}"
+        updatedAt: "{{ now().isoformat() }}"
 
   - sensor:
     - name: "Solarman Current Power"
