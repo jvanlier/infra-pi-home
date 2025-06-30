@@ -5,8 +5,8 @@
   use_blueprint:
     path: custom/soil_moisture_too_low.yaml
     input:
-      moisture_entity: sensor.soil_outside_moisture_average
-      moisture_threshold_entity: input_number.soil_outside_moisture_threshold
+      moisture_entity: sensor.soil_outside_soil_moisture_average
+      moisture_threshold_entity: input_number.soil_outside_soil_moisture_threshold
       plant_name: Buiten (achtertuin rechts)
       instruction: ""
 
@@ -17,8 +17,8 @@
   use_blueprint:
     path: custom/soil_moisture_too_low.yaml
     input:
-      moisture_entity: sensor.soil_calathea_moisture_average
-      moisture_threshold_entity: input_number.soil_calathea_moisture_threshold
+      moisture_entity: sensor.soil_calathea_soil_moisture_average
+      moisture_threshold_entity: input_number.soil_calathea_soil_moisture_threshold
       plant_name: Calathea Orbifolia (woonkamer)
       instruction: >-
         Houd grond licht vochtig.
@@ -31,8 +31,8 @@
   use_blueprint:
     path: custom/soil_moisture_too_low.yaml
     input:
-      moisture_entity: sensor.soil_drakenbloedboom_moisture_average
-      moisture_threshold_entity: input_number.soil_drakenbloedboom_moisture_threshold
+      moisture_entity: sensor.soil_drakenbloedboom_soil_moisture_average
+      moisture_threshold_entity: input_number.soil_drakenbloedboom_soil_moisture_threshold
       plant_name: Drakenbloedboom (woonkamer)
       instruction: >-
         Grond mag bijna helemaal uitdrogen.
@@ -43,8 +43,8 @@
   use_blueprint:
     path: custom/soil_moisture_too_low.yaml
     input:
-      moisture_entity: sensor.soil_koraalcactus_moisture_average
-      moisture_threshold_entity: input_number.soil_koraalcactus_moisture_threshold
+      moisture_entity: sensor.soil_koraalcactus_soil_moisture_average
+      moisture_threshold_entity: input_number.soil_koraalcactus_soil_moisture_threshold
       plant_name: Koraalcactus (woonkamer)
       instruction: >-
         Grond mag bijna helemaal uitdrogen.
@@ -56,8 +56,8 @@
   use_blueprint:
     path: custom/soil_moisture_too_low.yaml
     input:
-      moisture_entity: sensor.soil_vrouwentong_moisture_average
-      moisture_threshold_entity: input_number.soil_vrouwentong_moisture_threshold
+      moisture_entity: sensor.soil_vrouwentong_soil_moisture_average
+      moisture_threshold_entity: input_number.soil_vrouwentong_soil_moisture_threshold
       plant_name: Vrouwentong (zolder)
       instruction: >-
         Verbruikt redelijk veel water.
@@ -68,8 +68,8 @@
   use_blueprint:
     path: custom/soil_moisture_too_low.yaml
     input:
-      moisture_entity: sensor.soil_treurvijg_moisture_average
-      moisture_threshold_entity: input_number.soil_treurvijg_moisture_threshold
+      moisture_entity: sensor.soil_treurvijg_soil_moisture_average
+      moisture_threshold_entity: input_number.soil_treurvijg_soil_moisture_threshold
       plant_name: Treurvijg (zolder)
       instruction: >-
         Houd grond licht vochtig
@@ -82,8 +82,8 @@
   use_blueprint:
     path: custom/soil_moisture_too_low.yaml
     input:
-      moisture_entity: sensor.soil_dwergpalm_moisture_average
-      moisture_threshold_entity: input_number.soil_dwergpalm_moisture_threshold
+      moisture_entity: sensor.soil_dwergpalm_soil_moisture_average
+      moisture_threshold_entity: input_number.soil_dwergpalm_soil_moisture_threshold
       plant_name: Dwergpalm (slaapkamer)
       instruction: >-
         Houd grond licht vochtig
@@ -95,8 +95,8 @@
   use_blueprint:
     path: custom/soil_moisture_too_low.yaml
     input:
-      moisture_entity: sensor.soil_ginseng_moisture_average
-      moisture_threshold_entity: input_number.soil_ginseng_moisture_threshold
+      moisture_entity: sensor.soil_ginseng_soil_moisture_average
+      moisture_threshold_entity: input_number.soil_ginseng_soil_moisture_threshold
       plant_name: Ginseng (keuken)
       instruction: >-
         Houd grond licht vochtig
@@ -109,8 +109,8 @@
   use_blueprint:
     path: custom/soil_moisture_too_low.yaml
     input:
-      moisture_entity: sensor.soil_monstera_moisture_average
-      moisture_threshold_entity: input_number.soil_monstera_moisture_threshold
+      moisture_entity: sensor.soil_monstera_soil_moisture_average
+      moisture_threshold_entity: input_number.soil_monstera_soil_moisture_threshold
       plant_name: Monstera (zolder)
       instruction: >-
         Grond mag bijna helemaal uitdrogen.
