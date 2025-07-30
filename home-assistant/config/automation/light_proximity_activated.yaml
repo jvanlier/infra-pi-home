@@ -68,9 +68,8 @@
     conditions:
       - condition: state
         entity_id:
-          - light.light_kitchen_m
           - light.light_arc
-          - light.light_lightguide
+          - light.light_flower
           - light.light_dining_kitchen_side
         state:
           - 'off'
