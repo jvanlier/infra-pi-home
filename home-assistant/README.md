@@ -7,8 +7,13 @@ Home Assistant
 42 4 1 * * cd /home/jori/infra-pi-home/home-assistant && ./backup.sh
 ```
 
-## Adaptive Lightning
-The Docker install disallows add-on installations. But add-ons can be installed manually:
+## Custom components
+The Docker install disallows add-on installations.
+But add-ons can be installed manually, see below.
+
+(Should really start building custom images...)
+
+### Adaptive Lightning
 
 ```bash
 git clone --depth 1 https://github.com/basnijholt/adaptive-lighting
@@ -17,16 +22,7 @@ sudo mv adaptive-lightning/custom_components/adaptive_lightning config/custom_co
 ```
 Using sudo because unfortunately HASS runs as root in the stock Docker image, and so the config dir is owned by root.
 
-## mini-graph-card
-Download and copy `mini-graph-card-bundle.js` from the [latest](https://github.com/kalkih/mini-graph-card/releases/latest) release into your `config/www` directory.
-
-```bash
-curl -OL https://github.com/kalkih/mini-graph-card/releases/download/v0.11.0/mini-graph-card-bundle.js
-mkdir -p config/www
-mv mini-graph-card-bundle.js config/www/
-```
-
-## average sensor
+### average sensor
 ```bash
 cd custom_components/
 mkdir average
@@ -34,6 +30,28 @@ cd average/
 curl -OL https://github.com/Limych/ha-average/releases/download/2.4.0/average.zip
 unzip average.zip
 rm average.zip
+```
+
+### Frank energie
+
+```bash
+git clone https://github.com/bajansen/home-assistant-frank_energie.git
+cd home-assistant-frank_energie
+git checkout v3.0.0
+sudo mv custom_components/frank_energie ../config/custom_components/
+cd ..
+rm -rf home-assistant-frank_energie
+```
+
+### Custom Dashboard stuff
+
+## mini-graph-card
+Download and copy `mini-graph-card-bundle.js` from the [latest](https://github.com/kalkih/mini-graph-card/releases/latest) release into your `config/www` directory.
+
+```bash
+curl -OL https://github.com/kalkih/mini-graph-card/releases/download/v0.11.0/mini-graph-card-bundle.js
+mkdir -p config/www
+mv mini-graph-card-bundle.js config/www/
 ```
 
 ## apex chart
