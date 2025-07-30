@@ -9,11 +9,11 @@
         entity_id: switch.plug_garden_lights
   mode: restart
 
-- alias: Garden lights off at sunrise
-  id: garden-lights-off-sunrise
+- alias: Garden lights off at 23
+  id: garden-lights-off-23
   trigger:
-    - platform: sun
-      event: sunrise
+    - platform: time
+      at: "23:00:00"
   action:
     - service: switch.turn_off
       target:
