@@ -85,18 +85,6 @@
       light_target:
         entity_id: light.light_hall_2
 
-- alias: Motion-activated Light Dressing
-  id: mal-dressing
-  use_blueprint:
-    path: custom/motion_light_lux_aware.yaml
-    input:
-      total_no_motion_wait: 120
-      motion_entity: binary_sensor.motion_dressing_occupancy
-      lux_entity: sensor.motion_dressing_illuminance_lux
-      device_no_motion_wait: number.motion_dressing_occupancy_timeout
-      light_target:
-        entity_id: light.light_dressing
-
 - alias: Motion-activated Light Walk-in Closet
   id: mal-walk-in-closet
   use_blueprint:
@@ -118,16 +106,6 @@
       device_no_motion_wait: number.motion_laundry_occupancy_timeout
       light_target:
         entity_id: light.light_laundry
-
-- alias: Motion-activated Light Toilet 0
-  id: mal-toilet-0
-  use_blueprint:
-    path: homeassistant/motion_light.yaml
-    input:
-      motion_entity: binary_sensor.motion_toilet_0_occupancy
-      light_target:
-        entity_id: light.light_toilet_0
-      no_motion_wait: "{{ max(420 - states('number.motion_toilet_0_detection_interval') | int(0), 0) }}"
 
 - alias: Motion-activated Light Toilet 1
   id: mal-toilet-1
@@ -199,7 +177,6 @@
   action:
     - service: "automation.turn_{{ mal }}"
       entity_id:
-        - automation.motion_activated_light_dressing
         - automation.motion_activated_light_hall_0
         # If hall 1 is toggled off manually, it will turn on again when this boolean changes state
         # (e.g. in the morning).
@@ -207,7 +184,6 @@
         - automation.motion_activated_light_hall_1
         - automation.motion_activated_light_hall_2
         - automation.motion_activated_light_laundry
-        - automation.motion_activated_light_toilet_0
         - automation.motion_activated_light_toilet_1
         - automation.motion_activated_light_walk_in_closet
         - automation.motion_activated_light_bathroom

@@ -56,9 +56,7 @@
         - light.light_hall_1
         - light.light_hall_2
         - light.light_laundry
-        - light.light_dressing
         - light.light_walk_in_closet
-        - light.light_toilet_0
         - light.light_toilet_1
       data:
         brightness: 255
@@ -83,9 +81,7 @@
         - light.light_hall_1
         - light.light_hall_2
         - light.light_laundry
-        - light.light_dressing
         - light.light_walk_in_closet
-        - light.light_toilet_0
         - light.light_toilet_1
     # short delay appears to be needed to prevent adaptive light from immediately turning lights on again
     - delay: "00:00:01"

@@ -1,15 +1,3 @@
-- alias: Switch Light Toilet 0
-  id: switch-toilet-0
-  trigger:
-    platform: state
-    entity_id: sensor.switch_toilet_0_action
-    to: 'left_press'
-  action:
-    - service: light.toggle
-      target:
-        entity_id: light.light_toilet_0
-  mode: single
-
 - alias: Switch Light Toilet 1
   id: switch-toilet-1
   trigger:
@@ -20,18 +8,6 @@
     - service: light.toggle
       target:
         entity_id: light.light_toilet_1
-  mode: single
-
-- alias: Switch Light Dressing
-  id: switch-dressing
-  trigger:
-    platform: state
-    entity_id: sensor.switch_dressing_action
-    to: 'left_press'
-  action:
-    - service: light.toggle
-      target:
-        entity_id: light.light_dressing
   mode: single
 
 - alias: Switch Light Hall 0
