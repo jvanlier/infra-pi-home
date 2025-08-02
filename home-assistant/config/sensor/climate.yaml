@@ -17,7 +17,6 @@
     - sensor.climate_bedroom_olivier_temperature
     - sensor.climate_bathroom_temperature
     - sensor.motion_hall_1_temperature
-    - sensor.motion_dressing_temperature
   precision: 1
 
 - platform: average
