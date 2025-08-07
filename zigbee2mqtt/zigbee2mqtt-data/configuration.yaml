@@ -50,8 +50,6 @@ devices:
     friendly_name: Climate Laundry
   '0x54ef4410004e474a':
     friendly_name: Motion Toilet 0
-  '0x0015bc001a0228a1':
-    friendly_name: Motion Hall 0
   '0x001788010ba4b8dd':
     friendly_name: '0x001788010ba4b8dd'
   '0x001788010baaaab7':
@@ -82,16 +80,12 @@ devices:
     friendly_name: Plug Garden Lights
   '0x04cd15fffed20dfe':
     friendly_name: Light Storage Range Extender
-  '0x001788010bf99149':
-    friendly_name: Light Hall 0
   '0x001788010b9bc267':
     friendly_name: Light Dressing
   '0x001788010b962adc':
     friendly_name: Light Toilet 0
   '0x001788010cc47291':
     friendly_name: Switch Toilet 0
-  '0x001788010cc472f2':
-    friendly_name: Switch Hall 0
   '0x001788010cc472a6':
     friendly_name: Switch Toilet 1
   '0x001788010cc472d2':
@@ -122,8 +116,6 @@ devices:
     friendly_name: Soil Koraalcactus
   '0x54ef4410004dc729':
     friendly_name: Plug Floor Heating Pump
-  '0x0015bc002f00e692':
-    friendly_name: Plug Boiler
   '0x9035eafffe5f9085':
     friendly_name: Plug Washing Machine
   '0xf0d1b8be2409045a':
@@ -152,6 +144,8 @@ devices:
     friendly_name: Plug Veranda Lights
   '0x0017880100dbc8a0':
     friendly_name: Light Veranda Wall
+  '0x0015bc002f00e692':
+    friendly_name: Plug Boiler
 blocklist:
   - '0xec1bbdfffe7f3c18'
   - '0x001788010c690db7'
