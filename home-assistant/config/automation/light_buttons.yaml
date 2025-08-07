@@ -10,18 +10,6 @@
         entity_id: light.light_toilet_1
   mode: single
 
-- alias: Switch Light Hall 0
-  id: switch-hall-0
-  trigger:
-    platform: state
-    entity_id: sensor.switch_hall_0_action
-    to: 'left_press'
-  action:
-    - service: light.toggle
-      target:
-        entity_id: light.light_hall_0
-  mode: single
-
 - alias: Switch Light Hall 1 Downstairs Left Press
   id: switch-hall-1-downstairs-left-press
   trigger:

@@ -52,7 +52,6 @@
         - light.hue_light_group_kitchen
         - light.hue_light_group_study
         - light.light_bathroom
-        - light.light_hall_0
         - light.light_hall_1
         - light.light_hall_2
         - light.light_laundry
@@ -77,7 +76,6 @@
         - light.hue_light_group_kitchen
         - light.hue_light_group_study
         - light.light_bathroom
-        - light.light_hall_0
         - light.light_hall_1
         - light.light_hall_2
         - light.light_laundry
