@@ -1,0 +1,44 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+recorder:
+  purge_keep_days: 30  # default is 10 days
+
+group: !include groups.yaml
+automation: !include_dir_merge_list automation/
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include_dir_merge_list sensor/
+input_boolean: !include input_boolean.yaml
+input_number: !include input_number.yaml
+
+light:
+  - platform: group
+    name: "Light Group Hall 0"
+    entities:
+      - light.light_hall_0_1
+      - light.light_hall_0_2
+      - light.light_hall_0_3
+      - light.light_hall_0_4
+  - platform: group
+    name: "Light Group Living"
+    entities:
+      - light.light_living_entrance
+      - light.light_living_white_cabinet
+      - light.light_living_wall_left_1
+      - light.light_living_wall_left_2
+      - light.light_living_wall_left_3
+      - light.light_living_garden_l1
+      - light.light_living_garden_l2
+      - light.light_living_garden_r1
+      - light.light_living_garden_r2
+      - light.light_living_wall_right_1
+      - light.light_living_wall_right_2
+      - light.light_living_wall_right_3
+      - light.light_living_thermostat
+

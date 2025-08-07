@@ -1,0 +1,14 @@
+.HA_VERSION
+.storage/
+core
+blueprints/automation/homeassistant/
+blueprints/script/
+custom_components/
+deps/
+image/
+secrets.yaml
+tts/
+www/
+*.log*
+*.log.*
+*.db*

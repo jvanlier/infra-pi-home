@@ -1,0 +1,33 @@
+- alias: Living Dimmer Switch
+  description: ""
+  use_blueprint:
+    path: custom/hue_dimmer_switch.yaml
+    input:
+      controller: Switch Living Dimmer
+      on_released:
+        - action: scene.turn_on
+          data:
+            transition: 1
+          target:
+            entity_id: scene.living_daytime
+      off_released:
+        - action: scene.turn_on
+          data:
+            transition: 1
+          target:
+            entity_id: scene.living_off
+      up_held:
+        - action: light.turn_on
+          data:
+            brightness_step_pct: 20
+            transition: 1
+          target:
+            entity_id: light.light_group_living
+      down_held:
+        - action: light.turn_on
+          data:
+            brightness_step_pct: -20
+            transition: 1
+          target:
+            entity_id: light.light_group_living
+

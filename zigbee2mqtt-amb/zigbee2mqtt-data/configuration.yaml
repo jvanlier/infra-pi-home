@@ -1,0 +1,63 @@
+homeassistant:
+  enabled: true
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://mqtt:1884
+availability:
+  enabled: true
+serial:
+  adapter: zstack
+  port: >-
+    /dev/serial/by-id/usb-Silicon_Labs_slae.sh_cc2652rb_stick_-_slaesh_s_iot_stuff_00_12_4B_00_23_90_DB_6C-if00-port0
+frontend:
+  enabled: true
+  port: 8080
+advanced:
+  channel: 25
+  pan_id: 35539
+  network_key: '!secret.yaml network_key'
+  log_level: info
+device_options: {}
+version: 4
+devices:
+  '0x0000000001732f4d':
+    friendly_name: Switch Hall 0
+  '0x001788010d12f602':
+    friendly_name: Switch Living Tap Dial
+  '0x0017880104f4f2b7':
+    friendly_name: Switch Living Dimmer
+  '0x001788010eee44ec':
+    friendly_name: Light Hall 0 1
+  '0x001788010ee66c15':
+    friendly_name: Light Hall 0 2
+  '0x001788010eee5b84':
+    friendly_name: Light Hall 0 3
+  '0x001788010ee656be':
+    friendly_name: Light Hall 0 4
+  '0x001788010eee1582':
+    friendly_name: Light Living Entrance
+  '0x84fd27fffe3b11f1':
+    friendly_name: Light Living White Cabinet
+  '0x001788010ee66d40':
+    friendly_name: Light Living Wall Left 1
+  '0x001788010ee652c5':
+    friendly_name: Light Living Wall Left 2
+  '0x001788010ee652ae':
+    friendly_name: Light Living Wall Left 3
+  '0x001788010ee64599':
+    friendly_name: Light Living Garden L1
+  '0x001788010ee66ab7':
+    friendly_name: Light Living Garden L2
+  '0x001788010ee621ee':
+    friendly_name: Light Living Garden R1
+  '0x001788010ee621f5':
+    friendly_name: Light Living Garden R2
+  '0x001788010eee58e0':
+    friendly_name: Light Living Wall Right 1
+  '0x001788010eee39bb':
+    friendly_name: Light Living Wall Right 2
+  '0x001788010eee567c':
+    friendly_name: Light Living Wall Right 3
+  '0x001788010ee67439':
+    friendly_name: Light Living Thermostat
+

@@ -1,0 +1,23 @@
+# https://community.home-assistant.io/t/zigbee2mqtt-enocean-ptm-215z-friends-of-hue-switch/429770
+- alias: Switch Hall 0
+  id: switch_hall_0
+  description: Switch Hall 0 to control lights
+  use_blueprint:
+    path: custom/friends_of_hue_switch.yaml
+    input:
+      controller: Switch Hall 0 
+      button_1_released:
+        - action: scene.turn_on
+          metadata: {}
+          data:
+            transition: 1
+          target:
+            entity_id: scene.hall_0_daytime
+      button_2_released:
+        - action: scene.turn_on
+          metadata: {}
+          data:
+            transition: 1
+          target:
+            entity_id: scene.hall_0_off
+
