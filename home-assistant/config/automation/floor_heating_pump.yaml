@@ -106,9 +106,8 @@
         - condition: state
           entity_id: switch.plug_floor_heating_pump
           state: "off"
-        # Use this temp sensor in case Aqara sensor lost connection
         - condition: numeric_state
-          entity_id: sensor.motion_hall_0_temperature
+          entity_id: sensor.climate_living_room_temperature
           below: input_number.living_room_temperature_target
   action:
     - service: notify.notify

@@ -5,7 +5,6 @@
   unique_id: 'floor_0_temperature'
   entities:
     - sensor.climate_living_room_temperature
-    - sensor.motion_hall_0_temperature
   precision: 1
 
 - platform: average
