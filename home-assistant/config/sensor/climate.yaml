@@ -15,16 +15,12 @@
     - sensor.climate_bedroom_duco_temperature
     - sensor.climate_bedroom_olivier_temperature
     - sensor.climate_bathroom_temperature
-    - sensor.motion_hall_1_temperature
   precision: 1
 
 - platform: average
   name: 'Floor 2 Temperature'
   unique_id: 'floor_2_temperature'
   entities:
-    - sensor.motion_hall_2_temperature
-    - sensor.motion_walk_in_closet_temperature
-    - sensor.motion_laundry_temperature
     - sensor.climate_study_temperature
     - sensor.climate_laundry_temperature
   precision: 1
