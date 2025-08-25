@@ -60,4 +60,9 @@ devices:
     friendly_name: Light Living Wall Right 3
   '0x001788010ee67439':
     friendly_name: Light Living Thermostat
-
+  '0x804b50fffebd0a11':
+    friendly_name: Light Hall 0 Wall
+  '0x187a3efffef7819e':
+    friendly_name: Light Bathroom
+  '0x54ef4410004dc729':
+    friendly_name: Plug Garden Lights

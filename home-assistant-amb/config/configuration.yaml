@@ -25,6 +25,7 @@ light:
       - light.light_hall_0_2
       - light.light_hall_0_3
       - light.light_hall_0_4
+      - light.light_hall_0_wall
   - platform: group
     name: "Light Group Living"
     entities:
