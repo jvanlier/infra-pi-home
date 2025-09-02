@@ -9,72 +9,12 @@ tts:
 recorder:
   purge_keep_days: 30  # default is 10 days
 
-group: !include groups.yaml
 automation: !include_dir_merge_list automation/
-script: !include scripts.yaml
-scene: !include scenes.yaml
-sensor: !include_dir_merge_list sensor/
+group: !include groups.yaml
 input_boolean: !include input_boolean.yaml
 input_number: !include input_number.yaml
-
-# https://www.home-assistant.io/dashboards/dashboards/#adding-more-dashboards-with-yaml
-lovelace:
-  mode: yaml
-  dashboards:
-    dashboard-generated:
-      mode: yaml
-      filename: notexist.yaml
-      title: Generated
-      icon: mdi:tools
-      show_in_sidebar: true
-      require_admin: true
-    dashboard-overview:
-      mode: yaml
-      filename: dashboard/overview.yaml
-      title: Overview
-      icon: mdi:view-dashboard
-      show_in_sidebar: true
-    dashboard-climate:
-      mode: yaml
-      filename: dashboard/climate.yaml
-      title: Climate
-      icon: mdi:thermometer
-      show_in_sidebar: true
-    dashboard-lights:
-      mode: yaml
-      filename: dashboard/lights.yaml
-      title: Lights
-      icon: mdi:globe-light
-      show_in_sidebar: true
-    dashboard-power:
-      mode: yaml
-      filename: dashboard/power.yaml
-      title: Power
-      icon: mdi:alpha-w
-      show_in_sidebar: true
-
-light:
-  - platform: group
-    name: "Light Group Hall 0"
-    entities:
-      - light.light_hall_0_1
-      - light.light_hall_0_2
-      - light.light_hall_0_3
-      - light.light_hall_0_4
-      - light.light_hall_0_wall
-  - platform: group
-    name: "Light Group Living"
-    entities:
-      - light.light_living_entrance
-      - light.light_living_white_cabinet
-      - light.light_living_wall_left_1
-      - light.light_living_wall_left_2
-      - light.light_living_wall_left_3
-      - light.light_living_garden_l1
-      - light.light_living_garden_l2
-      - light.light_living_garden_r1
-      - light.light_living_garden_r2
-      - light.light_living_wall_right_1
-      - light.light_living_wall_right_2
-      - light.light_living_wall_right_3
-      - light.light_living_thermostat
+light: !include light.yaml
+lovelace: !include lovelace.yaml
+scene: !include scenes.yaml
+script: !include scripts.yaml
+sensor: !include_dir_merge_list sensor/
