@@ -47,11 +47,13 @@ views:
       - type: grid
         cards:
           - type: history-graph
-            entities:
-              - entity: sensor.electricity_meter_power_net
             title: 'Grid net use: 2h'
             hours_to_show: 2
+            entities:
+              - entity: sensor.electricity_meter_power_net
           - type: history-graph
+            title: 'Grid net use per phase: 2h'
+            hours_to_show: 2
             entities:
               - entity: sensor.electricity_meter_power_net_phase_l1
                 name: L1
@@ -59,10 +61,11 @@ views:
                 name: L2
               - entity: sensor.electricity_meter_power_net_phase_l3
                 name: L3
-            title: 'Grid net use per phase: 2h'
       - type: grid
         cards:
           - type: history-graph
+            title: 'Grid current: 2h'
+            hours_to_show: 2
             entities:
               - entity: sensor.electricity_meter_current_phase_l1
                 name: L1
@@ -70,4 +73,3 @@ views:
                 name: L2
               - entity: sensor.electricity_meter_current_phase_l3
                 name: L3
-            title: 'Grid current: 2h'
