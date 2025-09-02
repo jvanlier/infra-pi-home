@@ -23,21 +23,21 @@ views:
         show_icon: true
         entity: sensor.electricity_meter_current_phase_l1
         name: L1
-        color: #4B68C9
+        color: indigo
       - type: entity
         show_name: true
         show_state: true
         show_icon: true
         entity: sensor.electricity_meter_current_phase_l2
         name: L2
-        color: #ECBF5F
+        color: accent
       - type: entity
         show_name: true
         show_state: true
         show_icon: true
         entity: sensor.electricity_meter_current_phase_l3
         name: L3
-        color: #EE7A64
+        color: red
     type: sections
     max_columns: 4
     icon: mdi:transmission-tower
