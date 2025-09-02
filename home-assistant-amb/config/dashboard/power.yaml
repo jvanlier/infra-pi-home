@@ -1,5 +1,42 @@
 views:
   - title: Grid
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: '# Power: Grid'
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_power_consumption
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_power_production
+        color: purple
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_current_phase_l1
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_current_phase_l2
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_current_phase_l3
+    type: sections
+    max_columns: 4
+    icon: mdi:transmission-tower
+    path: grid
+    cards: []
     sections:
       - type: grid
         cards:
@@ -28,25 +65,3 @@ views:
               - entity: sensor.electricity_meter_current_phase_l3
                 name: L3
             title: 'Grid current: 2h'
-    header:
-      card:
-        type: markdown
-        text_only: true
-        content: '# Power: Grid'
-    badges:
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.electricity_meter_power_consumption
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.electricity_meter_power_production
-        color: purple
-    type: sections
-    max_columns: 4
-    icon: mdi:transmission-tower
-    path: grid
-    cards: []
