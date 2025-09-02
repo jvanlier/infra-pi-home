@@ -3,6 +3,6 @@ repos:
     rev: v2.3.0
     hooks:
     -   id: check-yaml
-        exclude: home-assistant/config/blueprints/automation/custom/.+\.yaml
+        exclude: ^home-assistant(-amb)?/config/blueprints/automation/custom/.+\.yaml$|^home-assistant(-amb)?/config/configuration.yaml$
     -   id: end-of-file-fixer
     -   id: trailing-whitespace

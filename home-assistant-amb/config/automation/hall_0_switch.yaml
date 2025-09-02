@@ -5,7 +5,7 @@
   use_blueprint:
     path: custom/friends_of_hue_switch.yaml
     input:
-      controller: Switch Hall 0 
+      controller: Switch Hall 0
       button_1_released:
         - action: scene.turn_on
           metadata: {}
@@ -20,4 +20,3 @@
             transition: 1
           target:
             entity_id: scene.hall_0_off
-

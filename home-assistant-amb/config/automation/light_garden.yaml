@@ -19,4 +19,3 @@
       target:
         entity_id: switch.plug_garden_lights
   mode: restart
-

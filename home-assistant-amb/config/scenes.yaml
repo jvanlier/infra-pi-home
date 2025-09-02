@@ -1,4 +1,4 @@
-- name: Hall 0 daytime 
+- name: Hall 0 daytime
   entities:
     light.light_group_hall_0:
       state: "on"
@@ -35,4 +35,3 @@
   entities:
     light.light_group_living:
       state: "off"
-

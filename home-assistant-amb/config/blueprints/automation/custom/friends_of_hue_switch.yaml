@@ -232,4 +232,3 @@ action:
                 sequence: !input "button_1_and_3_released"
               - conditions: '{{ trigger.payload_json.action == "release_2_and_4" }}'
                 sequence: !input "button_2_and_4_released"
-
