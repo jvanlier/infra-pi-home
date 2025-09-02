@@ -1,0 +1,73 @@
+views:
+  - title: Grid
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: '# Power: Grid'
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_power_consumption
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_power_production
+        color: purple
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_current_phase_l1
+        name: L1
+        color: indigo
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_current_phase_l2
+        name: L2
+        color: accent
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_current_phase_l3
+        name: L3
+        color: red
+    type: sections
+    max_columns: 4
+    icon: mdi:transmission-tower
+    path: grid
+    cards: []
+    sections:
+      - type: grid
+        cards:
+          - type: history-graph
+            entities:
+              - entity: sensor.electricity_meter_power_net
+            title: 'Grid net use: 2h'
+            hours_to_show: 2
+          - type: history-graph
+            entities:
+              - entity: sensor.electricity_meter_power_net_phase_l1
+                name: L1
+              - entity: sensor.electricity_meter_power_net_phase_l2
+                name: L2
+              - entity: sensor.electricity_meter_power_net_phase_l3
+                name: L3
+            title: 'Grid net use per phase: 2h'
+      - type: grid
+        cards:
+          - type: history-graph
+            entities:
+              - entity: sensor.electricity_meter_current_phase_l1
+                name: L1
+              - entity: sensor.electricity_meter_current_phase_l2
+                name: L2
+              - entity: sensor.electricity_meter_current_phase_l3
+                name: L3
+            title: 'Grid current: 2h'
