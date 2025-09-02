@@ -1,0 +1,33 @@
+- platform: template
+  sensors:
+    electricity_meter_power_net:
+      friendly_name:  Electricity Meter Power net
+      value_template: >-
+        {{ states('sensor.electricity_meter_power_consumption') | float(0) -
+           states('sensor.electricity_meter_power_production') | float(0)
+        }}
+      unit_of_measurement: kW
+
+    electricity_meter_power_net_phase_l1:
+      friendly_name:  Electricity Meter Power net phase L1
+      value_template: >-
+        {{ states('sensor.electricity_meter_power_consumption_phase_l1') | float(0) -
+           states('sensor.electricity_meter_power_production_phase_l1') | float(0)
+        }}
+      unit_of_measurement: kW
+
+    electricity_meter_power_net_phase_l2:
+      friendly_name:  Electricity Meter Power net phase L2
+      value_template: >-
+        {{ states('sensor.electricity_meter_power_consumption_phase_l2') | float(0) -
+           states('sensor.electricity_meter_power_production_phase_l2') | float(0)
+        }}
+      unit_of_measurement: kW
+
+    electricity_meter_power_net_phase_l3:
+      friendly_name:  Electricity Meter Power net phase L3
+      value_template: >-
+        {{ states('sensor.electricity_meter_power_consumption_phase_l3') | float(0) -
+           states('sensor.electricity_meter_power_production_phase_l3') | float(0)
+        }}
+      unit_of_measurement: kW
