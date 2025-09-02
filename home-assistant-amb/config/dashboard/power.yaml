@@ -1,0 +1,827 @@
+title: ''
+views:
+  - theme: Backend-selected
+    title: Grid
+    path: grid
+    icon: mdi:transmission-tower
+    badges: []
+    cards:
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 300px
+          annotations:
+            yaxis:
+              - 'y': 0
+                borderColor: '#42f2f5'
+                borderWidth: 2
+        header:
+          title: 'Grid net use: 2h'
+          show: true
+          show_states: false
+          colorize_states: true
+        yaxis:
+          - id: first
+            decimals: 1
+            apex_config:
+              tickAmount: 6
+              title:
+                text: kW
+        hours_12: false
+        graph_span: 2h
+        all_series_config:
+          curve: stepline
+          stroke_width: 1
+          fill_raw: 'null'
+        series:
+          - entity: sensor.electricity_meter_power_net
+            name: Net use
+            color: '#4994EC'
+            unit: kW
+            float_precision: 2
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 300px
+          annotations:
+            yaxis:
+              - 'y': 0
+                borderColor: '#42f2f5'
+                borderWidth: 2
+        header:
+          title: 'Grid net use per phase: 2h'
+          show: true
+          show_states: false
+          colorize_states: true
+        yaxis:
+          - id: first
+            decimals: 1
+            apex_config:
+              tickAmount: 6
+              title:
+                text: kW
+        hours_12: false
+        graph_span: 2h
+        all_series_config:
+          curve: stepline
+          stroke_width: 1
+          fill_raw: 'null'
+        series:
+          - entity: sensor.electricity_meter_power_net_phase_l1
+            name: L1
+            unit: kW
+            float_precision: 2
+            color: D65745
+          - entity: sensor.electricity_meter_power_net_phase_l2
+            name: L2
+            unit: kW
+            float_precision: 2
+            color: EAC645
+          - entity: sensor.electricity_meter_power_net_phase_l3
+            name: L3
+            unit: kW
+            float_precision: 2
+            color: 65C97A
+      - type: vertical-stack
+        cards:
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 200px
+              annotations:
+                yaxis:
+                  - 'y': 0
+                    borderColor: '#42f2f5'
+                    borderWidth: 2
+            header:
+              title: 'Grid current per phase: 2h'
+              show: true
+              show_states: false
+              colorize_states: true
+            yaxis:
+              - id: first
+                decimals: 1
+                apex_config:
+                  tickAmount: 6
+                  title:
+                    text: A
+            hours_12: false
+            graph_span: 2h
+            all_series_config:
+              curve: stepline
+              stroke_width: 1
+              fill_raw: 'null'
+            series:
+              - entity: sensor.electricity_meter_current_phase_l1
+                name: L1
+                unit: A
+                float_precision: 2
+                color: D65745
+              - entity: sensor.electricity_meter_current_phase_l2
+                name: L2
+                unit: A
+                float_precision: 2
+                color: EAC645
+              - entity: sensor.electricity_meter_current_phase_l3
+                name: L3
+                unit: A
+                float_precision: 2
+                color: 65C97A
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 200px
+              annotations:
+                yaxis:
+                  - 'y': 0
+                    borderColor: '#42f2f5'
+                    borderWidth: 2
+            header:
+              title: 'Grid current per phase: 36h (peak finding)'
+              show: true
+              show_states: false
+              colorize_states: true
+            yaxis:
+              - id: first
+                decimals: 1
+                apex_config:
+                  tickAmount: 6
+                  title:
+                    text: A
+            hours_12: false
+            graph_span: 36h
+            all_series_config:
+              curve: stepline
+              stroke_width: 1
+              fill_raw: 'null'
+            series:
+              - entity: sensor.electricity_meter_current_phase_l1
+                name: L1
+                unit: A
+                float_precision: 2
+                color: D65745
+              - entity: sensor.electricity_meter_current_phase_l2
+                name: L2
+                unit: A
+                float_precision: 2
+                color: EAC645
+              - entity: sensor.electricity_meter_current_phase_l3
+                name: L3
+                unit: A
+                float_precision: 2
+                color: 65C97A
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 200px
+              annotations:
+                yaxis:
+                  - 'y': 0
+                    borderColor: '#42f2f5'
+                    borderWidth: 2
+            header:
+              title: 'Grid voltage per phase: 2h'
+              show: true
+              show_states: false
+              colorize_states: true
+            yaxis:
+              - id: first
+                decimals: 1
+                apex_config:
+                  tickAmount: 6
+                  title:
+                    text: V
+            hours_12: false
+            graph_span: 2h
+            all_series_config:
+              curve: stepline
+              stroke_width: 1
+              fill_raw: 'null'
+            series:
+              - entity: sensor.electricity_meter_voltage_phase_l1
+                name: L1
+                unit: V
+                float_precision: 0
+                color: D65745
+              - entity: sensor.electricity_meter_voltage_phase_l2
+                name: L2
+                unit: V
+                float_precision: 0
+                color: EAC645
+              - entity: sensor.electricity_meter_voltage_phase_l3
+                name: L3
+                unit: V
+                float_precision: 0
+                color: 65C97A
+  - theme: Backend-selected
+    title: Solar
+    path: solar
+    icon: mdi:solar-power
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                content: '{{ (states(entity) | float(-1)) | round(2) }}'
+                entity: sensor.current_electricity_price_all_in
+                icon: mdi:currency-eur
+                icon_color: yellow
+              - type: template
+                content: '{{ states(entity) | float(-1) | round(2) }} kW'
+                icon_color: blue
+                entity: sensor.electricity_meter_power_consumption
+                icon: mdi:lightning-bolt
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: more-info
+                hold_action:
+                  action: more-info
+              - type: template
+                content: '{{ states(entity) | float(-1) | round(2) }} kW'
+                icon_color: purple
+                entity: sensor.electricity_meter_power_production
+                icon: mdi:lightning-bolt
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: more-info
+                hold_action:
+                  action: more-info
+              - type: template
+                content: '{{ (states(entity) | float(-1) / 1000) | round(2) }} kW'
+                icon: mdi:power-plug
+                icon_color: brown
+                entity: sensor.known_power_use
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: more-info
+                hold_action:
+                  action: more-info
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                content: 'SE: {{ (states(entity) | float(-1) / 1000) | round(2) }} kW'
+                icon: mdi:solar-power
+                icon_color: green
+                entity: sensor.solaredge_current_power
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: more-info
+                hold_action:
+                  action: more-info
+              - type: template
+                content: 'SM: {{ (states(entity) | float(-1) / 1000) | round(2) }} kW'
+                icon: mdi:solar-power
+                icon_color: '#079fb0'
+                entity: sensor.solarman_current_power
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: more-info
+                hold_action:
+                  action: more-info
+              - type: template
+                content: '{{ states(entity) | float(-1) | round(1) }}'
+                icon: mdi:temperature-celsius
+                icon_color: red
+                entity: sensor.climate_solaredge_temperature
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: more-info
+                hold_action:
+                  action: more-info
+          - type: custom:mushroom-template-card
+            primary: ''
+            secondary: Inverter power measurements are delayed by up to 15 min.
+            icon: ''
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 300px
+        header:
+          title: 'Grid: 2h'
+          show: true
+          show_states: false
+          colorize_states: true
+        yaxis:
+          - id: first
+            decimals: 1
+            apex_config:
+              tickAmount: 6
+              title:
+                text: kW
+        hours_12: false
+        graph_span: 2h
+        all_series_config:
+          curve: stepline
+          stroke_width: 1
+          fill_raw: 'null'
+        series:
+          - entity: sensor.electricity_meter_power_production
+            name: Return
+            color: '#8F31AA'
+            transform: return x *= -1
+            unit: kW
+            float_precision: 2
+          - entity: sensor.electricity_meter_power_consumption
+            name: Consumption
+            color: '#4994EC'
+            unit: kW
+            float_precision: 2
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 300px
+        header:
+          title: 'Production per inverter: 36h'
+          show: true
+          show_states: false
+          colorize_states: true
+        yaxis:
+          - id: first
+            max: 3.5
+            decimals: 1
+            apex_config:
+              tickAmount: 7
+              title:
+                text: kW
+        hours_12: false
+        graph_span: 36h
+        all_series_config:
+          curve: stepline
+          stroke_width: 1
+          fill_raw: 'null'
+        series:
+          - entity: sensor.solaredge_current_power
+            name: SolarEdge
+            color: '#67AD5B'
+            transform: return x / 1000
+            unit: kW
+            float_precision: 2
+          - entity: sensor.solarman_current_power
+            name: Solarman
+            color: '#079fb0'
+            transform: return x / 1000
+            unit: kW
+            float_precision: 2
+      - type: vertical-stack
+        cards:
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 300px
+            header:
+              title: 'SolarEdge production vs ambient temp: 72h'
+              show: true
+              show_states: false
+              colorize_states: true
+            yaxis:
+              - id: first
+                decimals: 1
+                max: 3.5
+                apex_config:
+                  tickAmount: 7
+                  title:
+                    text: kW
+              - id: second
+                opposite: true
+                decimals: 0
+                min: 12
+                max: 40
+                apex_config:
+                  tickAmount: 6
+                  title:
+                    text: °C
+            hours_12: false
+            graph_span: 72h
+            all_series_config:
+              curve: stepline
+              stroke_width: 1
+              fill_raw: 'null'
+            series:
+              - entity: sensor.solaredge_current_power
+                name: SolarEdge power
+                yaxis_id: first
+                color: '#67AD5B'
+                transform: return x / 1000
+                unit: kW
+                float_precision: 2
+              - entity: sensor.climate_solaredge_temperature
+                name: SolarEdge ambient temperature
+                color: '#E15141'
+                yaxis_id: second
+                float_precision: 2
+      - type: vertical-stack
+        cards:
+          - type: glance
+            entities:
+              - entity: sensor.energy_production_today
+                name: SE-ZWW
+              - entity: sensor.energy_production_today_3
+                name: SE-ZZO-back
+              - entity: sensor.energy_production_today_2
+                name: SE-ZZO-front
+              - entity: sensor.energy_production_today_4
+                name: Solarman (ZWW)
+            show_name: true
+            title: Estimated Solar Production Today
+          - type: weather-forecast
+            entity: weather.buienradar
+            show_forecast: false
+  - theme: Backend-selected
+    title: Devices
+    path: devices
+    icon: mdi:power-plug
+    badges: []
+    cards:
+      - square: false
+        columns: 2
+        type: grid
+        cards:
+          - type: custom:mushroom-template-card
+            primary: Entertainment
+            secondary: >-
+              {{ states(entity) | capitalize }} - {{
+              states('sensor.plug_entertainment_power') | float(-1) | round(0)
+              }} W
+            icon: mdi:television
+            entity: switch.plug_entertainment
+            icon_color: '{% if states(entity) == "on" %}green{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Garden Lights
+            secondary: >-
+              {{ states(entity) | capitalize }} - {{
+              states('sensor.plug_garden_lights_power') | float(-1) | round(0)
+              }} W
+            icon: mdi:lightbulb-spot
+            entity: switch.plug_garden_lights
+            icon_color: '{% if states(entity) == "on" %}yellow{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Veranda Lights
+            secondary: '{{ states(entity) | capitalize }}'
+            icon: mdi:lightbulb
+            entity: switch.plug_veranda_lights
+            icon_color: '{% if states(entity) == "on" %}green{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Outdoor Christmas Lights
+            secondary: '{{ states(entity) | capitalize }}'
+            icon: mdi:pine-tree
+            entity: switch.plug_outdoor_christmas_lights
+            icon_color: '{% if states(entity) == "on" %}yellow{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Workstation
+            secondary: >-
+              {{ states(entity) | capitalize }} - {{
+              states('sensor.plug_workstation_power') | float(-1) | round(0) }}
+              W
+            icon: mdi:keyboard
+            entity: switch.plug_workstation
+            icon_color: '{% if states(entity) == "on" %}pink{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Bathroom Heater
+            secondary: >-
+              {{ states(entity) | capitalize }} - {{
+              states('sensor.plug_bathroom_heater_power') | float(-1) | round(0)
+              }} W
+            icon: mdi:heating-coil
+            entity: switch.plug_bathroom_heater
+            icon_color: '{% if states(entity) == "on" %}brown{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Boiler
+            secondary: >-
+              {{ states(entity) | capitalize }} - {{
+              states('sensor.plug_boiler_power') | float(-1) | round(0) }} W
+            icon: mdi:water-boiler
+            entity: switch.plug_boiler
+            icon_color: '{% if states(entity) == "on" %}red{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Roomba
+            secondary: >-
+              {{ states(entity) | capitalize }} - {{
+              states('sensor.plug_roomba_power') | float(-1) | round(0) }} W
+            icon: mdi:robot-vacuum
+            entity: switch.plug_roomba
+            icon_color: '{% if states(entity) == "on" %}purple{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Dishwasher
+            secondary: >-
+              {{ states(entity) | capitalize }} - {{
+              states('sensor.plug_dishwasher_power_filtered') | float(-1) |
+              round(0) }} W
+            icon: mdi:dishwasher
+            entity: switch.plug_dishwasher
+            icon_color: '{% if states(entity) == "on" %}cyan{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Washine Machine
+            secondary: >-
+              {{ states(entity) | capitalize }} - {{
+              states('sensor.plug_washing_machine_power_filtered') | float(-1) |
+              round(0) }} W
+            icon: mdi:dishwasher
+            entity: switch.plug_washing_machine
+            icon_color: '{% if states(entity) == "on" %}blue{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Dryer
+            secondary: >-
+              {{ states(entity) | capitalize }} - {{
+              states('sensor.plug_dryer_power') | float(-1) | round(0) }} W
+            icon: mdi:tumble-dryer
+            entity: switch.plug_dryer
+            icon_color: '{% if states(entity) == "on" %}orange{% endif %}'
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            primary: Floor Heating Pump
+            secondary: >-
+              {{ states(entity) | capitalize }} - {{
+              states('sensor.plug_floor_heating_pump_power') | float(-1) |
+              round(0) }} W
+            icon: mdi:heating-coil
+            entity: switch.plug_floor_heating_pump
+            icon_color: '{% if states(entity) == "on" %}brown{% endif %}'
+            tap_action:
+              action: toggle
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 400px
+        header:
+          title: Device consumption (W) - 2h
+          show: true
+          show_states: false
+          colorize_states: true
+        yaxis:
+          - decimals: 0
+        hours_12: false
+        graph_span: 2h
+        all_series_config:
+          curve: stepline
+          stroke_width: 1
+          fill_raw: 'null'
+        series:
+          - entity: sensor.plug_entertainment_power
+            name: Entertainment
+            color: '#67AD5B'
+          - entity: sensor.plug_garden_lights_power
+            name: Garden Lights
+            color: '#FCEC60'
+          - entity: sensor.plug_bathroom_heater_power
+            name: Bathroom Heater
+            color: '#E15141'
+          - entity: sensor.plug_boiler_power
+            name: Boiler
+            color: '#E15141'
+          - entity: sensor.plug_roomba_power
+            name: Roomba
+            color: '#8F31AA'
+          - entity: sensor.plug_dishwasher_power_filtered
+            name: Dishwasher
+            color: '#54B9D1'
+          - entity: sensor.plug_washing_machine_power_filtered
+            name: Washing Machine
+            color: '#4994EC'
+          - entity: sensor.plug_dryer_power
+            name: Dryer
+            color: '#F19D38'
+          - entity: sensor.plug_floor_heating_pump_power
+            name: Floor Heating Pump
+            color: '#74564A'
+          - entity: sensor.base_load_power
+            name: Base Load
+            color: gray
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: 'N.b.: the charts below break down when solar power is produced.'
+            title: Power consumption attributed to devices
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 400px
+            header:
+              title: Power consumption attributed to devices (W) - 2h
+              show: true
+              show_states: false
+              colorize_states: true
+            yaxis:
+              - decimals: 0
+                min: 0
+            hours_12: false
+            graph_span: 2h
+            all_series_config:
+              curve: stepline
+              stroke_width: 1
+              fill_raw: 'null'
+            series:
+              - entity: sensor.known_power_use
+                name: Attributed
+              - entity: sensor.electricity_meter_power_consumption_watt
+                name: Grid consumption
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 400px
+            header:
+              title: Power consumption attributed to devices (W) - 15m
+              show: true
+              show_states: false
+              colorize_states: true
+            yaxis:
+              - decimals: 0
+                min: 0
+            hours_12: false
+            graph_span: 15m
+            all_series_config:
+              curve: stepline
+              stroke_width: 1
+              fill_raw: 'null'
+            series:
+              - entity: sensor.known_power_use
+                name: Attributed
+              - entity: sensor.electricity_meter_power_consumption_watt
+                name: Grid consumption
+  - title: Appliances
+    path: appliances
+    icon: mdi:washing-machine
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: glance
+            entities:
+              - entity: sensor.washing_machine_state
+              - entity: sensor.plug_washing_machine_power
+              - entity: sensor.plug_washing_machine_power_filtered
+              - entity: switch.plug_washing_machine
+            title: Washing Machine
+            show_name: false
+            state_color: true
+          - type: history-graph
+            entities:
+              - entity: sensor.washing_machine_state
+                name: WM
+            hours_to_show: 12
+            refresh_interval: 1
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 200px
+              legend:
+                show: false
+            header:
+              show: false
+            yaxis:
+              - decimals: 0
+                min: 0
+                max: 2400
+                apex_config:
+                  tickAmount: 6
+            hours_12: false
+            graph_span: 12h
+            all_series_config:
+              curve: stepline
+              stroke_width: 1
+              fill_raw: 'null'
+            series:
+              - entity: sensor.plug_washing_machine_power_filtered
+                name: Filtered
+                color: blue
+              - entity: sensor.plug_washing_machine_power
+                name: Raw
+                color: gray
+      - type: vertical-stack
+        cards:
+          - type: glance
+            entities:
+              - entity: sensor.dryer_state
+              - entity: sensor.plug_dryer_power
+              - entity: switch.plug_dryer
+            title: Dryer
+            show_name: false
+            state_color: true
+          - type: history-graph
+            entities:
+              - entity: sensor.dryer_state
+            hours_to_show: 12
+            refresh_interval: 1
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 200px
+            header:
+              show: false
+            yaxis:
+              - decimals: 0
+                min: 0
+                max: 1000
+                apex_config:
+                  tickAmount: 5
+            hours_12: false
+            graph_span: 12h
+            all_series_config:
+              curve: stepline
+              stroke_width: 1
+              fill_raw: 'null'
+            series:
+              - entity: sensor.plug_dryer_power
+                name: Raw
+                color: orange
+      - type: vertical-stack
+        cards:
+          - type: glance
+            entities:
+              - entity: sensor.dishwasher_state
+              - entity: sensor.plug_dishwasher_power
+              - entity: sensor.plug_dishwasher_power_filtered
+              - entity: switch.plug_dishwasher
+            title: Dishwasher
+            show_name: false
+            state_color: true
+          - type: history-graph
+            entities:
+              - entity: sensor.dishwasher_state
+                name: DW
+            hours_to_show: 12
+            refresh_interval: 1
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 200px
+              legend:
+                show: false
+            header:
+              show: false
+            yaxis:
+              - decimals: 0
+                min: 0
+                max: 2400
+                apex_config:
+                  tickAmount: 6
+            hours_12: false
+            graph_span: 12h
+            all_series_config:
+              curve: stepline
+              stroke_width: 1
+              fill_raw: 'null'
+            series:
+              - entity: sensor.plug_dishwasher_power_filtered
+                name: Filtered
+                color: cyan
+              - entity: sensor.plug_dishwasher_power
+                name: Raw
+                color: gray
+  - theme: Backend-selected
+    icon: mdi:toggle-switch-off-outline
+    title: Settings
+    path: settings
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: entities
+            entities:
+              - entity: input_number.base_load_power_wifi_aps
+              - entity: input_number.base_load_power_router
+              - entity: input_number.base_load_power_fiber
+              - entity: input_number.base_load_power_switch
+              - entity: input_number.base_load_power_raspberry_pi
+              - entity: input_number.base_load_power_z2m
+              - entity: input_number.base_load_power_hue_lights
+              - entity: input_number.base_load_power_hue_hub
+              - entity: input_number.base_load_power_alarm
+              - entity: input_number.base_load_power_district_heating
+              - entity: input_number.base_load_power_central_ventilation
+              - entity: input_number.base_load_power_smoke_detectors
+              - entity: input_number.base_load_power_nanny_cams
+              - entity: input_number.base_load_power_misc
+              - entity: sensor.base_load_power
+                name: Summed Base Load Power
+            title: Base Load Power
+          - type: markdown
+            content: Summed Base Load Power updates once a minute.
