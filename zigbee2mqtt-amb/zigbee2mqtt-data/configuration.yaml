@@ -66,3 +66,15 @@ devices:
     friendly_name: Light Bathroom
   '0x54ef4410004dc729':
     friendly_name: Plug Garden Lights
+  '0x0015bc002f00e6f5':
+    friendly_name: Plug Entertainment
+  '0x54ef4410003134b1':
+    friendly_name: Plug Dryer
+  '0x9035eafffe5f9085':
+    friendly_name: Plug Washing Machine
+  '0x001788010b233f45':
+    friendly_name: Light Dining Table
+  '0x9035eafffe5f8d28':
+    friendly_name: Plug Quooker and Dishwasher
+  '0x54ef4410002c99b3':
+    friendly_name: Plug Workstation
