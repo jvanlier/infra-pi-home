@@ -11,7 +11,7 @@ dashboards:
   dashboard-overview:
     mode: yaml
     filename: dashboard/overview.yaml
-    title: Overview
+    title: Overview (custom)
     icon: mdi:view-dashboard
     show_in_sidebar: true
   dashboard-climate:
