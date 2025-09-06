@@ -37,7 +37,7 @@
           metadata: {}
           data:
             transition: 1
-            brightness_step_pct: -10
+            brightness_step_pct: -5
           target:
             entity_id: light.light_living_white_cabinet
       remote_dial_rotate_left_slow:
@@ -52,7 +52,7 @@
           metadata: {}
           data:
             transition: 1
-            brightness_step_pct: -10
+            brightness_step_pct: -5
           target:
             entity_id: light.light_living_white_cabinet
       remote_dial_rotate_left_fast:
@@ -67,7 +67,7 @@
           metadata: {}
           data:
             transition: 1
-            brightness_step_pct: -20
+            brightness_step_pct: -10
           target:
             entity_id: light.light_living_white_cabinet
       remote_dial_rotate_right_step:
@@ -82,7 +82,7 @@
           metadata: {}
           data:
             transition: 1
-            brightness_step_pct: 10
+            brightness_step_pct: 5
           target:
             entity_id: light.light_living_white_cabinet
       remote_dial_rotate_right_slow:
@@ -97,7 +97,7 @@
           metadata: {}
           data:
             transition: 1
-            brightness_step_pct: 10
+            brightness_step_pct: 5
           target:
             entity_id: light.light_living_white_cabinet
       remote_dial_rotate_right_fast:
@@ -112,6 +112,6 @@
           metadata: {}
           data:
             transition: 1
-            brightness_step_pct: 20
+            brightness_step_pct: 10
           target:
             entity_id: light.light_group_living_white_cabinet
