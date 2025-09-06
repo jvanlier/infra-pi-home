@@ -32,7 +32,14 @@
             transition: 1
             brightness_step_pct: -10
           target:
-            entity_id: light.light_group_living
+            entity_id: light.light_group_living_spot
+        - action: light.turn_on
+          metadata: {}
+          data:
+            transition: 1
+            brightness_step_pct: -5
+          target:
+            entity_id: light.light_living_white_cabinet
       remote_dial_rotate_left_slow:
         - action: light.turn_on
           metadata: {}
@@ -40,7 +47,14 @@
             transition: 1
             brightness_step_pct: -10
           target:
-            entity_id: light.light_group_living
+            entity_id: light.light_group_living_spot
+        - action: light.turn_on
+          metadata: {}
+          data:
+            transition: 1
+            brightness_step_pct: -5
+          target:
+            entity_id: light.light_living_white_cabinet
       remote_dial_rotate_left_fast:
         - action: light.turn_on
           metadata: {}
@@ -48,7 +62,14 @@
             transition: 1
             brightness_step_pct: -20
           target:
-            entity_id: light.light_group_living
+            entity_id: light.light_group_living_spot
+        - action: light.turn_on
+          metadata: {}
+          data:
+            transition: 1
+            brightness_step_pct: -10
+          target:
+            entity_id: light.light_living_white_cabinet
       remote_dial_rotate_right_step:
         - action: light.turn_on
           metadata: {}
@@ -56,7 +77,14 @@
             transition: 1
             brightness_step_pct: 10
           target:
-            entity_id: light.light_group_living
+            entity_id: light.light_group_living_spot
+        - action: light.turn_on
+          metadata: {}
+          data:
+            transition: 1
+            brightness_step_pct: 5
+          target:
+            entity_id: light.light_living_white_cabinet
       remote_dial_rotate_right_slow:
         - action: light.turn_on
           metadata: {}
@@ -64,7 +92,14 @@
             transition: 1
             brightness_step_pct: 10
           target:
-            entity_id: light.light_group_living
+            entity_id: light.light_group_living_spot
+        - action: light.turn_on
+          metadata: {}
+          data:
+            transition: 1
+            brightness_step_pct: 5
+          target:
+            entity_id: light.light_living_white_cabinet
       remote_dial_rotate_right_fast:
         - action: light.turn_on
           metadata: {}
@@ -72,4 +107,11 @@
             transition: 1
             brightness_step_pct: 20
           target:
-            entity_id: light.light_group_living
+            entity_id: light.light_group_living_spot
+        - action: light.turn_on
+          metadata: {}
+          data:
+            transition: 1
+            brightness_step_pct: 10
+          target:
+            entity_id: light.light_group_living_white_cabinet

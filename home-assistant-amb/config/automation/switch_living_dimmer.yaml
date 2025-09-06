@@ -33,11 +33,23 @@
             brightness_step_pct: 20
             transition: 1
           target:
-            entity_id: light.light_group_living
+            entity_id: light.light_group_living_spot
+        - action: light.turn_on
+          data:
+            brightness_step_pct: 10
+            transition: 1
+          target:
+            entity_id: light.light_living_white_cabinet
       down_held:
         - action: light.turn_on
           data:
             brightness_step_pct: -20
             transition: 1
           target:
-            entity_id: light.light_group_living
+            entity_id: light.light_group_living_spot
+        - action: light.turn_on
+          data:
+            brightness_step_pct: -10
+            transition: 1
+          target:
+            entity_id: light.light_living_white_cabinet

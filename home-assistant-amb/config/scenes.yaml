@@ -19,19 +19,29 @@
 
 - name: Living daytime
   entities:
-    light.light_group_living:
+    light.light_group_living_spot:
       state: "on"
       color_temp_kelvin: 4000
       brightness: 100
+    light.light_living_white_cabinet:
+      state: "on"
+      color_temp_kelvin: 4000
+      brightness: 50
 
 - name: Living evening
   entities:
-    light.light_group_living:
+    light.light_group_living_spot:
       state: "on"
       color_temp_kelvin: 2500
       brightness: 100
+    light.light_living_white_cabinet:
+      state: "on"
+      color_temp_kelvin: 2000
+      brightness: 50
 
 - name: Living off
   entities:
-    light.light_group_living:
+    light.light_group_living_spot:
+      state: "off"
+    light.light_living_white_cabinet:
       state: "off"

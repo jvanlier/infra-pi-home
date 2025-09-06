@@ -7,10 +7,9 @@
     - light.light_hall_0_4
     - light.light_hall_0_wall
 - platform: group
-  name: "Light Group Living"
+  name: "Light Group Living Spot"
   entities:
     - light.light_living_entrance
-    - light.light_living_white_cabinet
     - light.light_living_wall_left_1
     - light.light_living_wall_left_2
     - light.light_living_wall_left_3
