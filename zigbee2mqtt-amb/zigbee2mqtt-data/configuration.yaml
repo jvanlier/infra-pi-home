@@ -78,3 +78,23 @@ devices:
     friendly_name: Plug Quooker and Dishwasher
   '0x54ef4410002c99b3':
     friendly_name: Plug Workstation
+  '0x54ef441000d2c5eb':
+    friendly_name: Water Leak Sensor Washing Machine
+  '0x00158d008bbe4928':
+    friendly_name: Water Leak Sensor Dryer
+  '0x00158d008bbf75b3':
+    friendly_name: Water Leak Sensor Quooker
+  '0x00158d008bbe3d84':
+    friendly_name: Water Leak Sensor Dishwasher
+  '0x00158d0008980cd7':
+    friendly_name: Climate Bedroom Olivier
+  '0x00158d0007ef3720':
+    friendly_name: Climate Bedroom Duco
+  '0x00158d000838465a':
+    friendly_name: Climate Bedroom JC
+  '0x00158d0007f82b0b':
+    friendly_name: Climate Living Room
+  '0x00158d0008328d5e':
+    friendly_name: Climate Bathroom
+  '0x00158d0007f82928':
+    friendly_name: Climate Study
