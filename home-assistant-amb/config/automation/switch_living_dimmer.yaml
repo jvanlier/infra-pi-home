@@ -1,4 +1,5 @@
 - alias: Living Dimmer Switch
+  id: living-dimmer-switch
   description: ""
   use_blueprint:
     path: custom/hue_dimmer_switch.yaml
@@ -16,6 +17,16 @@
             transition: 1
           target:
             entity_id: scene.living_off
+        - action: scene.turn_on
+          data:
+            transition: 1
+          target:
+            entity_id: scene.hall_0_off
+        - action: light.turn_off
+          data:
+            transition: 1
+          target:
+            entity_id: light.light_dining_table
       up_held:
         - action: light.turn_on
           data:
