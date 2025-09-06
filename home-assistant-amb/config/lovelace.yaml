@@ -1,13 +1,6 @@
 # https://www.home-assistant.io/dashboards/dashboards/#adding-more-dashboards-with-yaml
 mode: yaml
 dashboards:
-  dashboard-generated:
-    mode: yaml
-    filename: notexist.yaml
-    title: Generated
-    icon: mdi:tools
-    show_in_sidebar: true
-    require_admin: true
   dashboard-overview:
     mode: yaml
     filename: dashboard/overview.yaml
