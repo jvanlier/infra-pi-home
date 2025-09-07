@@ -50,26 +50,44 @@ views:
             entity: switch.plug_entertainment
             features_position: bottom
             vertical: false
+            icon: mdi:television
+            color: pink
+            name: Entertainment
           - type: tile
             entity: switch.plug_garden_lights
             features_position: bottom
             vertical: false
+            color: amber
+            icon: mdi:light-flood-up
+            name: Garden Lights
           - type: tile
             entity: switch.plug_quooker_and_dishwasher
             features_position: bottom
             vertical: false
+            color: red
+            icon: mdi:dishwasher
+            name: Quooker and Dishwasher
           - type: tile
             entity: switch.plug_workstation
             features_position: bottom
             vertical: false
+            color: orange
+            icon: mdi:desktop-classic
+            name: Workstation
           - type: tile
             entity: switch.plug_dryer
             features_position: bottom
             vertical: false
+            color: teal
+            icon: mdi:tumble-dryer
+            name: Dryer
           - type: tile
             entity: switch.plug_washing_machine
             features_position: bottom
             vertical: false
+            color: blue
+            icon: mdi:washing-machine
+            name: Washing Machine
     header:
       card:
         type: markdown
