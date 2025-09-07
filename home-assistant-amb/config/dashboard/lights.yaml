@@ -46,7 +46,7 @@ views:
       card:
         type: markdown
         text_only: true
-        content: '# Overview'
+        content: '# Lights'
     type: sections
     max_columns: 4
     cards: []
