@@ -4,11 +4,6 @@ views:
     max_columns: 4
     icon: mdi:transmission-tower
     path: grid
-    header:
-      card:
-        type: markdown
-        text_only: true
-        content: '# Power: Grid'
     badges:
       - type: entity
         show_name: false

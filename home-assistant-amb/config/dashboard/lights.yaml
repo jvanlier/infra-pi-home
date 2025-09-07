@@ -3,18 +3,9 @@ views:
     type: sections
     max_columns: 4
     path: main
-    header:
-      card:
-        type: markdown
-        text_only: true
-        content: '# Lights'
     sections:
       - type: grid
         cards:
-          - type: heading
-            heading: Lights
-            heading_style: title
-            icon: mdi:globe-light
           - features:
               - type: light-brightness
             type: tile

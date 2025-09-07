@@ -61,11 +61,6 @@ views:
         name: Study
         icon: mdi:chair-rolling
         color: teal
-    header:
-      card:
-        type: markdown
-        text_only: true
-        content: '# Overview'
     sections:
       - type: grid
         cards:
