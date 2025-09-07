@@ -6,6 +6,7 @@ views:
           - type: heading
             heading: Lights
             heading_style: title
+            icon: mdi:globe-light
           - features:
               - type: light-brightness
             type: tile
@@ -44,8 +45,51 @@ views:
       - type: grid
         cards:
           - type: heading
-            heading: Device on/off switches
+            heading: Climate
             heading_style: title
+            icon: mdi:thermometer
+          - chart_type: line
+            period: hour
+            type: statistics-graph
+            entities:
+              - entity: sensor.climate_living_temperature
+                name: Living
+              - entity: sensor.climate_bathroom_temperature
+                name: Bathroom
+              - entity: sensor.climate_bedroom_jc_temperature
+                name: Bedroom JC
+              - entity: sensor.climate_study_temperature
+                name: Study
+            stat_types:
+              - mean
+              - min
+              - max
+            days_to_show: 1
+            grid_options:
+              columns: 12
+              rows: 4
+      - type: grid
+        cards:
+          - type: heading
+            heading: Power
+            heading_style: title
+            icon: mdi:alpha-w
+          - type: heading
+            icon: mdi:transmission-tower
+            heading: Grid
+            heading_style: subtitle
+          - type: history-graph
+            entities:
+              - entity: sensor.electricity_meter_power_net
+            hours_to_show: 2
+            title: Grid net use (2h)
+            grid_options:
+              columns: 12
+              rows: 4
+          - type: heading
+            icon: mdi:power-plug
+            heading_style: subtitle
+            heading: Plug on/off switches
           - type: tile
             entity: switch.plug_entertainment
             features_position: bottom
@@ -88,6 +132,15 @@ views:
             color: blue
             icon: mdi:washing-machine
             name: Washing Machine
+      - type: grid
+        cards:
+          - type: heading
+            heading: Energy
+            heading_style: title
+            icon: mdi:lightning-bolt
+          - type: energy-distribution
+            link_dashboard: true
+          - type: energy-sankey
     header:
       card:
         type: markdown
@@ -123,9 +176,18 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_living_room_temperature
+        entity: sensor.climate_living_temperature
         icon: mdi:sofa
         name: Living
+        color: indigo
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_bathroom_temperature
+        name: Bathroom
+        icon: mdi:shower-head
+        color: amber
       - type: entity
         show_name: true
         show_state: true
@@ -133,9 +195,15 @@ views:
         entity: sensor.climate_bedroom_jc_temperature
         icon: mdi:bed
         name: Bedroom JC
+        color: red
       - type: entity
         show_name: true
         show_state: true
         show_icon: true
         entity: sensor.climate_study_temperature
         name: Study
+        icon: mdi:chair-rolling
+        color: teal
+    type: sections
+    max_columns: 4
+    cards: []
