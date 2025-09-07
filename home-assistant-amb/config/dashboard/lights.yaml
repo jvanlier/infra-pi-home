@@ -1,0 +1,52 @@
+views:
+  - title: Lights
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Lights
+            heading_style: title
+            icon: mdi:globe-light
+          - features:
+              - type: light-brightness
+            type: tile
+            entity: light.light_group_hall_0
+            features_position: bottom
+            vertical: false
+            show_entity_picture: false
+            hide_state: false
+          - type: tile
+            entity: light.light_dining_table
+            features_position: bottom
+            vertical: false
+            features:
+              - type: light-brightness
+          - type: tile
+            entity: light.light_group_living_spot
+            features_position: bottom
+            vertical: false
+            show_entity_picture: false
+            hide_state: false
+            features:
+              - type: light-brightness
+          - type: tile
+            entity: light.light_living_white_cabinet
+            features_position: bottom
+            vertical: false
+            features:
+              - type: light-brightness
+          - type: tile
+            entity: light.light_bathroom
+            features_position: bottom
+            vertical: false
+            features:
+              - type: light-brightness
+        column_span: 1
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: '# Overview'
+    type: sections
+    max_columns: 4
+    cards: []
