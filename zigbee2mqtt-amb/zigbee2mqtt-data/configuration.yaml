@@ -93,7 +93,7 @@ devices:
   '0x00158d000838465a':
     friendly_name: Climate Bedroom JC
   '0x00158d0007f82b0b':
-    friendly_name: Climate Living Room
+    friendly_name: Climate Living
   '0x00158d0008328d5e':
     friendly_name: Climate Bathroom
   '0x00158d0007f82928':
