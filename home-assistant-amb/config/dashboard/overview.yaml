@@ -1,5 +1,71 @@
 views:
   - title: Overview
+    type: sections
+    max_columns: 4
+    path: main
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_power_consumption
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_power_production
+        color: purple
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_current_phase_l1
+        name: L1
+        color: indigo
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.electricity_meter_current_phase_l2
+        name: L2
+        color: accent
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_living_temperature
+        icon: mdi:sofa
+        name: Living
+        color: indigo
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_bathroom_temperature
+        name: Bathroom
+        icon: mdi:shower-head
+        color: amber
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_bedroom_jc_temperature
+        icon: mdi:bed
+        name: Bedroom JC
+        color: red
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_study_temperature
+        name: Study
+        icon: mdi:chair-rolling
+        color: teal
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: '# Overview'
     sections:
       - type: grid
         cards:
@@ -141,69 +207,3 @@ views:
           - type: energy-distribution
             link_dashboard: true
           - type: energy-sankey
-    header:
-      card:
-        type: markdown
-        text_only: true
-        content: '# Overview'
-    badges:
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.electricity_meter_power_consumption
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.electricity_meter_power_production
-        color: purple
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.electricity_meter_current_phase_l1
-        name: L1
-        color: indigo
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.electricity_meter_current_phase_l2
-        name: L2
-        color: accent
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.climate_living_temperature
-        icon: mdi:sofa
-        name: Living
-        color: indigo
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.climate_bathroom_temperature
-        name: Bathroom
-        icon: mdi:shower-head
-        color: amber
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.climate_bedroom_jc_temperature
-        icon: mdi:bed
-        name: Bedroom JC
-        color: red
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.climate_study_temperature
-        name: Study
-        icon: mdi:chair-rolling
-        color: teal
-    type: sections
-    max_columns: 4
-    cards: []

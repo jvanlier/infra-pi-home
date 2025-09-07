@@ -1,5 +1,9 @@
 views:
   - title: Grid
+    type: sections
+    max_columns: 4
+    icon: mdi:transmission-tower
+    path: grid
     header:
       card:
         type: markdown
@@ -38,11 +42,6 @@ views:
         entity: sensor.electricity_meter_current_phase_l3
         name: L3
         color: red
-    type: sections
-    max_columns: 4
-    icon: mdi:transmission-tower
-    path: grid
-    cards: []
     sections:
       - type: grid
         cards:

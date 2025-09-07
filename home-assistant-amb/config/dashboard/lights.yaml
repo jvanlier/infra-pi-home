@@ -1,5 +1,13 @@
 views:
   - title: Lights
+    type: sections
+    max_columns: 4
+    path: main
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: '# Lights'
     sections:
       - type: grid
         cards:
@@ -42,11 +50,3 @@ views:
             features:
               - type: light-brightness
         column_span: 1
-    header:
-      card:
-        type: markdown
-        text_only: true
-        content: '# Lights'
-    type: sections
-    max_columns: 4
-    cards: []
