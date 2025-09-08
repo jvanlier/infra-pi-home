@@ -1,9 +1,9 @@
 views:
-  - type: sections
-    max_columns: 4
-    title: Climate
-    path: climate
+  - title: Climate
+    path: main
     icon: mdi:thermometer
+    type: sections
+    max_columns: 4
     sections:
       - type: grid
         cards:

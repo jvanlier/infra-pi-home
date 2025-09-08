@@ -1,8 +1,9 @@
 views:
   - title: Overview
+    path: main
+    icon: mdi:view-dashboard
     type: sections
     max_columns: 4
-    path: main
     badges:
       - type: entity
         show_name: false

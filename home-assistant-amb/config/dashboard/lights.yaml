@@ -1,8 +1,9 @@
 views:
   - title: Lights
+    path: main
+    icon: mdi:globe-light
     type: sections
     max_columns: 4
-    path: main
     sections:
       - type: grid
         cards:

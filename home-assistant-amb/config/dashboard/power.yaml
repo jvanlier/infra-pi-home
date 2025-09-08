@@ -1,9 +1,9 @@
 views:
   - title: Grid
+    path: grid
+    icon: mdi:transmission-tower
     type: sections
     max_columns: 4
-    icon: mdi:transmission-tower
-    path: grid
     badges:
       - type: entity
         show_name: false
