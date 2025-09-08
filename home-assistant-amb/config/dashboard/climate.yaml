@@ -4,6 +4,39 @@ views:
     icon: mdi:thermometer
     type: sections
     max_columns: 4
+    badges:
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_living_temperature
+        icon: mdi:sofa
+        name: Living
+        color: indigo
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_bathroom_temperature
+        name: Bathroom
+        icon: mdi:shower-head
+        color: amber
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_bedroom_jc_temperature
+        icon: mdi:bed
+        name: Bedroom JC
+        color: red
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_study_temperature
+        name: Study
+        icon: mdi:chair-rolling
+        color: teal
     sections:
       - type: grid
         cards:
