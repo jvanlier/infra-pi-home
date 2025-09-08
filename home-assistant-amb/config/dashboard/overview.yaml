@@ -164,9 +164,6 @@ views:
             heading: Power
             heading_style: title
             icon: mdi:alpha-w
-            tap_action:
-              action: navigate
-              navigation_path: /dashboard-power
           - type: heading
             icon: mdi:transmission-tower
             heading: Grid

@@ -75,6 +75,10 @@ views:
     sections:
       - type: grid
         cards:
+          - type: heading
+            icon: mdi:power-plug
+            heading_style: title
+            heading: Plugs on/off switches
           - type: tile
             entity: switch.plug_entertainment
             features_position: bottom
