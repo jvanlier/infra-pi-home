@@ -109,12 +109,12 @@ views:
             stat_types: &ref_6
               - mean
             days_to_show: 1
+            min_y_axis: 30
+            max_y_axis: 80
+            fit_y_data: true
             grid_options: &ref_7
               columns: 12
               rows: 6
-            max_y_axis: 70
-            fit_y_data: true
-            min_y_axis: 30
           - *ref_4
           - chart_type: line
             period: hour
@@ -123,6 +123,6 @@ views:
             stat_types: *ref_6
             days_to_show: 7
             grid_options: *ref_7
-            max_y_axis: 70
+            max_y_axis: 80
             fit_y_data: true
             min_y_axis: 30

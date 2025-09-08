@@ -110,9 +110,9 @@ views:
           - type: heading
             heading_style: subtitle
             heading: Temperature 1 day
-          - chart_type: line
+          - type: statistics-graph
             period: hour
-            type: statistics-graph
+            chart_type: line
             entities:
               - entity: sensor.climate_living_temperature
                 name: Living
@@ -125,6 +125,30 @@ views:
             stat_types:
               - mean
             days_to_show: 1
+            grid_options:
+              columns: 12
+              rows: 4
+          - type: heading
+            heading_style: subtitle
+            heading: Humidity 1 day
+          - type: statistics-graph
+            period: hour
+            chart_type: line
+            entities:
+              - entity: sensor.climate_living_humidity
+                name: Living
+              - entity: sensor.climate_bathroom_humidity
+                name: Bathroom
+              - entity: sensor.climate_bedroom_jc_humidity
+                name: Bedroom JC
+              - entity: sensor.climate_study_humidity
+                name: Study
+            stat_types:
+              - mean
+            days_to_show: 1
+            min_y_axis: 30
+            max_y_axis: 80
+            fit_y_data: true
             grid_options:
               columns: 12
               rows: 4
