@@ -192,12 +192,3 @@ views:
             color: blue
             icon: mdi:washing-machine
             name: Washing Machine
-      - type: grid
-        cards:
-          - type: heading
-            heading: Energy
-            heading_style: title
-            icon: mdi:lightning-bolt
-          - type: energy-distribution
-            link_dashboard: true
-          - type: energy-sankey
