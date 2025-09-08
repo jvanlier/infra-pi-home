@@ -7,35 +7,32 @@ views:
     sections:
       - type: grid
         cards:
-          - features:
-              - type: light-brightness
-            type: tile
+          - type: tile
+            name: Hall 0
             entity: light.light_group_hall_0
             features_position: bottom
-            vertical: false
-            show_entity_picture: false
-            hide_state: false
+            features:
+              - type: light-brightness
           - type: tile
+            name: Dining Table
             entity: light.light_dining_table
             features_position: bottom
-            vertical: false
             features:
               - type: light-brightness
           - type: tile
+            name: Living Spots
             entity: light.light_group_living_spot
             features_position: bottom
-            vertical: false
-            show_entity_picture: false
-            hide_state: false
             features:
               - type: light-brightness
           - type: tile
+            name: Living White Cabinet
             entity: light.light_living_white_cabinet
             features_position: bottom
-            vertical: false
             features:
               - type: light-brightness
           - type: tile
+            name: Bathroom
             entity: light.light_bathroom
             features_position: bottom
             vertical: false
