@@ -107,6 +107,9 @@ views:
             heading: Climate
             heading_style: title
             icon: mdi:thermometer
+          - type: heading
+            heading_style: subtitle
+            heading: Temperature 1 day
           - chart_type: line
             period: hour
             type: statistics-graph
@@ -121,8 +124,6 @@ views:
                 name: Study
             stat_types:
               - mean
-              - min
-              - max
             days_to_show: 1
             grid_options:
               columns: 12
