@@ -69,6 +69,9 @@ views:
             heading: Lights
             heading_style: title
             icon: mdi:globe-light
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-lights
           - type: tile
             name: Hall 0
             entity: light.light_group_hall_0
@@ -107,6 +110,9 @@ views:
             heading: Climate
             heading_style: title
             icon: mdi:thermometer
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-climate
           - type: heading
             heading_style: subtitle
             heading: Temperature 1 day
@@ -158,10 +164,16 @@ views:
             heading: Power
             heading_style: title
             icon: mdi:alpha-w
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-power
           - type: heading
             icon: mdi:transmission-tower
             heading: Grid
             heading_style: subtitle
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-power/grid
           - type: history-graph
             entities:
               - entity: sensor.electricity_meter_power_net
