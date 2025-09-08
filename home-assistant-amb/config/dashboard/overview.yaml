@@ -3,7 +3,7 @@ views:
     path: main
     icon: mdi:view-dashboard
     type: sections
-    max_columns: 4
+    max_columns: 3
     badges:
       - type: entity
         show_name: false
@@ -185,7 +185,10 @@ views:
           - type: heading
             icon: mdi:power-plug
             heading_style: subtitle
-            heading: Plug on/off switches
+            heading: Plugs on/off switches
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-power/plugs
           - type: tile
             entity: switch.plug_entertainment
             features_position: bottom
@@ -200,31 +203,3 @@ views:
             color: amber
             icon: mdi:light-flood-up
             name: Garden Lights
-          - type: tile
-            entity: switch.plug_quooker_and_dishwasher
-            features_position: bottom
-            vertical: false
-            color: red
-            icon: mdi:dishwasher
-            name: Quooker and Dishwasher
-          - type: tile
-            entity: switch.plug_workstation
-            features_position: bottom
-            vertical: false
-            color: orange
-            icon: mdi:desktop-classic
-            name: Workstation
-          - type: tile
-            entity: switch.plug_dryer
-            features_position: bottom
-            vertical: false
-            color: teal
-            icon: mdi:tumble-dryer
-            name: Dryer
-          - type: tile
-            entity: switch.plug_washing_machine
-            features_position: bottom
-            vertical: false
-            color: blue
-            icon: mdi:washing-machine
-            name: Washing Machine
