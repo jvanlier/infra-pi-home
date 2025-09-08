@@ -64,6 +64,7 @@ views:
         color: teal
     sections:
       - type: grid
+        column_span: 1
         cards:
           - type: heading
             heading: Lights
@@ -100,7 +101,8 @@ views:
             vertical: false
             features:
               - type: light-brightness
-        column_span: 1
+          - type: markdown
+            content: '[More](/dashboard-lights)'
       - type: grid
         cards:
           - type: heading
@@ -152,6 +154,8 @@ views:
             grid_options:
               columns: 12
               rows: 4
+          - type: markdown
+            content: '[More](/dashboard-climate)'
       - type: grid
         cards:
           - type: heading
@@ -160,16 +164,17 @@ views:
             icon: mdi:alpha-w
           - type: heading
             icon: mdi:transmission-tower
-            heading: Grid
+            heading: Grid net use (2h)
             heading_style: subtitle
           - type: history-graph
             entities:
               - entity: sensor.electricity_meter_power_net
             hours_to_show: 2
-            title: Grid net use (2h)
             grid_options:
               columns: 12
               rows: 4
+          - type: markdown
+            content: '[More](/dashboard-power/grid)'
           - type: heading
             icon: mdi:power-plug
             heading_style: subtitle
