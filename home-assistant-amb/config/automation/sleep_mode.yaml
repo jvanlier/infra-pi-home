@@ -12,3 +12,4 @@
       entity_id:
         - switch.adaptive_lighting_sleep_mode_living_spot
         - switch.adaptive_lighting_sleep_mode_hall_0
+        - switch.adaptive_lighting_sleep_mode_dining_table
