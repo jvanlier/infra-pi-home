@@ -1,0 +1,2 @@
+# - name: "living-spots"
+#   lights: "light.zigbee_light_group_living_spot"

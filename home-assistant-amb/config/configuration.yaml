@@ -10,11 +10,12 @@ recorder:
   purge_keep_days: 30  # default is 10 days
 
 automation: !include_dir_merge_list automation/
+sensor: !include_dir_merge_list sensor/
+
+adaptive_lighting: !include adaptive_lighting.yaml
 group: !include groups.yaml
 input_boolean: !include input_boolean.yaml
 input_number: !include input_number.yaml
-light: !include light.yaml
 lovelace: !include lovelace.yaml
 scene: !include scenes.yaml
 script: !include scripts.yaml
-sensor: !include_dir_merge_list sensor/
