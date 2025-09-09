@@ -18,9 +18,17 @@
   min_color_temp: 2200
   max_color_temp: 4500
 
+- name: "living-white-cabinet"
+  lights: ["light.light_living_white_cabinet"]
+  min_brightness: 10
+  max_brightness: 30
+  sleep_brightness: 1
+  min_color_temp: 2000
+  max_color_temp: 4500
+
 - name: "dining-table"
   lights: ["light.light_dining_table"]
-  min_brightness: 50
+  min_brightness: 75
   max_brightness: 100
   sleep_brightness: 1
   min_color_temp: 2500

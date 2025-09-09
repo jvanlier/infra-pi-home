@@ -10,6 +10,7 @@
   action:
     - service: "switch.turn_{{ new_state }}"
       entity_id:
-        - switch.adaptive_lighting_living_spot
         - switch.adaptive_lighting_hall_0
+        - switch.adaptive_lighting_living_spot
+        - switch.adaptive_lighting_living_white_cabinet
         - switch.adaptive_lighting_dining_table
