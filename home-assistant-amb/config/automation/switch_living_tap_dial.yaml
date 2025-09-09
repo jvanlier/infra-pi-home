@@ -15,6 +15,10 @@
         - action: light.turn_off
           target:
             entity_id: *ref_all
+      remote_button_4_single_press:
+        - action: input_boolean.toggle
+          target:
+            entity_id: input_boolean.sleep_mode
       remote_dial_rotate_left_step:
         - action: light.turn_on
           data:
