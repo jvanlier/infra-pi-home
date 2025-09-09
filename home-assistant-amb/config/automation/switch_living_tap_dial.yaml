@@ -5,113 +5,95 @@
     input:
       mqtt_topic: zigbee2mqtt/Switch Living Tap Dial
       remote_button_1_single_press:
-        - action: scene.turn_on
-          metadata: {}
-          data:
-            transition: 1
+        - action: light.turn_on
           target:
-            entity_id: scene.living_daytime
+            entity_id: &ref_all
+              - light.light_group_living_spot
+              - light.light_living_white_cabinet
+              - light.light_dining_table
       remote_button_3_single_press:
-        - action: scene.turn_on
-          metadata: {}
-          data:
-            transition: 1
+        - action: light.turn_off
           target:
-            entity_id: scene.living_off
-      remote_button_2_single_press:
-        - action: scene.turn_on
-          metadata: {}
-          data:
-            transition: 1
-          target:
-            entity_id: scene.living_evening
+            entity_id: *ref_all
       remote_dial_rotate_left_step:
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: -10
           target:
-            entity_id: light.light_group_living_spot
+            entity_id: &ref_not_cabinet
+              - light.light_group_living_spot
+              - light.light_dining_table
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: -5
           target:
-            entity_id: light.light_living_white_cabinet
+            entity_id: &ref_cabinet
+              - light.light_living_white_cabinet
       remote_dial_rotate_left_slow:
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: -10
           target:
-            entity_id: light.light_group_living_spot
+            entity_id: *ref_not_cabinet
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: -5
           target:
-            entity_id: light.light_living_white_cabinet
+            entity_id: *ref_cabinet
       remote_dial_rotate_left_fast:
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: -20
           target:
-            entity_id: light.light_group_living_spot
+            entity_id: *ref_not_cabinet
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: -10
           target:
-            entity_id: light.light_living_white_cabinet
+            entity_id: *ref_cabinet
       remote_dial_rotate_right_step:
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: 10
           target:
-            entity_id: light.light_group_living_spot
+            entity_id: *ref_not_cabinet
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: 5
           target:
-            entity_id: light.light_living_white_cabinet
+            entity_id: *ref_cabinet
       remote_dial_rotate_right_slow:
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: 10
           target:
-            entity_id: light.light_group_living_spot
+            entity_id: *ref_not_cabinet
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: 5
           target:
-            entity_id: light.light_living_white_cabinet
+            entity_id: *ref_cabinet
       remote_dial_rotate_right_fast:
         - action: light.turn_on
-          metadata: {}
           data:
             transition: 1
             brightness_step_pct: 20
           target:
-            entity_id: light.light_group_living_spot
+            entity_id: *ref_not_cabinet
         - action: light.turn_on
           metadata: {}
           data:
             transition: 1
             brightness_step_pct: 10
           target:
-            entity_id: light.light_group_living_white_cabinet
+            entity_id: *ref_cabinet

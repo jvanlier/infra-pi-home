@@ -7,16 +7,10 @@
     input:
       controller: Switch Hall 0
       button_1_released:
-        - action: scene.turn_on
-          metadata: {}
-          data:
-            transition: 1
+        - action: light.turn_on
           target:
-            entity_id: scene.hall_0_daytime
+            entity_id: light.light_group_hall_0
       button_2_released:
-        - action: scene.turn_on
-          metadata: {}
-          data:
-            transition: 1
+        - action: light.turn_off
           target:
-            entity_id: scene.hall_0_off
+            entity_id: light.light_group_hall_0

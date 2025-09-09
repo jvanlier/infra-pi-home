@@ -17,5 +17,4 @@ group: !include groups.yaml
 input_boolean: !include input_boolean.yaml
 input_number: !include input_number.yaml
 lovelace: !include lovelace.yaml
-scene: !include scenes.yaml
 script: !include scripts.yaml
