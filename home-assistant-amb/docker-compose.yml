@@ -1,7 +1,9 @@
 services:
   homeassistant:
     container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:2025.9.0"
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
     volumes:
       - ./config:/config
       - /etc/localtime:/etc/localtime:ro
