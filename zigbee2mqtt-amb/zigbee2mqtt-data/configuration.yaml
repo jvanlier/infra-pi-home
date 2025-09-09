@@ -103,3 +103,5 @@ devices:
 groups:
   '1':
     friendly_name: Light Group Living Spot
+  '2':
+    friendly_name: Light Group Hall 0
