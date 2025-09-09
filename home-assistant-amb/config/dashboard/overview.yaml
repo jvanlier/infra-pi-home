@@ -67,6 +67,21 @@ views:
         column_span: 1
         cards:
           - type: heading
+            heading: House scenes
+            heading_style: title
+          - type: tile
+            entity: input_boolean.sleep_mode
+            tap_action:
+              action: toggle
+          # Input boolean not in use yet:
+          # - type: tile
+          #   entity: input_boolean.housekeeping_mode
+          #   tap_action:
+          #     action: toggle
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
             heading: Lights
             heading_style: title
             icon: mdi:globe-light
@@ -112,21 +127,14 @@ views:
             #   action: navigate
             #   navigation_path: /dashboard-lights/automation
           - type: tile
-            entity: input_boolean.sleep_mode
-            tap_action:
-              action: toggle
-          - type: tile
-            entity: input_boolean.housekeeping_mode
-            tap_action:
-              action: toggle
-          - type: tile
             entity: input_boolean.adaptive_lighting
             tap_action:
               action: toggle
-          - type: tile
-            entity: input_boolean.motion_activated_lights
-            tap_action:
-              action: toggle
+          # Input boolean not in use yet:
+          # - type: tile
+          #   entity: input_boolean.motion_activated_lights
+          #   tap_action:
+          #     action: toggle
       - type: grid
         cards:
           - type: heading

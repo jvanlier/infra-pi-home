@@ -1,0 +1,14 @@
+- alias: "Sleep mode: toggle"
+  id: "sleep-mode-toggle"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.sleep_mode
+    - platform: homeassistant
+      event: start  # in case the states aren't properly restored
+  variables:
+    sleep_mode: "{{ states('input_boolean.sleep_mode') }}"
+  action:
+    - service: "switch.turn_{{ sleep_mode }}"
+      entity_id:
+        - switch.adaptive_lighting_sleep_mode_living_spot
+        - switch.adaptive_lighting_sleep_mode_hall_0

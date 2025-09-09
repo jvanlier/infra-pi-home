@@ -1,13 +1,17 @@
 adaptive_lighting:
   name: Adaptive Lighting
   icon: mdi:theme-light-dark
-motion_activated_lights:
-  name: Motion Activated Lights
-  icon: mdi:motion-sensor
 sleep_mode:
   name: Sleep Mode
   icon: mdi:sleep
-housekeeping_mode:
-  # Toggle Adaptive Lighting + all motion sensors and set lights to max white.
-  name: Housekeeping Mode
-  icon: mdi:broom
+
+# Not yet installed, coming soon:
+# motion_activated_lights:
+#   name: Motion Activated Lights
+#   icon: mdi:motion-sensor
+
+# TODO:
+# housekeeping_mode:
+#   # Toggle Adaptive Lighting + all motion sensors and set lights to max white.
+#   name: Housekeeping Mode
+#   icon: mdi:broom
