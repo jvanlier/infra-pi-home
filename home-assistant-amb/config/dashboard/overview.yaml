@@ -64,7 +64,20 @@ views:
         color: teal
     sections:
       - type: grid
+        column_span: 1
         cards:
+          - type: heading
+            heading: House scenes
+            heading_style: title
+          - type: tile
+            entity: input_boolean.sleep_mode
+            tap_action:
+              action: toggle
+          # Input boolean not in use yet:
+          # - type: tile
+          #   entity: input_boolean.housekeeping_mode
+          #   tap_action:
+          #     action: toggle
           - type: heading
             heading: Lights
             heading_style: title
@@ -103,7 +116,22 @@ views:
             vertical: false
             features:
               - type: light-brightness
-        column_span: 1
+          - type: heading
+            heading: Light automation
+            heading_style: subtitle
+            icon: mdi:robot
+            # tap_action:
+            #   action: navigate
+            #   navigation_path: /dashboard-lights/automation
+          - type: tile
+            entity: input_boolean.adaptive_lighting
+            tap_action:
+              action: toggle
+          # Input boolean not in use yet:
+          # - type: tile
+          #   entity: input_boolean.motion_activated_lights
+          #   tap_action:
+          #     action: toggle
       - type: grid
         cards:
           - type: heading

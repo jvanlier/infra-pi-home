@@ -1,0 +1,35 @@
+# N.b.: when adding/removing configs, also update:
+# - automation/light_adaptive.yaml
+# - automation/sleep_mode.yaml
+
+- name: "hall-0"
+  lights: ["light.light_group_hall_0"]
+  min_brightness: 10
+  max_brightness: 50
+  sleep_brightness: 1
+  min_color_temp: 2200
+  max_color_temp: 4500
+
+- name: "living-spot"
+  lights: ["light.light_group_living_spot"]
+  min_brightness: 30
+  max_brightness: 70
+  sleep_brightness: 1
+  min_color_temp: 2200
+  max_color_temp: 4500
+
+- name: "living-white-cabinet"
+  lights: ["light.light_living_white_cabinet"]
+  min_brightness: 10
+  max_brightness: 30
+  sleep_brightness: 1
+  min_color_temp: 2000
+  max_color_temp: 4500
+
+- name: "dining-table"
+  lights: ["light.light_dining_table"]
+  min_brightness: 75
+  max_brightness: 100
+  sleep_brightness: 1
+  min_color_temp: 2500
+  max_color_temp: 4500
