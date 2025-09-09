@@ -1,2 +1,15 @@
-# - name: "living-spots"
-#   lights: "light.zigbee_light_group_living_spot"
+- name: "living-spot"
+  lights: ["light.light_group_living_spot"]
+  min_brightness: 30
+  max_brightness: 70
+  sleep_brightness: 1
+  min_color_temp: 2200
+  max_color_temp: 4500
+
+- name: "hall-0"
+  lights: ["light.light_group_hall_0"]
+  min_brightness: 30
+  max_brightness: 70
+  sleep_brightness: 1
+  min_color_temp: 2200
+  max_color_temp: 4500
