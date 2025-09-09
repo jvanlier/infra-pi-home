@@ -99,4 +99,7 @@ devices:
   '0x00158d0007f82928':
     friendly_name: Climate Study
   '0x00158d0008912748':
-    friendly_name: Door Sensor Stair Cabinet
+    friendly_name: '0x00158d0008912748'
+groups:
+  '1':
+    friendly_name: Light Group Living Spot
