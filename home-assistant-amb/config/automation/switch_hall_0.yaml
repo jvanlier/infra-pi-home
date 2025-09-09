@@ -14,3 +14,7 @@
         - action: light.turn_off
           target:
             entity_id: light.light_group_hall_0
+      button_4_released:
+        - action: input_boolean.toggle
+          target:
+            entity_id: input_boolean.sleep_mode
