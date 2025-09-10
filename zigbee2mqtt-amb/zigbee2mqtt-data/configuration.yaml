@@ -16,7 +16,7 @@ advanced:
   channel: 25
   pan_id: 35539
   network_key: '!secret.yaml network_key'
-  log_level: info
+  log_level: debug
 device_options: {}
 version: 4
 devices:
@@ -79,13 +79,13 @@ devices:
   '0x54ef4410002c99b3':
     friendly_name: Plug Workstation
   '0x54ef441000d2c5eb':
-    friendly_name: Water Leak Sensor Washing Machine
+    friendly_name: Water Leak Washing Machine
   '0x00158d008bbe4928':
-    friendly_name: Water Leak Sensor Dryer
+    friendly_name: Water Leak Dryer
   '0x00158d008bbf75b3':
-    friendly_name: Water Leak Sensor Quooker
+    friendly_name: Water Leak Quooker
   '0x00158d008bbe3d84':
-    friendly_name: Water Leak Sensor Dishwasher
+    friendly_name: Water Leak Dishwasher
   '0x00158d0008980cd7':
     friendly_name: Climate Bedroom Olivier
   '0x00158d0007ef3720':
@@ -99,7 +99,11 @@ devices:
   '0x00158d0007f82928':
     friendly_name: Climate Study
   '0x00158d0008912748':
-    friendly_name: '0x00158d0008912748'
+    friendly_name: Door Living Stair Cabinet
+  '0x00158d00091ead1d':
+    friendly_name: Climate Fridge
+  '0x00158d0008328d33':
+    friendly_name: Climate Storage
 groups:
   '1':
     friendly_name: Light Group Living Spot
