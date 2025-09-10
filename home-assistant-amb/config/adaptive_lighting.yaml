@@ -32,7 +32,7 @@
   sleep_rgb_or_color_temp: "rgb_color"
   # Adjusting brightness and color at the same time breaks the transition:
   separate_turn_on_commands: true
-  send_split_delay: 1100
+  send_split_delay: 500
 
 - name: "stair-cabinet"
   lights: ["light.light_stair_cabinet"]
