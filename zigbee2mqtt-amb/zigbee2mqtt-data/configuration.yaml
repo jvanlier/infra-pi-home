@@ -104,6 +104,8 @@ devices:
     friendly_name: Climate Fridge
   '0x00158d0008328d33':
     friendly_name: Climate Storage
+  '0x0017880108d1b3f3':
+    friendly_name: Light Stair Cabinet
 groups:
   '1':
     friendly_name: Light Group Living Spot
