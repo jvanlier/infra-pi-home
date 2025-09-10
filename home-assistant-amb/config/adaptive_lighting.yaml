@@ -5,7 +5,7 @@
 - name: "hall-0-spot"
   lights: ["light.light_group_hall_0_spot"]
   min_brightness: 10
-  max_brightness: 40
+  max_brightness: 30
   sleep_brightness: 1
   min_color_temp: 2200
   max_color_temp: 4500
@@ -13,13 +13,13 @@
 - name: "hall-0-wall"
   lights: ["light.light_hall_0_wall"]
   min_brightness: 5
-  max_brightness: 15
+  max_brightness: 10
   sleep_brightness: 1
 
 - name: "living-spot"
   lights: ["light.light_group_living_spot"]
-  min_brightness: 30
-  max_brightness: 50
+  min_brightness: 20
+  max_brightness: 40
   sleep_brightness: 1
   min_color_temp: 2200
   max_color_temp: 4500
@@ -27,7 +27,7 @@
 - name: "living-white-cabinet"
   lights: ["light.light_living_white_cabinet"]
   min_brightness: 5
-  max_brightness: 20
+  max_brightness: 15
   sleep_brightness: 1
   min_color_temp: 2000
   max_color_temp: 4500
