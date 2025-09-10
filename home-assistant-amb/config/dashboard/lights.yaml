@@ -20,13 +20,7 @@ views:
             features:
               - type: light-brightness
           - type: tile
-            name: Dining Table
-            entity: light.light_dining_table
-            features_position: bottom
-            features:
-              - type: light-brightness
-          - type: tile
-            name: Living Spots
+            name: Living Spot
             entity: light.light_group_living_spot
             features_position: bottom
             features:
@@ -34,6 +28,12 @@ views:
           - type: tile
             name: Living White Cabinet
             entity: light.light_living_white_cabinet
+            features_position: bottom
+            features:
+              - type: light-brightness
+          - type: tile
+            name: Dining Table
+            entity: light.light_dining_table
             features_position: bottom
             features:
               - type: light-brightness
