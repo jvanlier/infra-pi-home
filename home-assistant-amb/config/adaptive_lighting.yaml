@@ -35,7 +35,7 @@
   lights: ["light.light_stair_cabinet"]
   min_brightness: 30
   max_brightness: 70
-  sleep_brightness: 10
+  sleep_brightness: 20
   min_color_temp: 3000
   max_color_temp: 4600
   # It's nice to see it come on gradually, otherwise the effect finishes before the door is open:
