@@ -37,6 +37,8 @@
   max_brightness: 70
   min_color_temp: 3000
   max_color_temp: 4600
+  # It's nice to see it come on gradually, otherwise the effect finishes before the door is open:
+  initial_transition: 3
 
 - name: "dining-table"
   lights: ["light.light_dining_table"]
