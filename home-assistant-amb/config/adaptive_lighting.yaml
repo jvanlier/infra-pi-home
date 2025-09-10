@@ -31,14 +31,15 @@
   # This makes it red in sleep mode:
   sleep_rgb_or_color_temp: "rgb_color"
 
-- name: "light-stair-cabinet"
+- name: "stair-cabinet"
   lights: ["light.light_stair_cabinet"]
   min_brightness: 30
   max_brightness: 70
+  sleep_brightness: 10
   min_color_temp: 3000
   max_color_temp: 4600
   # It's nice to see it come on gradually, otherwise the effect finishes before the door is open:
-  initial_transition: 3
+  initial_transition: 2
 
 - name: "dining-table"
   lights: ["light.light_dining_table"]
