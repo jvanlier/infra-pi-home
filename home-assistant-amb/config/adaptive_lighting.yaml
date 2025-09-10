@@ -31,6 +31,13 @@
   # This makes it red in sleep mode:
   sleep_rgb_or_color_temp: "rgb_color"
 
+- name: "light-stair-cabinet"
+  lights: ["light.light_stair_cabinet"]
+  min_brightness: 30
+  max_brightness: 70
+  min_color_temp: 3000
+  max_color_temp: 4600
+
 - name: "dining-table"
   lights: ["light.light_dining_table"]
   min_brightness: 75
