@@ -8,14 +8,20 @@
       on_released:
         - action: light.turn_on
           target:
-            entity_id: &ref_all
+            entity_id:
               - light.light_group_living_spot
               - light.light_living_white_cabinet
               - light.light_dining_table
       off_released:
         - action: light.turn_off
           target:
-            entity_id: *ref_all
+            entity_id:
+            # Generally used when leaving the building, so turn of all lights on the ground floor:
+              - light.light_group_living_spot
+              - light.light_living_white_cabinet
+              - light.light_dining_table
+              - light.light_group_hall_0_spot
+              - light.light_hall_0_wall
       up_held:
         - action: light.turn_on
           data:

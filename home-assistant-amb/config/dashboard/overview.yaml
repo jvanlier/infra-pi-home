@@ -86,8 +86,14 @@ views:
               action: navigate
               navigation_path: /dashboard-lights
           - type: tile
-            name: Hall 0
-            entity: light.light_group_hall_0
+            name: Hall 0 Spot
+            entity: light.light_group_hall_0_spot
+            features_position: bottom
+            features:
+              - type: light-brightness
+          - type: tile
+            name: Hall 0 Wall
+            entity: light.light_hall_0_wall
             features_position: bottom
             features:
               - type: light-brightness
