@@ -13,7 +13,7 @@
 - name: "hall-0-wall"
   lights: ["light.light_hall_0_wall"]
   min_brightness: 5
-  max_brightness: 25
+  max_brightness: 15
   sleep_brightness: 1
 
 - name: "living-spot"
@@ -31,12 +31,13 @@
   sleep_brightness: 1
   min_color_temp: 2000
   max_color_temp: 4500
+  # This makes it red in sleep mode:
   sleep_rgb_or_color_temp: "rgb_color"
 
 - name: "dining-table"
   lights: ["light.light_dining_table"]
   min_brightness: 75
   max_brightness: 100
-  sleep_brightness: 1
+  sleep_brightness: 10
   min_color_temp: 2500
   max_color_temp: 4500
