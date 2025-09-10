@@ -4,7 +4,7 @@
 
 - name: "hall-0-spot"
   lights: ["light.light_group_hall_0_spot"]
-  min_brightness: 10
+  min_brightness: 15
   max_brightness: 30
   min_color_temp: 2400
   max_color_temp: 4600
