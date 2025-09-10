@@ -30,8 +30,6 @@
   max_color_temp: 4600
   # This makes it red in sleep mode:
   sleep_rgb_or_color_temp: "rgb_color"
-  # Seems faster than Hue bulbs, so make it slower to match:
-  initial_transition: 2
 
 - name: "stair-cabinet"
   lights: ["light.light_stair_cabinet"]
