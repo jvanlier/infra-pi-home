@@ -8,19 +8,19 @@ views:
       - type: grid
         cards:
           - type: tile
-            name: Hall 0
-            entity: light.light_group_hall_0
+            name: Hall 0 Spot
+            entity: light.light_group_hall_0_spot
             features_position: bottom
             features:
               - type: light-brightness
           - type: tile
-            name: Dining Table
-            entity: light.light_dining_table
+            name: Hall 0 Wall
+            entity: light.light_hall_0_wall
             features_position: bottom
             features:
               - type: light-brightness
           - type: tile
-            name: Living Spots
+            name: Living Spot
             entity: light.light_group_living_spot
             features_position: bottom
             features:
@@ -28,6 +28,12 @@ views:
           - type: tile
             name: Living White Cabinet
             entity: light.light_living_white_cabinet
+            features_position: bottom
+            features:
+              - type: light-brightness
+          - type: tile
+            name: Dining Table
+            entity: light.light_dining_table
             features_position: bottom
             features:
               - type: light-brightness
