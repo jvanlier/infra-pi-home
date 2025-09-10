@@ -15,7 +15,7 @@
               - light.light_group_living_spot
               - light.light_living_white_cabinet
               - light.light_dining_table
-      button_3_released:
+      button_2_released:
         - action: light.turn_off
           target:
             entity_id: *ref_floor_0
