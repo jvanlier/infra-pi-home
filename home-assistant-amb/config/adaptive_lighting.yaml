@@ -28,7 +28,8 @@
   lights: ["light.light_living_white_cabinet"]
   min_brightness: 5
   max_brightness: 15
-  min_color_temp: 2400
+  # Is more yellow than the spots, so make it go to warmer color temp:
+  min_color_temp: 2000
   max_color_temp: 4600
   brightness_mode: tanh
   # This makes it red in sleep mode:
