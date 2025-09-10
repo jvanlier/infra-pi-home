@@ -216,7 +216,7 @@ views:
           - type: heading
             icon: mdi:power-plug
             heading_style: subtitle
-            heading: Plugs on/off switches
+            heading: Plug on/off switches
             tap_action:
               action: navigate
               navigation_path: /dashboard-power/plugs

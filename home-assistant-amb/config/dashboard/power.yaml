@@ -78,7 +78,7 @@ views:
           - type: heading
             icon: mdi:power-plug
             heading_style: title
-            heading: Plugs on/off switches
+            heading: Plug on/off switches
           - type: tile
             entity: switch.plug_entertainment
             features_position: bottom
