@@ -8,13 +8,11 @@
   max_brightness: 30
   min_color_temp: 2400
   max_color_temp: 4600
-  brightness_mode: tanh
 
 - name: "hall-0-wall"
   lights: ["light.light_hall_0_wall"]
   min_brightness: 5
   max_brightness: 10
-  brightness_mode: tanh
 
 - name: "living-spot"
   lights: ["light.light_group_living_spot"]
@@ -22,7 +20,6 @@
   max_brightness: 40
   min_color_temp: 2400
   max_color_temp: 4600
-  brightness_mode: tanh
 
 - name: "living-white-cabinet"
   lights: ["light.light_living_white_cabinet"]
@@ -31,7 +28,6 @@
   # Is more yellow than the spots, so make it go to warmer color temp:
   min_color_temp: 2000
   max_color_temp: 4600
-  brightness_mode: tanh
   # This makes it red in sleep mode:
   sleep_rgb_or_color_temp: "rgb_color"
 
@@ -42,10 +38,8 @@
   sleep_brightness: 10
   min_color_temp: 2400
   max_color_temp: 4600
-  brightness_mode: tanh
 
 - name: "bathroom"
   lights: ["light.light_bathroom"]
   min_brightness: 20
   max_brightness: 40
-  brightness_mode: tanh
