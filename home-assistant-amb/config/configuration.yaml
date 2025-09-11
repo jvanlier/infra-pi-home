@@ -16,5 +16,6 @@ adaptive_lighting: !include adaptive_lighting.yaml
 group: !include groups.yaml
 input_boolean: !include input_boolean.yaml
 input_number: !include input_number.yaml
+input_text: !include input_text.yaml
 lovelace: !include lovelace.yaml
 script: !include scripts.yaml
