@@ -19,7 +19,7 @@
       up_press:
         - action: light.turn_on
           data:
-            brightness_step_pct: 10
+            brightness_step_pct: 5
             transition: 1
           target:
             entity_id:
@@ -27,7 +27,7 @@
       up_hold:
         - action: light.turn_on
           data:
-            brightness_step_pct: 10
+            brightness_step_pct: 5
             transition: 1
           target:
             entity_id:
@@ -35,7 +35,7 @@
       down_press:
         - action: light.turn_on
           data:
-            brightness_step_pct: -10
+            brightness_step_pct: -5
             transition: 1
           target:
             entity_id:
@@ -43,7 +43,7 @@
       down_hold:
         - action: light.turn_on
           data:
-            brightness_step_pct: -10
+            brightness_step_pct: -5
             transition: 1
           target:
             entity_id:
