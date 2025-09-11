@@ -1,0 +1,49 @@
+blueprint:
+  name: Water Leak
+  description: >
+    Water leak alert with optional device turn-off.
+  domain: automation
+  input:
+    water_leak_sensor:
+      name: Water Leak Sensor
+      description: The water leak sensor to monitor.
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: moisture
+    device_to_turn_off:
+      name: Device to Turn Off
+      description: Optional device to turn off when a leak is detected.
+      default: null
+      selector:
+        entity:
+          domain: switch
+          integration: switch
+
+mode: restart
+max_exceeded: silent
+
+trigger:
+  - platform: state
+    entity_id: !input water_leak_sensor
+    to: 'on'
+
+variables:
+  water_leak_sensor: !input water_leak_sensor
+  device_to_turn_off: !input device_to_turn_off
+
+action:
+  - service: notify.notify
+    data:
+      title: WATER LEAK!
+      message: >
+        Water leak detected by {{ states[water_leak_sensor].name }}.
+        {{ 'Turning off ' ~ states[device_to_turn_off].name ~ '.' if device_to_turn_off else 'No device configured to turn off.' }}
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ device_to_turn_off is not none }}"
+        sequence:
+          - service: switch.turn_off
+            target:
+              entity_id: !input device_to_turn_off
