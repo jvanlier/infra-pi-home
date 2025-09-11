@@ -17,3 +17,29 @@
         - switch.adaptive_lighting_sleep_mode_stair_cabinet
         - switch.adaptive_lighting_sleep_mode_dining_table
         - switch.adaptive_lighting_sleep_mode_bathroom
+
+- alias: "Sleep mode: scheduled on"
+  id: sleep-mode-scheduled-on
+  trigger:
+  - platform: time
+    at: "23:00:00"
+  action:
+    # if someone is in the bathroom, don't put them in the dark:
+    - wait_template: '{{ states("light.light_bathroom") != "on" }}'
+      continue_on_timeout: 'true'
+      timeout: '00:30:00'  # it can't take longer than this, right?
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.sleep_mode
+  mode: restart
+
+- alias: "Sleep mode: scheduled off"
+  id: sleep-mode-scheduled-off
+  trigger:
+  - platform: time
+    at: "07:00:00"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.sleep_mode
+  mode: restart
