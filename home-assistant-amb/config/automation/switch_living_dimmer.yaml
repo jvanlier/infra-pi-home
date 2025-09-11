@@ -1,5 +1,5 @@
-- alias: Living Dimmer Switch
-  id: living-dimmer-switch
+- alias: Switch Living Dimmer
+  id: switch-living-dimmer
   description: ""
   use_blueprint:
     path: custom/hue_dimmer_switch.yaml
