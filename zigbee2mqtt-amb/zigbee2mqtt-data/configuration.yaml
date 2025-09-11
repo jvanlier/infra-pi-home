@@ -106,6 +106,8 @@ devices:
     friendly_name: Climate Storage
   '0x0017880108d1b3f3':
     friendly_name: Light Stair Cabinet
+  '0x00158d008bbe4913':
+    friendly_name: Water Leak Storage Room Window
 groups:
   '1':
     friendly_name: Light Group Living Spot
