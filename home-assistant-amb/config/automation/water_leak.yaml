@@ -1,0 +1,33 @@
+- alias: "Water Leak Washing Machine"
+  use_blueprint:
+    path: custom/water_leak.yaml
+    input:
+      water_leak_sensor: binary_sensor.water_leak_washing_machine_water_leak
+      device_to_turn_off: switch.plug_washing_machine
+
+- alias: "Water Leak Quooker"
+  use_blueprint:
+    path: custom/water_leak.yaml
+    input:
+      water_leak_sensor: binary_sensor.water_leak_quooker_water_leak
+      device_to_turn_off: switch.plug_quooker_and_dishwasher
+
+- alias: "Water Leak Dishwasher"
+  use_blueprint:
+    path: custom/water_leak.yaml
+    input:
+      water_leak_sensor: binary_sensor.water_leak_dishwasher_water_leak
+      device_to_turn_off: switch.plug_quooker_and_dishwasher
+
+- alias: "Water Leak Dryer"
+  use_blueprint:
+    path: custom/water_leak.yaml
+    input:
+      water_leak_sensor: binary_sensor.water_leak_dryer_water_leak
+      device_to_turn_off: switch.plug_dryer
+
+- alias: "Water Leak Storage Room Window"
+  use_blueprint:
+    path: custom/water_leak.yaml
+    input:
+      water_leak_sensor: binary_sensor.water_leak_storage_room_window_water_leak
