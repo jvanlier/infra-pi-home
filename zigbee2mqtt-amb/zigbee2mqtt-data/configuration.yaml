@@ -108,6 +108,8 @@ devices:
     friendly_name: Light Stair Cabinet
   '0x00158d008bbe4913':
     friendly_name: Water Leak Storage Room Window
+  '0x001788010c24ce62':
+    friendly_name: Switch Bathroom Dimmer
 groups:
   '1':
     friendly_name: Light Group Living Spot
