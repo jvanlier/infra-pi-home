@@ -5,7 +5,7 @@
 - name: "hall-0-spot"
   lights: ["light.light_group_hall_0_spot"]
   min_brightness: 15
-  max_brightness: 30
+  max_brightness: 20
   min_color_temp: 2400
   max_color_temp: 4600
 
@@ -17,7 +17,7 @@
 - name: "living-spot"
   lights: ["light.light_group_living_spot"]
   min_brightness: 20
-  max_brightness: 40
+  max_brightness: 30
   min_color_temp: 2400
   max_color_temp: 4600
 
