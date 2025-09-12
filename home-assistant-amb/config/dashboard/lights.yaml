@@ -38,6 +38,12 @@ views:
             features:
               - type: light-brightness
           - type: tile
+            name: Kitchen
+            entity: light.light_group_kitchen_spot
+            features_position: bottom
+            features:
+              - type: light-brightness
+          - type: tile
             name: Bathroom
             entity: light.light_bathroom
             features_position: bottom
