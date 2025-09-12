@@ -16,5 +16,6 @@
         - switch.adaptive_lighting_living_white_cabinet
         - switch.adaptive_lighting_stair_cabinet
         - switch.adaptive_lighting_dining_table
-        - switch.adaptive_lighting_kitchen_spot
+        - switch.adaptive_lighting_kitchen_middle
+        - switch.adaptive_lighting_kitchen_countertop
         - switch.adaptive_lighting_bathroom
