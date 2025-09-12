@@ -16,6 +16,7 @@
         - switch.adaptive_lighting_sleep_mode_living_white_cabinet
         - switch.adaptive_lighting_sleep_mode_stair_cabinet
         - switch.adaptive_lighting_sleep_mode_dining_table
+        - switch.adaptive_lighting_sleep_mode_kitchen_spot
         - switch.adaptive_lighting_sleep_mode_bathroom
 
 - alias: "Sleep mode: scheduled on"

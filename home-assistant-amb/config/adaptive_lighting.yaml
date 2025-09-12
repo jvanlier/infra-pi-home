@@ -49,10 +49,16 @@
   min_color_temp: 2400
   max_color_temp: 4600
 
+- name: "kitchen-spot"
+  lights: ["light.light_group_kitchen_spot"]
+  min_brightness: 20
+  max_brightness: 30
+  min_color_temp: 2700
+  max_color_temp: 4600
+
 - name: "bathroom"
   lights: ["light.light_bathroom"]
   min_brightness: 20
   max_brightness: 30
   # The default of 1 is very low here and it kind of struggles to come on, do a bit higher:
   sleep_brightness: 5
-
