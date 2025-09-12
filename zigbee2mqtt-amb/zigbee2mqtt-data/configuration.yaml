@@ -16,7 +16,7 @@ advanced:
   channel: 25
   pan_id: 35539
   network_key: '!secret.yaml network_key'
-  log_level: debug
+  log_level: info
 device_options: {}
 version: 4
 devices:
@@ -41,9 +41,9 @@ devices:
   '0x001788010ee66d40':
     friendly_name: Light Living Wall Left 1
   '0x001788010ee652c5':
-    friendly_name: Light Living Wall Left 2
+    friendly_name: Light Kitchen 1
   '0x001788010ee652ae':
-    friendly_name: Light Living Wall Left 3
+    friendly_name: Light Living Wall Left 2
   '0x001788010ee64599':
     friendly_name: Light Living Garden L1
   '0x001788010ee66ab7':
@@ -110,8 +110,22 @@ devices:
     friendly_name: Water Leak Storage Room Window
   '0x001788010c24ce62':
     friendly_name: Switch Bathroom Dimmer
+  '0x001788010eed6730':
+    friendly_name: Light Living Wall Left 3
+  '0x001788010e438b31':
+    friendly_name: Light Kitchen 2
+  '0x001788010e43e39a':
+    friendly_name: Light Kitchen 3
+  '0x001788010e438c3e':
+    friendly_name: Light Kitchen 4
+  '0x001788010e43e358':
+    friendly_name: Light Kitchen Countertop 1
+  '0x001788010e43e385':
+    friendly_name: Light Kitchen Countertop 2
 groups:
   '1':
     friendly_name: Light Group Living Spot
   '2':
     friendly_name: Light Group Hall 0 Spot
+  '3':
+    friendly_name: Light Kitchen
