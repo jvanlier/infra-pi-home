@@ -1,4 +1,4 @@
-- alias: Swich Bedroom Olivier
+- alias: Switch Bedroom Olivier
   id: switch_bedroom_olivier_tap_dial
   use_blueprint:
     path: custom/hue_tap_dial.yaml
