@@ -142,6 +142,10 @@ devices:
     friendly_name: Light Bedroom Olivier 3
   '0x001788010e43e179':
     friendly_name: Light Bedroom Olivier 4
+  '0x001788010d348233':
+    friendly_name: Switch Bedroom Duco
+  '0x001788010d3460ef':
+    friendly_name: Switch Bedroom Olivier
 groups:
   '1':
     friendly_name: Light Group Living Spot
