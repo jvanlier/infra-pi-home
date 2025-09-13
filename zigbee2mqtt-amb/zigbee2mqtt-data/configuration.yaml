@@ -122,6 +122,26 @@ devices:
     friendly_name: Light Kitchen Countertop 1
   '0x001788010e43e385':
     friendly_name: Light Kitchen Countertop 2
+  '0x001788010eee17e5':
+    friendly_name: Light Bedroom Duco 2
+  '0x001788010ef1af8a':
+    friendly_name: Light Bedroom Duco 4
+  '0x001788010eed58f2':
+    friendly_name: Light Bedroom Duco 1
+  '0x001788010eef9259':
+    friendly_name: Light Bedroom Duco 3
+  '0x001788010eef928d':
+    friendly_name: Light Bedroom Olivier 6
+  '0x001788010ef1af85':
+    friendly_name: Light Bedroom Olivier 5
+  '0x001788010eed6b09':
+    friendly_name: Light Bedroom Olivier 1
+  '0x001788010ee80a35':
+    friendly_name: Light Bedroom Olivier 2
+  '0x001788010eef9276':
+    friendly_name: Light Bedroom Olivier 3
+  '0x001788010e43e179':
+    friendly_name: Light Bedroom Olivier 4
 groups:
   '1':
     friendly_name: Light Group Living Spot
@@ -131,3 +151,7 @@ groups:
     friendly_name: Light Group Kitchen Middle
   '4':
     friendly_name: Light Group Kitchen Countertop
+  '5':
+    friendly_name: Light Group Bedroom Duco
+  '6':
+    friendly_name: Light Group Bedroom Olivier
