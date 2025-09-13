@@ -1,5 +1,5 @@
 - alias: Swich Bedroom Duco
-  id: switch_living_tap_dial
+  id: switch_bedroom_duco_tap_dial
   use_blueprint:
     path: custom/hue_tap_dial.yaml
     input:
