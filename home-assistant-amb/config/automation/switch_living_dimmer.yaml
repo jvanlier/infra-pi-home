@@ -8,16 +8,16 @@
       on_released:
         - action: light.turn_on
           target:
-            entity_id: &ref_floor_0
-              - light.light_group_hall_0_spot
-              - light.light_hall_0_wall
+            entity_id: &ref_floor_0_living_area
               - light.light_group_living_spot
               - light.light_living_white_cabinet
               - light.light_dining_table
+              - light.light_group_kitchen_middle
+              - light.light_group_kitchen_countertop
       off_released:
         - action: light.turn_off
           target:
-            entity_id: *ref_floor_0
+            entity_id: *ref_floor_0_living_area
       up_held:
         - action: light.turn_on
           data:
@@ -27,6 +27,8 @@
             entity_id: &ref_dim_20
               - light.light_group_living_spot
               - light.light_dining_table
+              - light.light_group_kitchen_middle
+              - light.light_group_kitchen_countertop
         - action: light.turn_on
           data:
             brightness_step_pct: 10
