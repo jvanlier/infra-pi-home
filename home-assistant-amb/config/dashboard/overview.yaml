@@ -128,22 +128,22 @@ views:
             features:
               - type: light-brightness
           - type: tile
+            name: Bathroom
+            entity: light.light_bathroom
+            features_position: bottom
+            vertical: false
+            features:
+              - type: light-brightness
+          - type: tile
             name: Bedroom Duco
-            entity: light.light_group_duco
+            entity: light.light_group_bedroom_duco
             features_position: bottom
             vertical: false
             features:
               - type: light-brightness
           - type: tile
             name: Bedroom Olivier
-            entity: light.light_group_olivier
-            features_position: bottom
-            vertical: false
-            features:
-              - type: light-brightness
-          - type: tile
-            name: Bathroom
-            entity: light.light_bathroom
+            entity: light.light_group_bedroom_olivier
             features_position: bottom
             vertical: false
             features:
