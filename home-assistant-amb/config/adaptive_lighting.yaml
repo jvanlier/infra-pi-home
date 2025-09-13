@@ -7,7 +7,7 @@
   min_brightness: 15
   max_brightness: 20
   min_color_temp: 2400
-  max_color_temp: 4600
+  max_color_temp: 4000
 
 - name: "hall-0-wall"
   lights: ["light.light_hall_0_wall"]
@@ -19,7 +19,7 @@
   min_brightness: 30
   max_brightness: 40
   min_color_temp: 2400
-  max_color_temp: 4600
+  max_color_temp: 4000
 
 - name: "living-white-cabinet"
   lights: ["light.light_living_white_cabinet"]
@@ -27,9 +27,7 @@
   max_brightness: 15
   # Is more yellow than the spots, so make it go to warmer color temp:
   min_color_temp: 2000
-  max_color_temp: 4600
-  # This makes it red in sleep mode:
-  sleep_rgb_or_color_temp: "rgb_color"
+  max_color_temp: 4000
 
 - name: "stair-cabinet"
   lights: ["light.light_stair_cabinet"]
@@ -37,7 +35,7 @@
   max_brightness: 70
   sleep_brightness: 20
   min_color_temp: 3000
-  max_color_temp: 4600
+  max_color_temp: 4000
   # It's nice to see it come on gradually, otherwise the effect finishes before the door is open:
   initial_transition: 2
 
@@ -47,21 +45,21 @@
   max_brightness: 100
   sleep_brightness: 10
   min_color_temp: 2400
-  max_color_temp: 4600
+  max_color_temp: 4000
 
 - name: "kitchen-middle"
   lights: ["light.light_group_kitchen_middle"]
   min_brightness: 30
   max_brightness: 40
   min_color_temp: 2700
-  max_color_temp: 4600
+  max_color_temp: 4000
 
 - name: "kitchen-countertop"
   lights: ["light.light_group_kitchen_countertop"]
   min_brightness: 50
   max_brightness: 60
   min_color_temp: 2700
-  max_color_temp: 4600
+  max_color_temp: 4000
 
 - name: "bathroom"
   lights: ["light.light_bathroom"]
