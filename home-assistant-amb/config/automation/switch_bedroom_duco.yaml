@@ -3,7 +3,7 @@
   use_blueprint:
     path: custom/hue_wall_switch.yaml
     input:
-      controller: zigbee2mqtt/Switch Wall Bedroom Duco
+      controller: Switch Wall Bedroom Duco
       left_press:
         - action: light.toggle
           target:
