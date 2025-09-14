@@ -49,8 +49,8 @@
 
 - name: "kitchen-middle"
   lights: ["light.light_group_kitchen_middle"]
-  min_brightness: 30
-  max_brightness: 40
+  min_brightness: 20
+  max_brightness: 30
   min_color_temp: 2700
   max_color_temp: 4000
 
