@@ -1,0 +1,11 @@
+- alias: Switch Wall Toilet
+  id: switch_wall_toilet
+  trigger:
+    platform: state
+    entity_id: sensor.switch_wall_toilet_action
+    to: 'left_press'
+  action:
+    - service: light.toggle
+      target:
+        entity_id: light.light_toilet
+  mode: single
