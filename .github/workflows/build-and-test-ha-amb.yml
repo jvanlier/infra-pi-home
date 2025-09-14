@@ -15,9 +15,8 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Install just
         run: |
-          sudo apt-get update
-          sudo apt-get install -y just
+            curl -sSL https://just.systems/install.sh | bash -s -- --to /usr/local/bin
       - name: Build home-assistant-amb image
-        run: just -d home-assistant-amb build
+        run: just build
       - name: Test Home Assistant config
-        run: just -d home-assistant-amb test-config
+        run: just test-config
