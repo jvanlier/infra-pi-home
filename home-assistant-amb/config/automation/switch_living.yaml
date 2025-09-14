@@ -1,29 +1,20 @@
-- alias: Switch Wall Living Left
-  id: switch_wall_living_left
-  trigger:
-    platform: state
-    entity_id: sensor.switch_wall_living
-    to: 'left_press'
-  action:
-    - service: light.toggle
-      target:
-        entity_id:
-          - light.light_dining_table
-  mode: single
 
-- alias: Switch Wall Living Right
-  id: switch_wall_living_right
-  trigger:
-    platform: state
-    entity_id: sensor.switch_wall_living
-    to: 'right_press'
-  action:
-    - service: light.toggle
-      target:
-        entity_id:
-          - light.light_group_living_spot
-          - light.light_living_white_cabinet
-  mode: single
+- alias: Switch Wall Living
+  id: switch_wall_living
+  use_blueprint:
+    path: custom/hue_wall_switch.yaml
+    input:
+      controller: Switch Wall Living
+      left_press:
+        - action: light.toggle
+          target:
+            entity_id: light.light_dining_table
+      right_press:
+        - action: light.toggle
+          target:
+            entity_id:
+              - light.light_group_living_spot
+              - light.light_living_white_cabinet
 
 - alias: Switch Tap Dial Living
   id: switch_tap_dial_living

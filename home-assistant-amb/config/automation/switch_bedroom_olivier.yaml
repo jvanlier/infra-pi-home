@@ -1,16 +1,14 @@
 - alias: Switch Wall Bedroom Olivier
   id: switch_wall_bedroom_olivier
-  trigger:
-    platform: state
-    entity_id: sensor.switch_wall_bedroom_olivier_action
-    to: 'left_press'
-  action:
-    - service: light.toggle
-      target:
-        entity_id: &ref_lights
-          - light.light_group_bedroom_olivier
-  mode: single
-
+  use_blueprint:
+    path: custom/hue_wall_switch.yaml
+    input:
+      controller: Switch Wall Bedroom Olivier
+      left_press:
+        - action: light.toggle
+          target:
+            entity_id: &ref_lights
+              - light.light_group_bedroom_olivier
 
 - alias: Switch Tap Dial Bedroom Olivier
   id: switch_tap_dial_bedroom_olivier

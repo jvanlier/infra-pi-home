@@ -1,13 +1,12 @@
 - alias: Switch Wall Kitchen
   id: switch_wall_kitchen
-  trigger:
-    platform: state
-    entity_id: sensor.switch_wall_kitchen_action
-    to: 'left_press'
-  action:
-    - service: light.toggle
-      target:
-        entity_id:
-          - light.light_group_kitchen_middle
-          - light.light_group_kitchen.countertop
-  mode: single
+  use_blueprint:
+    path: custom/hue_wall_switch.yaml
+    input:
+      controller: Switch Wall Kitchen
+      left_press:
+        - action: light.toggle
+          target:
+            entity_id: &ref_lights
+              - light.light_group_kitchen_middle
+              - light.light_group_kitchen.countertop
