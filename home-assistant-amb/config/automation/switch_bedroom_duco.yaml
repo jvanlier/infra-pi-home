@@ -1,15 +1,14 @@
 - alias: Switch Wall Bedroom Duco
   id: switch_wall_bedroom_duco
-  trigger:
-    platform: state
-    entity_id: sensor.switch_wall_bedroom_duco_action
-    to: 'left_press'
-  action:
-    - service: light.toggle
-      target:
-        entity_id: &ref_lights
-          - light.light_group_bedroom_duco
-  mode: single
+  use_blueprint:
+    path: custom/hue_wall_switch.yaml
+    input:
+      controller: zigbee2mqtt/Switch Wall Bedroom Duco
+      left_press:
+        - action: light.toggle
+          target:
+            entity_id: &ref_lights
+              - light.light_group_bedroom_duco
 
 - alias: Switch Tap Dial Bedroom Duco
   id: switch_tap_dial_bedroom_duco
