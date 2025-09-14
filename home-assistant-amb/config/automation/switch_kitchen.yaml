@@ -16,8 +16,7 @@
           sequence:
           - choose:
               - conditions:
-              # use variable
-                  -  "{{ state_middle == 'on' or state_countertop == 'on' }}"
+                  -  "{{ state_middle == 'on' and state_countertop == 'on' }}"
                 sequence:
                   - service: light.turn_off
                     target:
@@ -27,7 +26,7 @@
                     data:
                       transition: 1
               - conditions:
-                  -  "{{ state_middle in ('off', 'unavailable') and state_countertop in ('off', 'unavailable') }}"
+                  -  "{{ state_middle in ('off', 'unavailable') or state_countertop in ('off', 'unavailable') }}"
                 sequence:
                   - service: light.turn_on
                     target:
