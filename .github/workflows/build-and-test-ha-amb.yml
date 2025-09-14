@@ -18,5 +18,7 @@ jobs:
             curl -sSL https://just.systems/install.sh | bash -s -- --to /usr/local/bin
       - name: Build home-assistant-amb image
         run: just build
+        working-directory: home-assistant-amb
       - name: Test Home Assistant config
         run: just test-config
+        working-directory: home-assistant-amb
