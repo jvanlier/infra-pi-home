@@ -1,0 +1,10 @@
+# Image name is automatically set by docker compose to this:
+IMAGE_NAME := "docker.io/library/home-assistant-amb-homeassistant"
+
+build:
+  docker compose build
+
+test: test-config
+
+test-config:
+  docker run --rm -v $(pwd)/config:/config {{IMAGE_NAME}} hass --script check_config -c /config

@@ -11,20 +11,15 @@ The symlink makes Home Assistant use the baked-in custom components instead.
 ## To build
 
 ```sh
-docker compose build
+just build
 ```
-
-At the end you see the name of the docker image:
-
-```text
-[...]
- => => naming to docker.io/library/home-assistant-amb-homeassistant
- ```
 
 ## To test
 
-Invoke the Home Assistant config checker locally before trying it on Home Assistant to catch errors as early as possible:
+This invokes the the Home Assistant config checker using the Docker image.
+It is useful to catch errors as early as possible, i.e. before trying it on the live Home Assistant.
+It catches things that the yaml checker in the pre-commit doesn't:
 
-```
-docker run --rm -v $(pwd)/config:/config docker.io/library/home-assistant-amb-homeassistant hass --script check_config -c /config
+```sh
+just test
 ```
