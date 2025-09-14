@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - '**'
+    paths:
+      - 'home-assistant-amb/**'
 
 jobs:
   build-and-test:
