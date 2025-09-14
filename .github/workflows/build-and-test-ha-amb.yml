@@ -1,4 +1,4 @@
-name: Build and Test Home Assistant AMB
+name: Build and Test home-assistant-amb
 
 on:
   push:
