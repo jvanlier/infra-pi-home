@@ -23,9 +23,9 @@ devices:
   '0x0000000001732f4d':
     friendly_name: Switch Hall 0
   '0x001788010d12f602':
-    friendly_name: Switch Living Tap Dial
+    friendly_name: Switch Tap Dial Living
   '0x0017880104f4f2b7':
-    friendly_name: Switch Living Dimmer
+    friendly_name: Switch Dimmer Living
   '0x001788010eee44ec':
     friendly_name: Light Hall 0 1
   '0x001788010ee66c15':
@@ -109,7 +109,7 @@ devices:
   '0x00158d008bbe4913':
     friendly_name: Water Leak Storage Room Window
   '0x001788010c24ce62':
-    friendly_name: Switch Bathroom Dimmer
+    friendly_name: Switch Dimmer Bathroom
   '0x001788010eed6730':
     friendly_name: Light Living Wall Left 3
   '0x001788010e438b31':
@@ -143,9 +143,19 @@ devices:
   '0x001788010e43e179':
     friendly_name: Light Bedroom Olivier 4
   '0x001788010d348233':
-    friendly_name: Switch Bedroom Duco
+    friendly_name: Switch Tap Dial Bedroom Duco
   '0x001788010d3460ef':
-    friendly_name: Switch Bedroom Olivier
+    friendly_name: Switch Tap Dial Bedroom Olivier
+  '0x001788010cc472c2':
+    friendly_name: Switch Wall Bedroom Duco
+  '0x001788010cc472cb':
+    friendly_name: Switch Wall Bedroom Olivier
+  '0x001788010cc472a6':
+    friendly_name: Switch Wall Kitchen
+  '0x001788010cc47291':
+    friendly_name: Switch Wall Toilet
+  '0x001788010cc472e5':
+    friendly_name: Switch Wall Living
 groups:
   '1':
     friendly_name: Light Group Living Spot
@@ -159,3 +169,5 @@ groups:
     friendly_name: Light Group Bedroom Duco
   '6':
     friendly_name: Light Group Bedroom Olivier
+  '7':
+    friendly_name: Light Group Floor 0 Spot Daytime
