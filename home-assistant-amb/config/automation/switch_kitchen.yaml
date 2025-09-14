@@ -9,12 +9,15 @@
   action:
     - variables:
         command: "{{ trigger.payload_json.action }}"
+        state_middle: "{{ states('light.light_group_kitchen_middle') }}"
+        state_countertop: "{{ states('light.light_group_kitchen_countertop') }}"
     - choose:
         - conditions: '{{ command == "left_press" }}'
           sequence:
           - choose:
               - conditions:
-                  - "{{ states(light.light_group_kitchen_middle) == 'on' or states(light.light_group_kitchen_middle) == 'on' }}"
+              # use variable
+                  -  "{{ state_middle == 'on' or state_countertop == 'on' }}"
                 sequence:
                   - service: light.turn_off
                     target:
@@ -22,7 +25,7 @@
                         - light.light_group_kitchen_middle
                         - light.light_group_kitchen_countertop
               - conditions:
-                  - "{{ states(light.light_group_kitchen_middle) == 'off' and states(light.light_group_kitchen_middle) == 'off' }}"
+                  -  "{{ state_middle in ('off', 'unavailable') and state_countertop in ('off', 'unavailable') }}"
                 sequence:
                   - service: light.turn_on
                     target:
