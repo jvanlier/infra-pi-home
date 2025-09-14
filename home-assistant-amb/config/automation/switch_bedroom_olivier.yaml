@@ -1,14 +1,25 @@
-- alias: Switch Bedroom Olivier
-  id: switch_bedroom_olivier_tap_dial
+- alias: Switch Wall Bedroom Olivier
+  id: switch_wall_bedroom_olivier
   use_blueprint:
-    path: custom/hue_tap_dial.yaml
+    path: custom/hue_wall_switch.yaml
     input:
-      mqtt_topic: zigbee2mqtt/Switch Bedroom Olivier
-      remote_button_1_single_press:
-        - action: light.turn_on
+      controller: Switch Wall Bedroom Olivier
+      left_press:
+        - action: light.toggle
           target:
             entity_id: &ref_lights
               - light.light_group_bedroom_olivier
+
+- alias: Switch Tap Dial Bedroom Olivier
+  id: switch_tap_dial_bedroom_olivier
+  use_blueprint:
+    path: custom/hue_tap_dial.yaml
+    input:
+      mqtt_topic: zigbee2mqtt/Switch Tap Dial Bedroom Olivier
+      remote_button_1_single_press:
+        - action: light.turn_on
+          target:
+            entity_id: *ref_lights
       remote_button_3_single_press:
         - action: light.turn_off
           target:

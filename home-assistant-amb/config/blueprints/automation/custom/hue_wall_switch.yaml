@@ -1,0 +1,48 @@
+blueprint:
+  name: Hue Wall Switch for Zigbee2MQTT
+  description: Minimal implementation for Hue Wall Switch for Zigbee2MQTT (only left press & right press).
+  domain: automation
+
+  input:
+    controller:
+      name: (Zigbee2MQTT) Controller Name
+      description: The name of the device in Zigbee2MQTT
+      default: ""
+    base_topic:
+      name: Root/Base mqtt topic from Zigbee2MQTT
+      description: The Root/base topic as configured in Zigbee2MQTT
+      default: zigbee2mqtt
+
+    left_press:
+      name: Left press
+      description: Action for left press
+      default: []
+      selector:
+        action: {}
+    right_press:
+      name: Right press
+      description: Action for right press
+      default: []
+      selector:
+        action: {}
+
+mode: restart
+max_exceeded: silent
+
+trigger_variables:
+  base_topic: !input base_topic
+  controller: !input controller
+
+trigger:
+  - platform: mqtt
+    topic: "{{ base_topic ~ '/' ~ controller }}"
+
+action:
+  - variables:
+      controller: !input controller
+      command: "{{ trigger.payload_json.action }}"
+  - choose:
+      - conditions: '{{ command == "left_press" }}'
+        sequence: !input left_press
+      - conditions: '{{ command == "right_press" }}'
+        sequence: !input right_press

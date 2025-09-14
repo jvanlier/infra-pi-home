@@ -142,14 +142,17 @@ blueprint:
         action: {}
 
 # Link the Defined Action to the Buttons
-mode: parallel
-max: 6
+mode: restart
+max_exceeded: silent
 trigger_variables:
   base_topic: !input base_topic
   controller: !input controller
 trigger:
   - platform: mqtt
     topic: "{{ base_topic ~ '/' ~ controller }}"
+condition:
+  - condition: template
+    value_template: "{{ 'action' in trigger.payload_json and trigger.payload_json.action != '' }}"
 action:
   - variables:
       controller: !input controller

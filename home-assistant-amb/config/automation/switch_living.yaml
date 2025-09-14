@@ -1,9 +1,27 @@
-- alias: Swich Living Tap Dial
-  id: switch_living_tap_dial
+
+- alias: Switch Wall Living
+  id: switch_wall_living
+  use_blueprint:
+    path: custom/hue_wall_switch.yaml
+    input:
+      controller: Switch Wall Living
+      left_press:
+        - action: light.toggle
+          target:
+            entity_id: light.light_dining_table
+      right_press:
+        - action: light.toggle
+          target:
+            entity_id:
+              - light.light_group_living_spot
+              - light.light_living_white_cabinet
+
+- alias: Switch Tap Dial Living
+  id: switch_tap_dial_living
   use_blueprint:
     path: custom/hue_tap_dial.yaml
     input:
-      mqtt_topic: zigbee2mqtt/Switch Living Tap Dial
+      mqtt_topic: zigbee2mqtt/Switch Tap Dial Living
       remote_button_1_single_press:
         - action: light.turn_on
           target:
@@ -27,7 +45,7 @@
             transition: 1
             brightness_step_pct: -10
           target:
-            entity_id: &ref_dim_not_cabinet
+            entity_id: &ref_floor_0_living_area_excl_cabinet
               - light.light_group_living_spot
               - light.light_dining_table
               - light.light_group_kitchen_middle
@@ -45,7 +63,7 @@
             transition: 1
             brightness_step_pct: -10
           target:
-            entity_id: *ref_dim_not_cabinet
+            entity_id: *ref_floor_0_living_area_excl_cabinet
         - action: light.turn_on
           data:
             transition: 1
@@ -58,7 +76,7 @@
             transition: 1
             brightness_step_pct: -20
           target:
-            entity_id: *ref_dim_not_cabinet
+            entity_id: *ref_floor_0_living_area_excl_cabinet
         - action: light.turn_on
           data:
             transition: 1
@@ -71,7 +89,7 @@
             transition: 1
             brightness_step_pct: 10
           target:
-            entity_id: *ref_dim_not_cabinet
+            entity_id: *ref_floor_0_living_area_excl_cabinet
         - action: light.turn_on
           data:
             transition: 1
@@ -84,7 +102,7 @@
             transition: 1
             brightness_step_pct: 10
           target:
-            entity_id: *ref_dim_not_cabinet
+            entity_id: *ref_floor_0_living_area_excl_cabinet
         - action: light.turn_on
           data:
             transition: 1
@@ -97,11 +115,53 @@
             transition: 1
             brightness_step_pct: 20
           target:
-            entity_id: *ref_dim_not_cabinet
+            entity_id: *ref_floor_0_living_area_excl_cabinet
         - action: light.turn_on
           metadata: {}
           data:
             transition: 1
             brightness_step_pct: 10
+          target:
+            entity_id: *ref_cabinet
+
+- alias: Switch Dimmer Living
+  id: switch-dimmer-living
+  description: ""
+  use_blueprint:
+    path: custom/hue_dimmer_switch.yaml
+    input:
+      controller: Switch Dimmer Living
+      on_released:
+        - action: light.turn_on
+          target:
+            entity_id: *ref_floor_0_living_area
+      off_released:
+        - action: light.turn_off
+          target:
+            entity_id: *ref_floor_0_living_area
+      up_held:
+        - action: light.turn_on
+          data:
+            brightness_step_pct: 20
+            transition: 1
+          target:
+            entity_id: *ref_floor_0_living_area_excl_cabinet
+        - action: light.turn_on
+          data:
+            brightness_step_pct: 10
+            transition: 1
+          target:
+            entity_id: *ref_cabinet
+      down_held:
+        - action: light.turn_on
+          data:
+            brightness_step_pct: -20
+            transition: 1
+          target:
+            entity_id: *ref_floor_0_living_area_excl_cabinet
+        - action: light.turn_on
+          data:
+            brightness_step_pct: -10
+            transition: 1
           target:
             entity_id: *ref_cabinet

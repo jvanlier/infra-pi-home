@@ -1,0 +1,36 @@
+- alias: Switch Wall Kitchen
+  id: switch_wall_kitchen
+  trigger:
+    - platform: mqtt
+      topic: zigbee2mqtt/Switch Wall Kitchen
+  condition:
+    - condition: template
+      value_template: "{{ 'action' in trigger.payload_json and trigger.payload_json.action != '' }}"
+  action:
+    - variables:
+        command: "{{ trigger.payload_json.action }}"
+        state_middle: "{{ states('light.light_group_kitchen_middle') }}"
+        state_countertop: "{{ states('light.light_group_kitchen_countertop') }}"
+    - choose:
+        - conditions: '{{ command == "left_press" }}'
+          sequence:
+          - choose:
+              - conditions:
+              # use variable
+                  -  "{{ state_middle == 'on' or state_countertop == 'on' }}"
+                sequence:
+                  - service: light.turn_off
+                    target:
+                      entity_id: &ref_lights
+                        - light.light_group_kitchen_middle
+                        - light.light_group_kitchen_countertop
+                    data:
+                      transition: 1
+              - conditions:
+                  -  "{{ state_middle in ('off', 'unavailable') and state_countertop in ('off', 'unavailable') }}"
+                sequence:
+                  - service: light.turn_on
+                    target:
+                      entity_id: *ref_lights
+  mode: restart
+  max_exceeded: silent

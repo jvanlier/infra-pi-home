@@ -1,0 +1,11 @@
+
+- alias: Switch Wall Toilet
+  id: switch_wall_toilet
+  use_blueprint:
+    path: custom/hue_wall_switch.yaml
+    input:
+      controller: Switch Wall Toilet
+      left_press:
+        - action: light.toggle
+          target:
+            entity_id: light.light_toilet
