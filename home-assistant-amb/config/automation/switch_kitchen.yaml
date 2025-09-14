@@ -24,6 +24,8 @@
                       entity_id: &ref_lights
                         - light.light_group_kitchen_middle
                         - light.light_group_kitchen_countertop
+                    data:
+                      transition: 1
               - conditions:
                   -  "{{ state_middle in ('off', 'unavailable') and state_countertop in ('off', 'unavailable') }}"
                 sequence:
