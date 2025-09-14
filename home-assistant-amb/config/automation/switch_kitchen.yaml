@@ -9,4 +9,4 @@
           target:
             entity_id: &ref_lights
               - light.light_group_kitchen_middle
-              - light.light_group_kitchen.countertop
+              - light.light_group_kitchen_countertop
