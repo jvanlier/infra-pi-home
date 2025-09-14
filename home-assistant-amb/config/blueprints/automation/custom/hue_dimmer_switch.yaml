@@ -150,6 +150,9 @@ trigger_variables:
 trigger:
   - platform: mqtt
     topic: "{{ base_topic ~ '/' ~ controller }}"
+condition:
+  - condition: template
+    value_template: "{{ 'action' in trigger.payload_json and trigger.payload_json.action != '' }}"
 action:
   - variables:
       controller: !input controller
