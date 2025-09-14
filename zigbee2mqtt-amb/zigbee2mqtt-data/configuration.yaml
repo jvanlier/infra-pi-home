@@ -169,5 +169,7 @@ groups:
     friendly_name: Light Group Bedroom Duco
   '6':
     friendly_name: Light Group Bedroom Olivier
-  '7':
-    friendly_name: Light Group Floor 0 Spot Daytime
+  '8':
+    friendly_name: Light Group Living Spot Dark Outside
+  '9':
+    friendly_name: Light Group Living Spot Always
