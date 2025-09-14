@@ -26,14 +26,17 @@ blueprint:
       selector:
         action: {}
 
-mode: parallel
-max: 6
+mode: restart
+max_exceeded: silent
+
 trigger_variables:
   base_topic: !input base_topic
   controller: !input controller
+
 trigger:
   - platform: mqtt
     topic: "{{ base_topic ~ '/' ~ controller }}"
+
 action:
   - variables:
       controller: !input controller
