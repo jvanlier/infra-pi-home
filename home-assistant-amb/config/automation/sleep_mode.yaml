@@ -12,7 +12,8 @@
       entity_id:
         - switch.adaptive_lighting_sleep_mode_hall_0_spot
         - switch.adaptive_lighting_sleep_mode_hall_0_wall
-        - switch.adaptive_lighting_sleep_mode_living_spot
+        - switch.adaptive_lighting_sleep_mode_living_spot_always
+        - switch.adaptive_lighting_sleep_mode_living_spot_dark_outside
         - switch.adaptive_lighting_sleep_mode_living_white_cabinet
         - switch.adaptive_lighting_sleep_mode_stair_cabinet
         - switch.adaptive_lighting_sleep_mode_dining_table
