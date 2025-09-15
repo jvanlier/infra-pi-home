@@ -14,6 +14,13 @@
   min_brightness: 5
   max_brightness: 15
 
+- name: "toilet"
+  lights: ["light.light_toilet"]
+  min_brightness: 40
+  max_brightness: 50
+  min_color_temp: 2400
+  max_color_temp: 4000
+
 - name: "living-spot"
   lights: ["light.light_group_living_spot"]
   min_brightness: 30
