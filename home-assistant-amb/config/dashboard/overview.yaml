@@ -73,6 +73,10 @@ views:
             entity: input_boolean.sleep_mode
             tap_action:
               action: toggle
+          - type: tile
+            entity: input_boolean.sleep_mode_kids
+            tap_action:
+              action: toggle
           # Input boolean not in use yet:
           # - type: tile
           #   entity: input_boolean.housekeeping_mode

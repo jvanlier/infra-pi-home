@@ -4,6 +4,9 @@ adaptive_lighting:
 sleep_mode:
   name: Sleep Mode
   icon: mdi:sleep
+sleep_mode_kids:
+  name: Sleep Mode Kids
+  icon: mdi:sleep
 
 # Not yet installed, coming soon:
 # motion_activated_lights:

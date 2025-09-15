@@ -74,3 +74,13 @@
   max_brightness: 30
   # The default of 1 is very low here and it kind of struggles to come on, do a bit higher:
   sleep_brightness: 5
+
+- name: "bedroom-duco"
+  lights: ["light.light_group_bedroom_duco"]
+  min_brightness: 20
+  max_brightness: 30
+
+- name: "bedroom-olivier"
+  lights: ["light.light_group_bedroom_olivier"]
+  min_brightness: 20
+  max_brightness: 30

@@ -20,6 +20,8 @@
         - switch.adaptive_lighting_sleep_mode_kitchen_middle
         - switch.adaptive_lighting_sleep_mode_kitchen_countertop
         - switch.adaptive_lighting_sleep_mode_bathroom
+        - switch.adaptive_lighting_sleep_mode_bedroom_duco
+        - switch.adaptive_lighting_sleep_mode_bedroom_olivier
 
 - alias: "Sleep mode: scheduled on"
   id: sleep-mode-scheduled-on
@@ -45,4 +47,41 @@
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.sleep_mode
+  mode: restart
+
+- alias: "Sleep mode kids: toggle"
+  id: "sleep-mode-kids-toggle"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.sleep_mode_kids
+    - platform: homeassistant
+      event: start  # in case the states aren't properly restored
+  variables:
+    sleep_mode: "{{ states('input_boolean.sleep_mode_kids') }}"
+  action:
+    - service: "switch.turn_{{ sleep_mode }}"
+      entity_id:
+        - switch.adaptive_lighting_sleep_mode_bedroom_duco
+        - switch.adaptive_lighting_sleep_mode_bedroom_olivier
+
+- alias: "Sleep mode kids: scheduled on"
+  id: sleep-mode-kids-scheduled-on
+  trigger:
+  - platform: time
+    at: "19:00:00"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.sleep_mode_kids
+  mode: restart
+
+- alias: "Sleep mode kids: scheduled off"
+  id: sleep-mode-kids-scheduled-off
+  trigger:
+  - platform: time
+    at: "07:00:00"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.sleep_mode_kids
   mode: restart
