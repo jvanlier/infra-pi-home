@@ -155,8 +155,9 @@ blueprint:
       selector:
         action: {}
   source_url: https://gist.github.com/CrazyCoder/28d660d9e2e8464458e591ad79b3698e
-mode: single
-max_exceeded: silent
+
+mode: restart
+
 trigger:
   - platform: mqtt
     topic: !input mqtt_topic

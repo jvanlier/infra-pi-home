@@ -141,9 +141,8 @@ blueprint:
       selector:
         action: {}
 
-# Link the Defined Action to the Buttons
-mode: single
-max_exceeded: silent
+mode: restart
+
 trigger_variables:
   base_topic: !input base_topic
   controller: !input controller

@@ -21,7 +21,6 @@ blueprint:
           integration: switch
 
 mode: restart
-max_exceeded: silent
 
 trigger:
   - platform: state

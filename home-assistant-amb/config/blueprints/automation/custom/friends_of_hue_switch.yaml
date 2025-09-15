@@ -134,8 +134,9 @@ blueprint:
       selector:
         action: {}
   source_url: https://gist.github.com/vandalon/d2a327297d579b304549e96c66765992
+
 mode: restart
-max_exceeded: silent
+
 variables:
   hold_delay: !input "hold_delay"
 trigger_variables:

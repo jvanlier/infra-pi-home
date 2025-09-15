@@ -1,35 +1,12 @@
 - alias: Switch Wall Kitchen
   id: switch_wall_kitchen
-  trigger:
-    - platform: mqtt
-      topic: zigbee2mqtt/Switch Wall Kitchen
-  condition:
-    - condition: template
-      value_template: >-
-        {{ 'action' in trigger.payload_json and
-           trigger.payload_json.action != '' and
-           trigger.payload_json.action == 'left_press' }}
-  action:
-    - variables:
-        command: "{{ trigger.payload_json.action }}"
-        state_middle: "{{ states('light.light_group_kitchen_middle') }}"
-        state_countertop: "{{ states('light.light_group_kitchen_countertop') }}"
-    - choose:
-        - conditions:
-            -  "{{ state_middle == 'on' and state_countertop == 'on' }}"
-          sequence:
-            - service: light.turn_off
-              target:
-                entity_id: &ref_lights
-                  - light.light_group_kitchen_middle
-                  - light.light_group_kitchen_countertop
-              data:
-                transition: 1
-        - conditions:
-            -  "{{ state_middle in ('off', 'unavailable') or state_countertop in ('off', 'unavailable') }}"
-          sequence:
-            - service: light.turn_on
-              target:
-                entity_id: *ref_lights
-  mode: single
-  max_exceeded: silent
+  use_blueprint:
+    path: custom/hue_wall_switch.yaml
+    input:
+      controller: Switch Wall Kitchen
+      left_press:
+        - action: light.toggle
+          target:
+            entity_id:
+              - light.light_group_kitchen_middle
+              - light.light_group_kitchen_countertop

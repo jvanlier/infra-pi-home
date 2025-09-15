@@ -147,8 +147,7 @@ blueprint:
       selector:
         action:
 
-mode: single
-max_exceeded: silent
+mode: restart
 
 # Each option is explicitly defined as a trigger because sensor reports empty values as well.
 # Not defining explicit triggers causes the automation to show up in the log multiple times per button press.
