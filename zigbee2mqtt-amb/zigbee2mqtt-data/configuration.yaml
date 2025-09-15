@@ -156,6 +156,8 @@ devices:
     friendly_name: Switch Wall Toilet
   '0x001788010cc472e5':
     friendly_name: Switch Wall Living
+  '0x001788010ee67448':
+    friendly_name: Light Toilet
 groups:
   '1':
     friendly_name: Light Group Living Spot
@@ -169,6 +171,8 @@ groups:
     friendly_name: Light Group Bedroom Duco
   '6':
     friendly_name: Light Group Bedroom Olivier
+  '7':
+    friendly_name: '7'
   '8':
     friendly_name: Light Group Living Spot Dark Outside
   '9':
