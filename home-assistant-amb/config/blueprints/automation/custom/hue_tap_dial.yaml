@@ -147,7 +147,7 @@ blueprint:
       selector:
         action:
 
-mode: restart
+mode: single
 max_exceeded: silent
 
 # Each option is explicitly defined as a trigger because sensor reports empty values as well.

@@ -142,7 +142,7 @@ blueprint:
         action: {}
 
 # Link the Defined Action to the Buttons
-mode: restart
+mode: single
 max_exceeded: silent
 trigger_variables:
   base_topic: !input base_topic

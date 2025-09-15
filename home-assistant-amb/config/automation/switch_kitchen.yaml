@@ -5,31 +5,31 @@
       topic: zigbee2mqtt/Switch Wall Kitchen
   condition:
     - condition: template
-      value_template: "{{ 'action' in trigger.payload_json and trigger.payload_json.action != '' }}"
+      value_template: >-
+        {{ 'action' in trigger.payload_json and
+           trigger.payload_json.action != '' and
+           trigger.payload_json.action == 'left_press' }}
   action:
     - variables:
         command: "{{ trigger.payload_json.action }}"
         state_middle: "{{ states('light.light_group_kitchen_middle') }}"
         state_countertop: "{{ states('light.light_group_kitchen_countertop') }}"
     - choose:
-        - conditions: '{{ command == "left_press" }}'
+        - conditions:
+            -  "{{ state_middle == 'on' and state_countertop == 'on' }}"
           sequence:
-          - choose:
-              - conditions:
-                  -  "{{ state_middle == 'on' and state_countertop == 'on' }}"
-                sequence:
-                  - service: light.turn_off
-                    target:
-                      entity_id: &ref_lights
-                        - light.light_group_kitchen_middle
-                        - light.light_group_kitchen_countertop
-                    data:
-                      transition: 1
-              - conditions:
-                  -  "{{ state_middle in ('off', 'unavailable') or state_countertop in ('off', 'unavailable') }}"
-                sequence:
-                  - service: light.turn_on
-                    target:
-                      entity_id: *ref_lights
-  mode: restart
+            - service: light.turn_off
+              target:
+                entity_id: &ref_lights
+                  - light.light_group_kitchen_middle
+                  - light.light_group_kitchen_countertop
+              data:
+                transition: 1
+        - conditions:
+            -  "{{ state_middle in ('off', 'unavailable') or state_countertop in ('off', 'unavailable') }}"
+          sequence:
+            - service: light.turn_on
+              target:
+                entity_id: *ref_lights
+  mode: single
   max_exceeded: silent
