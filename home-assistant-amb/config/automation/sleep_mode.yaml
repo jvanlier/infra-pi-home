@@ -20,8 +20,6 @@
         - switch.adaptive_lighting_sleep_mode_kitchen_middle
         - switch.adaptive_lighting_sleep_mode_kitchen_countertop
         - switch.adaptive_lighting_sleep_mode_bathroom
-        - switch.adaptive_lighting_sleep_mode_bedroom_duco
-        - switch.adaptive_lighting_sleep_mode_bedroom_olivier
 
 - alias: "Sleep mode: scheduled on"
   id: sleep-mode-scheduled-on
