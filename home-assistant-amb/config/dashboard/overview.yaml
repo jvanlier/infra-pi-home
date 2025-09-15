@@ -98,14 +98,14 @@ views:
             features:
               - type: light-brightness
           - type: tile
-            name: Living Spot
-            entity: light.light_group_living_spot
+            name: Living Spot Always
+            entity: light.light_group_living_spot_always
             features_position: bottom
             features:
               - type: light-brightness
           - type: tile
-            name: Living White Cabinet
-            entity: light.light_living_white_cabinet
+            name: Living Spot Dark Outside
+            entity: light.light_group_living_spot_dark_outside
             features_position: bottom
             features:
               - type: light-brightness
