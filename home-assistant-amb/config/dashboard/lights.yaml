@@ -6,68 +6,111 @@ views:
     max_columns: 4
     sections:
       - type: grid
-        column_span: 1
+        column_span: 4
         cards:
+          - type: heading
+            heading: Hall 0 (Ground floor hall)
+            heading_style: subtitle
+            icon: mdi:coat-rack
           - type: tile
-            name: Hall 0 Spot
+            name: Spot
             entity: light.light_group_hall_0_spot
-            features_position: bottom
             features:
               - type: light-brightness
           - type: tile
-            name: Hall 0 Wall
+            name: Wall
             entity: light.light_hall_0_wall
-            features_position: bottom
             features:
               - type: light-brightness
           - type: tile
-            name: Living Spot
+            name: Toilet
+            entity: light.light_toilet
+            features:
+              - type: light-brightness
+          - type: heading
+            heading: Living
+            heading_style: subtitle
+            icon: mdi:sofa
+            features:
+              - type: light-brightness
+          - type: tile
+            name: Spot
             entity: light.light_group_living_spot
-            features_position: bottom
             features:
               - type: light-brightness
           - type: tile
-            name: Living White Cabinet
+            name: White Cabinet
             entity: light.light_living_white_cabinet
-            features_position: bottom
             features:
               - type: light-brightness
           - type: tile
             name: Dining Table
             entity: light.light_dining_table
-            features_position: bottom
             features:
               - type: light-brightness
+          - type: heading
+            heading: Kitchen
+            heading_style: subtitle
+            icon: mdi:fridge
           - type: tile
-            name: Kitchen Middle
+            name: Middle
             entity: light.light_group_kitchen_middle
-            features_position: bottom
             features:
               - type: light-brightness
           - type: tile
-            name: Kitchen Countertop
+            name: Countertop
             entity: light.light_group_kitchen_countertop
-            features_position: bottom
             features:
               - type: light-brightness
+          - type: heading
+            heading: Bathroom
+            heading_style: subtitle
+            icon: mdi:shower-head
           - type: tile
             name: Bathroom
             entity: light.light_bathroom
-            features_position: bottom
-            vertical: false
             features:
               - type: light-brightness
+          - type: heading
+            heading: Bedrooms
+            heading_style: subtitle
+            icon: mdi:bed
           - type: tile
-            name: Bedroom Duco
+            name: Duco
             entity: light.light_group_bedroom_duco
             features_position: bottom
-            vertical: false
             features:
               - type: light-brightness
           - type: tile
-            name: Bedroom Olivier
+            name: Olivier
             entity: light.light_group_bedroom_olivier
             features_position: bottom
-            vertical: false
             features:
               - type: light-brightness
+          - type: tile
+            name: Jori
+            entity: light.light_bedroom_jc_bed_j
+            features:
+              - type: light-brightness
+          - type: tile
+            name: Chantal
+            entity: light.light_bedroom_jc_bed_c
+            features:
+              - type: light-brightness
+
+          - type: heading
+            heading: Light automation
+            heading_style: subtitle
+            icon: mdi:robot
+            # tap_action:
+            #   action: navigate
+            #   navigation_path: /dashboard-lights/automation
+          - type: tile
+            entity: input_boolean.adaptive_lighting
+            tap_action:
+              action: toggle
+          # Input boolean not in use yet:
+          # - type: tile
+          #   entity: input_boolean.motion_activated_lights
+          #   tap_action:
+          #     action: toggle

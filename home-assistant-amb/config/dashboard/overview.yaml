@@ -82,6 +82,7 @@ views:
           #   entity: input_boolean.housekeeping_mode
           #   tap_action:
           #     action: toggle
+
           - type: heading
             heading: Lights
             heading_style: title
@@ -150,6 +151,7 @@ views:
           - type: tile
             name: Chantal
             entity: light.light_bedroom_jc_bed_c
+
           - type: heading
             heading: Light automation
             heading_style: subtitle
@@ -166,6 +168,7 @@ views:
           #   entity: input_boolean.motion_activated_lights
           #   tap_action:
           #     action: toggle
+
       - type: grid
         cards:
           - type: heading
