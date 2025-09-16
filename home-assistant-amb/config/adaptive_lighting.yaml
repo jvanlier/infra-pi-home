@@ -16,8 +16,8 @@
 
 - name: "toilet"
   lights: ["light.light_toilet"]
-  min_brightness: 40
-  max_brightness: 50
+  min_brightness: 50
+  max_brightness: 60
   min_color_temp: 2400
   max_color_temp: 4000
 
