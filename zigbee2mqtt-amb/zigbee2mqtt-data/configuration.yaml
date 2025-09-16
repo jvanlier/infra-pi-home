@@ -162,6 +162,10 @@ devices:
     friendly_name: Light Bedroom JC Bed J
   '0x0017880108cad8f9':
     friendly_name: Light Bedroom JC Bed C
+  '0x0017880104f42a11':
+    friendly_name: Switch Dimmer Bedroom JC Bed C
+  '0x001788010871a0c5':
+    friendly_name: Switch Dimmer Bedroom JC Bed J
 groups:
   '1':
     friendly_name: Light Group Living Spot
