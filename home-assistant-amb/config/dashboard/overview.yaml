@@ -89,6 +89,10 @@ views:
             tap_action:
               action: navigate
               navigation_path: /dashboard-lights
+          - type: heading
+            heading: Hall 0
+            heading_style: subtitle
+            icon: mdi:coat-rack
           - type: tile
             name: Hall 0 Spot
             entity: light.light_group_hall_0_spot
@@ -101,6 +105,10 @@ views:
             features_position: bottom
             features:
               - type: light-brightness
+          - type: heading
+            heading: Living
+            heading_style: subtitle
+            icon: mdi:sofa
           - type: tile
             name: Living Spot
             entity: light.light_group_living_spot
@@ -119,6 +127,10 @@ views:
             features_position: bottom
             features:
               - type: light-brightness
+          - type: heading
+            heading: Kitchen
+            heading_style: subtitle
+            icon: mdi:fridge
           - type: tile
             name: Kitchen Middle
             entity: light.light_group_kitchen_middle
@@ -131,6 +143,10 @@ views:
             features_position: bottom
             features:
               - type: light-brightness
+          - type: heading
+            heading: Bathroom
+            heading_style: subtitle
+            icon: mdi:shower-head
           - type: tile
             name: Bathroom
             entity: light.light_bathroom
@@ -138,6 +154,10 @@ views:
             vertical: false
             features:
               - type: light-brightness
+          - type: heading
+            heading: Bedrooms
+            heading_style: subtitle
+            icon: mdi:bed
           - type: tile
             name: Bedroom Duco
             entity: light.light_group_bedroom_duco
