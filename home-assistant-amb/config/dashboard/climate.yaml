@@ -65,6 +65,8 @@ views:
                 name: Bedroom Duco
               - entity: sensor.climate_bedroom_olivier_temperature
                 name: Bedroom Olivier
+              - entity: sensor.climate_storage_temperature
+                name: Storage
             stat_types: &ref_1
               - mean
             days_to_show: 1
@@ -106,6 +108,8 @@ views:
                 name: Bedroom Duco
               - entity: sensor.climate_bedroom_olivier_humidity
                 name: Bedroom Olivier
+              - entity: sensor.climate_storage_humidity
+                name: Storage
             stat_types: &ref_6
               - mean
             days_to_show: 1
