@@ -99,6 +99,9 @@ views:
           - type: tile
             name: Wall
             entity: light.light_hall_0_wall
+          - type: tile
+            name: Toilet
+            entity: light.light_toilet
           - type: heading
             heading: Living
             heading_style: subtitle
