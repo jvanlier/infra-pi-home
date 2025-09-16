@@ -16,7 +16,7 @@ advanced:
   channel: 25
   pan_id: 35539
   network_key: '!secret.yaml network_key'
-  log_level: info
+  log_level: warning
 device_options: {}
 version: 4
 devices:
@@ -158,6 +158,10 @@ devices:
     friendly_name: Switch Wall Living
   '0x001788010ee67448':
     friendly_name: Light Toilet
+  '0x0017880108d06187':
+    friendly_name: Light Bedroom JC Bed J
+  '0x0017880108cad8f9':
+    friendly_name: Light Bedroom JC Bed C
 groups:
   '1':
     friendly_name: Light Group Living Spot
