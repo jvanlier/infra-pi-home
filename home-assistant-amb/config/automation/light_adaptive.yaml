@@ -12,7 +12,7 @@
       entity_id:
         - switch.adaptive_lighting_hall_0_spot
         - switch.adaptive_lighting_hall_0_wall
-        - switch.adaptive_lighting_kitchen
+        - switch.adaptive_lighting_toilet
         - switch.adaptive_lighting_living_spot
         - switch.adaptive_lighting_living_white_cabinet
         - switch.adaptive_lighting_stair_cabinet

@@ -95,7 +95,7 @@ views:
               - type: light-brightness
           - type: tile
             name: Olivier Color
-            entity: light.light_group_bedroom_olivier_ambiance
+            entity: light.light_group_bedroom_olivier_color
             features_position: bottom
             features:
               - type: light-brightness
