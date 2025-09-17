@@ -138,13 +138,17 @@ views:
             heading_style: subtitle
             icon: mdi:bed
           - type: tile
-            name: Duco
-            entity: light.light_group_bedroom_duco
-            features_position: bottom
+            name: Duco Ambiance
+            entity: light.light_group_bedroom_duco_ambiance
           - type: tile
-            name: Olivier
-            entity: light.light_group_bedroom_olivier
-            features_position: bottom
+            name: Duco Color
+            entity: light.light_group_bedroom_duco_color
+          - type: tile
+            name: Olivier Ambiance
+            entity: light.light_group_bedroom_olivier_ambiance
+          - type: tile
+            name: Olivier Color
+            entity: light.light_group_bedroom_olivier_color
           - type: tile
             name: Jori
             entity: light.light_bedroom_jc_bed_j

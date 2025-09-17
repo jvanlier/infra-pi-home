@@ -8,7 +8,8 @@
         - action: light.toggle
           target:
             entity_id: &ref_lights
-              - light.light_group_bedroom_olivier
+              - light.light_group_bedroom_olivier_ambiance
+              - light.light_group_bedroom_olivier_color
 
 - alias: Switch Tap Dial Bedroom Olivier
   id: switch_tap_dial_bedroom_olivier

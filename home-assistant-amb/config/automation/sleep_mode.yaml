@@ -59,8 +59,10 @@
   action:
     - service: "switch.turn_{{ sleep_mode }}"
       entity_id:
-        - switch.adaptive_lighting_sleep_mode_bedroom_duco
-        - switch.adaptive_lighting_sleep_mode_bedroom_olivier
+        - switch.adaptive_lighting_sleep_mode_bedroom_duco_ambiance
+        - switch.adaptive_lighting_sleep_mode_bedroom_duco_color
+        - switch.adaptive_lighting_sleep_mode_bedroom_olivier_ambiance
+        - switch.adaptive_lighting_sleep_mode_bedroom_olivier_color
 
 - alias: "Sleep mode kids: scheduled on"
   id: sleep-mode-kids-scheduled-on
