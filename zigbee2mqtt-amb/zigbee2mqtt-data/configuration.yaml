@@ -176,12 +176,14 @@ groups:
   '4':
     friendly_name: Light Group Kitchen Countertop
   '5':
-    friendly_name: Light Group Bedroom Duco
+    friendly_name: Light Group Bedroom Duco Ambiance
   '6':
-    friendly_name: Light Group Bedroom Olivier
+    friendly_name: Light Group Bedroom Olivier Ambiance
   '7':
-    friendly_name: '7'
+    friendly_name: Light Group Bedroom Duco Color
   '8':
     friendly_name: Light Group Living Spot Dark Outside
   '9':
     friendly_name: Light Group Living Spot Always
+  '10':
+    friendly_name: Light Group Bedroom Olivier Color
