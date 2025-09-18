@@ -7,12 +7,13 @@ availability:
   enabled: true
 serial:
   adapter: zstack
-  port: >-
-    /dev/serial/by-id/usb-Silicon_Labs_slae.sh_cc2652rb_stick_-_slaesh_s_iot_stuff_00_12_4B_00_23_90_DB_6C-if00-port0
+  port: tcp://192.168.1.131:6638
+  baudrate: 115200
 frontend:
   enabled: true
   port: 8080
 advanced:
+  transmit_power: 20
   channel: 25
   pan_id: 35539
   network_key: '!secret.yaml network_key'
@@ -187,3 +188,5 @@ groups:
     friendly_name: Light Group Living Spot Always
   '10':
     friendly_name: Light Group Bedroom Olivier Color
+  '11':
+    friendly_name: Light Group Bedroom Olivier
