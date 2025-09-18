@@ -3,6 +3,7 @@
 core
 blueprints/automation/homeassistant/
 blueprints/script/
+blueprints/template/
 custom_components/
 deps/
 image/
