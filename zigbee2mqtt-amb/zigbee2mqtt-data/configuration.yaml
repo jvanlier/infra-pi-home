@@ -17,7 +17,7 @@ advanced:
   channel: 25
   pan_id: 35539
   network_key: '!secret.yaml network_key'
-  log_level: warning
+  log_level: info
 device_options: {}
 version: 4
 devices:
