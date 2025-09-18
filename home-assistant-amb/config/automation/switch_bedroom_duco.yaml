@@ -8,7 +8,8 @@
         - action: light.toggle
           target:
             entity_id: &ref_lights
-              - light.light_group_bedroom_duco
+              - light.light_group_bedroom_duco_ambiance
+              - light.light_group_bedroom_duco_color
 
 - alias: Switch Tap Dial Bedroom Duco
   id: switch_tap_dial_bedroom_duco
