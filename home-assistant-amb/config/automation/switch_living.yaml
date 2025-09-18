@@ -19,10 +19,10 @@
 - alias: Switch Tap Dial Living
   id: switch_tap_dial_living
   use_blueprint:
-    path: custom/hue_tap_dial.yaml
+    path: custom/hue_tap_dial_simple.yaml
     input:
-      mqtt_topic: zigbee2mqtt/Switch Tap Dial Living
-      remote_button_1_single_press:
+      controller: Switch Tap Dial Living
+      button_1_press:
         - action: light.turn_on
           target:
             entity_id: &ref_floor_0_living_area
@@ -31,137 +31,137 @@
               - light.light_dining_table
               - light.light_group_kitchen_middle
               - light.light_group_kitchen_countertop
-      remote_button_3_single_press:
-        - action: light.turn_off
-          target:
-            entity_id: *ref_floor_0_living_area
-      remote_button_4_single_press:
-        - action: input_boolean.toggle
-          target:
-            entity_id: input_boolean.sleep_mode
-      remote_dial_rotate_left_step:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -10
-          target:
-            entity_id: &ref_floor_0_living_area_excl_cabinet
-              - light.light_group_living_spot
-              - light.light_dining_table
-              - light.light_group_kitchen_middle
-              - light.light_group_kitchen_countertop
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -5
-          target:
-            entity_id: &ref_cabinet
-              - light.light_living_white_cabinet
-      remote_dial_rotate_left_slow:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -10
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -5
-          target:
-            entity_id: *ref_cabinet
-      remote_dial_rotate_left_fast:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -20
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -10
-          target:
-            entity_id: *ref_cabinet
-      remote_dial_rotate_right_step:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 10
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 5
-          target:
-            entity_id: *ref_cabinet
-      remote_dial_rotate_right_slow:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 10
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 5
-          target:
-            entity_id: *ref_cabinet
-      remote_dial_rotate_right_fast:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 20
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          metadata: {}
-          data:
-            transition: 1
-            brightness_step_pct: 10
-          target:
-            entity_id: *ref_cabinet
+      # remote_button_3_single_press:
+      #   - action: light.turn_off
+      #     target:
+      #       entity_id: *ref_floor_0_living_area
+      # remote_button_4_single_press:
+      #   - action: input_boolean.toggle
+      #     target:
+      #       entity_id: input_boolean.sleep_mode
+      # remote_dial_rotate_left_step:
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: -10
+      #     target:
+      #       entity_id: &ref_floor_0_living_area_excl_cabinet
+      #         - light.light_group_living_spot
+      #         - light.light_dining_table
+      #         - light.light_group_kitchen_middle
+      #         - light.light_group_kitchen_countertop
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: -5
+      #     target:
+      #       entity_id: &ref_cabinet
+      #         - light.light_living_white_cabinet
+      # remote_dial_rotate_left_slow:
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: -10
+      #     target:
+      #       entity_id: *ref_floor_0_living_area_excl_cabinet
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: -5
+      #     target:
+      #       entity_id: *ref_cabinet
+      # remote_dial_rotate_left_fast:
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: -20
+      #     target:
+      #       entity_id: *ref_floor_0_living_area_excl_cabinet
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: -10
+      #     target:
+      #       entity_id: *ref_cabinet
+      # remote_dial_rotate_right_step:
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: 10
+      #     target:
+      #       entity_id: *ref_floor_0_living_area_excl_cabinet
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: 5
+      #     target:
+      #       entity_id: *ref_cabinet
+      # remote_dial_rotate_right_slow:
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: 10
+      #     target:
+      #       entity_id: *ref_floor_0_living_area_excl_cabinet
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: 5
+      #     target:
+      #       entity_id: *ref_cabinet
+      # remote_dial_rotate_right_fast:
+      #   - action: light.turn_on
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: 20
+      #     target:
+      #       entity_id: *ref_floor_0_living_area_excl_cabinet
+      #   - action: light.turn_on
+      #     metadata: {}
+      #     data:
+      #       transition: 1
+      #       brightness_step_pct: 10
+      #     target:
+      #       entity_id: *ref_cabinet
 
-- alias: Switch Dimmer Living
-  id: switch-dimmer-living
-  description: ""
-  use_blueprint:
-    path: custom/hue_dimmer_switch.yaml
-    input:
-      controller: Switch Dimmer Living
-      on_released:
-        - action: light.turn_on
-          target:
-            entity_id: *ref_floor_0_living_area
-      off_released:
-        - action: light.turn_off
-          target:
-            entity_id: *ref_floor_0_living_area
-      up_held:
-        - action: light.turn_on
-          data:
-            brightness_step_pct: 20
-            transition: 1
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          data:
-            brightness_step_pct: 10
-            transition: 1
-          target:
-            entity_id: *ref_cabinet
-      down_held:
-        - action: light.turn_on
-          data:
-            brightness_step_pct: -20
-            transition: 1
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          data:
-            brightness_step_pct: -10
-            transition: 1
-          target:
-            entity_id: *ref_cabinet
+# - alias: Switch Dimmer Living
+#   id: switch-dimmer-living
+#   description: ""
+#   use_blueprint:
+#     path: custom/hue_dimmer_switch.yaml
+#     input:
+#       controller: Switch Dimmer Living
+#       on_released:
+#         - action: light.turn_on
+#           target:
+#             entity_id: *ref_floor_0_living_area
+#       off_released:
+#         - action: light.turn_off
+#           target:
+#             entity_id: *ref_floor_0_living_area
+#       up_held:
+#         - action: light.turn_on
+#           data:
+#             brightness_step_pct: 20
+#             transition: 1
+#           target:
+#             entity_id: *ref_floor_0_living_area_excl_cabinet
+#         - action: light.turn_on
+#           data:
+#             brightness_step_pct: 10
+#             transition: 1
+#           target:
+#             entity_id: *ref_cabinet
+#       down_held:
+#         - action: light.turn_on
+#           data:
+#             brightness_step_pct: -20
+#             transition: 1
+#           target:
+#             entity_id: *ref_floor_0_living_area_excl_cabinet
+#         - action: light.turn_on
+#           data:
+#             brightness_step_pct: -10
+#             transition: 1
+#           target:
+#             entity_id: *ref_cabinet
