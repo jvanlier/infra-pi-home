@@ -1,9 +1,9 @@
 blueprint:
   name: Hue Wall Switch for Zigbee2MQTT
   description: >
-    Minimal implementation for Hue Wall Switch for Zigbee2MQTT: only left press & right press with push buttons.
+    Minimal implementation for Hue Wall Switch for Zigbee2MQTT: only single left press & right press with push buttons.
 
-    If the automation appears to be triggered twice in short succession: change the device mode to push in zigbee2mqtt
+    If the automation appears to be triggered twice in short succession: change the device mode to push in zigbee2mqtt.
   domain: automation
 
   input:
@@ -38,6 +38,10 @@ trigger_variables:
 trigger:
   - platform: mqtt
     topic: "{{ base_topic ~ '/' ~ controller }}"
+
+condition:
+  - condition: template
+    value_template: "{{ 'action' in trigger.payload_json and trigger.payload_json.action != '' }}"
 
 action:
   - variables:
