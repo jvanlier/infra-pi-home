@@ -19,7 +19,7 @@
 - alias: Switch Tap Dial Living
   id: switch_tap_dial_living
   use_blueprint:
-    path: custom/hue_tap_dial_simple.yaml
+    path: custom/hue_tap_dial.yaml
     input:
       controller: Switch Tap Dial Living
       button_1_press:
