@@ -16,7 +16,7 @@
   use_blueprint:
     path: custom/hue_tap_dial.yaml
     input:
-      contorller: Switch Tap Dial Bedroom Duco
+      controller: Switch Tap Dial Bedroom Duco
       button_1_single_press:
         - action: light.turn_on
           target:
