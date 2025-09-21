@@ -50,8 +50,7 @@ blueprint:
       selector:
         action: {}
 
-mode: queued
-max: 4
+mode: restart
 
 trigger_variables:
   base_topic: !input base_topic
