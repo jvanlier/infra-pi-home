@@ -18,10 +18,10 @@
     input:
       controller: Switch Tap Dial Bedroom Olivier
 
-      light_entities_on_off:
+      light_group_all: light.light_group_bedroom_olivier
+      light_entities_on:
         - light.light_group_bedroom_olivier_ambiance
         - light.light_group_bedroom_olivier_color
-      al_entities:
+      switch_entities_al:
         - switch.adaptive_lighting_bedroom_olivier_ambiance
         - switch.adaptive_lighting_bedroom_olivier_color
-      light_group_all: light.light_group_bedroom_olivier
