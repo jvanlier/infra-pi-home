@@ -1,355 +1,93 @@
 blueprint:
-  name: Zigbee2MQTT - Philips Hue Tap dial switch (8719514440937/8719514440999) actions
+  name: Hue Tap Dial for Zigbee2MQTT
   description: >
-    Define actions your Philips Hue Tap dial switch using Zigbee2MQTT.
-    This blueprint requires a MQTT topic for your button and the actions you want to take for each button press type.
+    Simple implementation for Hue Tap Dial for Zigbee2MQTT.
   domain: automation
+
   input:
-    mqtt_topic:
-      name: MQTT Topic for device updates
-      description: MQTT topic for Philips Hue Tap dial switch. e.g. "zigbee2mqtt/Bedroom Bed Tap Dial Switch"
-    # Button 1
-    remote_button_1_single_press:
-      name: Button 1 Single Press
-      description: Action to run on button 1 single press
+    controller:
+      name: (Zigbee2MQTT) Controller Name
+      description: The name of the device in Zigbee2MQTT
+    base_topic:
+      name: Root/Base mqtt topic from Zigbee2MQTT
+      description: The Root/base topic as configured in Zigbee2MQTT
+      default: zigbee2mqtt
+
+    button_1_press:
+      name: Button 1 press
+      description: Action for button 1 press
       default: []
       selector:
-        action:
-    remote_button_1_press_release:
-      name: Button 1 Press Release
-      description: Action to run on button 1 press release
+        action: {}
+    button_2_press:
+      name: Button 2 press
+      description: Action for button 2 press
       default: []
       selector:
-        action:
-    remote_button_1_hold:
-      name: Button 1 Hold
-      description: Action to run on button 1 hold
+        action: {}
+    button_3_press:
+      name: Button 3 press
+      description: Action for button 3 press
       default: []
       selector:
-        action:
-    remote_button_1_hold_release:
-      name: Button 1 Hold Release
-      description: Action to run on button 1 hold release
+        action: {}
+    button_4_press:
+      name: Button 4 press
+      description: Action for button 4 press
       default: []
       selector:
-        action:
-    # Button 2
-    remote_button_2_single_press:
-      name: Button 2 Single Press
-      description: Action to run on button 2 single press
+        action: {}
+    brightness_step_down:
+      name: Brightness step down
+      description: Action for brightness step down
       default: []
       selector:
-        action:
-    remote_button_2_press_release:
-      name: Button 2 Press Release
-      description: Action to run on button 2 press release
+        action: {}
+    brightness_step_up:
+      name: Brightness step up
+      description: Action for brightness step up
       default: []
       selector:
-        action:
-    remote_button_2_hold:
-      name: Button 2 Hold
-      description: Action to run on button 2 hold
-      default: []
-      selector:
-        action:
-    remote_button_2_hold_release:
-      name: Button 2 Hold Release
-      description: Action to run on button 2 hold release
-      default: []
-      selector:
-        action:
-    # Button 3
-    remote_button_3_single_press:
-      name: Button 3 Single Press
-      description: Action to run on button 3 single press
-      default: []
-      selector:
-        action:
-    remote_button_3_press_release:
-      name: Button 3 Press Release
-      description: Action to run on button 3 press release
-      default: []
-      selector:
-        action:
-    remote_button_3_hold:
-      name: Button 3 Hold
-      description: Action to run on button 3 hold
-      default: []
-      selector:
-        action:
-    remote_button_3_hold_release:
-      name: Button 3 Hold Release
-      description: Action to run on button 3 hold release
-      default: []
-      selector:
-        action:
-    # Button 4
-    remote_button_4_single_press:
-      name: Button 4 Single Press
-      description: Action to run on button 4 single press
-      default: []
-      selector:
-        action:
-    remote_button_4_press_release:
-      name: Button 4 Press Release
-      description: Action to run on button 4 press release
-      default: []
-      selector:
-        action:
-    remote_button_4_hold:
-      name: Button 4 Hold
-      description: Action to run on button 4 hold
-      default: []
-      selector:
-        action:
-    remote_button_4_hold_release:
-      name: Button 4 Hold Release
-      description: Action to run on button 4 hold release
-      default: []
-      selector:
-        action:
-    # Dial rotate left
-    remote_dial_rotate_left_step:
-      name: Dial rotate left step
-      description: Action to run on dial rotate left step
-      default: []
-      selector:
-        action:
-    remote_dial_rotate_left_slow:
-      name: Dial rotate left slow
-      description: Action to run on dial rotate left slow
-      default: []
-      selector:
-        action:
-    remote_dial_rotate_left_fast:
-      name: Dial rotate left fast
-      description: Action to run on dial rotate left fast
-      default: []
-      selector:
-        action:
-    # Dial rotate right
-    remote_dial_rotate_right_step:
-      name: Dial rotate right step
-      description: Action to run on dial rotate right step
-      default: []
-      selector:
-        action:
-    remote_dial_rotate_right_slow:
-      name: Dial rotate right slow
-      description: Action to run on dial rotate right slow
-      default: []
-      selector:
-        action:
-    remote_dial_rotate_right_fast:
-      name: Dial rotate right fast
-      description: Action to run on dial rotate right fast
-      default: []
-      selector:
-        action:
+        action: {}
 
 mode: restart
 
-# Each option is explicitly defined as a trigger because sensor reports empty values as well.
-# Not defining explicit triggers causes the automation to show up in the log multiple times per button press.
+trigger_variables:
+  base_topic: !input base_topic
+  controller: !input controller
+
 trigger:
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_1_press"
-    value_template: "{{ value_json.action }}"
-    id: "button_1_press"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_1_press_release"
-    value_template: "{{ value_json.action }}"
-    id: "button_1_press_release"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_1_hold"
-    value_template: "{{ value_json.action }}"
-    id: "button_1_hold"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_1_hold_release"
-    value_template: "{{ value_json.action }}"
-    id: "button_1_hold_release"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_2_press"
-    value_template: "{{ value_json.action }}"
-    id: "button_2_press"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_2_press_release"
-    value_template: "{{ value_json.action }}"
-    id: "button_2_press_release"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_2_hold"
-    value_template: "{{ value_json.action }}"
-    id: "button_2_hold"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_2_hold_release"
-    value_template: "{{ value_json.action }}"
-    id: "button_2_hold_release"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_3_press"
-    value_template: "{{ value_json.action }}"
-    id: "button_3_press"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_3_press_release"
-    value_template: "{{ value_json.action }}"
-    id: "button_3_press_release"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_3_hold"
-    value_template: "{{ value_json.action }}"
-    id: "button_3_hold"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_3_hold_release"
-    value_template: "{{ value_json.action }}"
-    id: "button_3_hold_release"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_4_press"
-    value_template: "{{ value_json.action }}"
-    id: "button_4_press"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_4_press_release"
-    value_template: "{{ value_json.action }}"
-    id: "button_4_press_release"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_4_hold"
-    value_template: "{{ value_json.action }}"
-    id: "button_4_hold"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "button_4_hold_release"
-    value_template: "{{ value_json.action }}"
-    id: "button_4_hold_release"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "dial_rotate_left_step"
-    value_template: "{{ value_json.action }}"
-    id: "dial_rotate_left_step"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "dial_rotate_left_slow"
-    value_template: "{{ value_json.action }}"
-    id: "dial_rotate_left_slow"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "dial_rotate_left_fast"
-    value_template: "{{ value_json.action }}"
-    id: "dial_rotate_left_fast"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "dial_rotate_right_step"
-    value_template: "{{ value_json.action }}"
-    id: "dial_rotate_right_step"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "dial_rotate_right_slow"
-    value_template: "{{ value_json.action }}"
-    id: "dial_rotate_right_slow"
-  - trigger: mqtt
-    topic: !input mqtt_topic
-    payload: "dial_rotate_right_fast"
-    value_template: "{{ value_json.action }}"
-    id: "dial_rotate_right_fast"
+  - platform: mqtt
+    topic: "{{ base_topic ~ '/' ~ controller ~ '/action' }}"
+
+# This condition is not strictly necessary, but it makes sure that the automation only triggers when there is a
+# supported action. This makes for easier debugging etc.
+condition:
+  - condition: template
+    value_template: "{{ trigger.payload in [
+      'button_1_press',
+      'button_2_press',
+      'button_3_press',
+      'button_4_press',
+      'brightness_step_down',
+      'brightness_step_up',
+    ] }}"
+    # Not implemented: press_release, hold, hold_release, dial_rotate_[left|right]_[slow|fast|step]
 
 action:
+  - variables:
+      controller: !input controller
+      command: "{{ trigger.payload }}"
   - choose:
-      - conditions:
-          - condition: trigger
-            id: "button_1_press"
-        sequence: !input remote_button_1_single_press
-      - conditions:
-          - condition: trigger
-            id: "button_1_press_release"
-        sequence: !input remote_button_1_press_release
-      - conditions:
-          - condition: trigger
-            id: "button_1_hold"
-        sequence: !input remote_button_1_hold
-      - conditions:
-          - condition: trigger
-            id: "button_1_hold_release"
-        sequence: !input remote_button_1_hold_release
-      - conditions:
-          - condition: trigger
-            id: "button_2_press"
-        sequence: !input remote_button_2_single_press
-      - conditions:
-          - condition: trigger
-            id: "button_2_press_release"
-        sequence: !input remote_button_2_press_release
-      - conditions:
-          - condition: trigger
-            id: "button_2_hold"
-        sequence: !input remote_button_2_hold
-      - conditions:
-          - condition: trigger
-            id: "button_2_hold_release"
-        sequence: !input remote_button_2_hold_release
-      - conditions:
-          - condition: trigger
-            id: "button_3_press"
-        sequence: !input remote_button_3_single_press
-      - conditions:
-          - condition: trigger
-            id: "button_3_press_release"
-        sequence: !input remote_button_3_press_release
-      - conditions:
-          - condition: trigger
-            id: "button_3_hold"
-        sequence: !input remote_button_3_hold
-      - conditions:
-          - condition: trigger
-            id: "button_3_hold_release"
-        sequence: !input remote_button_3_hold_release
-      - conditions:
-          - condition: trigger
-            id: "button_4_press"
-        sequence: !input remote_button_4_single_press
-      - conditions:
-          - condition: trigger
-            id: "button_4_press_release"
-        sequence: !input remote_button_4_press_release
-      - conditions:
-          - condition: trigger
-            id: "button_4_hold"
-        sequence: !input remote_button_4_hold
-      - conditions:
-          - condition: trigger
-            id: "button_4_hold_release"
-        sequence: !input remote_button_4_hold_release
-      - conditions:
-          - condition: trigger
-            id: "dial_rotate_left_step"
-        sequence: !input remote_dial_rotate_left_step
-      - conditions:
-          - condition: trigger
-            id: "dial_rotate_left_slow"
-        sequence: !input remote_dial_rotate_left_slow
-      - conditions:
-          - condition: trigger
-            id: "dial_rotate_left_fast"
-        sequence: !input remote_dial_rotate_left_fast
-      - conditions:
-          - condition: trigger
-            id: "dial_rotate_right_step"
-        sequence: !input remote_dial_rotate_right_step
-      - conditions:
-          - condition: trigger
-            id: "dial_rotate_right_slow"
-        sequence: !input remote_dial_rotate_right_slow
-      - conditions:
-          - condition: trigger
-            id: "dial_rotate_right_fast"
-        sequence: !input remote_dial_rotate_right_fast
+      - conditions: '{{ command == "button_1_press" }}'
+        sequence: !input button_1_press
+      - conditions: '{{ command == "button_2_press" }}'
+        sequence: !input button_2_press
+      - conditions: '{{ command == "button_3_press" }}'
+        sequence: !input button_3_press
+      - conditions: '{{ command == "button_4_press" }}'
+        sequence: !input button_4_press
+      - conditions: '{{ command == "brightness_step_down" }}'
+        sequence: !input brightness_step_down
+      - conditions: '{{ command == "brightness_step_up" }}'
+        sequence: !input brightness_step_up
