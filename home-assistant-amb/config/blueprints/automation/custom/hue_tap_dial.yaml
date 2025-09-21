@@ -78,7 +78,7 @@ condition:
 action:
   - variables:
       controller: !input controller
-      command: "{{ trigger.payload_json.action }}"
+      command: "{{ trigger.payload }}"
   - choose:
       - conditions: '{{ command == "button_1_press" }}'
         sequence: !input button_1_press
