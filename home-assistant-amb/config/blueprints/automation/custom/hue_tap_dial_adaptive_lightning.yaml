@@ -1,0 +1,112 @@
+blueprint:
+  name: Hue Tap Dial for Zigbee2MQTT
+  description: >
+    Implementation for Hue Tap Dial for Zigbee2MQTT with specific adaptive lightning support.
+  domain: automation
+
+  input:
+    controller:
+      name: (Zigbee2MQTT) Controller Name
+      description: The name of the device in Zigbee2MQTT
+    base_topic:
+      name: Root/Base mqtt topic from Zigbee2MQTT
+      description: The Root/base topic as configured in Zigbee2MQTT
+      default: zigbee2mqtt
+
+    light_entities_on_off:
+      name: Light entities to control for on_off
+      description: The light entities to control for on/off. Use the lights / Zigbee light groups that you have in AL configuration.
+      selector:
+        entity:
+          domain: light
+
+    al_entities:
+      name: Adaptive Lightning entities
+      description: >
+        The adaptive lightning switches, in order to turn off adaptive when dimming them via the zigbee group (which is not in AL config).
+      selector:
+        entity:
+          domain: switch
+
+    light_group_all:
+      name: Light entity to control for dimming
+      description: >
+        The light entity to control for dimming.
+        This must be a single Zigbee group entity to optimize responsiveness and prevent flooding the network.
+      selector:
+        entity:
+          domain: light
+          multiple: false
+
+mode: restart
+
+trigger_variables:
+  base_topic: !input base_topic
+  controller: !input controller
+
+trigger:
+  - platform: mqtt
+    topic: "{{ base_topic ~ '/' ~ controller ~ '/action' }}"
+
+# This condition is not strictly necessary, but it makes sure that the automation only triggers when there is a
+# supported action. This makes for easier debugging etc.
+condition:
+  - condition: template
+    value_template: "{{ trigger.payload in [
+      'button_1_press',
+      'button_2_press',
+      'button_3_press',
+      'button_4_press',
+      'brightness_step_down',
+      'brightness_step_up',
+    ] }}"
+    # Not implemented: press_release, hold, hold_release, dial_rotate_[left|right]_[slow|fast|step]
+
+action:
+  - variables:
+      controller: !input controller
+      command: "{{ trigger.payload }}"
+      current_brightness: >
+        {{ state_attr(!input light_group_all, 'brightness') | int }}
+  - choose:
+      - conditions: '{{ command == "button_1_press" }}'
+        sequence:
+          - service: switch.turn_on
+            target:
+              entity_id: !input al_entities
+          - service: adaptive_lightning.apply
+            data:
+              transition: 1
+              turn_on_lights: true
+              lights: !input light_entities_on_off
+      # - conditions: '{{ command == "button_2_press" }}'
+      #   sequence: !input button_2_press
+      - conditions: '{{ command == "button_3_press" }}'
+        sequence:
+          - service: light.turn_off
+            target:
+              entity_id: !input light_entities_on_off
+      # - conditions: '{{ command == "button_4_press" }}'
+      #   sequence: !input button_4_press
+      - conditions: '{{ command == "brightness_step_down" }}'
+        sequence:
+          - service: switch.turn_off
+            target:
+              entity_id: !input al_entities
+          - service: light.turn_on
+            data:
+              transition: 1
+              brightness: "{{ new_brightness = max(current_brightness * 0.9, 1) }}"
+            target:
+              entity_id: !input light_group_all
+      - conditions: '{{ command == "brightness_step_up" }}'
+        sequence:
+          - service: switch.turn_off
+            target:
+              entity_id: !input al_entities
+          - service: light.turn_on
+            data:
+              transition: 1
+              brightness: "{{ new_brightness = min(current_brightness * 1.1, 255) }}"
+            target:
+              entity_id: !input light_group_all
