@@ -39,7 +39,7 @@
         - action: input_boolean.toggle
           target:
             entity_id: input_boolean.sleep_mode
-      dial_rotate_left_step:
+      brightness_step_down:
         - action: light.turn_on
           data:
             transition: 1
@@ -57,33 +57,7 @@
           target:
             entity_id: &ref_cabinet
               - light.light_living_white_cabinet
-      dial_rotate_left_slow:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -10
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -5
-          target:
-            entity_id: *ref_cabinet
-      dial_rotate_left_fast:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -20
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -10
-          target:
-            entity_id: *ref_cabinet
-      dial_rotate_right_step:
+      brightness_step_up:
         - action: light.turn_on
           data:
             transition: 1
@@ -94,33 +68,6 @@
           data:
             transition: 1
             brightness_step_pct: 5
-          target:
-            entity_id: *ref_cabinet
-      dial_rotate_right_slow:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 10
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 5
-          target:
-            entity_id: *ref_cabinet
-      dial_rotate_right_fast:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 20
-          target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
-        - action: light.turn_on
-          metadata: {}
-          data:
-            transition: 1
-            brightness_step_pct: 10
           target:
             entity_id: *ref_cabinet
 

@@ -25,45 +25,17 @@
         - action: light.turn_off
           target:
             entity_id: *ref_lights
-      dial_rotate_left_step:
+      brightness_step_down:
         - action: light.turn_on
           data:
             transition: 1
             brightness_step_pct: -10
           target:
             entity_id: *ref_lights
-      dial_rotate_left_slow:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -10
-          target:
-            entity_id: *ref_lights
-      dial_rotate_left_fast:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -20
-          target:
-            entity_id: *ref_lights
-      dial_rotate_right_step:
+      brightness_step_up:
         - action: light.turn_on
           data:
             transition: 1
             brightness_step_pct: 10
-          target:
-            entity_id: *ref_lights
-      dial_rotate_right_slow:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 10
-          target:
-            entity_id: *ref_lights
-      dial_rotate_right_fast:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 20
           target:
             entity_id: *ref_lights

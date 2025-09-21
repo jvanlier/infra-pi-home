@@ -8,7 +8,6 @@ blueprint:
     controller:
       name: (Zigbee2MQTT) Controller Name
       description: The name of the device in Zigbee2MQTT
-      default: ""
     base_topic:
       name: Root/Base mqtt topic from Zigbee2MQTT
       description: The Root/base topic as configured in Zigbee2MQTT
@@ -38,44 +37,21 @@ blueprint:
       default: []
       selector:
         action: {}
-    dial_rotate_left_step:
-      name: Dial rotate left step
-      description: Action for dial rotate left step
+    brightness_step_down:
+      name: Brightness step down
+      description: Action for brightness step down
       default: []
       selector:
         action: {}
-    dial_rotate_left_slow:
-      name: Dial rotate left slow
-      description: Action for dial rotate left slow
-      default: []
-      selector:
-        action: {}
-    dial_rotate_left_fast:
-      name: Dial rotate left fast
-      description: Action for dial rotate left fast
-      default: []
-      selector:
-        action: {}
-    dial_rotate_right_step:
-      name: Dial rotate right step
-      description: Action for dial rotate right step
-      default: []
-      selector:
-        action: {}
-    dial_rotate_right_slow:
-      name: Dial rotate right slow
-      description: Action for dial rotate right slow
-      default: []
-      selector:
-        action: {}
-    dial_rotate_right_fast:
-      name: Dial rotate right fast
-      description: Action for dial rotate right fast
+    brightness_step_up:
+      name: Brightness step up
+      description: Action for brightness step up
       default: []
       selector:
         action: {}
 
-mode: restart
+mode: queued
+max: 4
 
 trigger_variables:
   base_topic: !input base_topic
@@ -83,18 +59,27 @@ trigger_variables:
 
 trigger:
   - platform: mqtt
-    topic: "{{ base_topic ~ '/' ~ controller }}"
+    topic: "{{ base_topic ~ '/' ~ controller ~ '/action' }}"
 
+# This condition is not strictly necessary, but it makes sure that the automation only triggers when there is a
+# supported action. This makes for easier debugging etc.
 condition:
   - condition: template
-    value_template: "{{ 'action' in trigger.payload_json and trigger.payload_json.action != '' }}"
+    value_template: "{{ trigger.payload in [
+      'button_1_press',
+      'button_2_press',
+      'button_3_press',
+      'button_4_press',
+      'brightness_step_down',
+      'brightness_step_up',
+    ] }}"
+    # Not implemented: press_release, hold, hold_release, dial_rotate_[left|right]_[slow|fast|step]
 
 action:
   - variables:
       controller: !input controller
       command: "{{ trigger.payload_json.action }}"
   - choose:
-      # Not implemented: press_release, hold, hold_release,
       - conditions: '{{ command == "button_1_press" }}'
         sequence: !input button_1_press
       - conditions: '{{ command == "button_2_press" }}'
@@ -103,15 +88,7 @@ action:
         sequence: !input button_3_press
       - conditions: '{{ command == "button_4_press" }}'
         sequence: !input button_4_press
-      - conditions: '{{ command == "dial_rotate_left_step" }}'
-        sequence: !input dial_rotate_left_step
-      - conditions: '{{ command == "dial_rotate_left_slow" }}'
-        sequence: !input dial_rotate_left_slow
-      - conditions: '{{ command == "dial_rotate_left_fast" }}'
-        sequence: !input dial_rotate_left_fast
-      - conditions: '{{ command == "dial_rotate_right_step" }}'
-        sequence: !input dial_rotate_right_step
-      - conditions: '{{ command == "dial_rotate_right_slow" }}'
-        sequence: !input dial_rotate_right_slow
-      - conditions: '{{ command == "dial_rotate_right_fast" }}'
-        sequence: !input dial_rotate_right_fast
+      - conditions: '{{ command == "brightness_step_down" }}'
+        sequence: !input brightness_step_down
+      - conditions: '{{ command == "brightness_step_up" }}'
+        sequence: !input brightness_step_up
