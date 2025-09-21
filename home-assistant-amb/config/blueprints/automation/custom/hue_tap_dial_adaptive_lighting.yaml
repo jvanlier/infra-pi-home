@@ -69,6 +69,7 @@ action:
       light_group_all: !input light_group_all
       current_brightness: >
         {{ state_attr(light_group_all, 'brightness') | int(0) }}
+      brightness_step: 25
   - choose:
       - conditions: '{{ command == "button_1_press" }}'
         sequence:
@@ -97,7 +98,7 @@ action:
           - service: light.turn_on
             data:
               transition: 1
-              brightness: "{{ max(current_brightness * 0.75, 1) }}"
+              brightness: "{{ max(current_brightness - brightness_step, 1) }}"
             target:
               entity_id: !input light_group_all
       - conditions: '{{ command == "brightness_step_up" }}'
@@ -108,6 +109,6 @@ action:
           - service: light.turn_on
             data:
               transition: 1
-              brightness: "{{ min(current_brightness * 1.25, 255) }}"
+              brightness: "{{ min(current_brightness + brightness_step, 255) }}"
             target:
               entity_id: !input light_group_all
