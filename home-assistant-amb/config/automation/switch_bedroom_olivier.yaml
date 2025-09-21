@@ -14,28 +14,14 @@
 - alias: Switch Tap Dial Bedroom Olivier
   id: switch_tap_dial_bedroom_olivier
   use_blueprint:
-    path: custom/hue_tap_dial.yaml
+    path: custom/hue_tap_dial_adaptive_lighting.yaml
     input:
       controller: Switch Tap Dial Bedroom Olivier
-      button_1_press:
-        - action: light.turn_on
-          target:
-            entity_id: *ref_lights
-      button_3_press:
-        - action: light.turn_off
-          target:
-            entity_id: *ref_lights
-      brightness_step_down:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -10
-          target:
-            entity_id: *ref_lights
-      brightness_step_up:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 10
-          target:
-            entity_id: *ref_lights
+
+      light_entities_on_off:
+        - light.light_group_bedroom_olivier_ambiance
+        - light.light_group_bedroom_olivier_color
+      al_entities:
+        - switch.adaptive_lighting_bedroom_olivier_ambiance
+        - switch.adaptive_lighting_bedroom_olivier_color
+      light_group_all: light.light_group_bedroom_olivier
