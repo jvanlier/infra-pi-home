@@ -89,6 +89,16 @@ views:
             features_position: bottom
             features:
               - type: light-brightness
+          - type: tile
+            name: Ambiance adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_bedroom_olivier_ambiance
+            grid_options:
+              columns: 9
+          - type: tile
+            name: Color adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_bedroom_olivier_color
+            grid_options:
+              columns: 9
 
           - type: heading
             heading: Bedroom Duco
@@ -106,6 +116,16 @@ views:
             features_position: bottom
             features:
               - type: light-brightness
+          - type: tile
+            name: Ambiance adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_bedroom_duco_ambiance
+            grid_options:
+              columns: 9
+          - type: tile
+            name: Color adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_bedroom_duco_color
+            grid_options:
+              columns: 9
 
           - type: heading
             heading: Bedroom JC
