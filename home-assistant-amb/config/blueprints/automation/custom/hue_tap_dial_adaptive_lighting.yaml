@@ -1,5 +1,5 @@
 blueprint:
-  name: Hue Tap Dial for Zigbee2MQTT
+  name: Hue Tap Dial with Adaptive Lighting support for Zigbee2MQTT
   description: >
     Implementation for Hue Tap Dial for Zigbee2MQTT with specific Adaptive Lighting (AL) support.
 
@@ -42,7 +42,7 @@ blueprint:
       name: Single Zigbee group that contains all the lights.
       description: >
         Used for turning off and for dimming.
-        It's not used for turning on, because then Adaptive Lightning doesn't register it.
+        It's not used for turning on, because then Adaptive Lighting doesn't register it.
       selector:
         entity:
           domain: light
@@ -62,9 +62,9 @@ blueprint:
           domain: light
 
     switch_entities_adapt_brightness:
-      name: Adaptive Lightning adapt brightness switch entities.
+      name: Adaptive Lighting adapt brightness switch entities.
       description: >
-        The adaptive lightning switches, in order to turn off adaptive brightness when dimming them via the zigbee group (which is not in AL config).
+        The adaptive lighting switches, in order to turn off adaptive brightness when dimming them via the zigbee group (which is not in AL config).
       selector:
         entity:
           domain: switch
@@ -117,7 +117,7 @@ action:
             target:
               entity_id: !input light_group_all
           # Turn on adaptive brightness, in case it was turned off earlier due to dimming, to be prepared
-          # for the next turn on (it's also enabled above for button 1; the goal of this is for turn-on via different
+          # for the next turn on (it's also enabled above for button 1; the goal of this is handling turn-on via different
           # means.)
           - service: switch.turn_on
             target:

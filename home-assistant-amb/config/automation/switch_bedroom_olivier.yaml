@@ -1,15 +1,16 @@
 - alias: Switch Wall Bedroom Olivier
   id: switch_wall_bedroom_olivier
   use_blueprint:
-    path: custom/hue_wall_switch.yaml
+    path: custom/hue_wall_switch_adaptive_lighting.yaml
     input:
       controller: Switch Wall Bedroom Olivier
-      left_press:
-        - action: light.toggle
-          target:
-            entity_id: &ref_lights
-              - light.light_group_bedroom_olivier_ambiance
-              - light.light_group_bedroom_olivier_color
+      left_light_group_all: light.light_group_bedroom_olivier
+      left_light_entities_on: &ref_lights
+        - light.light_group_bedroom_olivier_ambiance
+        - light.light_group_bedroom_olivier_color
+      left_switch_entities_adapt_brightness: &ref_switch_adapt_brightness
+        - switch.adaptive_lighting_adapt_brightness_bedroom_olivier_ambiance
+        - switch.adaptive_lighting_adapt_brightness_bedroom_olivier_color
 
 - alias: Switch Tap Dial Bedroom Olivier
   id: switch_tap_dial_bedroom_olivier
@@ -20,9 +21,5 @@
       brightness_max: 125
       brightness_step: 10
       light_group_all: light.light_group_bedroom_olivier
-      light_entities_on:
-        - light.light_group_bedroom_olivier_ambiance
-        - light.light_group_bedroom_olivier_color
-      switch_entities_adapt_brightness:
-        - switch.adaptive_lighting_adapt_brightness_bedroom_olivier_ambiance
-        - switch.adaptive_lighting_adapt_brightness_bedroom_olivier_color
+      light_entities_on: *ref_lights
+      switch_entities_adapt_brightness: *ref_switch_adapt_brightness

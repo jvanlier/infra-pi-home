@@ -1,0 +1,95 @@
+blueprint:
+  name: Hue Wall Switch with Adaptive Lighting support for Zigbee2MQTT
+  description: >
+    Implementation for Hue Wall Switch for Zigbee2MQTT with specific Adaptive Lighting (AL) support.
+
+    Complements the Hue Tap Dial Adaptive Lighting blueprint.
+
+    If the automation appears to be triggered twice in short succession: change the device mode to push in zigbee2mqtt.
+  domain: automation
+
+  input:
+    controller:
+      name: (Zigbee2MQTT) Controller Name
+      description: The name of the device in Zigbee2MQTT
+    base_topic:
+      name: Root/Base mqtt topic from Zigbee2MQTT
+      description: The Root/base topic as configured in Zigbee2MQTT
+      default: zigbee2mqtt
+
+    left_light_group_all:
+      name: Single Zigbee group that contains all the lights.
+      description: >
+        Used for turning off.
+        It's not used for turning on, because then Adaptive Lighting doesn't register it.
+      selector:
+        entity:
+          domain: light
+          multiple: false
+
+    left_light_entities_on:
+      name: Light entities for the "on" switch.
+      description: >
+        Light entities for the "on" switch.
+        Each of these must be in a Adaptive Lighting configuration.
+        All of those Adaptive Lighting configurations must be listed under "switch_entities_adapt_brightness".
+
+        We switch on using the configured entities, if we switch on via the zigbee group that has all lights,
+        they don't get AL applied at turn on.
+      selector:
+        entity:
+          domain: light
+
+    left_switch_entities_adapt_brightness:
+      name: Adaptive Lighting adapt brightness switch entities.
+      description: >
+        The adaptive lighting switches, in order to  adaptive brightness when dimming them via the zigbee group (which is not in AL config).
+      selector:
+        entity:
+          domain: switch
+
+
+mode: restart
+
+trigger_variables:
+  base_topic: !input base_topic
+  controller: !input controller
+
+trigger:
+  - platform: mqtt
+    topic: "{{ base_topic ~ '/' ~ controller ~ '/action' }}"
+
+condition:
+  - condition: template
+    value_template: "{{ trigger.payload in [
+      'left_press',
+    ] }}"
+    # Not implemented: release, long press, right button.
+
+action:
+  - variables:
+      controller: !input controller
+      command: "{{ trigger.payload }}"
+      left_light_group_all: !input left_light_group_all
+  - choose:
+      - conditions: '{{ command == "left_press" and states(left_light_group_all) != "on" }}'
+        sequence:
+          # Turn on adaptive brightness, in case it was turned off earlier due to dimming:
+          - service: switch.turn_on
+            target:
+              entity_id: !input left_switch_entities_adapt_brightness
+          - service: light.turn_on
+            target:
+              entity_id:
+                !input left_light_entities_on
+      - conditions: '{{ command == "left_press" and states(left_light_group_all) == "on" }}'
+        sequence:
+          - service: light.turn_off
+            target:
+              entity_id: !input left_light_group_all
+          # Turn on adaptive brightness, in case it was turned off earlier due to dimming, to be prepared
+          # for the next turn on (it's also enabled above for turn-on; the goal of this is handling turn-on via different
+          # means.)
+          - service: switch.turn_on
+            target:
+              entity_id: !input left_switch_entities_adapt_brightness
