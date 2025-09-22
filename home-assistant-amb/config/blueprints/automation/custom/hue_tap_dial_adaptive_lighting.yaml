@@ -21,6 +21,22 @@ blueprint:
       name: Root/Base mqtt topic from Zigbee2MQTT
       description: The Root/base topic as configured in Zigbee2MQTT
       default: zigbee2mqtt
+    brightness_max:
+      name: Max brightness
+      description: Maximum brightness for dimming, in case the max of 255 can become too bright under all circumstances.
+      default: 255
+      selector:
+        number:
+          min: 1
+          max: 255
+    brightness_step:
+      name: Brightness step size
+      description: Brightness step size
+      default: 25
+      selector:
+        number:
+          min: 1
+          max: 50
 
     light_group_all:
       name: Single Zigbee group that contains all the lights.
@@ -82,7 +98,8 @@ action:
       light_group_all: !input light_group_all
       current_brightness: >
         {{ state_attr(light_group_all, 'brightness') | int(0) }}
-      brightness_step: 25
+      brightness_max: !input brightness_max
+      brightness_step: !input brightness_step
   - choose:
       - conditions: '{{ command == "button_1_press" }}'
         sequence:
@@ -120,6 +137,6 @@ action:
           - service: light.turn_on
             data:
               transition: 1
-              brightness: "{{ min(current_brightness + brightness_step, 255) }}"
+              brightness: "{{ min(current_brightness + brightness_step, brightness_max) }}"
             target:
               entity_id: !input light_group_all
