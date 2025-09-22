@@ -177,6 +177,6 @@ action:
           - service: light.turn_on
             data:
               transition: 1
-              color: ["{{ range(1, 255) | random }}", "{{ range(1, 255) | random  }}", "{{ range(1, 255) | random  }}"]
+              rgb_color: ["{{ range(1, 255) | random }}", "{{ range(1, 255) | random  }}", "{{ range(1, 255) | random  }}"]
             target:
               entity_id: !input light_group_color
