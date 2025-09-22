@@ -13,7 +13,7 @@ blueprint:
     So, they get turned on with the entities as configured in AL.
 
     Furthermore, this automation assumes that there is one Zigbee group with all color lights, and that
-    you want to use Button 3 to cycle through colors for them. This zigbee group should be registered in AL config.
+    you want to use Button 2 to cycle through colors for them. This zigbee group should be registered in AL config.
     (There is no special treatment for handle adapt_color toggles, we rely on AL's manual control detection.)
 
   domain: automation
