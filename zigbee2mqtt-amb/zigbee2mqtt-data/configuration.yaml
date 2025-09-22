@@ -190,3 +190,5 @@ groups:
     friendly_name: Light Group Bedroom Olivier Color
   '11':
     friendly_name: Light Group Bedroom Olivier
+  '12':
+    friendly_name: Light Group Bedroom Duco
