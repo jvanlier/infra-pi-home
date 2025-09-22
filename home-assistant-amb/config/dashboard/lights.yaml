@@ -62,6 +62,7 @@ views:
             entity: light.light_group_kitchen_countertop
             features:
               - type: light-brightness
+
           - type: heading
             heading: Bathroom
             heading_style: subtitle
@@ -71,34 +72,65 @@ views:
             entity: light.light_bathroom
             features:
               - type: light-brightness
+
           - type: heading
-            heading: Bedrooms
+            heading: Bedroom Olivier
             heading_style: subtitle
             icon: mdi:bed
           - type: tile
-            name: Duco Ambiance
-            entity: light.light_group_bedroom_duco_ambiance
-            features_position: bottom
-            features:
-              - type: light-brightness
-          - type: tile
-            name: Duco Color
-            entity: light.light_group_bedroom_duco_color
-            features_position: bottom
-            features:
-              - type: light-brightness
-          - type: tile
-            name: Olivier Ambiance
+            name: Ambiance
             entity: light.light_group_bedroom_olivier_ambiance
             features_position: bottom
             features:
               - type: light-brightness
           - type: tile
-            name: Olivier Color
+            name: Color
             entity: light.light_group_bedroom_olivier_color
             features_position: bottom
             features:
               - type: light-brightness
+          - type: tile
+            name: Ambiance adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_bedroom_olivier_ambiance
+            grid_options:
+              columns: 9
+          - type: tile
+            name: Color adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_bedroom_olivier_color
+            grid_options:
+              columns: 9
+
+          - type: heading
+            heading: Bedroom Duco
+            heading_style: subtitle
+            icon: mdi:bed
+          - type: tile
+            name: Ambiance
+            entity: light.light_group_bedroom_duco_ambiance
+            features_position: bottom
+            features:
+              - type: light-brightness
+          - type: tile
+            name: Color
+            entity: light.light_group_bedroom_duco_color
+            features_position: bottom
+            features:
+              - type: light-brightness
+          - type: tile
+            name: Ambiance adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_bedroom_duco_ambiance
+            grid_options:
+              columns: 9
+          - type: tile
+            name: Color adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_bedroom_duco_color
+            grid_options:
+              columns: 9
+
+          - type: heading
+            heading: Bedroom JC
+            heading_style: subtitle
+            icon: mdi:bed
           - type: tile
             name: Jori
             entity: light.light_bedroom_jc_bed_j

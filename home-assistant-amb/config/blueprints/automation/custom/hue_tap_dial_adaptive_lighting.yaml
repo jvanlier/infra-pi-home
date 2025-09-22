@@ -1,0 +1,148 @@
+blueprint:
+  name: Hue Tap Dial with Adaptive Lighting support for Zigbee2MQTT
+  description: >
+    Implementation for Hue Tap Dial for Zigbee2MQTT with specific Adaptive Lighting (AL) support.
+
+    It requires a Zigbee group for _all_ lights managed by the switch.
+    This group is used for switching all lights off reliably and in sync, and for dimming.
+
+    The automation assumes that this Zigbee group with all lights is not itself configured in AL, but
+    rather, specific subgroups are, in order to get different dimming levels, colors and so on.
+    If the lights are turned on by the Zigbee group with all lights, AL does not trigger.
+    So, they get turned on with the group as configured in AL.
+
+  domain: automation
+
+  input:
+    controller:
+      name: (Zigbee2MQTT) Controller Name
+      description: The name of the device in Zigbee2MQTT
+    base_topic:
+      name: Root/Base mqtt topic from Zigbee2MQTT
+      description: The Root/base topic as configured in Zigbee2MQTT
+      default: zigbee2mqtt
+    brightness_max:
+      name: Max brightness
+      description: Maximum brightness for dimming, in case the max of 255 can become too bright under all circumstances.
+      default: 255
+      selector:
+        number:
+          min: 1
+          max: 255
+    brightness_step:
+      name: Brightness step size
+      description: Brightness step size
+      default: 25
+      selector:
+        number:
+          min: 1
+          max: 50
+
+    light_group_all:
+      name: Single Zigbee group that contains all the lights.
+      description: >
+        Used for turning off and for dimming.
+        It's not used for turning on, because then Adaptive Lighting doesn't register it.
+      selector:
+        entity:
+          domain: light
+          multiple: false
+
+    light_entities_on:
+      name: Light entities for the "on" switch.
+      description: >
+        Light entities for the "on" switch.
+        Each of these must be in a Adaptive Lighting configuration.
+        All of those Adaptive Lighting configurations must be listed under "switch_entities_adapt_brightness".
+
+        We switch on using the configured entities, if we switch on via the zigbee group that has all lights,
+        they don't get AL applied at turn on.
+      selector:
+        entity:
+          domain: light
+
+    switch_entities_adapt_brightness:
+      name: Adaptive Lighting adapt brightness switch entities.
+      description: >
+        The adaptive lighting switches, in order to turn off adaptive brightness when dimming them via the zigbee group (which is not in AL config).
+      selector:
+        entity:
+          domain: switch
+
+mode: restart
+
+trigger_variables:
+  base_topic: !input base_topic
+  controller: !input controller
+
+trigger:
+  - platform: mqtt
+    topic: "{{ base_topic ~ '/' ~ controller ~ '/action' }}"
+
+# This condition is not strictly necessary, but it makes sure that the automation only triggers when there is a
+# supported action. This makes for easier debugging etc.
+condition:
+  - condition: template
+    value_template: "{{ trigger.payload in [
+      'button_1_press',
+      'button_3_press',
+      'brightness_step_down',
+      'brightness_step_up',
+    ] }}"
+    # Not implemented: button_[2|4]_press, press_release, hold, hold_release, dial_rotate_[left|right]_[slow|fast|step]
+
+action:
+  - variables:
+      controller: !input controller
+      command: "{{ trigger.payload }}"
+      light_group_all: !input light_group_all
+      current_brightness: >
+        {{ state_attr(light_group_all, 'brightness') | int(0) }}
+      brightness_max: !input brightness_max
+      brightness_step: !input brightness_step
+  - choose:
+      - conditions: '{{ command == "button_1_press" }}'
+        sequence:
+          # Turn on adaptive brightness, in case it was turned off earlier due to dimming:
+          - service: switch.turn_on
+            target:
+              entity_id: !input switch_entities_adapt_brightness
+          - service: light.turn_on
+            target:
+              entity_id:
+                !input light_entities_on
+      - conditions: '{{ command == "button_3_press" }}'
+        sequence:
+          - service: light.turn_off
+            target:
+              entity_id: !input light_group_all
+          # Turn on adaptive brightness, in case it was turned off earlier due to dimming, to be prepared
+          # for the next turn on (it's also enabled above for button 1; the goal of this is handling turn-on via different
+          # means.)
+          - service: switch.turn_on
+            target:
+              entity_id: !input switch_entities_adapt_brightness
+      - conditions: '{{ command == "brightness_step_down" }}'
+        sequence:
+          # Since we dim using Zigbee group with all lights, AL doesn't mark them as manually controlled.
+          # So we turn off adaptive brightness manually:
+          - service: switch.turn_off
+            target:
+              entity_id: !input switch_entities_adapt_brightness
+          - service: light.turn_on
+            data:
+              transition: 1
+              brightness: "{{ max(current_brightness - brightness_step, 1) }}"
+            target:
+              entity_id: !input light_group_all
+      - conditions: '{{ command == "brightness_step_up" }}'
+        sequence:
+          - service: switch.turn_off
+            target:
+              entity_id: !input switch_entities_adapt_brightness
+          - service: light.turn_on
+            data:
+              transition: 1
+              brightness: "{{ min(current_brightness + brightness_step, brightness_max) }}"
+            target:
+              entity_id: !input light_group_all

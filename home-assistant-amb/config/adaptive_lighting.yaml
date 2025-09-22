@@ -73,28 +73,36 @@
   min_brightness: 20
   max_brightness: 30
   # The default of 1 is very low here and it kind of struggles to come on, do a bit higher:
-  sleep_brightness: 5
+  sleep_brightness: 3
 
 - name: "bedroom-duco-ambiance"
   lights: ["light.light_group_bedroom_duco_ambiance"]
   min_brightness: 20
   max_brightness: 30
+  min_color_temp: 2400
+  max_color_temp: 4000
   max_sunset_time: "19:00:00"
 
 - name: "bedroom-duco-color"
   lights: ["light.light_group_bedroom_duco_color"]
   min_brightness: 20
   max_brightness: 30
+  min_color_temp: 2000
+  max_color_temp: 4000
   max_sunset_time: "19:00:00"
 
 - name: "bedroom-olivier-ambiance"
   lights: ["light.light_group_bedroom_olivier_ambiance"]
   min_brightness: 20
   max_brightness: 30
+  min_color_temp: 2000
+  max_color_temp: 4000
   max_sunset_time: "19:00:00"
 
 - name: "bedroom-olivier-color"
   lights: ["light.light_group_bedroom_olivier_color"]
   min_brightness: 20
   max_brightness: 30
+  min_color_temp: 2000
+  max_color_temp: 4000
   max_sunset_time: "19:00:00"

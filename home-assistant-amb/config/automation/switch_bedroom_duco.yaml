@@ -1,41 +1,25 @@
 - alias: Switch Wall Bedroom Duco
   id: switch_wall_bedroom_duco
   use_blueprint:
-    path: custom/hue_wall_switch.yaml
+    path: custom/hue_wall_switch_adaptive_lighting.yaml
     input:
       controller: Switch Wall Bedroom Duco
-      left_press:
-        - action: light.toggle
-          target:
-            entity_id: &ref_lights
-              - light.light_group_bedroom_duco_ambiance
-              - light.light_group_bedroom_duco_color
+      left_light_group_all: light.light_group_bedroom_duco
+      left_light_entities_on: &ref_lights
+        - light.light_group_bedroom_duco_ambiance
+        - light.light_group_bedroom_duco_color
+      left_switch_entities_adapt_brightness: &ref_switch_adapt_brightness
+        - switch.adaptive_lighting_adapt_brightness_bedroom_duco_ambiance
+        - switch.adaptive_lighting_adapt_brightness_bedroom_duco_color
 
 - alias: Switch Tap Dial Bedroom Duco
   id: switch_tap_dial_bedroom_duco
   use_blueprint:
-    path: custom/hue_tap_dial.yaml
+    path: custom/hue_tap_dial_adaptive_lighting.yaml
     input:
       controller: Switch Tap Dial Bedroom Duco
-      button_1_single_press:
-        - action: light.turn_on
-          target:
-            entity_id: *ref_lights
-      button_3_single_press:
-        - action: light.turn_off
-          target:
-            entity_id: *ref_lights
-      brightness_step_down:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: -10
-          target:
-            entity_id: *ref_lights
-      brightness_step_up:
-        - action: light.turn_on
-          data:
-            transition: 1
-            brightness_step_pct: 10
-          target:
-            entity_id: *ref_lights
+      brightness_max: 125
+      brightness_step: 10
+      light_group_all: light.light_group_bedroom_duco
+      light_entities_on: *ref_lights
+      switch_entities_adapt_brightness: *ref_switch_adapt_brightness
