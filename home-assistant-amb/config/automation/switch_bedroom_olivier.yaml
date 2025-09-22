@@ -23,6 +23,6 @@
       light_entities_on:
         - light.light_group_bedroom_olivier_ambiance
         - light.light_group_bedroom_olivier_color
-      switch_entities_al:
-        - switch.adaptive_lighting_bedroom_olivier_ambiance
-        - switch.adaptive_lighting_bedroom_olivier_color
+      switch_entities_adapt_brightness:
+        - switch.adaptive_lighting_adapt_brightness_bedroom_olivier_ambiance
+        - switch.adaptive_lighting_adapt_brightness_bedroom_olivier_color

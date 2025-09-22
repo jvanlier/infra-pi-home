@@ -53,7 +53,7 @@ blueprint:
       description: >
         Light entities for the "on" switch.
         Each of these must be in a Adaptive Lighting configuration.
-        All of those Adaptive Lighting configurations must be listed under "switch_entities_al".
+        All of those Adaptive Lighting configurations must be listed under "switch_entities_adapt_brightness".
 
         We switch on using the configured entities, if we switch on via the zigbee group that has all lights,
         they don't get AL applied at turn on.
@@ -61,10 +61,10 @@ blueprint:
         entity:
           domain: light
 
-    switch_entities_al:
-      name: Adaptive Lightning switch entities.
+    switch_entities_adapt_brightness:
+      name: Adaptive Lightning adapt brightness switch entities.
       description: >
-        The adaptive lightning switches, in order to turn off adaptive when dimming them via the zigbee group (which is not in AL config).
+        The adaptive lightning switches, in order to turn off adaptive brightness when dimming them via the zigbee group (which is not in AL config).
       selector:
         entity:
           domain: switch
@@ -103,10 +103,10 @@ action:
   - choose:
       - conditions: '{{ command == "button_1_press" }}'
         sequence:
-          # Turn on adaptive, in case it was turned off earlier due to dimming:
+          # Turn on adaptive brightness, in case it was turned off earlier due to dimming:
           - service: switch.turn_on
             target:
-              entity_id: !input switch_entities_al
+              entity_id: !input switch_entities_adapt_brightness
           - service: light.turn_on
             target:
               entity_id:
@@ -116,13 +116,19 @@ action:
           - service: light.turn_off
             target:
               entity_id: !input light_group_all
+          # Turn on adaptive brightness, in case it was turned off earlier due to dimming, to be prepared
+          # for the next turn on (it's also enabled above for button 1; the goal of this is for turn-on via different
+          # means.)
+          - service: switch.turn_on
+            target:
+              entity_id: !input switch_entities_adapt_brightness
       - conditions: '{{ command == "brightness_step_down" }}'
         sequence:
           # Since we dim using Zigbee group with all lights, AL doesn't mark them as manually controlled.
-          # So we turn off AL manually:
+          # So we turn off adaptive brightness manually:
           - service: switch.turn_off
             target:
-              entity_id: !input switch_entities_al
+              entity_id: !input switch_entities_adapt_brightness
           - service: light.turn_on
             data:
               transition: 1
@@ -133,7 +139,7 @@ action:
         sequence:
           - service: switch.turn_off
             target:
-              entity_id: !input switch_entities_al
+              entity_id: !input switch_entities_adapt_brightness
           - service: light.turn_on
             data:
               transition: 1
