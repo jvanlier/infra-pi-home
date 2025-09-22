@@ -15,7 +15,7 @@
 - alias: Switch Tap Dial Bedroom Olivier
   id: switch_tap_dial_bedroom_olivier
   use_blueprint:
-    path: custom/hue_tap_dial_adaptive_lighting.yaml
+    path: custom/hue_tap_dial_adaptive_lighting_disco.yaml
     input:
       controller: Switch Tap Dial Bedroom Olivier
       brightness_max: 125
@@ -23,3 +23,5 @@
       light_group_all: light.light_group_bedroom_olivier
       light_entities_on: *ref_lights
       switch_entities_adapt_brightness: *ref_switch_adapt_brightness
+      light_group_color: light.light_group_bedroom_olivier_color
+      # helper_last_color: input_text.switch_tap_dial_bedroom_olivier_helper

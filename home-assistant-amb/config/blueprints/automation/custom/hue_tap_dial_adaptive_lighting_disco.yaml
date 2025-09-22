@@ -1,7 +1,8 @@
 blueprint:
-  name: Hue Tap Dial with Adaptive Lighting support for Zigbee2MQTT
+  name: Hue Tap Dial with Adaptive Lighting + Disco support for Zigbee2MQTT
   description: >
-    Implementation for Hue Tap Dial for Zigbee2MQTT with specific Adaptive Lighting (AL) support.
+    Implementation for Hue Tap Dial for Zigbee2MQTT with specific Adaptive Lighting (AL) support,
+    and color cycle ("disco") on the color light group.
 
     It requires a Zigbee group for _all_ lights managed by the switch.
     This group is used for switching all lights off reliably and in sync, and for dimming.
@@ -9,7 +10,11 @@ blueprint:
     The automation assumes that this Zigbee group with all lights is not itself configured in AL, but
     rather, specific subgroups are, in order to get different dimming levels, colors and so on.
     If the lights are turned on by the Zigbee group with all lights, AL does not trigger.
-    So, they get turned on with the entitites as configured in AL.
+    So, they get turned on with the entities as configured in AL.
+
+    Furthermore, this automation assumes that there is one Zigbee group with all color lights, and that
+    you want to use Button 3 to cycle through colors for them. This zigbee group should be registered in AL config.
+    (There is no special treatment for handle adapt_color toggles, we rely on AL's manual control detection.)
 
   domain: automation
 
@@ -69,6 +74,25 @@ blueprint:
         entity:
           domain: switch
 
+    light_group_color:
+      name: Single Zigbee group that contains all the color lights.
+      description: >
+        These are the lights used for the disco.
+      selector:
+        entity:
+          domain: light
+          multiple: false
+
+    # helper_last_color:
+    #   name: Helper input_text with last color.
+    #   description:
+    #     Input Text used to store the last color applied.
+    #     You will need to manually create a text input Helper entity for this.
+    #   selector:
+    #     entity:
+    #       domain: input_text
+    #       multiple: false
+
 mode: restart
 
 trigger_variables:
@@ -85,11 +109,12 @@ condition:
   - condition: template
     value_template: "{{ trigger.payload in [
       'button_1_press',
+      'button_2_press',
       'button_3_press',
       'brightness_step_down',
       'brightness_step_up',
     ] }}"
-    # Not implemented: button_[2|4]_press, press_release, hold, hold_release, dial_rotate_[left|right]_[slow|fast|step]
+    # Not implemented: button_4_press, press_release, hold, hold_release, dial_rotate_[left|right]_[slow|fast|step]
 
 action:
   - variables:
@@ -146,3 +171,12 @@ action:
               brightness: "{{ min(current_brightness + brightness_step, brightness_max) }}"
             target:
               entity_id: !input light_group_all
+      - conditions: '{{ command == "button_2_press" }}'
+        # Disco!
+        sequence:
+          service: light.turn_on
+          data:
+            transition: 1
+            color: ["{{ range(1, 255) | random }}", "{{ range(1, 255) | random  }}", "{{ range(1, 255) | random  }}"]
+          target:
+            entity_id: !input light_group_color
