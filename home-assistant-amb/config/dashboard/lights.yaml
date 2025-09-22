@@ -62,6 +62,7 @@ views:
             entity: light.light_group_kitchen_countertop
             features:
               - type: light-brightness
+
           - type: heading
             heading: Bathroom
             heading_style: subtitle
@@ -71,8 +72,26 @@ views:
             entity: light.light_bathroom
             features:
               - type: light-brightness
+
           - type: heading
-            heading: Bedrooms
+            heading: Bedroom Olivier
+            heading_style: subtitle
+            icon: mdi:bed
+          - type: tile
+            name: Olivier Ambiance
+            entity: light.light_group_bedroom_olivier_ambiance
+            features_position: bottom
+            features:
+              - type: light-brightness
+          - type: tile
+            name: Olivier Color
+            entity: light.light_group_bedroom_olivier_color
+            features_position: bottom
+            features:
+              - type: light-brightness
+
+          - type: heading
+            heading: Bedroom Duco
             heading_style: subtitle
             icon: mdi:bed
           - type: tile
@@ -87,18 +106,11 @@ views:
             features_position: bottom
             features:
               - type: light-brightness
-          - type: tile
-            name: Olivier Ambiance
-            entity: light.light_group_bedroom_olivier_ambiance
-            features_position: bottom
-            features:
-              - type: light-brightness
-          - type: tile
-            name: Olivier Color
-            entity: light.light_group_bedroom_olivier_color
-            features_position: bottom
-            features:
-              - type: light-brightness
+
+          - type: heading
+            heading: Bedroom JC
+            heading_style: subtitle
+            icon: mdi:bed
           - type: tile
             name: Jori
             entity: light.light_bedroom_jc_bed_j
