@@ -78,13 +78,13 @@ views:
             heading_style: subtitle
             icon: mdi:bed
           - type: tile
-            name: Olivier Ambiance
+            name: Ambiance
             entity: light.light_group_bedroom_olivier_ambiance
             features_position: bottom
             features:
               - type: light-brightness
           - type: tile
-            name: Olivier Color
+            name: Color
             entity: light.light_group_bedroom_olivier_color
             features_position: bottom
             features:
@@ -105,13 +105,13 @@ views:
             heading_style: subtitle
             icon: mdi:bed
           - type: tile
-            name: Duco Ambiance
+            name: Ambiance
             entity: light.light_group_bedroom_duco_ambiance
             features_position: bottom
             features:
               - type: light-brightness
           - type: tile
-            name: Duco Color
+            name: Color
             entity: light.light_group_bedroom_duco_color
             features_position: bottom
             features:
