@@ -83,16 +83,6 @@ blueprint:
           domain: light
           multiple: false
 
-    # helper_last_color:
-    #   name: Helper input_text with last color.
-    #   description:
-    #     Input Text used to store the last color applied.
-    #     You will need to manually create a text input Helper entity for this.
-    #   selector:
-    #     entity:
-    #       domain: input_text
-    #       multiple: false
-
 mode: restart
 
 trigger_variables:

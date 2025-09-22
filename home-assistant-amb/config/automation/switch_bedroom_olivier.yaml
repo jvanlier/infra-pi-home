@@ -24,4 +24,3 @@
       light_entities_on: *ref_lights
       switch_entities_adapt_brightness: *ref_switch_adapt_brightness
       light_group_color: light.light_group_bedroom_olivier_color
-      # helper_last_color: input_text.switch_tap_dial_bedroom_olivier_helper
