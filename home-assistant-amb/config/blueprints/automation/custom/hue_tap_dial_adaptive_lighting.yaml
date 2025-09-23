@@ -1,15 +1,14 @@
 blueprint:
-  name: Hue Tap Dial with Adaptive Lighting support for Zigbee2MQTT
+  name: Hue Tap Dial (Z2M) - Adaptive Lighting
   description: >
     Implementation for Hue Tap Dial for Zigbee2MQTT with specific Adaptive Lighting (AL) support.
 
-    It requires a Zigbee group for _all_ lights managed by the switch.
-    This group is used for switching all lights off reliably and in sync, and for dimming.
+    Requirements:
+    - 1 or more Zigbee groups for all ambiance lights, configured as light entity in AL
+    - 1 Zigbee group for _all_ lights (not configured in AL)
 
-    The automation assumes that this Zigbee group with all lights is not itself configured in AL, but
-    rather, specific subgroups are, in order to get different dimming levels, colors and so on.
-    If the lights are turned on by the Zigbee group with all lights, AL does not trigger.
-    So, they get turned on with the entitites as configured in AL.
+    The _all_ group is meant for is used for switching all lights _off_ reliably and in sync, and for dimming.
+    The _all_ group is not used for turning lights _on_, because that will not activate AL.
 
   domain: automation
 
@@ -48,23 +47,19 @@ blueprint:
           domain: light
           multiple: false
 
-    light_entities_on:
-      name: Light entities for the "on" switch.
+    switch_entities_adaptive_lighting:
+      name: Adaptive Lighting switch entities.
       description: >
-        Light entities for the "on" switch.
-        Each of these must be in a Adaptive Lighting configuration.
-        All of those Adaptive Lighting configurations must be listed under "switch_entities_adapt_brightness".
-
-        We switch on using the configured entities, if we switch on via the zigbee group that has all lights,
-        they don't get AL applied at turn on.
+        The adaptive lighting switches, used for turning on with service adaptive_lighting.apply.
       selector:
         entity:
-          domain: light
+          domain: switch
 
     switch_entities_adapt_brightness:
       name: Adaptive Lighting adapt brightness switch entities.
       description: >
-        The adaptive lighting switches, in order to turn off adaptive brightness when dimming them via the zigbee group (which is not in AL config).
+        The adaptive lighting adapt brightness switches, in order to turn off adaptive brightness when dimming them
+        via the _all_ zigbee group.
       selector:
         entity:
           domain: switch
@@ -107,10 +102,10 @@ action:
           - service: switch.turn_on
             target:
               entity_id: !input switch_entities_adapt_brightness
-          - service: light.turn_on
-            target:
-              entity_id:
-                !input light_entities_on
+          - service: adaptive_lighting.apply
+            data:
+              entity_id: !input switch_entities_adaptive_lighting
+              turn_on_lights: true
       - conditions: '{{ command == "button_3_press" }}'
         sequence:
           - service: light.turn_off

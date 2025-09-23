@@ -1,5 +1,5 @@
 blueprint:
-  name: Hue Tap Dial for Zigbee2MQTT
+  name: Hue Tap Dial (Z2M)
   description: >
     Simple implementation for Hue Tap Dial for Zigbee2MQTT.
   domain: automation

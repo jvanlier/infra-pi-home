@@ -1,5 +1,5 @@
 blueprint:
-  name: Hue Wall Switch for Zigbee2MQTT
+  name: Hue Wall Switch (Z2M)
   description: >
     Minimal implementation for Hue Wall Switch for Zigbee2MQTT: only single left press & right press with push buttons.
 

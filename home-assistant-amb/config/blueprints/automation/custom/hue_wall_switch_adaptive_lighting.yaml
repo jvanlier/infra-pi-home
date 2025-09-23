@@ -1,5 +1,5 @@
 blueprint:
-  name: Hue Wall Switch with Adaptive Lighting support for Zigbee2MQTT
+  name: Hue Wall Switch (Z2M) - Adaptive Lighting
   description: >
     Implementation for Hue Wall Switch for Zigbee2MQTT with specific Adaptive Lighting (AL) support.
 

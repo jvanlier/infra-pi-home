@@ -1,5 +1,5 @@
 blueprint:
-  name: Easy Customizable Controller Automation Blueprint for Hue Dimmer Switch in Zigbee2MQTT
+  name: Hue Dimmer Switch (Z2M)
   description:
     Controller automation for easy customizable Buttons with Philips Hue Dimmer Switch.
 

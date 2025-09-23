@@ -1,20 +1,18 @@
 blueprint:
-  name: Hue Tap Dial with Adaptive Lighting + Disco support for Zigbee2MQTT
+  name: Hue Tap Dial (Z2M) - Adaptive Lighting - disco
   description: >
     Implementation for Hue Tap Dial for Zigbee2MQTT with specific Adaptive Lighting (AL) support,
     and color cycle ("disco") on the color light group.
 
-    It requires a Zigbee group for _all_ lights managed by the switch.
-    This group is used for switching all lights off reliably and in sync, and for dimming.
+    Requirements:
+    - 1 or more Zigbee groups for all ambiance lights, configured as light entity in AL
+    - 1 Zigbee group for all color lights, configured as light entity in AL
+    - 1 Zigbee group for _all_ lights (not configured in AL)
 
-    The automation assumes that this Zigbee group with all lights is not itself configured in AL, but
-    rather, specific subgroups are, in order to get different dimming levels, colors and so on.
-    If the lights are turned on by the Zigbee group with all lights, AL does not trigger.
-    So, they get turned on with the entities as configured in AL.
+    The _all_ group is meant for is used for switching all lights _off_ reliably and in sync, and for dimming.
+    The _all_ group is not used for turning lights _on_, because that will not activate AL.
 
-    Furthermore, this automation assumes that there is one Zigbee group with all color lights, and that
-    you want to use Button 2 to cycle through colors for them. This zigbee group should be registered in AL config.
-    (There is no special treatment for handle adapt_color toggles, we rely on AL's manual control detection.)
+    Button 2 is used to cycle through random colors ("disco") - meant for kids.
 
   domain: automation
 
@@ -53,27 +51,6 @@ blueprint:
           domain: light
           multiple: false
 
-    light_entities_on:
-      name: Light entities for the "on" switch.
-      description: >
-        Light entities for the "on" switch.
-        Each of these must be in a Adaptive Lighting configuration.
-        All of those Adaptive Lighting configurations must be listed under "switch_entities_adapt_brightness".
-
-        We switch on using the configured entities, if we switch on via the zigbee group that has all lights,
-        they don't get AL applied at turn on.
-      selector:
-        entity:
-          domain: light
-
-    switch_entities_adapt_brightness:
-      name: Adaptive Lighting adapt brightness switch entities.
-      description: >
-        The adaptive lighting switches, in order to turn off adaptive brightness when dimming them via the zigbee group (which is not in AL config).
-      selector:
-        entity:
-          domain: switch
-
     light_group_color:
       name: Single Zigbee group that contains all the color lights.
       description: >
@@ -82,6 +59,23 @@ blueprint:
         entity:
           domain: light
           multiple: false
+
+    switch_entities_adaptive_lighting:
+      name: Adaptive Lighting switch entities.
+      description: >
+        The adaptive lighting switches, used for turning on with service adaptive_lighting.apply.
+      selector:
+        entity:
+          domain: switch
+
+    switch_entities_adapt_brightness:
+      name: Adaptive Lighting adapt brightness switch entities.
+      description: >
+        The adaptive lighting adapt brightness switches, in order to turn off adaptive brightness when dimming them
+        via the _all_ zigbee group.
+      selector:
+        entity:
+          domain: switch
 
 mode: restart
 
@@ -122,10 +116,10 @@ action:
           - service: switch.turn_on
             target:
               entity_id: !input switch_entities_adapt_brightness
-          - service: light.turn_on
-            target:
-              entity_id:
-                !input light_entities_on
+          - service: adaptive_lighting.apply
+            data:
+              entity_id: !input switch_entities_adaptive_lighting
+              turn_on_lights: true
       - conditions: '{{ command == "button_3_press" }}'
         sequence:
           - service: light.turn_off
@@ -167,6 +161,6 @@ action:
           - service: light.turn_on
             data:
               transition: 1
-              rgb_color: ["{{ range(1, 255) | random }}", "{{ range(1, 255) | random  }}", "{{ range(1, 255) | random  }}"]
+              rgb_color: ["{{ range(0, 255) | random }}", "{{ range(0, 255) | random  }}", "{{ range(0, 255) | random  }}"]
             target:
               entity_id: !input light_group_color
