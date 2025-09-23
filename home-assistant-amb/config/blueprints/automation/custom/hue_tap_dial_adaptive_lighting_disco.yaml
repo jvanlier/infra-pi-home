@@ -9,8 +9,14 @@ blueprint:
     - 1 Zigbee group for all color lights, configured as light entity in AL
     - 1 Zigbee group for _all_ lights (not configured in AL)
 
-    The _all_ group is meant for is used for switching all lights _off_ reliably and in sync, and for dimming.
+    The _all_ group is used for switching all lights _off_ reliably and in sync, and for dimming.
     The _all_ group is not used for turning lights _on_, because that will not activate AL.
+
+    N.b.: when dimming, adapt brightness gets disabled.
+
+    Potential downside: different brightness levels can be configured for each group in the AL config.
+    However, when dimming, they will all get the same brightness, so any difference is lost until AL is
+    re-activated (using button 1).
 
     Button 2 is used to cycle through random colors ("disco") - meant for kids.
 

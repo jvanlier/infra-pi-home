@@ -74,7 +74,7 @@ action:
   - choose:
       - conditions: '{{ command == "left_press" and states(left_light_group_all) != "on" }}'
         sequence:
-          # Turn on adaptive brightness, in case it was turned off earlier due to dimming:
+          # Turn on adaptive brightness, in case it was turned off earlier due to dimming (via tap dial):
           - service: switch.turn_on
             target:
               entity_id: !input left_switch_entities_adapt_brightness
@@ -87,7 +87,7 @@ action:
           - service: light.turn_off
             target:
               entity_id: !input left_light_group_all
-          # Turn on adaptive brightness, in case it was turned off earlier due to dimming, to be prepared
+          # Turn on adaptive brightness, in case it was turned off earlier due to dimming (via tap dial), to be prepared
           # for the next turn on (it's also enabled above for turn-on; the goal of this is handling turn-on via different
           # means.)
           - service: switch.turn_on
