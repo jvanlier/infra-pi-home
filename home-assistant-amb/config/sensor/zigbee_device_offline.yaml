@@ -34,5 +34,5 @@
              {% endif %}
            {% endif %}
          {% endfor %}
-         {{ result.sensors | sort | join('\n') }} | truncate(254, True) }}
+         {{ result.sensors | sort | join('\n') | truncate(254, True) }}
       # N.b.: truncating to 254 chars to to fit within max. length, otherwise value is "unknown"
