@@ -15,7 +15,7 @@
   action:
     # Wait for a little while to allow multiple changes to accumulate.
     # Due to mode restart, this instance will get killed if a new one starts.
-    - delay: "00:10:00"
+    - delay: "00:00:10"
     - service: notify.mobile_app_j16
       data:
         title: "Zigbee Device Offline status change"
