@@ -4,10 +4,20 @@
   alias: Zigbee Device Offline Notification
   trigger:
     - platform: state
-      entity_id: sensor.zigbee_device_offline
+      entity_id: &templ_sensor sensor.zigbee_device_offline
+    - platform: time
+      at: "20:00:00"
+  variables:
+    templ_sensor: *templ_sensor
+  condition:
+    - condition: template
+      value_template: "{{ states(templ_sensor) != '' }}"
   action:
+    # Wait for a little while to allow multiple changes to accumulate.
+    # Due to mode restart, this instance will get killed if a new one starts.
+    - delay: "00:10:00"
     - service: notify.mobile_app_j16
       data:
-        title: "Zigbee Device Offline"
-        message: "{{ states('sensor.zigbee_device_offline') }}"
+        title: "Zigbee Device Offline status change"
+        message: "{{ states(templ_sensor) }}"
   mode: restart
