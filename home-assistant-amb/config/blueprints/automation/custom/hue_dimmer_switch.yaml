@@ -84,7 +84,7 @@ action:
         sequence: !input on_press
       - conditions: '{{ command == "off_press" }}'
         sequence: !input off_press
-      - conditions: '{{ command in ["up_press", "up_hold"]) }}'
+      - conditions: '{{ command in ["up_press", "up_hold"] }}'
         sequence: !input up_press_or_hold
-      - conditions: '{{ command in ["down_press", "down_hold"]" }}'
+      - conditions: '{{ command in ["down_press", "down_hold"] }}'
         sequence: !input down_press_or_hold
