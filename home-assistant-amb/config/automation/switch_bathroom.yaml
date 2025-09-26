@@ -1,45 +1,29 @@
 - alias: Switch Dimmer Bathroom
   id: switch-dimmer-bathroom
-  description: ""
   use_blueprint:
-    path: custom/hue_dimmer_switch_v2.yaml
+    path: custom/hue_dimmer_switch.yaml
     input:
-      mqtt_topic: zigbee2mqtt/Switch Dimmer Bathroom
-      helper_last_controller_event: input_text.switch_dimmer_bathroom_helper
-      on_press_release:
+      controller: Switch Dimmer Bathroom
+      on_press:
         - action: light.turn_on
           target:
             entity_id: &ref_lights
               - light.light_bathroom
-      off_press_release:
+      off_press:
         - action: light.turn_off
           target:
             entity_id: *ref_lights
-      up_press:
+      up_press_or_hold:
         - action: light.turn_on
           data:
-            brightness_step_pct: 5
+            brightness_step_pct: 10
             transition: 1
           target:
             entity_id: *ref_lights
-      up_hold:
+      down_press_or_hold:
         - action: light.turn_on
           data:
-            brightness_step_pct: 5
-            transition: 1
-          target:
-            entity_id: *ref_lights
-      down_press:
-        - action: light.turn_on
-          data:
-            brightness_step_pct: -5
-            transition: 1
-          target:
-            entity_id: *ref_lights
-      down_hold:
-        - action: light.turn_on
-          data:
-            brightness_step_pct: -5
+            brightness_step_pct: -10
             transition: 1
           target:
             entity_id: *ref_lights

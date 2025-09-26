@@ -1,38 +1,16 @@
 blueprint:
   name: Hue Dimmer Switch (Z2M)
-  description:
-    Controller automation for easy customizable Buttons with Philips Hue Dimmer Switch.
+  description: >
+    Minimal implementation for Hue Dimmer Switch (v1 & v2) for Zigbee2MQTT.
 
+    For on/off buttons, it only supports press (unsupported: press_release, hold, hold_release).
+    For brightness buttons, it only supports press and hold and uses the same action for both (unsupported: press_release, hold_release).
 
-
-    ----------------------------------------------------------------------
-
-    __-------->  !!!!!!!!! FRUSTRATION CAUTION !!!!!!!!!   <--------__
-
-    ----------------------------------------------------------------------
-
-    _______________________________██████
-
-    _______________________________██████
-
-    _______________________________██████
-
-    ___________________________███████████
-
-    ______________________________███████
-
-    __________________________________██
-
-
-    __Only define the 'Pressed' action when you need to!__
-
-    __Use the 'Released' action instead!!!__
-
-    __The 'pressed' action will also activate on 'Held'__
+    Why? I don't find myself needing the other actions and I like the simplicity of having brightness press and hold
+    do the same thing.
 
   domain: automation
 
-  # Input from MQTT
   input:
     controller:
       name: (Zigbee2MQTT) Controller Name
@@ -43,100 +21,27 @@ blueprint:
       description: The Root/base topic as configured in Zigbee2MQTT (If you dont configured it you can leave the default --> "zigbee2mqtt")
       default: zigbee2mqtt
 
-    # Define Actions to the Buttons
     on_press:
-      name: Button On Pressed
-      description: Action set to run, when the Button On is pressed even when hold.
+      name: Button on press
+      description: Action for button 1 press
       default: []
       selector:
         action: {}
-    on_held:
-      name: Button On Held
-      description: Action set to run, when the Button On is held.
+    off_press:
+      name:  Off press
+      description: Action for button off press
       default: []
       selector:
         action: {}
-    on_released:
-      name: Button On released
-      description: Action set to run, when the Button On is released.
+    up_press_or_hold:
+      name: Up press or hold
+      description: Action for button up press or hold
       default: []
       selector:
         action: {}
-    on_hold_released:
-      name: Button On Hold released
-      description: Action set to run, when the Button On is pressed and is released after long press.
-      default: []
-      selector:
-        action: {}
-    up_pressed:
-      name: Up Pressed
-      description: Action set to run, when the Up pressed even when hold.
-      default: []
-      selector:
-        action: {}
-    up_held:
-      name: Up Held
-      description: Action set to run, when the Up is held.
-      default: []
-      selector:
-        action: {}
-    up_released:
-      name: Up released
-      description: Action set to run, when the Up is released.
-      default: []
-      selector:
-        action: {}
-    up_hold_released:
-      name: Button Up Hold released
-      description: Action set to run, when the Button Up is pressed and is released after long press.
-      default: []
-      selector:
-        action: {}
-    down_pressed:
-      name: Down Pressed
-      description: Action set to run, when the Down is pressed even when hold.
-      default: []
-      selector:
-        action: {}
-    down_held:
-      name: Down Held
-      description: Action set to run, when the Down is held.
-      default: []
-      selector:
-        action: {}
-    down_released:
-      name: Down released
-      description: Action set to run, when the Down is released.
-      default: []
-      selector:
-        action: {}
-    down_hold_released:
-      name: Button Down Hold released
-      description: Action set to run, when the Button Down is pressed and is released after long press.
-      default: []
-      selector:
-        action: {}
-    off_pressed:
-      name: Off Pressed
-      description: Action set to run, when the Off is pressed even when hold. (Off is also the "hue" button)
-      default: []
-      selector:
-        action: {}
-    off_held:
-      name: Off Held
-      description: Action set to run, when the Off is held. (Off is also the "hue" button)
-      default: []
-      selector:
-        action: {}
-    off_released:
-      name: Off released
-      description: Action set to run, when the Off is released. (Off is also the "hue" button)
-      default: []
-      selector:
-        action: {}
-    off_hold_released:
-      name: Button Off Hold released
-      description: Action set to run, when the Button Off is pressed and is released after long press. (Off is also the "hue" button)
+    down_press_or_hold:
+      name: Down press or hold
+      description: Action for button down press or hold
       default: []
       selector:
         action: {}
@@ -146,51 +51,40 @@ mode: restart
 trigger_variables:
   base_topic: !input base_topic
   controller: !input controller
+
 trigger:
   - platform: mqtt
-    topic: "{{ base_topic ~ '/' ~ controller }}"
+    topic: "{{ base_topic ~ '/' ~ controller ~ '/action' }}"
+
+# This condition is not strictly necessary, but it makes sure that the automation only triggers when there is a
+# supported action. This makes for easier debugging etc.
 condition:
   - condition: template
-    value_template: "{{ 'action' in trigger.payload_json and trigger.payload_json.action != '' }}"
+    value_template: "{{ trigger.payload in [
+      'on_press',
+      'off_press',
+      'up_press',
+      'up_hold',
+      'down_press',
+      'down_hold',
+    ] }}"
+    # Not implemented:
+    # - on_press_release, on_hold, on_hold_release
+    # - off_press_release, off_hold, off_hold_release
+    # - up_press_release, up_hold_release
+    # - down_press_release, down_hold_release
+
 action:
   - variables:
       controller: !input controller
+      command: "{{ trigger.payload }}"
+
   - choose:
-      - conditions: "{{('hold' in trigger.payload_json.action) or ('release' in trigger.payload_json.action) or 'press' in trigger.payload_json.action}}"
-        sequence:
-          - choose:
-              - conditions: '{{ trigger.payload_json.action == "on_press" or trigger.payload_json.action == "on-press" }}'
-                sequence: !input on_press
-              - conditions: '{{ trigger.payload_json.action == "up_press" or trigger.payload_json.action == "up-press" }}'
-                sequence: !input up_pressed
-              - conditions: '{{ trigger.payload_json.action == "down_press" or trigger.payload_json.action == "down-press" }}'
-                sequence: !input down_pressed
-              - conditions: '{{ trigger.payload_json.action == "off_press" or trigger.payload_json.action == "off-press" }}'
-                sequence: !input off_pressed
-
-              - conditions: '{{ trigger.payload_json.action == "on_hold" or trigger.payload_json.action == "on-hold" }}'
-                sequence: !input on_held
-              - conditions: '{{ trigger.payload_json.action == "up_hold" or trigger.payload_json.action == "up-hold" }}'
-                sequence: !input up_held
-              - conditions: '{{ trigger.payload_json.action == "down_hold" or trigger.payload_json.action == "down-hold" }}'
-                sequence: !input down_held
-              - conditions: '{{ trigger.payload_json.action == "off_hold" or trigger.payload_json.action == "off-hold" }}'
-                sequence: !input off_held
-
-              - conditions: '{{ trigger.payload_json.action == "on_press_release" or trigger.payload_json.action == "on-press-release" }}'
-                sequence: !input on_released
-              - conditions: '{{ trigger.payload_json.action == "up_press_release" or trigger.payload_json.action == "up-press-release" }}'
-                sequence: !input up_released
-              - conditions: '{{ trigger.payload_json.action == "down_press_release" or trigger.payload_json.action == "down-press-release" }}'
-                sequence: !input down_released
-              - conditions: '{{ trigger.payload_json.action == "off_press_release" or trigger.payload_json.action == "off-press-release" }}'
-                sequence: !input off_released
-
-              - conditions: '{{ trigger.payload_json.action == "on_hold_release" or trigger.payload_json.action == "on-hold-release" }}'
-                sequence: !input on_hold_released
-              - conditions: '{{ trigger.payload_json.action == "up_hold_release" or trigger.payload_json.action == "up-hold-release" }}'
-                sequence: !input up_hold_released
-              - conditions: '{{ trigger.payload_json.action == "down_hold_release" or trigger.payload_json.action == "down-hold-release" }}'
-                sequence: !input down_hold_released
-              - conditions: '{{ trigger.payload_json.action == "off_hold_release" or trigger.payload_json.action == "off-hold-release" }}'
-                sequence: !input off_hold_released
+      - conditions: '{{ command == "on_press" }}'
+        sequence: !input on_press
+      - conditions: '{{ command == "off_press" }}'
+        sequence: !input off_press
+      - conditions: '{{ command in ["up_press", "up_hold"] }}'
+        sequence: !input up_press_or_hold
+      - conditions: '{{ command in ["down_press", "down_hold"] }}'
+        sequence: !input down_press_or_hold
