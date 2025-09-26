@@ -17,8 +17,12 @@ advanced:
   channel: 25
   pan_id: 35539
   network_key: '!secret.yaml network_key'
-  log_level: info
-device_options: {}
+  log_level: warning
+  last_seen: "ISO_8601"
+device_options:
+  homeassistant:
+    last_seen:
+      enabled_by_default: true
 version: 4
 devices:
   '0x0000000001732f4d':
