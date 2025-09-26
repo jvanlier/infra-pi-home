@@ -1,0 +1,38 @@
+# Requires Z2M settings:
+#
+# availability:
+#   enabled: true
+# advanced:
+#   last_seen: "ISO_8601"
+# device_options:
+#   homeassistant:
+#     last_seen:
+#       enabled_by_default: true
+#
+# Inspired by: https://www.homeautomationguy.io/blog/managing-offline-devices-in-zigbee2mqtt
+
+ - platform: template
+   sensors:
+     zigbee_device_offline:
+       friendly_name: Zigbee Device Offline
+       value_template: >-
+         {% set result = namespace(sensors=[]) %}
+         {% for state in states.sensor |
+             rejectattr('attributes.device_class', 'undefined') |
+             selectattr('attributes.device_class', '==', 'timestamp')
+         %}
+           {% if 'last_seen' in state.entity_id %}
+             {% set pretty_name = state.name | replace(" Last seen", "") %}
+             {% if states(state.entity_id) in ("unknown", "unavailable") %}
+               {% set result.sensors = result.sensors + [pretty_name ~ ": " ~ states(state.entity_id)] %}
+             {% else %}
+               {% set last_seen_timestamp = as_timestamp(states(state.entity_id)) %}
+               {% if (as_timestamp(now()) - last_seen_timestamp) > (24 * 60 * 60) %}
+                 {% set time_ago = relative_time(strptime(states(state.entity_id), '%Y-%m-%dT%H:%M:%S%z')) %}
+                 {% set result.sensors = result.sensors + [pretty_name ~ ": " ~ last_seen_timestamp | timestamp_custom("%Y-%m-%d %H:%M:%S")] %}
+               {% endif %}
+             {% endif %}
+           {% endif %}
+         {% endfor %}
+         {{ result.sensors | sort | join('\n') | truncate(254, True) }}
+      # N.b.: truncating to 254 chars to to fit within max. length, otherwise value is "unknown"
