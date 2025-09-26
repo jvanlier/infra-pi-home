@@ -15,7 +15,7 @@
       up_press_or_hold:
         - action: light.turn_on
           data:
-            brightness_step: &brightness_step 10
+            brightness_step: &brightness_step 25
             transition: 1
           target:
             entity_id: *light_entity
