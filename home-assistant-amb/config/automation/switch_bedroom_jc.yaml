@@ -8,8 +8,7 @@
       on_press:
         - action: light.turn_on
           target:
-            entity_id: &ref_c
-              - light.light_bedroom_jc_bed_c
+            entity_id: &ref_c light.light_bedroom_jc_bed_c
       off_press:
         - action: light.turn_off
           target:
@@ -17,15 +16,19 @@
       up_press_or_hold:
         - action: light.turn_on
           data:
-            brightness_step_pct: 10
+            brightness_step: &brightness_step 25
             transition: 1
           target:
             entity_id: *ref_c
       down_press_or_hold:
-        - action: light.turn_on
+        - variables:
+            light_entity: *ref_c
+            brightness_step: *brightness_step
+            current_brightness: "{{ state_attr(light_entity, 'brightness') }}"
+        - service: light.turn_on
           data:
-            brightness_step_pct: -10
             transition: 1
+            brightness: "{{ max(current_brightness - brightness_step, 1) }}"
           target:
             entity_id: *ref_c
 
@@ -39,8 +42,7 @@
       on_press:
         - action: light.turn_on
           target:
-            entity_id: &ref_j
-              - light.light_bedroom_jc_bed_j
+            entity_id: &ref_j light.light_bedroom_jc_bed_j
       off_press:
         - action: light.turn_off
           target:
@@ -48,14 +50,18 @@
       up_press_or_hold:
         - action: light.turn_on
           data:
-            brightness_step_pct: 10
+            brightness_step: *brightness_step
             transition: 1
           target:
             entity_id: *ref_j
       down_press_or_hold:
-        - action: light.turn_on
+        - variables:
+            light_entity: *ref_j
+            brightness_step: *brightness_step
+            current_brightness: "{{ state_attr(light_entity, 'brightness') }}"
+        - service: light.turn_on
           data:
-            brightness_step_pct: -10
             transition: 1
+            brightness: "{{ max(current_brightness - brightness_step, 1) }}"
           target:
             entity_id: *ref_j
