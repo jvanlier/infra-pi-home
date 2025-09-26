@@ -17,7 +17,7 @@
          {% set result = namespace(sensors=[]) %}
          {% for state in states.sensor |
              rejectattr('attributes.device_class', 'undefined') |
-             selectattr('attributes.device_class', '==', 'timestamp') 
+             selectattr('attributes.device_class', '==', 'timestamp')
          %}
            {% if 'last_seen' in state.entity_id %}
              {% set pretty_name = state.name | replace(" Last seen", "") %}
