@@ -1,0 +1,13 @@
+# Relies on template sensor in sensor/zigbee_device_offline.yaml
+
+- id: zigbee_device_offline
+  alias: Zigbee Device Offline Notification
+  trigger:
+    - platform: state
+      entity_id: sensor.zigbee_device_offline
+  action:
+    - service: notify.mobile_app_j16
+      data:
+        title: "Zigbee Device Offline"
+        message: "{{ states('sensor.zigbee_device_offline') }}"
+  mode: restart
