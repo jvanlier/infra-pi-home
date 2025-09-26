@@ -5,37 +5,23 @@
     path: custom/hue_dimmer_switch.yaml
     input:
       controller: Switch Dimmer Bedroom JC Bed C
-      on_released:
+      on_press:
         - action: light.turn_on
           target:
             entity_id: &ref_c
               - light.light_bedroom_jc_bed_c
-      off_released:
+      off_press:
         - action: light.turn_off
           target:
             entity_id: *ref_c
-      up_pressed:
+      up_press_or_hold:
         - action: light.turn_on
           data:
             brightness_step_pct: 10
             transition: 1
           target:
             entity_id: *ref_c
-      up_held:
-        - action: light.turn_on
-          data:
-            brightness_step_pct: 10
-            transition: 1
-          target:
-            entity_id: *ref_c
-      down_pressed::
-        - action: light.turn_on
-          data:
-            brightness_step_pct: -10
-            transition: 1
-          target:
-            entity_id: *ref_c
-      down_held:
+      down_press_or_hold:
         - action: light.turn_on
           data:
             brightness_step_pct: -10
@@ -50,37 +36,23 @@
     path: custom/hue_dimmer_switch.yaml
     input:
       controller: Switch Dimmer Bedroom JC Bed J
-      on_released:
+      on_press:
         - action: light.turn_on
           target:
             entity_id: &ref_j
               - light.light_bedroom_jc_bed_j
-      off_released:
+      off_press:
         - action: light.turn_off
           target:
             entity_id: *ref_j
-      up_pressed:
+      up_press_or_hold:
         - action: light.turn_on
           data:
             brightness_step_pct: 10
             transition: 1
           target:
             entity_id: *ref_j
-      up_held:
-        - action: light.turn_on
-          data:
-            brightness_step_pct: 10
-            transition: 1
-          target:
-            entity_id: *ref_j
-      down_pressed:
-        - action: light.turn_on
-          data:
-            brightness_step_pct: -10
-            transition: 1
-          target:
-            entity_id: *ref_j
-      down_held:
+      down_press_or_hold:
         - action: light.turn_on
           data:
             brightness_step_pct: -10
