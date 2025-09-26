@@ -8,6 +8,8 @@
 #   homeassistant:
 #     last_seen:
 #       enabled_by_default: true
+#
+# Inspired by: https://www.homeautomationguy.io/blog/managing-offline-devices-in-zigbee2mqtt
 
  - platform: template
    sensors:
