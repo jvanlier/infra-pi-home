@@ -2,12 +2,13 @@ blueprint:
   name: Hue Tap Dial (Z2M) - Adaptive Lighting - disco
   description: >
     Implementation for Hue Tap Dial for Zigbee2MQTT with specific Adaptive Lighting (AL) support,
-    and color cycle ("disco") on the color light group.
+    and both manual and automatic color cycle (disco) on the color light group.
 
     Requirements:
     - 1 or more Zigbee groups for all ambiance lights, configured as light entity in AL
     - 1 Zigbee group for all color lights, configured as light entity in AL
     - 1 Zigbee group for _all_ lights (not configured in AL)
+    - 1 input boolean for disco
 
     The _all_ group is used for switching all lights _off_ reliably and in sync, and for dimming.
     The _all_ group is not used for turning lights _on_, because that will not activate AL.
@@ -18,8 +19,9 @@ blueprint:
     However, when dimming, they will all get the same brightness, so any difference is lost until AL is
     re-activated (using button 1).
 
-    Button 2 is used to cycle through random colors ("disco") after each press - meant for kids.
-    Button 4 can toggle a boolean for automatic color cycle.
+    Disco features, meant for kids:
+    - Button 2 is used to cycle through random colors after each press.
+    - Button 4 activates disco (automatic random color cycle).
 
   domain: automation
 
@@ -84,6 +86,15 @@ blueprint:
         entity:
           domain: switch
 
+    input_boolean_disco:
+      name: Input boolean for disco.
+      description: >
+        Input boolean for disco toggle.
+      selector:
+        entity:
+          domain: input_boolean
+          multiple: false
+
 mode: restart
 
 trigger_variables:
@@ -120,6 +131,10 @@ action:
   - choose:
       - conditions: '{{ command == "button_1_press" }}'
         sequence:
+          # Turn off disco, in case it was running:
+          - service: input_boolean.turn_off
+            target:
+              entity_id: !input input_boolean_disco
           # Turn on adaptive brightness, in case it was turned off earlier due to dimming:
           - service: switch.turn_on
             target:
@@ -130,6 +145,10 @@ action:
               turn_on_lights: true
       - conditions: '{{ command == "button_3_press" }}'
         sequence:
+          # Turn off disco, in case it was running:
+          - service: input_boolean.turn_off
+            target:
+              entity_id: !input input_boolean_disco
           - service: light.turn_off
             target:
               entity_id: !input light_group_all
@@ -164,8 +183,12 @@ action:
             target:
               entity_id: !input light_group_all
       - conditions: '{{ command == "button_2_press" }}'
-        # Disco!
+        # Manual random color
         sequence:
+          # Turn off disco, in case it was running:
+          - service: input_boolean.turn_off
+            target:
+              entity_id: !input input_boolean_disco
           - service: light.turn_on
             data:
               transition: 1
@@ -173,19 +196,8 @@ action:
             target:
               entity_id: !input light_group_color
       - conditions: '{{ command == "button_4_press" }}'
-        # Disco!
+        # Automatic disco
         sequence:
-          - repeat:
-              sequence:
-                - service: light.turn_on
-                  data:
-                    transition: 0.5
-                    rgb_color: ["{{ range(0, 255) | random }}", "{{ range(0, 255) | random  }}", "{{ range(0, 255) | random  }}"]
-                  target:
-                    entity_id: !input light_group_color
-                - delay: "00:00:02"
-              while:
-                # Repeat requires a stop condition, but we rely on the automation getting canceled due mode: repeat
-                - condition: state
-                  entity_id: !input light_group_color
-                  state: "on"
+          - service: input_boolean.toggle
+            target:
+              entity_id: !input input_boolean_disco
