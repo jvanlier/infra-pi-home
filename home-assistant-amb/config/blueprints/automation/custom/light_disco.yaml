@@ -1,0 +1,47 @@
+blueprint:
+  name: Light Disco
+  description: >
+    TODO
+
+  domain: automation
+
+  input:
+    light_group_color:
+      name: Single Zigbee group that contains all the color lights.
+      description: >
+        These are the lights used for the disco.
+      selector:
+        entity:
+          domain: light
+          multiple: false
+
+    input_boolean_disco:
+      name: Input boolean for disco.
+      description: >
+        Input boolean for disco toggle.
+      selector:
+        entity:
+          domain: input_boolean
+          multiple: false
+
+mode: restart
+
+trigger:
+  - platform: state
+    entity_id: !input input_boolean_disco
+    to: "on"
+
+action:
+  - repeat:
+      sequence:
+        - service: light.turn_on
+          data:
+            transition: 0.25
+            rgb_color: ["{{ range(0, 255) | random }}", "{{ range(0, 255) | random  }}", "{{ range(0, 255) | random  }}"]
+          target:
+            entity_id: !input light_group_color
+        - delay: "00:00:01"
+      while:
+        - condition: state
+          entity_id: !input input_boolean_disco
+          state: "on"

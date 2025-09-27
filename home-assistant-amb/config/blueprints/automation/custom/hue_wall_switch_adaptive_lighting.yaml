@@ -48,7 +48,6 @@ blueprint:
         entity:
           domain: switch
 
-
 mode: restart
 
 trigger_variables:
