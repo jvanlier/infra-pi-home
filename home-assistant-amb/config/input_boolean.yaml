@@ -7,6 +7,12 @@ sleep_mode:
 sleep_mode_kids:
   name: Sleep Mode Kids
   icon: mdi:sleep
+# disco_olivier:
+#   name: Disco Olivier
+#   icon: mdi:party-popper
+# disco_duco:
+#   name: Disco Duco
+#   icon: mdi:party-popper
 
 # Not yet installed, coming soon:
 # motion_activated_lights:
