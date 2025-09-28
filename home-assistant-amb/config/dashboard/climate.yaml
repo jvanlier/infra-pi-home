@@ -59,6 +59,9 @@ views:
             grid_options:
               columns: 6
               rows: 3
+        column_span: 4
+      - type: grid
+        cards:
           - type: heading
             heading: Temperature
             heading_style: title
