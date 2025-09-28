@@ -33,6 +33,10 @@ trigger:
 
 action:
   - repeat:
+      while:
+        - condition: state
+          entity_id: !input input_boolean_disco
+          state: "on"
       sequence:
         - service: light.turn_on
           data:
@@ -41,7 +45,3 @@ action:
           target:
             entity_id: !input light_group_color
         - delay: "00:00:02"
-      while:
-        - condition: state
-          entity_id: !input input_boolean_disco
-          state: "on"
