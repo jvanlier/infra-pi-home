@@ -41,14 +41,32 @@ views:
       - type: grid
         cards:
           - type: heading
+            heading: Thermostat
+            heading_style: subtitle
+            icon: mdi:thermostat-box
+          - type: thermostat
+            entity: climate.woonkamer
+            grid_options:
+              rows: 3
+              columns: 6
+          - type: thermostat
+            entity: climate.slaapkamer
+            grid_options:
+              columns: 6
+              rows: 3
+          - type: thermostat
+            entity: climate.study
+            grid_options:
+              columns: 6
+              rows: 3
+          - type: heading
             heading: Temperature
             heading_style: title
             icon: mdi:thermometer
-          - &ref_3
-            type: heading
+          - type: heading
+            heading: Temperature 1 day
             heading_style: subtitle
-            icon: ''
-            heading: 1 day
+            icon: mdi:thermometer
           - chart_type: line
             period: hour
             type: statistics-graph
@@ -73,11 +91,10 @@ views:
             grid_options: &ref_2
               columns: full
               rows: 6
-          - &ref_4
-            type: heading
+          - type: heading
             heading_style: subtitle
-            icon: ''
-            heading: 1 week
+            heading: Temperature 1 week
+            icon: mdi:thermometer
           - chart_type: line
             period: hour
             type: statistics-graph
@@ -91,7 +108,10 @@ views:
             heading: Humidity
             heading_style: title
             icon: mdi:water-percent
-          - *ref_3
+          - type: heading
+            heading: Humidity 1 day
+            heading_style: subtitle
+            icon: mdi:water-percent
           - chart_type: line
             period: hour
             type: statistics-graph
@@ -119,7 +139,10 @@ views:
             grid_options: &ref_7
               columns: 12
               rows: 6
-          - *ref_4
+          - type: heading
+            heading_style: subtitle
+            heading: Humidity 1 week
+            icon: mdi:water-percent
           - chart_type: line
             period: hour
             type: statistics-graph

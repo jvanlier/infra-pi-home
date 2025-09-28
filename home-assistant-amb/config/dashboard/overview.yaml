@@ -183,8 +183,28 @@ views:
               action: navigate
               navigation_path: /dashboard-climate
           - type: heading
+            heading: Thermostat
+            heading_style: subtitle
+            icon: mdi:thermostat-box
+          - type: thermostat
+            entity: climate.woonkamer
+            grid_options:
+              rows: 3
+              columns: 6
+          - type: thermostat
+            entity: climate.slaapkamer
+            grid_options:
+              columns: 6
+              rows: 3
+          - type: thermostat
+            entity: climate.study
+            grid_options:
+              columns: 6
+              rows: 3
+          - type: heading
             heading_style: subtitle
             heading: Temperature 1 day
+            icon: mdi:thermometer
           - type: statistics-graph
             period: hour
             chart_type: line
@@ -206,6 +226,7 @@ views:
           - type: heading
             heading_style: subtitle
             heading: Humidity 1 day
+            icon: mdi:water-percent
           - type: statistics-graph
             period: hour
             chart_type: line
