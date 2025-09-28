@@ -10,9 +10,11 @@ sleep_mode_kids:
 disco_olivier:
   name: Disco Olivier
   icon: mdi:party-popper
+  initial: false
 disco_duco:
   name: Disco Duco
   icon: mdi:party-popper
+  initial: false
 
 # Not yet installed, coming soon:
 # motion_activated_lights:
