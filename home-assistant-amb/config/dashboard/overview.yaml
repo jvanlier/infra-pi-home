@@ -187,15 +187,10 @@ views:
             heading_style: subtitle
             icon: mdi:thermostat-box
           - type: thermostat
-            entity: climate.woonkamer
+            entity: climate.living
             grid_options:
               rows: 3
               columns: 6
-          - type: thermostat
-            entity: climate.slaapkamer
-            grid_options:
-              columns: 6
-              rows: 3
           - type: thermostat
             entity: climate.study
             grid_options:

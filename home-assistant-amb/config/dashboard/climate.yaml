@@ -39,27 +39,28 @@ views:
         color: teal
     sections:
       - type: grid
+        column_span: 4
         cards:
           - type: heading
             heading: Thermostat
             heading_style: subtitle
             icon: mdi:thermostat-box
           - type: thermostat
-            entity: climate.woonkamer
+            entity: climate.living
             grid_options:
               rows: 3
               columns: 6
-          - type: thermostat
-            entity: climate.slaapkamer
-            grid_options:
-              columns: 6
-              rows: 3
           - type: thermostat
             entity: climate.study
             grid_options:
               columns: 6
               rows: 3
-        column_span: 4
+          - type: thermostat
+            entity: climate.bedroom_jc
+            grid_options:
+              columns: 6
+              rows: 3
+          - type: text
       - type: grid
         cards:
           - type: heading
