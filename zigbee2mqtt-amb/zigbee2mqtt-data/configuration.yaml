@@ -18,7 +18,7 @@ advanced:
   pan_id: 35539
   network_key: '!secret.yaml network_key'
   log_level: warning
-  last_seen: "ISO_8601"
+  last_seen: ISO_8601
 device_options:
   homeassistant:
     last_seen:
@@ -27,6 +27,7 @@ version: 4
 devices:
   '0x0000000001732f4d':
     friendly_name: Switch Hall 0
+    availability: false
   '0x001788010d12f602':
     friendly_name: Switch Tap Dial Living
   '0x0017880104f4f2b7':
