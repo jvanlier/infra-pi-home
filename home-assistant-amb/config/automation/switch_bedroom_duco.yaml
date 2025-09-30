@@ -14,6 +14,7 @@
       switch_entities_adapt_brightness: &ref_switch_adapt_brightness
         - switch.adaptive_lighting_adapt_brightness_bedroom_duco_ambiance
         - switch.adaptive_lighting_adapt_brightness_bedroom_duco_color
+      input_boolean_disco: input_boolean.disco_duco
 
 - alias: Switch Wall Bedroom Duco
   id: switch_wall_bedroom_duco
