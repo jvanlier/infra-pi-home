@@ -20,6 +20,7 @@
         - switch.adaptive_lighting_sleep_mode_kitchen_middle
         - switch.adaptive_lighting_sleep_mode_kitchen_countertop
         - switch.adaptive_lighting_sleep_mode_bathroom
+  mode: restart
 
 - alias: "Sleep mode: scheduled on"
   id: sleep-mode-scheduled-on
@@ -63,6 +64,7 @@
         - switch.adaptive_lighting_sleep_mode_bedroom_duco_color
         - switch.adaptive_lighting_sleep_mode_bedroom_olivier_ambiance
         - switch.adaptive_lighting_sleep_mode_bedroom_olivier_color
+  mode: restart
 
 - alias: "Sleep mode kids: scheduled on"
   id: sleep-mode-kids-scheduled-on
