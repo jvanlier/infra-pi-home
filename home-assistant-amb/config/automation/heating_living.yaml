@@ -1,0 +1,50 @@
+- alias: Heating living scheduled on
+  id: heating-living-scheduled-on
+  trigger:
+    - platform: time
+      at: &turn_on_time "06:30:00"
+  condition:
+    - condition: state
+      entity_id: sensor.at_least_one_person_home
+      state: "yes"
+  action:
+    - service: climate.set_temperature
+      data:
+        temperature: &target_day_temp 20
+      target:
+        entity_id: climate.living
+
+- alias: Heating living off
+  id: heating-living-off
+  trigger:
+    - platform: time
+      at: &turn_off_time "21:00:00"
+  condition:
+    # Avoid setting it if manually set lower already
+    - condition: numeric_state
+      entity_id: climate.living
+      attribute: temperature
+      above: &target_night_temp 18
+  action:
+    - service: climate.set_temperature
+      data:
+        temperature: *target_night_temp
+      target:
+        entity_id: climate.living
+
+- alias: Heating living on when someone comes home
+  id: heating-living-on-when-someone-comes-home
+  trigger:
+    - platform: state
+      entity_id: sensor.at_least_one_person_home
+      to: "yes"
+  condition:
+    - condition: time
+      after: *turn_on_time
+      before: *turn_off_time
+  action:
+    - service: climate.set_temperature
+      data:
+        temperature: *target_day_temp
+      target:
+        entity_id: climate.living
