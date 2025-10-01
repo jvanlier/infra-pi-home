@@ -6,6 +6,18 @@ views:
     max_columns: 3
     badges:
       - type: entity
+        entity: person.jori
+        show_name: true
+        show_state: true
+        show_icon: true
+        show_entity_picture: true
+      - type: entity
+        entity: person.chantal
+        show_name: true
+        show_state: true
+        show_icon: true
+        show_entity_picture: true
+      - type: entity
         show_name: false
         show_state: true
         show_icon: true
