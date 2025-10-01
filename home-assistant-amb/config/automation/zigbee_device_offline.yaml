@@ -3,10 +3,10 @@
 - id: zigbee_device_offline_daily_reminder
   alias: &ref_alias_reminder Zigbee device offline daily reminder
   trigger:
-    - platform: state
-      entity_id: &templ_sensor sensor.zigbee_device_offline
+    - platform: time
+      at: "20:00:00"
   variables:
-    templ_sensor: *templ_sensor
+    templ_sensor: &templ_sensor sensor.zigbee_device_offline
   condition:
     - condition: template
       value_template: "{{ states(templ_sensor) != '' }}"
