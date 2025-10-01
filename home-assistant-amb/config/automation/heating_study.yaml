@@ -4,12 +4,12 @@
     - platform: numeric_state
       entity_id: sensor.plug_workstation_power
       above: 60
-    - condition: state
-      entity_id: sensor.at_least_one_person_home
-      state: "yes"
   condition:
     - condition: time
       before: &off_time "21:00:00"
+    - condition: state
+      entity_id: sensor.at_least_one_person_home
+      state: "yes"
   action:
     - service: climate.set_temperature
       data:
