@@ -90,8 +90,6 @@ devices:
     friendly_name: Water Leak Dryer
   '0x00158d008bbf75b3':
     friendly_name: Water Leak Quooker
-  '0x00158d008bbe3d84':
-    friendly_name: Water Leak Dishwasher
   '0x00158d0008980cd7':
     friendly_name: Climate Bedroom Olivier
   '0x00158d0007ef3720':
@@ -113,7 +111,7 @@ devices:
   '0x0017880108d1b3f3':
     friendly_name: Light Stair Cabinet
   '0x00158d008bbe4913':
-    friendly_name: Water Leak Storage Room Window
+    friendly_name: Water Leak Dishwasher
   '0x001788010c24ce62':
     friendly_name: Switch Dimmer Bathroom
   '0x001788010eed6730':
