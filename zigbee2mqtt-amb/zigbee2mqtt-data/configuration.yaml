@@ -5,6 +5,8 @@ mqtt:
   server: mqtt://mqtt:1884
 availability:
   enabled: true
+  timeout: 30
+  max_jitter: 60000
 serial:
   adapter: zstack
   port: tcp://192.168.1.131:6638
