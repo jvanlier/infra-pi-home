@@ -9,7 +9,7 @@
   sensors:
     washing_machine_state:
        unique_id: 'washing_machine_state_v1'
-       friendly_name: Washing Machine
+       friendly_name: Washing Machine State
        value_template: >-
          {% if states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 1000 %}
            heating
