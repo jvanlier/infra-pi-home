@@ -299,8 +299,6 @@ views:
             color: amber
             icon: mdi:light-flood-up
             name: Garden Lights
-      - type: grid
-        cards:
           - type: heading
             heading: Appliances
             heading_style: title
