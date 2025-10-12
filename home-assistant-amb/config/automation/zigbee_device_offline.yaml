@@ -27,6 +27,9 @@
   action:
     # Wait for a little while to allow multiple changes to accumulate.
     # Due to mode restart, the waiting instance will get killed if a new one starts.
+    #
+    # Known issue: if a device goes offline and comes back online wihhin the delay period, a notification will be sent
+    # stating that no devices are offline, and there is no indication which device that was.
     - delay: "00:00:30"
     - service: notify.mobile_app_j16
       data:
