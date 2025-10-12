@@ -266,7 +266,7 @@ views:
             icon: mdi:alpha-w
           - type: heading
             icon: mdi:transmission-tower
-            heading: Grid
+            heading: Grid net use (2h)
             heading_style: subtitle
             tap_action:
               action: navigate
@@ -275,7 +275,6 @@ views:
             entities:
               - entity: sensor.electricity_meter_power_net
             hours_to_show: 2
-            title: Grid net use (2h)
             grid_options:
               columns: 12
               rows: 4
@@ -300,3 +299,17 @@ views:
             color: amber
             icon: mdi:light-flood-up
             name: Garden Lights
+      - type: grid
+        cards:
+          - type: heading
+            heading: Appliances
+            heading_style: title
+            icon: mdi:washing-machine
+          - type: tile
+            entity: sensor.washing_machine_state
+            icon: mdi:washing-machine
+          - type: history-graph
+            entities:
+              - entity: sensor.washing_machine_state
+                name: WM
+            hours_to_show: 12
