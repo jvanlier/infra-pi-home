@@ -48,6 +48,11 @@ views:
             entity: light.light_dining_table
             features:
               - type: light-brightness
+          - type: tile
+            name: Go tablelamp
+            entity: light.light_go
+            features:
+              - type: light-brightness
           - type: heading
             heading: Kitchen
             heading_style: subtitle
