@@ -5,8 +5,6 @@ mqtt:
   server: mqtt://mqtt:1884
 availability:
   enabled: true
-  timeout: 30
-  max_jitter: 60000
 serial:
   adapter: zstack
   port: tcp://192.168.1.131:6638
@@ -47,11 +45,11 @@ devices:
   '0x84fd27fffe3b11f1':
     friendly_name: Light Living White Cabinet
   '0x001788010ee66d40':
-    friendly_name: Light Living Wall Left 1
+    friendly_name: Light Bedroom JC Bed C
   '0x001788010ee652c5':
     friendly_name: Light Kitchen Middle 1
   '0x001788010ee652ae':
-    friendly_name: Light Living Wall Left 2
+    friendly_name: Light Bedroom JC Bed J
   '0x001788010ee64599':
     friendly_name: Light Living Garden L1
   '0x001788010ee66ab7':
@@ -110,8 +108,6 @@ devices:
     friendly_name: Climate Fridge
   '0x00158d0008328d33':
     friendly_name: Climate Storage
-  '0x0017880108d1b3f3':
-    friendly_name: Light Stair Cabinet
   '0x00158d008bbe4913':
     friendly_name: Water Leak Dishwasher
   '0x001788010c24ce62':
@@ -129,7 +125,7 @@ devices:
   '0x001788010e43e385':
     friendly_name: Light Kitchen Countertop 2
   '0x001788010eee17e5':
-    friendly_name: Light Bedroom Duco 2
+    friendly_name: Light Stair Cabinet
   '0x001788010ef1af8a':
     friendly_name: Light Bedroom Duco 4
   '0x001788010eed58f2':
@@ -164,14 +160,18 @@ devices:
     friendly_name: Switch Wall Living
   '0x001788010ee67448':
     friendly_name: Light Toilet
-  '0x0017880108d06187':
-    friendly_name: Light Bedroom JC Bed J
-  '0x0017880108cad8f9':
-    friendly_name: Light Bedroom JC Bed C
   '0x0017880104f42a11':
     friendly_name: Switch Dimmer Bedroom JC Bed C
   '0x001788010871a0c5':
     friendly_name: Switch Dimmer Bedroom JC Bed J
+  '0x001788010eed6adf':
+    friendly_name: Light Living Wall Left 2
+  '0x001788010eed6db0':
+    friendly_name: Light Living Wall Left 1
+  '0x001788010eed5e3b':
+    friendly_name: Light Bedroom Duco 2
+  '0x001788010efd454a':
+    friendly_name: Light Go
 groups:
   '1':
     friendly_name: Light Group Living Spot
