@@ -129,7 +129,7 @@ views:
             name: Dining Table
             entity: light.light_dining_table
           - type: tile
-            name: Go tablelamp
+            name: Go
             entity: light.light_go
           - type: heading
             heading: Kitchen

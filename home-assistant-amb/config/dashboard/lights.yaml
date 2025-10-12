@@ -49,7 +49,7 @@ views:
             features:
               - type: light-brightness
           - type: tile
-            name: Go tablelamp
+            name: Go
             entity: light.light_go
             features:
               - type: light-brightness
