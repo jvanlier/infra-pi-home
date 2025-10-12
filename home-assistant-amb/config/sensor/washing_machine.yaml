@@ -1,0 +1,22 @@
+- platform: filter
+  name: 'Plug Washing Machine power filtered'
+  entity_id: 'sensor.plug_washing_machine_power'
+  filters:
+    - filter: time_simple_moving_average
+      window_size: "00:00:40"
+
+- platform: template
+  sensors:
+    washing_machine_state:
+       unique_id: 'washing_machine_state_v1'
+       friendly_name: Washing Machine
+       value_template: >-
+         {% if states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 1000 %}
+           heating
+         {% elif states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 4.5 %}
+           washing
+         {% elif states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 1 %}
+           idle
+         {% else %}
+           off
+         {% endif %}
