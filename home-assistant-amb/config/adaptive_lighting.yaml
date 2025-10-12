@@ -6,7 +6,7 @@
   lights: ["light.light_group_hall_0_spot"]
   min_brightness: 15
   max_brightness: 20
-  min_color_temp: 2400
+  min_color_temp: 2500
   max_color_temp: 4000
 
 - name: "hall-0-wall"
@@ -18,14 +18,14 @@
   lights: ["light.light_toilet"]
   min_brightness: 50
   max_brightness: 60
-  min_color_temp: 2400
+  min_color_temp: 2500
   max_color_temp: 4000
 
 - name: "living-spot"
   lights: ["light.light_group_living_spot"]
   min_brightness: 30
   max_brightness: 40
-  min_color_temp: 2400
+  min_color_temp: 2500
   max_color_temp: 4000
 
 - name: "living-white-cabinet"
@@ -51,7 +51,7 @@
   min_brightness: 60
   max_brightness: 100
   sleep_brightness: 10
-  min_color_temp: 2400
+  min_color_temp: 2500
   max_color_temp: 4000
 
 - name: "kitchen-middle"
@@ -79,7 +79,7 @@
   lights: ["light.light_group_bedroom_duco_ambiance"]
   min_brightness: 20
   max_brightness: 30
-  min_color_temp: 2400
+  min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
 
@@ -87,7 +87,7 @@
   lights: ["light.light_group_bedroom_duco_color"]
   min_brightness: 20
   max_brightness: 30
-  min_color_temp: 2000
+  min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
 
@@ -95,7 +95,7 @@
   lights: ["light.light_group_bedroom_olivier_ambiance"]
   min_brightness: 20
   max_brightness: 30
-  min_color_temp: 2000
+  min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
 
@@ -103,6 +103,6 @@
   lights: ["light.light_group_bedroom_olivier_color"]
   min_brightness: 20
   max_brightness: 30
-  min_color_temp: 2000
+  min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
