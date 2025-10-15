@@ -172,6 +172,7 @@ devices:
     friendly_name: Light Bedroom Duco 2
   '0x001788010efd454a':
     friendly_name: Light Go
+    availability: false
 groups:
   '1':
     friendly_name: Light Group Living Spot
