@@ -1,0 +1,18 @@
+- alias: Alert phase over 25A
+  id: alert-phase-over-25-a
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.electricity_meter_current_phase_l1
+      above: 25
+    - platform: numeric_state
+      entity_id: sensor.electricity_meter_current_phase_l2
+      above: 25
+    # L3 is not connected
+  action:
+    - service: notify.mobile_app_J16
+      data:
+        title: Electricity overload warning
+        message: >
+          One of the phases is over 25A.
+          L1 (droger, schuur): {{ states('sensor.electricity_meter_current_phase_l1') | round }}A,
+          L2 (WM, oven): {{ states('sensor.electricity_meter_current_phase_l2') | round }}A
