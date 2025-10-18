@@ -1,0 +1,14 @@
+- alias: Fridge temp above 11 degrees
+  id: fridge-temp-above-11
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.climate_fridge_temperature
+      above: 11
+  action:
+    - service: notify.notify
+      data:
+        title: Fridge
+        message: >-
+          Fridge temperature is high.
+          Measured {{ states('sensor.climate_fridge_temperature') | round(1) }}°C
+  mode: single
