@@ -32,11 +32,13 @@ trigger:
     to: "on"
 
 action:
+  - variables:
+      input_boolean_entity: !input input_boolean_disco
   - repeat:
       while:
-        - condition: state
-          entity_id: !input input_boolean_disco
-          state: "on"
+        # Need template rather than state condition such that it gets re-evaluated each loop:
+        - condition: template
+          value_template: "{{ is_state(input_boolean_disco, 'on') }}"
       sequence:
         - service: light.turn_on
           data:
