@@ -6,7 +6,7 @@
     path: custom/light_disco.yaml
     input:
       light_group_color: light.light_group_bedroom_duco_color
-      input_boolean_disco: light.light_group_bedroom_duco_color
+      input_boolean_disco: input_boolean.disco_duco
 
 - alias: Light Disco Olivier
   id: light-disco-olivier
@@ -14,4 +14,4 @@
     path: custom/light_disco.yaml
     input:
       light_group_color: light.light_group_bedroom_olivier_color
-      input_boolean_disco: light.light_group_bedroom_olivier_color
+      input_boolean_disco: input_boolean.disco_olivier
