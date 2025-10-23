@@ -1,7 +1,39 @@
 views:
-  - title: Climate
-    path: main
-    icon: mdi:thermometer
+  - title: Thermostats
+    path: thermostats
+    icon: mdi:thermostat
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Thermostats
+            heading_style: title
+            icon: mdi:thermostat
+          - square: true
+            type: grid
+            cards:
+              - type: thermostat
+                entity: climate.living
+              - type: thermostat
+                entity: climate.bedroom_jc
+              - type: thermostat
+                entity: climate.study
+            columns: 3
+          - type: heading
+            heading: Heating percentage 24h
+            heading_style: subtitle
+            icon: mdi:heat-wave
+          - type: history-graph
+            entities:
+              - entity: sensor.woonkamer_heating
+              - entity: sensor.study_heating
+              - entity: sensor.slaapkamer_heating
+            hours_to_show: 24
+
+  - title: Measurements
+    path: measurements
+    icon: mdi:chart-areaspline
     type: sections
     max_columns: 4
     badges:
