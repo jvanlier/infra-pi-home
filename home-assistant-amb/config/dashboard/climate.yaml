@@ -3,6 +3,23 @@ views:
     path: thermostats
     icon: mdi:thermostat
     type: sections
+    badges:
+      - type: entity
+        entity: binary_sensor.ib1863854592_connection_state
+        name: Internet Bridge
+        show_name: true
+      - type: entity
+        entity: binary_sensor.tado_thermostat_living_battery
+        name: Living
+        show_name: true
+      - type: entity
+        entity: binary_sensor.tado_thermostat_bedroom_jc_battery
+        name: Bedroom JC
+        show_name: true
+      - type: entity
+        entity: binary_sensor.tado_thermostat_valve_study_battery
+        name: Study
+        show_name: true
     sections:
       - type: grid
         cards:
