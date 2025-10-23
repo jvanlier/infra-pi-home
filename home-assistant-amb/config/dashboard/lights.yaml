@@ -104,6 +104,8 @@ views:
             entity: switch.adaptive_lighting_adapt_brightness_bedroom_olivier_color
             grid_options:
               columns: 9
+          - type: tile
+            entity: input_boolean.disco_olivier
 
           - type: heading
             heading: Bedroom Duco
@@ -131,6 +133,8 @@ views:
             entity: switch.adaptive_lighting_adapt_brightness_bedroom_duco_color
             grid_options:
               columns: 9
+          - type: tile
+            entity: input_boolean.disco_duco
 
           - type: heading
             heading: Bedroom JC
