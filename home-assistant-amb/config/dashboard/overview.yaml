@@ -194,13 +194,13 @@ views:
             heading: Climate
             heading_style: title
             icon: mdi:thermometer
-            tap_action:
-              action: navigate
-              navigation_path: /dashboard-climate
           - type: heading
-            heading: Thermostat
+            heading: Thermostats
             heading_style: subtitle
             icon: mdi:thermostat-box
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-climate/thermostats
           - type: thermostat
             entity: climate.living
             grid_options:
@@ -211,6 +211,13 @@ views:
             grid_options:
               columns: 6
               rows: 3
+          - type: heading
+            heading_style: subtitle
+            heading: Measurements
+            icon: mdi:chart-areaspline
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-climate/measurements
           - type: heading
             heading_style: subtitle
             heading: Temperature 1 day
