@@ -209,8 +209,8 @@ views:
           - type: thermostat
             entity: climate.study
             grid_options:
-              columns: 6
               rows: 3
+              columns: 6
           - type: heading
             heading_style: subtitle
             heading: Measurements

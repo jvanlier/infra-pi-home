@@ -27,16 +27,21 @@ views:
             heading: Thermostats
             heading_style: title
             icon: mdi:thermostat
-          - square: true
-            type: grid
-            cards:
-              - type: thermostat
-                entity: climate.living
-              - type: thermostat
-                entity: climate.bedroom_jc
-              - type: thermostat
-                entity: climate.study
-            columns: 3
+          - type: thermostat
+            entity: climate.living
+            grid_options:
+              rows: 3
+              columns: 6
+          - type: thermostat
+            entity: climate.study
+            grid_options:
+              rows: 3
+              columns: 6
+          - type: thermostat
+            entity: climate.bedroom_jc
+            grid_options:
+              rows: 3
+              columns: 6
           - type: heading
             heading: Heating percentage 24h
             heading_style: subtitle
