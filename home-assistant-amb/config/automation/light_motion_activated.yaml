@@ -33,15 +33,26 @@
       adaptive_light_entity: switch.adaptive_lighting_hall_0_spot
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_hall_0_spot
 
-- alias: Motion-activated Light Kitchen
-  id: mal-kitchen
+- alias: Motion-activated Light Kitchen Middle
+  id: mal-kitchen-middle
   use_blueprint:
-    path: custom/light_motion_activated.yaml
+    path: custom/light_motion_activated_remain_on_dimmed_after_sunset.yaml
     input:
       motion_entity: binary_sensor.motion_kitchen_occupancy
       device_no_motion_wait: number.motion_kitchen_detection_interval
-      total_no_motion_wait: 600
-      light_target:
-        entity_id:
-          - light.light_group_kitchen_middle
-          - light.light_group_kitchen_countertop
+      total_no_motion_wait: 20
+      light_entity_id: light.light_group_kitchen_middle
+      adaptive_light_entity: switch.adaptive_lighting_kitchen_middle
+      adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_kitchen_middle
+
+- alias: Motion-activated Light Kitchen Countertop
+  id: mal-kitchen-countertop
+  use_blueprint:
+    path: custom/light_motion_activated_remain_on_dimmed_after_sunset.yaml
+    input:
+      motion_entity: binary_sensor.motion_kitchen_occupancy
+      device_no_motion_wait: number.motion_kitchen_detection_interval
+      total_no_motion_wait: 20
+      light_entity_id: light.light_group_kitchen_countertop
+      adaptive_light_entity: switch.adaptive_lighting_kitchen_countertop
+      adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_kitchen_countertop
