@@ -31,7 +31,7 @@
             below: 10  # percent
           - alias: "Study needs heating"
             condition: template
-            value_template: "{{ state_attr('climate_study', 'current_temperature') < study_target_temp }}"
+            value_template: "{{ state_attr('climate.study', 'current_temperature') < study_target_temp }}"
         sequence:
           - action: climate.set_temperature
             data:
@@ -39,7 +39,7 @@
             target:
               entity_id: climate.bedroom_jc
           - alias: "Wait for study to reach target temp"
-            wait_template: "{{ state_attr('climate_study', 'current_temperature') >= study_target_temp }}"
+            wait_template: "{{ state_attr('climate.study', 'current_temperature') >= study_target_temp }}"
             timeout: "01:00:00"
           - action: climate.set_temperature
             data:
