@@ -102,6 +102,10 @@ action:
       - conditions:
           - condition: sun
             after: sunset
+          - alias: "Ensure it hasn't been turned off in the meantime"
+            condition: state
+            entity_id: !input light_entity_id
+            state: "on"
         sequence:
           - alias: "Disable adaptive brightness"
             service: switch.turn_off
