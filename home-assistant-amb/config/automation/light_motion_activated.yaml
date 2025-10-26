@@ -9,18 +9,29 @@
       light_target:
         entity_id: light.light_toilet
 
-- alias: Motion-activated Light Hall 0
-  id: mal-hall-0
+- alias: Motion-activated Light Hall 0 Wall
+  id: mal-hall-0-wall
   use_blueprint:
-    path: custom/light_motion_activated.yaml
+    path: custom/light_motion_activated_remain_on_dimmed_after_sunset.yaml
     input:
       motion_entity: binary_sensor.motion_hall_0_occupancy
       device_no_motion_wait: number.motion_hall_0_detection_interval
-      total_no_motion_wait: 300
-      light_target:
-        entity_id:
-          - light.light_hall_0_wall
-          - light.light_group_hall_0_spot
+      total_no_motion_wait: 20
+      light_entity_id: light.light_hall_0_wall
+      adaptive_light_entity: switch.adaptive_lighting_hall_0_wall
+      adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_hall_0_wall
+
+- alias: Motion-activated Light Hall 0 Spot
+  id: mal-hall-0-spot
+  use_blueprint:
+    path: custom/light_motion_activated_remain_on_dimmed_after_sunset.yaml
+    input:
+      motion_entity: binary_sensor.motion_hall_0_occupancy
+      device_no_motion_wait: number.motion_hall_0_detection_interval
+      total_no_motion_wait: 20
+      light_entity_id: light.light_group_hall_0_spot
+      adaptive_light_entity: switch.adaptive_lighting_hall_0_spot
+      adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_hall_0_spot
 
 - alias: Motion-activated Light Kitchen
   id: mal-kitchen

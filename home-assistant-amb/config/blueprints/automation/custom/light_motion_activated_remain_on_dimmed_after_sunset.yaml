@@ -1,0 +1,123 @@
+blueprint:
+  name: Motion-activated Light Remain Dimmed After Sunset
+  description: >
+    Turn on a light when motion is detected.
+    After sunset, goes to lower brightness instead of off.
+
+    Supports only a single light entity, with associated adaptive ligthting config.
+    The adaptive lighting entity should not be shared with other lights, becasue adapt brightness gets turned off.
+  domain: automation
+  input:
+    motion_entity:
+      name: Motion sensor
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: motion
+    device_no_motion_wait:
+      name: Device wait time
+      selector:
+        entity:
+          domain: number
+    light_entity_id:
+      name: Light
+      selector:
+        entity:
+          domain: light
+          multiple: false
+    total_no_motion_wait:
+      name: Total wait time
+      description: Time to leave the light on after last motion is detected. Takes into account delay configured on device.
+      default: 180
+      selector:
+        number:
+          min: 0
+          max: 3600
+          unit_of_measurement: seconds
+    adaptive_light_entity:
+      name: Adaptive Lighting entity.
+      description: Used to apply adaptive lighting setting when motion is detected, if light was in dimmed state.
+      selector:
+        entity:
+          domain: switch
+    adaptive_light_adapt_brightness_entity:
+      name: Adaptive Lighting adapt brightness entity.
+      description: Entity to use to disable adaptive brightness when in dimmed state.
+      selector:
+        entity:
+          domain: switch
+    dim_percentage:
+      name: Dim percentage
+      description: Percentage to dim to, relative to previous value
+      default: 50
+      selector:
+        number:
+          min: 30
+          max: 70
+          unit_of_measurement: '%'
+
+mode: restart
+
+trigger:
+  platform: state
+  entity_id: !input motion_entity
+  from: "off"
+  to: "on"
+
+variables:
+  total_no_motion_wait: !input total_no_motion_wait
+  device_no_motion_wait: !input device_no_motion_wait
+  light_entity_id: !input light_entity_id
+  dim_percentage: !input dim_percentage
+
+action:
+  - alias: "Enable adaptive brightness"
+    service: switch.turn_on
+    target:
+      entity_id: !input adaptive_light_adapt_brightness_entity
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: !input light_entity_id
+            state: "off"
+        sequence:
+          - alias: "Turn on the light"
+            service: light.turn_on
+            target:
+              entity_id: !input light_entity_id
+    default:
+      - alias: "Apply adaptive brightness"
+        service: adaptive_lighting.apply
+        target:
+          entity_id: !input adaptive_light_entity
+  - alias: "Wait until there is no motion from device"
+    wait_for_trigger:
+      platform: state
+      entity_id: !input motion_entity
+      from: "on"
+      to: "off"
+  - alias: "Wait the number of seconds that has been set"
+    delay: "{{ max(total_no_motion_wait - states(device_no_motion_wait) | int(0), 0) }}"
+  - choose:
+      - conditions:
+          - condition: sun
+            after: sunset
+        sequence:
+          - alias: "Disable adaptive brightness"
+            service: switch.turn_off
+            target:
+              entity_id: !input adaptive_light_adapt_brightness_entity
+          - alias: "Dim the light"
+            service: light.turn_on
+            data:
+              brightness: "{{ ((state_attr(light_entity_id, 'brightness') | int(125)) * dim_percentage / 100) | round(0) | int }}"
+              transition: 5
+            target:
+              entity_id: !input light_entity_id
+    default:
+      - alias: "Turn off the light"
+        service: light.turn_off
+        data:
+          transition: 5
+        target:
+          entity_id: !input light_entity_id
