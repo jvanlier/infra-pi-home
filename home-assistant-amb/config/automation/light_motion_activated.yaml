@@ -20,7 +20,7 @@
       light_target:
         entity_id:
           - light.light_hall_0_wall
-          - light.light_hall_0_spot
+          - light.light_group_hall_0_spot
 
 - alias: Motion-activated Light Kitchen
   id: mal-kitchen
@@ -32,5 +32,5 @@
       total_no_motion_wait: 600
       light_target:
         entity_id:
-          - light.light_kitchen_middle
-          - light.light_kitchen_countertop
+          - light.light_group_kitchen_middle
+          - light.light_group_kitchen_countertop
