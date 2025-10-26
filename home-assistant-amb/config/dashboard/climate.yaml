@@ -48,9 +48,9 @@ views:
             icon: mdi:heat-wave
           - type: history-graph
             entities:
-              - entity: sensor.woonkamer_heating
+              - entity: sensor.living_heating
               - entity: sensor.study_heating
-              - entity: sensor.slaapkamer_heating
+              - entity: sensor.bedroom_jc_heating
             hours_to_show: 24
 
   - title: Measurements
