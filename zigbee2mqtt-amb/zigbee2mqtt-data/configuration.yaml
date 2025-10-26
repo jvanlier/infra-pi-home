@@ -173,6 +173,7 @@ devices:
   '0x001788010efd454a':
     friendly_name: Light Go
     availability: false
+    color_sync: true
 groups:
   '1':
     friendly_name: Light Group Living Spot
