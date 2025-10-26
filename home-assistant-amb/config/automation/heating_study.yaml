@@ -23,7 +23,7 @@
     - variables:
         study_target_temp: *target_temp
         bedroom_jc_initial_temp: "{{ state_attr('climate.bedroom_jc', 'current_temperature') }}"
-        bedroom_jc_target_temp: "{{ bedroom_jc_initial_temp | float(study_target_temp) + 1.0 }}"
+        bedroom_jc_target_temp: "{{ bedroom_jc_initial_temp | float(20) + 1.0 }}"
     - choose:
       - conditions:
           - alias: "Living thermostat not heating much"
