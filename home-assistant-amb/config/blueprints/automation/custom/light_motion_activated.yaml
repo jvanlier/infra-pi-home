@@ -1,0 +1,61 @@
+blueprint:
+  name: Motion-activated Light
+  description: Turn on a light when motion is detected.
+  domain: automation
+  input:
+    motion_entity:
+      name: Motion sensor
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: motion
+    device_no_motion_wait:
+      name: Device wait time
+      selector:
+        entity:
+          domain: number
+    light_target:
+      name: Light
+      selector:
+        target:
+          entity:
+            domain: light
+    total_no_motion_wait:
+      name: Total wait time
+      description: Time to leave the light on after last motion is detected. Takes into account delay configured on device.
+      default: 180
+      selector:
+        number:
+          min: 0
+          max: 3600
+          unit_of_measurement: seconds
+
+mode: restart
+
+trigger:
+  platform: state
+  entity_id: !input motion_entity
+  from: "off"
+  to: "on"
+
+variables:
+  total_no_motion_wait: !input total_no_motion_wait
+  device_no_motion_wait: !input device_no_motion_wait
+
+action:
+  - alias: "Turn on the light"
+    service: light.turn_on
+    target: !input light_target
+  - alias: "Wait until there is no motion from device"
+    wait_for_trigger:
+      platform: state
+      entity_id: !input motion_entity
+      from: "on"
+      to: "off"
+  - alias: "Wait the number of seconds that has been set"
+    delay: "{{ max(total_no_motion_wait - states(device_no_motion_wait) | int(0), 0) }}"
+  - alias: "Turn off the light"
+    service: light.turn_off
+    data:
+      transition: 10
+    target: !input light_target
