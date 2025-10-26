@@ -1,0 +1,36 @@
+- alias: Motion-activated Light Toilet
+  id: mal-toilet
+  use_blueprint:
+    path: custom/light_motion_activated.yaml
+    input:
+      motion_entity: binary_sensor.motion_toilet_occupancy
+      device_no_motion_wait: number.motion_toilet_detection_interval
+      total_no_motion_wait: 420
+      light_target:
+        entity_id: light.light_toilet
+
+- alias: Motion-activated Light Hall 0
+  id: mal-hall-0
+  use_blueprint:
+    path: custom/light_motion_activated.yaml
+    input:
+      motion_entity: binary_sensor.motion_hall_0_occupancy
+      device_no_motion_wait: number.motion_hall_0_detection_interval
+      total_no_motion_wait: 300
+      light_target:
+        entity_id:
+          - light.hall_0_wall
+          - light.hall_0_spot
+
+- alias: Motion-activated Light Kitchen
+  id: mal-kitchen
+  use_blueprint:
+    path: custom/light_motion_activated.yaml
+    input:
+      motion_entity: binary_sensor.motion_kitchen_occupancy
+      device_no_motion_wait: number.motion_kitchen_detection_interval
+      total_no_motion_wait: 600
+      light_target:
+        entity_id:
+          - light.kitchen_middle
+          - light.kitchen_countertop
