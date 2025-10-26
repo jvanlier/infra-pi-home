@@ -16,18 +16,22 @@
         temperature: &target_temp 20
       target:
         entity_id: climate.study
+    # The next block activates Bedroom JC thermostat to heat up the Study if needed.
+    # (Study thermostat does not activate heating, since it's just a smart radiator valve).
+    # There are no radiators in Bedroom JC, so need to manually turn it off when the temp has been reached.
     - variables:
         study_target_temp: *target_temp
         bedroom_jc_initial_temp: "{{ state_attr('climate.bedroom_jc', 'current_temperature') }}"
         bedroom_jc_target_temp: "{{ bedroom_jc_initial_temp | float(study_target_temp) + 1.0 }}"
     - choose:
-      # If living room is not heating much (anymore), use Bedroom JC thermostat to activate heating.
-      # (Study thermostat does not do that since it's just a smart radiator valve).
-      # There are no radiators in Bedroom JC, so need to manually turn it off when the temp has been reached.
       - conditions:
-          - condition: numeric_state
+          - alias: "Living thermostat not heating much"
+            condition: numeric_state
             entity_id: sensor.living_heating
             below: 10  # percent
+          - alias: "Study needs heating"
+            condition: template
+            value_template: "{{ state_attr('climate_study', 'current_temperature') < study_target_temp }}"
         sequence:
           - action: climate.set_temperature
             data:
