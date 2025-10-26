@@ -19,7 +19,7 @@
     - variables:
         study_target_temp: *target_temp
         bedroom_jc_initial_temp: "{{ state_attr('climate.bedroom_jc', 'current_temperature') }}"
-        bedroom_jc_target_temp: "{{ bedroom_jc_initial_temp | float(target_temp) + 1.0 }}"
+        bedroom_jc_target_temp: "{{ bedroom_jc_initial_temp | float(study_target_temp) + 1.0 }}"
     - choose:
       # If living room is not heating much (anymore), use Bedroom JC thermostat to activate heating.
       # (Study thermostat does not do that since it's just a smart radiator valve).
