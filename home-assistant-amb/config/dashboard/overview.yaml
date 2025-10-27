@@ -29,6 +29,9 @@ views:
         show_icon: true
         entity: input_boolean.motion_detected_recently
         name: Recent Motion
+        # Sadly this shows a toggle instead of history, we don't want to toggle manually:
+        tap_action:
+          action: none
       - type: entity
         show_name: false
         show_state: true
