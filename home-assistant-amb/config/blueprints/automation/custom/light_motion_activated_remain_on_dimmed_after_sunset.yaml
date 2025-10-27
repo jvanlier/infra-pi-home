@@ -100,8 +100,12 @@ action:
     delay: "{{ max(total_no_motion_wait - states(device_no_motion_wait) | int(0), 0) }}"
   - choose:
       - conditions:
-          - condition: sun
-            after: sunset
+          - condition: or
+            conditions:
+              - condition: sun
+                after: sunset
+              - condition: sun
+                before: sunrise
           - alias: "Ensure it hasn't been turned off in the meantime"
             condition: state
             entity_id: !input light_entity_id
