@@ -29,8 +29,6 @@
               - light.light_group_living_spot
               - light.light_living_white_cabinet
               - light.light_dining_table
-              - light.light_group_kitchen_middle
-              - light.light_group_kitchen_countertop
       button_3_press:
         - action: light.turn_off
           target:
@@ -49,8 +47,6 @@
             entity_id: &ref_floor_0_living_area_excl_cabinet
               - light.light_group_living_spot
               - light.light_dining_table
-              - light.light_group_kitchen_middle
-              - light.light_group_kitchen_countertop
       brightness_step_up:
         - action: light.turn_on
           data:
