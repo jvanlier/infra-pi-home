@@ -104,8 +104,10 @@ action:
             conditions:
               - condition: sun
                 after: sunset
+                after_offset: "-00:30:00"
               - condition: sun
                 before: sunrise
+                before_offset: "00:30:00"
           - alias: "Ensure it hasn't been turned off in the meantime"
             condition: state
             entity_id: !input light_entity_id
