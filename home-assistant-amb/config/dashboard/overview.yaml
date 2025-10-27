@@ -18,6 +18,18 @@ views:
         show_icon: true
         show_entity_picture: true
       - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.at_least_one_person_home
+        name: Home
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: input_boolean.motion_detected_recently
+        name: Recent Motion
+      - type: entity
         show_name: false
         show_state: true
         show_icon: true

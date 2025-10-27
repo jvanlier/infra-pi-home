@@ -20,6 +20,7 @@ disco_duco:
 
 motion_detected_recently:
   name: Motion Detected Recently
+  icon: mdi:motion-sensor
   initial: false
 
 # Not yet installed, coming soon:
