@@ -1,12 +1,14 @@
 adaptive_lighting:
   name: Adaptive Lighting
   icon: mdi:theme-light-dark
+
 sleep_mode:
   name: Sleep Mode
   icon: mdi:sleep
 sleep_mode_kids:
   name: Sleep Mode Kids
   icon: mdi:sleep
+
 disco_olivier:
   name: Disco Olivier
   icon: mdi:party-popper
@@ -14,6 +16,10 @@ disco_olivier:
 disco_duco:
   name: Disco Duco
   icon: mdi:party-popper
+  initial: false
+
+motion_detected_recently:
+  name: Motion Detected Recently
   initial: false
 
 # Not yet installed, coming soon:

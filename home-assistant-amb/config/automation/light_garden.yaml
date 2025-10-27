@@ -57,6 +57,7 @@
       entity_id: person.chantal
       from: away
       to: home
+    # TODO: add door sensor to fence
   condition:
     - condition: time
       after: *bedtime

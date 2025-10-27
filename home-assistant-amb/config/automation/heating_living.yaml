@@ -20,6 +20,9 @@
   trigger:
     - platform: time
       at: &turn_off_time "21:00:00"
+    - platform: state
+      entity_id: sensor.at_least_one_person_home
+      to: "no"
   condition:
     # Avoid setting it if manually set lower already
     - condition: numeric_state
