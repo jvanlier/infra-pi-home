@@ -42,8 +42,11 @@ action:
       sequence:
         - service: light.turn_on
           data:
-            transition: 0.5
-            rgb_color: ["{{ range(0, 255) | random }}", "{{ range(0, 255) | random  }}", "{{ range(0, 255) | random  }}"]
+            transition: "{{ range(10, 80) | random / 100 }}"
+            rgb_color:
+              - "{{ range(0, 255) | random }}"
+              - "{{ range(0, 255) | random  }}"
+              - "{{ range(0, 255) | random  }}"
           target:
             entity_id: !input light_group_color
-        - delay: "00:00:02"
+        - delay: "00:00:0{{ range(1, 5) | random }}"
