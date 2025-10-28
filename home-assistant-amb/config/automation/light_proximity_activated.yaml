@@ -1,0 +1,19 @@
+# Automations to turn on lights when something happens nearby
+
+- alias: Proximity-activated light living white cabinet
+  id: proximity-activated-light-living-white-cabinet
+  trigger:
+    - platform: state
+      entity_id: &living_spot light.light_group_living_spot
+      to:
+        - "on"
+        - "off"
+  action:
+    - service: "light.turn_{{ trigger.to_state.state }}"
+      target:
+        entity_id: light.light_living_white_cabinet
+      data:
+        # 1 sec seems nearly instant with a weird flash, so set to 2 sec.
+        # The controller is not as refined as Hue.
+        transition: 2
+  mode: restart
