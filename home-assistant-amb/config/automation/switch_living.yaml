@@ -14,7 +14,6 @@
           target:
             entity_id:
               - light.light_group_living_spot
-              - light.light_living_white_cabinet
 
 - alias: Switch Tap Dial Living
   id: switch_tap_dial_living
@@ -27,7 +26,6 @@
           target:
             entity_id: &ref_floor_0_living_area
               - light.light_group_living_spot
-              - light.light_living_white_cabinet
               - light.light_dining_table
       button_3_press:
         - action: light.turn_off
@@ -43,17 +41,14 @@
             transition: 1
             brightness_step_pct: -10
           target:
-            # Don't dim the cabinet, not needed:
-            entity_id: &ref_floor_0_living_area_excl_cabinet
-              - light.light_group_living_spot
-              - light.light_dining_table
+            entity_id: *ref_floor_0_living_area
       brightness_step_up:
         - action: light.turn_on
           data:
             transition: 1
             brightness_step_pct: 10
           target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
+            entity_id: *ref_floor_0_living_area
 
 - alias: Switch Dimmer Living
   id: switch-dimmer-living
@@ -75,12 +70,11 @@
             brightness_step_pct: 20
             transition: 1
           target:
-            # Don't dim the cabinet, not needed:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
+            entity_id: *ref_floor_0_living_area
       down_press_or_hold:
         - action: light.turn_on
           data:
             brightness_step_pct: -20
             transition: 1
           target:
-            entity_id: *ref_floor_0_living_area_excl_cabinet
+            entity_id: *ref_floor_0_living_area
