@@ -13,5 +13,7 @@
       target:
         entity_id: light.light_living_white_cabinet
       data:
-        transition: 1
+        # 1 sec seems nearly instant with a weird flash, so set to 2 sec.
+        # The controller is not as refined as Hue.
+        transition: 2
   mode: restart
