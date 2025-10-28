@@ -8,9 +8,6 @@
       to:
         - "on"
         - "off"
-  # variables:
-    # proxy_light_entity: *living_spot
-    # proxy_light_state: "{{ states(proxy_light_entity) }}"
   action:
     - service: "light.turn_{{ trigger.to_state.state }}"
       target:
