@@ -1,5 +1,8 @@
 # Automations to turn on lights when something happens nearby
 
+# Turn on/off the living white cabinet light when living spots go on/off.
+# This is useful to prevent cluttering the switch configuation.
+# And it was already ignored for dimming. It should just gently light up the cabinet, never be super bright
 - alias: Proximity-activated light living white cabinet
   id: proximity-activated-light-living-white-cabinet
   trigger:
