@@ -15,4 +15,6 @@
     - service: "light.turn_{{ trigger.to_state.state }}"
       target:
         entity_id: light.light_living_white_cabinet
+      data:
+        transition: 2
   mode: restart
