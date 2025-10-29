@@ -18,11 +18,6 @@ disco_duco:
   icon: mdi:party-popper
   initial: false
 
-motion_detected_recently:
-  name: Motion Detected Recently
-  icon: mdi:motion-sensor
-  initial: false
-
 # Not yet installed, coming soon:
 # motion_activated_lights:
 #   name: Motion Activated Lights

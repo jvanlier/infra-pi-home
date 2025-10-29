@@ -7,7 +7,7 @@
   # home later.
   condition:
     - condition: state
-      entity_id: sensor.at_least_one_person_home
+      entity_id: binary_sensor.presence_house
       state: "yes"
   action:
     - service: switch.turn_on
@@ -32,7 +32,7 @@
   id: garden-lights-on-in-evening-after-arrival
   trigger:
     - platform: state
-      entity_id: sensor.at_least_one_person_home
+      entity_id: binary_sensor.presence_house
       from: "no"
       to: "yes"
   condition:
