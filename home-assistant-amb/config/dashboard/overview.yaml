@@ -21,17 +21,20 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.at_least_one_person_home
-        name: Home
+        entity: binary_sensor.presence_house
+        name: House
       - type: entity
         show_name: true
         show_state: true
         show_icon: true
-        entity: input_boolean.motion_detected_recently
-        name: Recent Motion
-        # Sadly this shows a toggle instead of history, we don't want to toggle manually:
-        tap_action:
-          action: none
+        entity: binary_sensor.presence_ground_floor
+        name: Ground Floor
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.presence_second_floor
+        name: Second Floor
       - type: entity
         show_name: false
         show_state: true

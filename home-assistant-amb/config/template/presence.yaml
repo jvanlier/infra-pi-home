@@ -1,0 +1,26 @@
+ - binary_sensor:
+      - name: Presence Ground Floor
+        icon: mdi:numeric-0-box
+        delay_off: "01:00:00"  # Rather long, because lights turn off based on this
+        state: >
+          {{ states("sensor.plug_entertainment_power") | float(0) > 30 or
+             is_state("binary_sensor.motion_kitchen_occupancy", "on") or
+             is_state("binary_sensor.motion_toilet_occupancy", "on") or
+             is_state("binary_sensor.motion_hall_0_occupancy", "on") or
+             is_state("binary_sensor.door_living_stair_cabinet_contact", "on")
+          }}
+
+      - name: Presence Second Floor
+        icon: mdi:numeric-2-box
+        delay_off: "00:05:00"
+        state: >
+          {{ states("sensor.plug_workstation_power") | float(0) > 60 }}
+
+      - name: Presence House
+        icon: mdi:home-account
+        state: >
+          {{ is_state("person.jori", "home") or
+             is_state("person.chantal", "home") or
+             is_state("binary_sensor.presence_ground_floor", "on") or
+             is_state("binary_sensor.presence_second_floor", "on")
+          }}

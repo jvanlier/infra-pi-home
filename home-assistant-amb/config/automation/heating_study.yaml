@@ -1,14 +1,14 @@
 - alias: Heating study on when working
   id: heating-study-on-when-working
   trigger:
-    - platform: numeric_state
-      entity_id: sensor.plug_workstation_power
-      above: &workstation_in_use_threshold_watt 60
+    - platform: state
+      entity_id: binary_sensor.presence_second_floor
+      to: "on"
   condition:
     - condition: time
       before: &off_time "21:00:00"
     - condition: state
-      entity_id: sensor.at_least_one_person_home
+      entity_id: binary_sensor.presence_house
       state: "yes"
   action:
     - service: climate.set_temperature
@@ -57,9 +57,9 @@
 - alias: Heating study on when working - if running
   id: heating-study-on-when-working-if-running
   trigger:
-    - platform: numeric_state
-      entity_id: sensor.plug_workstation_power
-      above: *workstation_in_use_threshold_watt
+    - platform: state
+      entity_id: binary_sensor.presence_second_floor
+      to: "off"
   variables:
     study_target_temp: *target_temp
   condition:
@@ -69,7 +69,7 @@
     - condition: time
       before: *off_time
     - condition: state
-      entity_id: sensor.at_least_one_person_home
+      entity_id: binary_sensor.presence_house
       state: "yes"
   action:
     - service: climate.set_temperature
@@ -82,10 +82,9 @@
 - alias: Heating study off
   id: heating-study-off
   trigger:
-    - platform: numeric_state
-      entity_id: sensor.plug_workstation_power
-      below: 55
-      for: "00:10:00"
+    - platform: state
+      entity_id: binary_sensor.presence_second_floor
+      to: "off"
     - platform: time
       at: *off_time
   action:
