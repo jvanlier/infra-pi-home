@@ -1,0 +1,40 @@
+- alias: "Presence activated light living: on"
+  id: presence-activated-light-living-on
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.presence_ground_floor
+      to: "on"
+  action:
+    - service: "light.turn_on"
+      data:
+        transition: 1
+      target:
+        entity_id:
+          - light.light_group_living_spot
+          - light.light_living_dining_table
+
+- alias: "Presence activated light living: off"
+  id: presence-activated-light-living-off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.presence_ground_floor
+      to: "off"
+  action:
+    - service: "light.turn_off"
+      data:
+        transition: 10
+      target:
+        # Turn off the motion-activated lights manually, in case they were in dimmed state:
+        entity_id:
+          - light.light_hall_0_wall
+          - light.light_group_hall_0_spot
+          - light.light_toilet
+    # Splitting the lights with a short delay to prevent flooding the Zigbee network:
+    - delay: "00:00:02"
+    - service: "light.turn_off"
+      data:
+        transition: 8
+      target:
+        entity_id:
+          - light.light_group_living_spot
+          - light.light_living_dining_table
