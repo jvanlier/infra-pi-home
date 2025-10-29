@@ -19,6 +19,7 @@
     - platform: state
       entity_id: binary_sensor.presence_ground_floor
       to: "off"
+      # The presence sensor has a rather long delay_off, so we can safely toggle directly on a state change.
   action:
     - service: "light.turn_off"
       data:
