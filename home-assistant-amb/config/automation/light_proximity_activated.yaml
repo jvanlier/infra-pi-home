@@ -7,7 +7,7 @@
   id: proximity-activated-light-living-white-cabinet
   trigger:
     - platform: state
-      entity_id: &living_spot light.light_group_living_spot
+      entity_id: &living_spot light.light_group_living_spot_always
       to:
         - "on"
         - "off"

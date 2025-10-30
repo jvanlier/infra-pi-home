@@ -138,8 +138,11 @@ views:
             heading_style: subtitle
             icon: mdi:sofa
           - type: tile
-            name: Spot
-            entity: light.light_group_living_spot
+            name: Spot Always
+            entity: light.light_group_living_spot_always
+          - type: tile
+            name: Spot Dark Outside
+            entity: light.light_group_living_spot_dark_outside
           - type: tile
             name: White Cabinet
             entity: light.light_living_white_cabinet

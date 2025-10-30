@@ -34,8 +34,13 @@ views:
             features:
               - type: light-brightness
           - type: tile
-            name: Spot
-            entity: light.light_group_living_spot
+            name: Spot Always
+            entity: light.light_group_living_spot_always
+            features:
+              - type: light-brightness
+          - type: tile
+            name: Spot Dark Outside
+            entity: light.light_group_living_spot_dark_outside
             features:
               - type: light-brightness
           - type: tile
