@@ -8,4 +8,4 @@
         {% set rising = state_attr('sun.sun', 'rising') %}
 
         {{ rising and elevation < -elevation_threshold or
-          not rising and elevation < elevation_threshold }}
+           not rising and elevation < elevation_threshold }}
