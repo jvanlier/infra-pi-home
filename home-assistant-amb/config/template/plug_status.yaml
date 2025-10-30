@@ -1,0 +1,8 @@
+- binary_sensor:
+    - name: "Workstation in use"
+      state: >
+        {{ states("sensor.plug_workstation_power") | float(0) > 60 }}
+
+    - name: "Entertainment in use"
+      state: >
+        {{ states("sensor.plug_entertainment_power") | float(0) > 30 }}

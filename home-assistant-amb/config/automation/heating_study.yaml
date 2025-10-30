@@ -2,7 +2,7 @@
   id: heating-study-on-when-working
   trigger:
     - platform: state
-      entity_id: binary_sensor.presence_second_floor
+      entity_id: binary_sensor.workstation_in_use
       to: "on"
   condition:
     - condition: time
@@ -58,8 +58,8 @@
   id: heating-study-on-when-working-if-running
   trigger:
     - platform: state
-      entity_id: binary_sensor.presence_second_floor
-      to: "off"
+      entity_id: binary_sensor.workstation_in_use
+      to: "on"
   variables:
     study_target_temp: *target_temp
   condition:
@@ -83,7 +83,7 @@
   id: heating-study-off
   trigger:
     - platform: state
-      entity_id: binary_sensor.presence_second_floor
+      entity_id: binary_sensor.workstation_in_use
       to: "off"
     - platform: time
       at: *off_time

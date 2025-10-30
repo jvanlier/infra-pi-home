@@ -3,7 +3,7 @@
         icon: mdi:numeric-0-box
         delay_off: "00:15:00"  # Rather long, because lights turn off based on this
         state: >
-          {{ states("sensor.plug_entertainment_power") | float(0) > 30 or
+          {{ is_state("binary_sensor.entertainment_in_use", "on") or
              is_state("binary_sensor.motion_hall_0_occupancy", "on") or
              is_state("binary_sensor.motion_toilet_occupancy", "on") or
              is_state("binary_sensor.motion_stairs_0_occupancy", "on") or
@@ -25,7 +25,7 @@
         icon: mdi:numeric-2-box
         delay_off: "00:05:00"
         state: >
-          {{ states("sensor.plug_workstation_power") | float(0) > 60 or
+          {{ is_state("binary_sensor.workstation_in_use", "on") or
              is_state("binary_sensor.motion_stairs_1_occupancy", "on")
           }}
 
