@@ -1,0 +1,16 @@
+- alias: Light dark outside transition living
+  id: light-dark-outside-transition-living
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.dark_outside
+      to:
+        - "on"
+        - "off"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.presence_ground_floor
+      state: "on"
+  action:
+    - service: "light.turn_{{ trigger.to_state.state }}"
+      target:
+        entity_id: light.light_group_living_spot_dark_outside
