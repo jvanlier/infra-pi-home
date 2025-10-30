@@ -74,20 +74,18 @@
         entity_id: switch.plug_garden_lights
   mode: restart
 
-# If lights in the living room turn on in the morning, _and_ if it's before sunrise,
+# If presence on the ground floor in the morning, _and_ if dark outside,
 # turn on the garden lights as well.
 - alias: Garden lights on in the morning
   id: garden-lights-on-in-the-morning
   trigger:
     - platform: state
-      entity_id: light.light_group_living_spot
+      entity_id: binary_sensor.presence_ground_floor
       to: "on"
   condition:
-    - condition: time
-      after: "05:00:00"
-      before: "09:00:00"
-    - condition: sun
-      before: sunrise
+    - condition: state
+      entity_id: binary_sensor.dark_outside
+      state: "on"
   action:
     - service: switch.turn_on
       target:

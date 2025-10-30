@@ -10,8 +10,20 @@
         transition: 1
       target:
         entity_id:
-          - light.light_group_living_spot
           - light.light_dining_table
+          - light.light_group_living_spot_always
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: binary_sensor.dark_outside
+              state: "on"
+          sequence:
+            - service: "light.turn_on"
+              data:
+                transition: 1
+              target:
+                entity_id:
+                  - light.light_group_living_spot_dark_outside
 
 - alias: "Presence activated light living: off"
   id: presence-activated-light-living-off
@@ -37,5 +49,6 @@
         transition: 8
       target:
         entity_id:
-          - light.light_group_living_spot
+          - light.light_group_living_spot_always
+          - light.light_group_living_spot_dark_outside
           - light.light_dining_table

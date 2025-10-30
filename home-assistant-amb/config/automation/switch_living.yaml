@@ -10,10 +10,21 @@
           target:
             entity_id: light.light_dining_table
       right_press:
-        - action: light.toggle
-          target:
-            entity_id:
-              - light.light_group_living_spot
+          - choose:
+              - conditions:
+                  - condition: state
+                    entity_id: binary_sensor.dark_outside
+                    state: "on"
+                sequence:
+                  - service: light.toggle
+                    target:
+                      entity_id:
+                        - light.light_group_living_spot_dark_outside
+                        - light.light_group_living_spot_always
+            default:
+              - service: light.toggle
+                target:
+                  entity_id: light.light_group_living_spot_always
 
 - alias: Switch Tap Dial Living
   id: switch_tap_dial_living
@@ -21,34 +32,53 @@
     path: custom/hue_tap_dial.yaml
     input:
       controller: Switch Tap Dial Living
-      button_1_press:
-        - action: light.turn_on
+      button_1_press: &ref_turn_on
+        - service: "light.turn_on"
+          data:
+            transition: 1
           target:
-            entity_id: &ref_floor_0_living_area
-              - light.light_group_living_spot
+            entity_id:
               - light.light_dining_table
-      button_3_press:
+              - light.light_group_living_spot_always
+        - choose:
+            - conditions:
+                - condition: state
+                  entity_id: binary_sensor.dark_outside
+                  state: "on"
+              sequence:
+                - service: "light.turn_on"
+                  data:
+                    transition: 1
+                  target:
+                    entity_id:
+                      - light.light_group_living_spot_dark_outside
+      button_3_press: &ref_turn_off
         - action: light.turn_off
           target:
-            entity_id: *ref_floor_0_living_area
+            entity_id:
+              - light.light_dining_table
+              - light.light_group_living_spot_always
+              - light.light_group_living_spot_dark_outside
       button_4_press:
         - action: input_boolean.toggle
           target:
             entity_id: input_boolean.sleep_mode
-      brightness_step_down:
+      brightness_step_down: &ref_brightness_down
         - action: light.turn_on
           data:
             transition: 1
             brightness_step_pct: -10
           target:
-            entity_id: *ref_floor_0_living_area
-      brightness_step_up:
+            # TODO add spots
+            entity_id: light.light_dining_table
+      brightness_step_up: &ref_brightness_up
         - action: light.turn_on
           data:
             transition: 1
             brightness_step_pct: 10
           target:
-            entity_id: *ref_floor_0_living_area
+            # TODO add spots
+            entity_id: light.light_dining_table
 
 - alias: Switch Dimmer Living
   id: switch-dimmer-living
@@ -56,25 +86,7 @@
     path: custom/hue_dimmer_switch.yaml
     input:
       controller: Switch Dimmer Living
-      on_press:
-        - action: light.turn_on
-          target:
-            entity_id: *ref_floor_0_living_area
-      off_press:
-        - action: light.turn_off
-          target:
-            entity_id: *ref_floor_0_living_area
-      up_press_or_hold:
-        - action: light.turn_on
-          data:
-            brightness_step_pct: 20
-            transition: 1
-          target:
-            entity_id: *ref_floor_0_living_area
-      down_press_or_hold:
-        - action: light.turn_on
-          data:
-            brightness_step_pct: -20
-            transition: 1
-          target:
-            entity_id: *ref_floor_0_living_area
+      on_press: *ref_turn_on
+      off_press: *ref_turn_off
+      up_press_or_hold: *ref_brightness_up
+      down_press_or_hold: *ref_brightness_down

@@ -21,8 +21,15 @@
   min_color_temp: 2500
   max_color_temp: 4000
 
-- name: "living-spot"
-  lights: ["light.light_group_living_spot"]
+- name: "living-spot-always"
+  lights: ["light.light_group_living_spot_always"]
+  min_brightness: 30
+  max_brightness: 40
+  min_color_temp: 2500
+  max_color_temp: 4000
+
+- name: "living-spot-dark-outside"
+  lights: ["light.light_group_living_spot_dark_outside"]
   min_brightness: 30
   max_brightness: 40
   min_color_temp: 2500
