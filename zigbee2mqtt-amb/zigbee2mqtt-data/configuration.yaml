@@ -180,6 +180,10 @@ devices:
     friendly_name: Motion Kitchen
   '0x0015bc001a022a06':
     friendly_name: Motion Toilet
+  '0x54ef44100053d5bf':
+    friendly_name: Motion Dining
+  '0x54ef44100053d284':
+    friendly_name: Motion Living
 groups:
   '1':
     friendly_name: Light Group Living Spot
