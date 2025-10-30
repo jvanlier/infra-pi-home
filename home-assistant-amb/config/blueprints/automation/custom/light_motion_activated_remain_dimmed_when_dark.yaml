@@ -1,8 +1,8 @@
 blueprint:
-  name: Motion-activated Light Remain Dimmed After Sunset
+  name: Motion-activated Light Remain Dimmed When Dark
   description: >
     Turn on a light when motion is detected.
-    After sunset, goes to lower brightness instead of off.
+    When dark, goes to lower brightness instead of off.
 
     Supports only a single light entity, with associated adaptive ligthting config.
     The adaptive lighting entity should not be shared with other lights, becasue adapt brightness gets turned off.
@@ -100,14 +100,9 @@ action:
     delay: "{{ max(total_no_motion_wait - states(device_no_motion_wait) | int(0), 0) }}"
   - choose:
       - conditions:
-          - condition: or
-            conditions:
-              - condition: sun
-                after: sunset
-                after_offset: "-00:30:00"
-              - condition: sun
-                before: sunrise
-                before_offset: "00:30:00"
+          - condition: state
+            entity_id: binary_sensor.dark_outside
+            state: "on"
           - alias: "Ensure it hasn't been turned off in the meantime"
             condition: state
             entity_id: !input light_entity_id

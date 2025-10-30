@@ -12,7 +12,7 @@
 - alias: Motion-activated Light Hall 0 Wall
   id: mal-hall-0-wall
   use_blueprint:
-    path: custom/light_motion_activated_remain_on_dimmed_after_sunset.yaml
+    path: custom/light_motion_activated_remain_dimmed_when_dark.yaml
     input:
       motion_entity: binary_sensor.motion_hall_0_occupancy
       device_no_motion_wait: number.motion_hall_0_detection_interval
@@ -24,7 +24,7 @@
 - alias: Motion-activated Light Hall 0 Spot
   id: mal-hall-0-spot
   use_blueprint:
-    path: custom/light_motion_activated_remain_on_dimmed_after_sunset.yaml
+    path: custom/light_motion_activated_remain_dimmed_when_dark.yaml
     input:
       motion_entity: binary_sensor.motion_hall_0_occupancy
       device_no_motion_wait: number.motion_hall_0_detection_interval
@@ -36,7 +36,7 @@
 - alias: Motion-activated Light Kitchen Middle
   id: mal-kitchen-middle
   use_blueprint:
-    path: custom/light_motion_activated_remain_on_dimmed_after_sunset.yaml
+    path: custom/light_motion_activated_remain_dimmed_when_dark.yaml
     input:
       motion_entity: binary_sensor.motion_kitchen_occupancy
       device_no_motion_wait: number.motion_kitchen_detection_interval
@@ -49,7 +49,7 @@
 - alias: Motion-activated Light Kitchen Countertop
   id: mal-kitchen-countertop
   use_blueprint:
-    path: custom/light_motion_activated_remain_on_dimmed_after_sunset.yaml
+    path: custom/light_motion_activated_remain_dimmed_when_dark.yaml
     input:
       motion_entity: binary_sensor.motion_kitchen_occupancy
       device_no_motion_wait: number.motion_kitchen_detection_interval
