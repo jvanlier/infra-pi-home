@@ -6,7 +6,7 @@
   condition:
     - condition: state
       entity_id: binary_sensor.presence_house
-      state: "yes"
+      state: "on"
   action:
     - service: climate.set_temperature
       data:
@@ -22,7 +22,7 @@
       at: &turn_off_time "21:00:00"
     - platform: state
       entity_id: binary_sensor.presence_house
-      to: "no"
+      to: "off"
   condition:
     # Avoid setting it if manually set lower already
     - condition: numeric_state
@@ -42,7 +42,7 @@
   trigger:
     - platform: state
       entity_id: binary_sensor.presence_house
-      to: "yes"
+      to: "on"
   condition:
     - condition: time
       after: *turn_on_time

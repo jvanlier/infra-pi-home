@@ -9,7 +9,7 @@
       before: &off_time "21:00:00"
     - condition: state
       entity_id: binary_sensor.presence_house
-      state: "yes"
+      state: "on"
   action:
     - service: climate.set_temperature
       data:
@@ -70,7 +70,7 @@
       before: *off_time
     - condition: state
       entity_id: binary_sensor.presence_house
-      state: "yes"
+      state: "on"
   action:
     - service: climate.set_temperature
       data:
