@@ -1,54 +1,14 @@
-- alias: Garden lights on at sunset
-  id: garden-lights-on-sunset
-  trigger:
-    - platform: sun
-      event: sunset
-  # Not much point in turning it on if no one's home. But there is another automation to turn it on if someone comes
-  # home later.
-  condition:
-    - condition: state
-      entity_id: binary_sensor.presence_house
-      state: "on"
-  action:
-    - service: switch.turn_on
-      target:
-        entity_id: switch.plug_garden_lights
-  mode: restart
-
-- alias: Garden lights off at bedtime or sunrise
-  id: garden-lights-off-bedtime-or-sunrise
-  trigger:
-    - platform: time
-      at: &bedtime "23:00:00"
-    - platform: sun
-      event: sunrise
-  action:
-    - service: switch.turn_off
-      target:
-        entity_id: switch.plug_garden_lights
-  mode: restart
-
-- alias: Garden lights on in evening after arrival
-  id: garden-lights-on-in-evening-after-arrival
+- alias: Garden lights on
+  id: garden-lights-on
   trigger:
     - platform: state
-      entity_id: binary_sensor.presence_house
+      entity_id: binary_sensor.dark_outside
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.presence_ground_floor
       from: "off"
       to: "on"
-  condition:
-    - condition: sun
-      after: sunset
-    - condition: time
-      before: *bedtime
-  action:
-    - service: switch.turn_on
-      target:
-        entity_id: switch.plug_garden_lights
-  mode: restart
-
-- alias: Garden lights on briefly at night after arrival
-  id: garden-lights-on-briefly-at-night-after-arrival
-  trigger:
+    # Attempt to turn on lights when only one of us arrives home:
     - platform: state
       entity_id: person.jori
       from: away
@@ -57,37 +17,30 @@
       entity_id: person.chantal
       from: away
       to: home
-    # TODO: add door sensor to fence
   condition:
-    - condition: time
-      after: *bedtime
-    - condition: sun
-      before: sunset
-  action:
-    - service: switch.turn_on
-      target:
-        entity_id: switch.plug_garden_lights
-    - delay:
-        minutes: 15
-    - service: switch.turn_off
-      target:
-        entity_id: switch.plug_garden_lights
-  mode: restart
-
-# If presence on the ground floor in the morning, _and_ if dark outside,
-# turn on the garden lights as well.
-- alias: Garden lights on in the morning
-  id: garden-lights-on-in-the-morning
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.presence_ground_floor
-      to: "on"
-  condition:
+    - condition: state
+      entity_id: binary_sensor.presence_house
+      state: "on"
     - condition: state
       entity_id: binary_sensor.dark_outside
       state: "on"
   action:
     - service: switch.turn_on
+      target:
+        entity_id: switch.plug_garden_lights
+  mode: restart
+
+- alias: Garden lights off
+  id: garden-lights-off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.dark_outside
+      to: "off"
+    - platform: state
+      entity_id: binary_sensor.presence_ground_floor
+      to: "off"
+  action:
+    - service: switch.turn_off
       target:
         entity_id: switch.plug_garden_lights
   mode: restart
