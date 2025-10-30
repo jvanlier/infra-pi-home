@@ -23,14 +23,14 @@
 
 - name: "living-spot-always"
   lights: ["light.light_group_living_spot_always"]
-  min_brightness: 30
+  min_brightness: 35
   max_brightness: 40
   min_color_temp: 2500
   max_color_temp: 4000
 
 - name: "living-spot-dark-outside"
   lights: ["light.light_group_living_spot_dark_outside"]
-  min_brightness: 30
+  min_brightness: 35
   max_brightness: 40
   min_color_temp: 2500
   max_color_temp: 4000
@@ -55,7 +55,7 @@
 
 - name: "dining-table"
   lights: ["light.light_dining_table"]
-  min_brightness: 60
+  min_brightness: 80
   max_brightness: 100
   sleep_brightness: 10
   min_color_temp: 2500
@@ -63,14 +63,14 @@
 
 - name: "kitchen-middle"
   lights: ["light.light_group_kitchen_middle"]
-  min_brightness: 20
+  min_brightness: 25
   max_brightness: 30
   min_color_temp: 2700
   max_color_temp: 4000
 
 - name: "kitchen-countertop"
   lights: ["light.light_group_kitchen_countertop"]
-  min_brightness: 50
+  min_brightness: 55
   max_brightness: 60
   min_color_temp: 2700
   max_color_temp: 4000
