@@ -2,10 +2,4 @@
     - name: "Dark Outside"
       icon: mdi:moon-waning-crescent
       state: >
-        {% set elevation_threshold = 5 %}
-
-        {% set elevation = state_attr('sun.sun', 'elevation') %}
-        {% set rising = state_attr('sun.sun', 'rising') %}
-
-        {{ rising and elevation < -elevation_threshold or
-           not rising and elevation < elevation_threshold }}
+        {{ state_attr('sun.sun', 'elevation') < 5 }}
