@@ -6,7 +6,7 @@
           {{ states("sensor.plug_entertainment_power") | float(0) > 30 or
              is_state("binary_sensor.motion_hall_0_occupancy", "on") or
              is_state("binary_sensor.motion_toilet_occupancy", "on") or
-             is_state("binary_sensor.motion_stair_0_occupancy", "on") or
+             is_state("binary_sensor.motion_stairs_0_occupancy", "on") or
              is_state("binary_sensor.motion_dining_occupancy", "on") or
              is_state("binary_sensor.motion_living_occupancy", "on") or
              is_state("binary_sensor.motion_kitchen_occupancy", "on") or
@@ -17,7 +17,8 @@
         icon: mdi:numeric-1-box
         delay_off: "00:05:00"
         state: >
-          {{ is_state("binary_sensor.motion_stair_0_occupancy", "on")
+          {{ is_state("binary_sensor.motion_stairs_0_occupancy", "on") or
+             is_state("binary_sensor.motion_stairs_1_occupancy", "on")
           }}
 
       - name: Presence Second Floor
@@ -25,7 +26,7 @@
         delay_off: "00:05:00"
         state: >
           {{ states("sensor.plug_workstation_power") | float(0) > 60 or
-             is_state("binary_sensor.motion_stair_1_occupancy", "on")
+             is_state("binary_sensor.motion_stairs_1_occupancy", "on")
           }}
 
       - name: Presence House
