@@ -4,19 +4,29 @@
         delay_off: "00:15:00"  # Rather long, because lights turn off based on this
         state: >
           {{ states("sensor.plug_entertainment_power") | float(0) > 30 or
-             is_state("binary_sensor.motion_kitchen_occupancy", "on") or
-             is_state("binary_sensor.motion_toilet_occupancy", "on") or
              is_state("binary_sensor.motion_hall_0_occupancy", "on") or
+             is_state("binary_sensor.motion_toilet_occupancy", "on") or
+             is_state("binary_sensor.motion_stair_0_occupancy", "on") or
              is_state("binary_sensor.motion_dining_occupancy", "on") or
              is_state("binary_sensor.motion_living_occupancy", "on") or
+             is_state("binary_sensor.motion_kitchen_occupancy", "on") or
              is_state("binary_sensor.door_living_stair_cabinet_contact", "on")
+          }}
+
+      - name: Presence First Floor
+        icon: mdi:numeric-1-box
+        delay_off: "00:05:00"
+        state: >
+          {{ is_state("binary_sensor.motion_stair_0_occupancy", "on")
           }}
 
       - name: Presence Second Floor
         icon: mdi:numeric-2-box
         delay_off: "00:05:00"
         state: >
-          {{ states("sensor.plug_workstation_power") | float(0) > 60 }}
+          {{ states("sensor.plug_workstation_power") | float(0) > 60 or
+             is_state("binary_sensor.motion_stair_1_occupancy", "on")
+          }}
 
       - name: Presence House
         icon: mdi:home-account

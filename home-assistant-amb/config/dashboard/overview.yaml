@@ -33,6 +33,12 @@ views:
         show_name: true
         show_state: true
         show_icon: true
+        entity: binary_sensor.presence_first_floor
+        name: First Floor
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
         entity: binary_sensor.presence_second_floor
         name: Second Floor
       - type: entity
