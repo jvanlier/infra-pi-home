@@ -16,5 +16,6 @@
       target:
         entity_id: light.light_living_white_cabinet
       data:
-        transition: 1
+        # Transition seems buggy
+        transition: 0
   mode: restart
