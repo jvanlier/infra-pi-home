@@ -11,7 +11,7 @@
       target:
         entity_id:
           - light.light_group_living_spot
-          - light.light_living_dining_table
+          - light.light_dining_table
 
 - alias: "Presence activated light living: off"
   id: presence-activated-light-living-off
@@ -38,4 +38,4 @@
       target:
         entity_id:
           - light.light_group_living_spot
-          - light.light_living_dining_table
+          - light.light_dining_table
