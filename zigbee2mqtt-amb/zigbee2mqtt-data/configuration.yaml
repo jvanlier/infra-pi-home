@@ -184,13 +184,10 @@ devices:
     friendly_name: Motion Dining
   '0x54ef44100053d284':
     friendly_name: Motion Living
-<<<<<<< Updated upstream
-=======
   '0x54ef4410004e474a':
     friendly_name: Motion Stairs 0
   '0x54ef44100053e5c4':
     friendly_name: Motion Stairs 1
->>>>>>> Stashed changes
 groups:
   '1':
     friendly_name: Light Group Living Spot
