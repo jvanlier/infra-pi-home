@@ -188,6 +188,10 @@ devices:
     friendly_name: Motion Stairs 0
   '0x54ef44100053e5c4':
     friendly_name: Motion Stairs 1
+  '0x0015bc001a02277b':
+    friendly_name: Motion Bathroom Door
+  '0x0015bc001a022855':
+    friendly_name: Motion Bathroom Shower
 groups:
   '1':
     friendly_name: Light Group Living Spot
