@@ -58,3 +58,15 @@
       adaptive_light_entity: switch.adaptive_lighting_kitchen_countertop
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_kitchen_countertop
       dim_percentage: 70
+
+- alias: Motion-activated Light Bathroom
+  id: mal-bathroom
+  use_blueprint:
+    path: custom/light_motion_activated_remain_dimmed_when_dark.yaml
+    input:
+      motion_entity: binary_sensor.motion_bathroom_occupancy
+      device_no_motion_wait: number.motion_bathroom_detection_door_interval
+      total_no_motion_wait: 300
+      light_entity_id: light.light_bathroom
+      adaptive_light_entity: switch.adaptive_lighting_bathroom
+      adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_bathroom

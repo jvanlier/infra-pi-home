@@ -15,10 +15,11 @@
 
       - name: Presence First Floor
         icon: mdi:numeric-1-box
-        delay_off: "00:05:00"
+        delay_off: "00:15:00"
         state: >
           {{ is_state("binary_sensor.motion_stairs_0_occupancy", "on") or
-             is_state("binary_sensor.motion_stairs_1_occupancy", "on")
+             is_state("binary_sensor.motion_stairs_1_occupancy", "on") or
+             is_state("binary_sensor.bathoom_occupancy", "on")
           }}
 
       - name: Presence Second Floor
