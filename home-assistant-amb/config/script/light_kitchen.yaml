@@ -1,0 +1,27 @@
+turn_on_light_kitchen_middle_dimmed:
+  alias: "Turn on light kitchen middle dimmed"
+  sequence:
+    - service: "switch.turn_off"
+      target:
+        entity_id: switch.adaptive_lighting_adapt_brightness_kitchen_middle
+    # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
+    - service: "light.turn_on"
+      data:
+        brightness: 50
+        transition: 1
+      target:
+        entity_id: light.light_group_kitchen_middle
+
+turn_on_light_kitchen_countertop_dimmed:
+  alias: "Turn on light kitchen countertop dimmed"
+  sequence:
+    - service: "switch.turn_off"
+      target:
+        entity_id: switch.adaptive_lighting_adapt_brightness_kitchen_countertop
+    # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
+    - service: "light.turn_on"
+      data:
+        brightness: 100
+        transition: 1
+      target:
+        entity_id: light.light_group_kitchen_countertop
