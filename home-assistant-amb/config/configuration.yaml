@@ -11,7 +11,6 @@ recorder:
 
 # Dirs to include
 automation: !include_dir_merge_list automation/
-script: !include_dir_merge_list script/
 sensor: !include_dir_merge_list sensor/
 template: !include_dir_merge_list template/
 
@@ -22,6 +21,7 @@ input_number: !include input_number.yaml
 input_text: !include input_text.yaml
 lovelace: !include lovelace.yaml
 logbook: !include logbook.yaml
+script: !include script.yaml
 timer: !include timer.yaml
 
 # Custom component config files to include
