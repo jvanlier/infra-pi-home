@@ -13,7 +13,7 @@
           - choose:
               - conditions:
                   - condition: state
-                    entity_id: binary_sensor.low_illuminance_outside
+                    entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
                     state: "on"
                 sequence:
                   - service: light.toggle
@@ -43,7 +43,7 @@
         - choose:
             - conditions:
                 - condition: state
-                  entity_id: binary_sensor.low_illuminance_outside
+                  entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
                   state: "on"
               sequence:
                 - service: "light.turn_on"
