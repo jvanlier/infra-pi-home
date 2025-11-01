@@ -1,11 +1,11 @@
 blueprint:
-  name: Motion-activated Light Remain Dimmed When Dark
+  name: Motion-activated Light Dark Aware
   description: >
     Turn on a light when motion is detected.
     When dark, goes to lower brightness instead of off.
 
     Supports only a single light entity, with associated adaptive ligthting config.
-    The adaptive lighting entity should not be shared with other lights, becasue adapt brightness gets turned off.
+    The adaptive lighting entity should not be shared with other lights, because adapt brightness gets turned off.
   domain: automation
   input:
     motion_entity:
