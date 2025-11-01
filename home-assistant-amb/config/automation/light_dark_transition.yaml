@@ -15,6 +15,9 @@
       target:
         entity_id: light.light_group_living_spot_dark_outside
 
+# TODO: these next two kitchen automations are also relevant for presence activation, we want the same thing here really.
+#       Now it becomes a bit awkward that light automations are split per activation method instead of per room.
+#       Re-org to room and fix this.
 - alias: Light dark transition kitchen - on to dimmed state
   id: light-dark-transition-kitchen-on-to-dimmed-state
   trigger:

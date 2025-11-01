@@ -20,6 +20,7 @@ input_boolean: !include input_boolean.yaml
 input_number: !include input_number.yaml
 input_text: !include input_text.yaml
 lovelace: !include lovelace.yaml
+logbook: !include logbook.yaml
 script: !include scripts.yaml
 timer: !include timer.yaml
 

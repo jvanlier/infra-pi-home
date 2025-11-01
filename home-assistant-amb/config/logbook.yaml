@@ -1,0 +1,4 @@
+exclude:
+  entity_globs:
+    # Remove spam from Zigbee2MQTT Last seen functionality:
+    - "sensor.*_last_seen"
