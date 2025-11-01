@@ -19,7 +19,8 @@
         state: >
           {{ is_state("binary_sensor.motion_stairs_0_occupancy", "on") or
              is_state("binary_sensor.motion_stairs_1_occupancy", "on") or
-             is_state("binary_sensor.bathoom_occupancy", "on")
+             is_state("binary_sensor.motion_bathoom_door_occupancy", "on") or
+             is_state("binary_sensor.motion_bathoom_shower_occupancy", "on")
           }}
 
       - name: Presence Second Floor

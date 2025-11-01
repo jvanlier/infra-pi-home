@@ -1,8 +1,11 @@
 blueprint:
-  name: Motion-activated Light Dark Aware
+  name: Motion-activated Light Dark Aware - Dim Script
   description: >
     Turn on a light when motion is detected.
     When dark, goes to lower brightness instead of off.
+
+    Alternate version that takes the entity id of a script to go into dimmed state. Useful for DRY when you want
+    to go immediately into dimmed state upon other triggers as well.
 
     Supports only a single light entity, with associated adaptive ligthting config.
     The adaptive lighting entity should not be shared with other lights, because adapt brightness gets turned off.
@@ -46,15 +49,12 @@ blueprint:
       selector:
         entity:
           domain: switch
-    dim_percentage:
-      name: Dim percentage
-      description: Percentage to dim to, relative to previous value
-      default: 50
+    dim_script:
+      name: Dim Script
+      description: Script to call to put the light into dimmed state.
       selector:
-        number:
-          min: 30
-          max: 70
-          unit_of_measurement: '%'
+        entity:
+          domain: script
 
 mode: restart
 
@@ -68,7 +68,6 @@ variables:
   total_no_motion_wait: !input total_no_motion_wait
   device_no_motion_wait: !input device_no_motion_wait
   light_entity_id: !input light_entity_id
-  dim_percentage: !input dim_percentage
 
 action:
   - alias: "Enable adaptive brightness"
@@ -108,17 +107,9 @@ action:
             entity_id: !input light_entity_id
             state: "on"
         sequence:
-          - alias: "Disable adaptive brightness"
-            service: switch.turn_off
-            target:
-              entity_id: !input adaptive_light_adapt_brightness_entity
+          # Assumption: the script already disables adapt brightness
           - alias: "Dim the light"
-            service: light.turn_on
-            data:
-              brightness: "{{ ((state_attr(light_entity_id, 'brightness') | int(125)) * dim_percentage / 100) | round(0) | int }}"
-              transition: 5
-            target:
-              entity_id: !input light_entity_id
+            action: !input dim_script
     default:
       - alias: "Turn off the light"
         service: light.turn_off

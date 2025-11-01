@@ -1,7 +1,7 @@
 - alias: Motion-activated Light Kitchen Middle
   id: mal-kitchen-middle
   use_blueprint:
-    path: custom/light_motion_activated_dark_aware.yaml
+    path: custom/light_motion_activated_dark_aware_script.yaml
     input:
       motion_entity: binary_sensor.motion_kitchen_occupancy
       device_no_motion_wait: number.motion_kitchen_detection_interval
@@ -9,12 +9,12 @@
       light_entity_id: light.light_group_kitchen_middle
       adaptive_light_entity: switch.adaptive_lighting_kitchen_middle
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_kitchen_middle
-      dim_percentage: 70
+      dim_script: script.turn_on_light_kitchen_middle_dimmed
 
 - alias: Motion-activated Light Kitchen Countertop
   id: mal-kitchen-countertop
   use_blueprint:
-    path: custom/light_motion_activated_dark_aware.yaml
+    path: custom/light_motion_activated_dark_aware_script.yaml
     input:
       motion_entity: binary_sensor.motion_kitchen_occupancy
       device_no_motion_wait: number.motion_kitchen_detection_interval
@@ -22,61 +22,62 @@
       light_entity_id: light.light_group_kitchen_countertop
       adaptive_light_entity: switch.adaptive_lighting_kitchen_countertop
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_kitchen_countertop
-      dim_percentage: 70
+      dim_script: script.turn_on_light_kitchen_countertop_dimmed
 
-- alias: Light dark transition kitchen - on to dimmed state
-  id: light-dark-transition-kitchen-on-to-dimmed-state
+- alias: Light kitchen on to dimmmed state
+  id: light-kitchen-on-to-dimmed
   trigger:
     - platform: state
-      entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
+      entity_id:
+        - binary_sensor.sufficiently_dark_for_indoor_lights
+        - binary_sensor.presence_ground_floor
       to: "on"
   condition:
     - condition: state
-      entity_id: binary_sensor.presence_ground_floor
+      entity_id:
+        - binary_sensor.sufficiently_dark_for_indoor_lights
+        - binary_sensor.presence_ground_floor
       state: "on"
-    - condition: state
-      entity_id: light.light_group_kitchen_countertop
+    - alias: "Only turn on if currently off"
+      condition: state
+      entity_id: &kitchen_lights
+        - light.light_group_kitchen_middle
+        - light.light_group_kitchen_countertop
       state: "off"
   action:
-    # Now we need to mimick the dimmed state
-    - service: "switch.turn_off"
-      target:
-        entity_id:
-          - switch.adaptive_lighting_adapt_brightness_kitchen_middle
-          - switch.adaptive_lighting_adapt_brightness_kitchen_countertop
-    # Setting brightness value is a bit wonky, the automation takes 70% of adaptive brightness.
-    # But now we need to hardcode it.
-    - service: "light.turn_on"
-      data:
-        brightness: 107
-        transition: 1
-      target:
-        entity_id:
-          - light.light_group_kitchen_countertop
-    - service: "light.turn_on"
-      data:
-        brightness: 53
-        transition: 1
-      target:
-        entity_id:
-          - light.light_group_kitchen_middle
+    # Potential improvement: transition is 5 sec, use 1 sec to sync with rest of living.
+    - action: script.turn_on_light_kitchen_middle_dimmed
+    - action: script.turn_on_light_kitchen_countertop_dimmed
   mode: restart
 
-- alias: Light dark transition kitchen - off if in dimmed state
-  id: light-dark-transition-kitchen-off-if-in-dimmed-state
+- alias: Light kitchen off when in dimmed state
+  id: light-kitchen-off-when-in-dimmed-state
+  description: >
+    Turn off kitchen lights when no presence detected anymore, or it becomes sufficiently bright.
+
+    The goal is to turn off lights that are in dimmed state, when that is no longer needed.
+    Dimmed state assumed when lights are on but there is no motion-activated automation running.
   trigger:
     - platform: state
-      entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
+      entity_id:
+        - binary_sensor.sufficiently_dark_for_indoor_lights
+        - binary_sensor.presence_ground_floor
       to: "off"
   condition:
-    - condition: state
-      entity_id: binary_sensor.presence_ground_floor
-      state: "on"
-    # Sufficient to check only countertop for the next two, since they go together:
-    - condition: state
-      entity_id: light.light_group_kitchen_countertop
-      state: "on"
-    - alias: "Ensure automation not running (i.e. no motion detected)"
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: light.light_group_kitchen_middle
+          state: "on"
+        - condition: state
+          entity_id: light.light_group_kitchen_countertop
+          state: "on"
+    - alias: "Ensure automation for middle not running (i.e. no motion detected)"
+      condition: state
+      entity_id: automation.motion_activated_light_kitchen_middle
+      attribute: current
+      state: 0
+    - alias: "Ensure automation for countertop not running (i.e. no motion detected)"
       condition: state
       entity_id: automation.motion_activated_light_kitchen_countertop
       attribute: current
@@ -86,7 +87,10 @@
       data:
         transition: 10
       target:
+        entity_id: *kitchen_lights
+    - service: "switch.turn_on"
+      target:
         entity_id:
-          - light.light_group_kitchen_countertop
-          - light.light_group_kitchen_middle
+          - switch.adaptive_lighting_adapt_brightness_kitchen_middle
+          - switch.adaptive_lighting_adapt_brightness_kitchen_countertop
   mode: restart

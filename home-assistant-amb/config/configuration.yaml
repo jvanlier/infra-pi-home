@@ -21,7 +21,7 @@ input_number: !include input_number.yaml
 input_text: !include input_text.yaml
 lovelace: !include lovelace.yaml
 logbook: !include logbook.yaml
-script: !include scripts.yaml
+script: !include script.yaml
 timer: !include timer.yaml
 
 # Custom component config files to include

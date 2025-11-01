@@ -5,7 +5,7 @@
     input:
       controller: Switch Wall Kitchen
       left_press:
-        # Turn on adapt brightness (might have been turned off by motion-activated automation):
+        # Turn on adapt brightness (there are many automations that turn it off):
         - action: switch.turn_on
           target:
             entity_id:
