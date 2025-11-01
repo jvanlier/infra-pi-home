@@ -47,8 +47,8 @@
         - light.light_group_kitchen_countertop
       state: "off"
   action:
-    - service: script.turn_on_light_kitchen_middle_dimmed
-    - service: script.turn_on_light_kitchen_countertop_dimmed
+    - action: script.turn_on_light_kitchen_middle_dimmed
+    - action: script.turn_on_light_kitchen_countertop_dimmed
   mode: restart
 
 - alias: Light kitchen off when in dimmed state

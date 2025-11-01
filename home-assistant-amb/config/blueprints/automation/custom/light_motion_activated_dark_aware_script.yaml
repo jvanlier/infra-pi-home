@@ -109,7 +109,7 @@ action:
         sequence:
           # Assumption: the script already disables adapt brightness
           - alias: "Dim the light"
-            service: !input dim_script
+            action: !input dim_script
     default:
       - alias: "Turn off the light"
         service: light.turn_off
