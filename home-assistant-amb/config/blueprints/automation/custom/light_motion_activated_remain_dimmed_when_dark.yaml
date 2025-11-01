@@ -101,7 +101,7 @@ action:
   - choose:
       - conditions:
           - condition: state
-            entity_id: binary_sensor.dark_outside
+            entity_id: binary_sensor.low_illuminance_outside
             state: "on"
           - alias: "Ensure it hasn't been turned off in the meantime"
             condition: state

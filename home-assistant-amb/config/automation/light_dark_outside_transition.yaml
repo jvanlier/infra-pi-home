@@ -2,7 +2,7 @@
   id: light-dark-outside-transition-living
   trigger:
     - platform: state
-      entity_id: binary_sensor.dark_outside
+      entity_id: binary_sensor.low_illuminance_outside
       to:
         - "on"
         - "off"

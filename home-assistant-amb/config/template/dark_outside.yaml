@@ -3,3 +3,8 @@
       icon: mdi:moon-waning-crescent
       state: >
         {{ state_attr('sun.sun', 'elevation') < 5 }}
+
+    - name: "Low Illuminance Outside"
+      icon: mdi:moon-waning-crescent
+      state: >
+        {{ states('sensor.illuminance') < 10000 }}
