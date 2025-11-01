@@ -2,7 +2,7 @@
   id: garden-lights-on
   trigger:
     - platform: state
-      entity_id: binary_sensor.dark_outside
+      entity_id: binary_sensor.sufficiently_dark_for_outdoor_lights
       to: "on"
     - platform: state
       entity_id: binary_sensor.presence_ground_floor
@@ -22,7 +22,7 @@
       entity_id: binary_sensor.presence_house
       state: "on"
     - condition: state
-      entity_id: binary_sensor.dark_outside
+      entity_id: binary_sensor.sufficiently_dark_for_outdoor_lights
       state: "on"
   action:
     - service: switch.turn_on
@@ -34,7 +34,7 @@
   id: garden-lights-off
   trigger:
     - platform: state
-      entity_id: binary_sensor.dark_outside
+      entity_id: binary_sensor.sufficiently_dark_for_outdoor_lights
       to: "off"
     - platform: state
       entity_id: binary_sensor.presence_ground_floor

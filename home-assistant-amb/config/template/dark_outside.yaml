@@ -1,5 +1,0 @@
-- binary_sensor:
-    - name: "Dark Outside"
-      icon: mdi:moon-waning-crescent
-      state: >
-        {{ state_attr('sun.sun', 'elevation') < 5 }}

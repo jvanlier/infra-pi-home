@@ -1,0 +1,3 @@
+- unique_id: illuminance
+  name: illuminance
+  entity_id: weather.forecast_home
