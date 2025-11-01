@@ -5,6 +5,7 @@
       entity_id: binary_sensor.sufficiently_dark_for_outdoor_lights
       to: "on"
     - platform: state
+      # Using ground floor here so that it also turn on during dark mornings when we walk down the stairs:
       entity_id: binary_sensor.presence_ground_floor
       from: "off"
       to: "on"
@@ -19,7 +20,7 @@
       to: home
   condition:
     - condition: state
-      entity_id: binary_sensor.presence_house
+      entity_id: binary_sensor.presence_ground_floor
       state: "on"
     - condition: state
       entity_id: binary_sensor.sufficiently_dark_for_outdoor_lights

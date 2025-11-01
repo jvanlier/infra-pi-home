@@ -33,3 +33,4 @@
         # Turn off the motion-activated lights manually, in case they were in dimmed state:
         entity_id:
           - light.light_bathroom
+  mode: restart
