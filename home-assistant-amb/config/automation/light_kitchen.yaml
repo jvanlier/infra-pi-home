@@ -63,7 +63,7 @@
         - binary_sensor.presence_ground_floor
       to: "off"
   condition:
-    - conditon: or
+    - condition: or
       conditions:
         - condition: state
           entity_id: light.light_group_kitchen_middle
