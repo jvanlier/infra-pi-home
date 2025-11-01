@@ -5,7 +5,8 @@
     input:
       motion_entity: binary_sensor.motion_kitchen_occupancy
       device_no_motion_wait: number.motion_kitchen_detection_interval
-      total_no_motion_wait: 600
+      # total_no_motion_wait: 600
+      total_no_motion_wait: 5
       light_entity_id: light.light_group_kitchen_middle
       adaptive_light_entity: switch.adaptive_lighting_kitchen_middle
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_kitchen_middle
@@ -18,7 +19,8 @@
     input:
       motion_entity: binary_sensor.motion_kitchen_occupancy
       device_no_motion_wait: number.motion_kitchen_detection_interval
-      total_no_motion_wait: 600
+      # total_no_motion_wait: 600
+      total_no_motion_wait: 5
       light_entity_id: light.light_group_kitchen_countertop
       adaptive_light_entity: switch.adaptive_lighting_kitchen_countertop
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_kitchen_countertop
