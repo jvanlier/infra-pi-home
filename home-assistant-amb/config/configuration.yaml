@@ -9,11 +9,12 @@ tts:
 recorder:
   purge_keep_days: 30  # default is 10 days
 
+# Dirs to include
 automation: !include_dir_merge_list automation/
 sensor: !include_dir_merge_list sensor/
 template: !include_dir_merge_list template/
 
-adaptive_lighting: !include adaptive_lighting.yaml
+# Files to include
 group: !include groups.yaml
 input_boolean: !include input_boolean.yaml
 input_number: !include input_number.yaml
@@ -21,3 +22,7 @@ input_text: !include input_text.yaml
 lovelace: !include lovelace.yaml
 script: !include scripts.yaml
 timer: !include timer.yaml
+
+# Custom component config files to include
+adaptive_lighting: !include adaptive_lighting.yaml
+illuminance: !include illuminance.yaml
