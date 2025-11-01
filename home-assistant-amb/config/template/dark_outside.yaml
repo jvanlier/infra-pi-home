@@ -7,4 +7,4 @@
     - name: "Low Illuminance Outside"
       icon: mdi:moon-waning-crescent
       state: >
-        {{ states('sensor.illuminance') < 10000 }}
+        {{ states('sensor.illuminance') | int(0) < 10000 }}
