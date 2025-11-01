@@ -1,5 +1,5 @@
-- alias: Light dark outside transition living
-  id: light-dark-outside-transition-living
+- alias: Light dark transition living
+  id: light-dark-transition-living
   trigger:
     - platform: state
       entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
@@ -14,3 +14,67 @@
     - service: "light.turn_{{ trigger.to_state.state }}"
       target:
         entity_id: light.light_group_living_spot_dark_outside
+
+- alias: Light dark transition kitchen - on to dimmed state
+  id: light-dark-transition-kitchen-on-to-dimmed-state
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.presence_ground_floor
+      state: "on"
+    - condition: state
+      entity_id: light.light_group_kitchen_countertop
+      state: "off"
+  action:
+    # Now we need to mimick the dimmed state
+    - service: "switch.turn_off"
+      target:
+        entity_id:
+          - switch.adaptive_lighting_adapt_brightness_kitchen_middle
+          - switch.adaptive_lighting_adapt_brightness_kitchen_countertop
+    # Setting brightness value is a bit wonky, the automation takes 70% of adaptive brightness.
+    # But now we need to hardcode it.
+    - service: "light.turn_on"
+      data:
+        brightness: 107
+        transition: 1
+      target:
+        entity_id:
+          - light.light_group_kitchen_countertop
+    - service: "light.turn_on"
+      data:
+        brightness: 53
+        transition: 1
+      target:
+        entity_id:
+          - light.light_group_kitchen_middle
+
+- alias: Light dark transition kitchen - off if in dimmed state
+  id: light-dark-transition-kitchen-off-if-in-dimmed-state
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
+      to: "off"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.presence_ground_floor
+      state: "on"
+    - condition: state
+      entity_id: light.light_group_kitchen_countertop
+      state: "on"
+    - alias: "Ensure automation not running (i.e. no motion detected)"
+      condition: state
+      entity_id: automation.mal_kitchen_countertop
+      attribute: current
+      state: 0
+  action:
+    - service: "light.turn_off"
+      data:
+        transition: 10
+      target:
+        entity_id:
+          - light.light_group_kitchen_countertop
+          - light.light_group_kitchen_middle
