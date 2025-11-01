@@ -1,13 +1,3 @@
-# Requires input boolean
-
-- alias: Light Disco Duco
-  id: light-disco-duco
-  use_blueprint:
-    path: custom/light_disco.yaml
-    input:
-      light_group_color: &light_duco_color light.light_group_bedroom_duco_color
-      input_boolean_disco: &bool_duco input_boolean.disco_duco
-
 - alias: Light Disco Olivier
   id: light-disco-olivier
   use_blueprint:
@@ -15,17 +5,6 @@
     input:
       light_group_color: &light_olivier_color light.light_group_bedroom_olivier_color
       input_boolean_disco: &bool_olivier input_boolean.disco_olivier
-
-- alias: Light Disco Duco Off
-  id: light-disco-duco-off
-  trigger:
-    - platform: state
-      entity_id: *light_duco_color
-      to: "off"
-  action:
-    - service: input_boolean.turn_off
-      target:
-        entity_id: *bool_duco
 
 - alias: Light Disco Olivier Off
   id: light-disco-olivier-off

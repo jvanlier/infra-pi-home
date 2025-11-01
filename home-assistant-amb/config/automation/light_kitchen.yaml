@@ -1,23 +1,29 @@
-- alias: Light dark transition living
-  id: light-dark-transition-living
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
-      to:
-        - "on"
-        - "off"
-  condition:
-    - condition: state
-      entity_id: binary_sensor.presence_ground_floor
-      state: "on"
-  action:
-    - service: "light.turn_{{ trigger.to_state.state }}"
-      target:
-        entity_id: light.light_group_living_spot_dark_outside
+- alias: Motion-activated Light Kitchen Middle
+  id: mal-kitchen-middle
+  use_blueprint:
+    path: custom/light_motion_activated_dark_aware.yaml
+    input:
+      motion_entity: binary_sensor.motion_kitchen_occupancy
+      device_no_motion_wait: number.motion_kitchen_detection_interval
+      total_no_motion_wait: 600
+      light_entity_id: light.light_group_kitchen_middle
+      adaptive_light_entity: switch.adaptive_lighting_kitchen_middle
+      adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_kitchen_middle
+      dim_percentage: 70
 
-# TODO: these next two kitchen automations are also relevant for presence activation, we want the same thing here really.
-#       Now it becomes a bit awkward that light automations are split per activation method instead of per room.
-#       Re-org to room and fix this.
+- alias: Motion-activated Light Kitchen Countertop
+  id: mal-kitchen-countertop
+  use_blueprint:
+    path: custom/light_motion_activated_dark_aware.yaml
+    input:
+      motion_entity: binary_sensor.motion_kitchen_occupancy
+      device_no_motion_wait: number.motion_kitchen_detection_interval
+      total_no_motion_wait: 600
+      light_entity_id: light.light_group_kitchen_countertop
+      adaptive_light_entity: switch.adaptive_lighting_kitchen_countertop
+      adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_kitchen_countertop
+      dim_percentage: 70
+
 - alias: Light dark transition kitchen - on to dimmed state
   id: light-dark-transition-kitchen-on-to-dimmed-state
   trigger:

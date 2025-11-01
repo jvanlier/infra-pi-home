@@ -1,3 +1,23 @@
+# Turn on/off the living white cabinet light when living spots go on/off.
+# This is useful to prevent cluttering the switch configuation.
+# And it was already ignored for dimming. It should just gently light up the cabinet, never be super bright
+- alias: Proximity-activated light living white cabinet
+  id: proximity-activated-light-living-white-cabinet
+  trigger:
+    - platform: state
+      entity_id: &living_spot light.light_group_living_spot_always
+      to:
+        - "on"
+        - "off"
+  action:
+    - service: "light.turn_{{ trigger.to_state.state }}"
+      target:
+        entity_id: light.light_living_white_cabinet
+      data:
+        # Transition seems buggy
+        transition: 0
+  mode: restart
+
 - alias: "Presence activated light living: on"
   id: presence-activated-light-living-on
   trigger:
@@ -53,30 +73,19 @@
           - light.light_group_living_spot_dark_outside
           - light.light_dining_table
 
-- alias: "Presence activated light bathroom: off"
-  id: presence-activated-light-bathroom-off
+- alias: Light dark transition living
+  id: light-dark-transition-living
   trigger:
     - platform: state
+      entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
+      to:
+        - "on"
+        - "off"
+  condition:
+    - condition: state
       entity_id: binary_sensor.presence_ground_floor
-      to: "off"
-      # The presence sensor has a rather long delay_off, so we can safely toggle directly on a state change.
+      state: "on"
   action:
-    - service: "light.turn_off"
-      data:
-        transition: 10
+    - service: "light.turn_{{ trigger.to_state.state }}"
       target:
-        # Turn off the motion-activated lights manually, in case they were in dimmed state:
-        entity_id:
-          - light.light_hall_0_wall
-          - light.light_group_hall_0_spot
-          - light.light_toilet
-    # Splitting the lights with a short delay to prevent flooding the Zigbee network:
-    - delay: "00:00:02"
-    - service: "light.turn_off"
-      data:
-        transition: 8
-      target:
-        entity_id:
-          - light.light_group_living_spot_always
-          - light.light_group_living_spot_dark_outside
-          - light.light_dining_table
+        entity_id: light.light_group_living_spot_dark_outside
