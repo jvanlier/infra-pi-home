@@ -62,12 +62,13 @@
     - condition: state
       entity_id: binary_sensor.presence_ground_floor
       state: "on"
+    # Sufficient to check only countertop for the next two, since they go together:
     - condition: state
       entity_id: light.light_group_kitchen_countertop
       state: "on"
     - alias: "Ensure automation not running (i.e. no motion detected)"
       condition: state
-      entity_id: automation.mal_kitchen_countertop
+      entity_id: automation.motion_activated_light_kitchen_countertop
       attribute: current
       state: 0
   action:
