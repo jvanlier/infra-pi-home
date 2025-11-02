@@ -4,4 +4,4 @@
        unique_id: 'weather_cloud_coverage'
        friendly_name: Weather Cloud Coverage
        value_template: >-
-        {{ state_attr("weather.forecast_home", "cloud_coverage") | round(0) }}
+        {{ state_attr("weather.forecast_home", "cloud_coverage") | float(0) }}
