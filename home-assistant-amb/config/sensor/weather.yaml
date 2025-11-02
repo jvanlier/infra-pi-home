@@ -3,5 +3,6 @@
     weather_cloud_coverage:
        unique_id: 'weather_cloud_coverage'
        friendly_name: Weather Cloud Coverage
+       unit_of_measurement: 'percentage'
        value_template: >-
         {{ state_attr("weather.forecast_home", "cloud_coverage") | float(0) }}
