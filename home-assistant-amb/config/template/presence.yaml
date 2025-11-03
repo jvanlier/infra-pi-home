@@ -9,9 +9,14 @@
              is_state("binary_sensor.motion_stairs_0_occupancy", "on") or
              is_state("binary_sensor.motion_dining_occupancy", "on") or
              is_state("binary_sensor.motion_living_occupancy", "on") or
-             is_state("binary_sensor.motion_kitchen_occupancy", "on") or
-             is_state("binary_sensor.door_living_stair_cabinet_contact", "on")
+             is_state("binary_sensor.motion_kitchen_occupancy", "on")
           }}
+        # The state template above included the following:
+        # is_state("binary_sensor.door_living_stair_cabinet_contact", "on")
+        # But that caused presence to never clear if we leave the cabinet door open.
+        #
+        # Removed it for now, because we have enough motion sensors in that area.
+        # But would be nice to figure out a way to include recent toggles for when we add outside doors/fence.
 
       - name: Presence First Floor
         icon: mdi:numeric-1-box
