@@ -42,5 +42,6 @@
           {{ is_state("person.jori", "home") or
              is_state("person.chantal", "home") or
              is_state("binary_sensor.presence_ground_floor", "on") or
+             is_state("binary_sensor.presence_first_floor", "on") or
              is_state("binary_sensor.presence_second_floor", "on")
           }}
