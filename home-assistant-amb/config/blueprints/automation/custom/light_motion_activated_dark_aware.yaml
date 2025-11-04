@@ -103,6 +103,10 @@ action:
           - condition: state
             entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
             state: "on"
+          - alias: "Only when not in sleep mode (dimmed state is too bright)"
+            condition: state
+            entity_id: input_boolean.sleep_mode
+            state: "off"
           - alias: "Ensure it hasn't been turned off in the meantime"
             condition: state
             entity_id: !input light_entity_id

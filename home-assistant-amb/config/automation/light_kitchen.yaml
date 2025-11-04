@@ -38,6 +38,10 @@
         - binary_sensor.sufficiently_dark_for_indoor_lights
         - binary_sensor.presence_ground_floor
       state: "on"
+    - alias: "Only turn on if not in sleep mode (dimmed state is too bright)"
+      condition: state
+      entity_id: input_boolean.sleep_mode
+      state: "off"
     - alias: "Only turn on if currently off"
       condition: state
       entity_id: &kitchen_lights
@@ -45,22 +49,9 @@
         - light.light_group_kitchen_countertop
       state: "off"
   action:
-    # There's one exception where we don't want dimmed state: if sleep mode is enabled
-    choose:
-      - conditions:
-          - condition: state
-            # The input boolean is probably sufficient, but in theory it's also possible to toggle sleep mode for just
-            # the kitchen lights. Let's see how this goes first.
-            entity_id: input_boolean.sleep_mode
-            state: "on"
-        sequence:
-          - service: "light.turn_on"
-            target:
-              entity_id: *kitchen_lights
-    default:
-      # Potential improvement: transition is 5 sec, use 1 sec to sync with rest of living.
-      - action: script.turn_on_light_kitchen_middle_dimmed
-      - action: script.turn_on_light_kitchen_countertop_dimmed
+    # Potential improvement: transition in script is 5 sec, in this case 1 sec is more appropriate.
+    - action: script.turn_on_light_kitchen_middle_dimmed
+    - action: script.turn_on_light_kitchen_countertop_dimmed
   mode: restart
 
 - alias: Light kitchen off when in dimmed state
