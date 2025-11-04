@@ -1,7 +1,7 @@
  - binary_sensor:
       - name: Presence Ground Floor
         icon: mdi:numeric-0-box
-        delay_off: "00:15:00"  # Rather long, because lights turn off based on this
+        delay_off: "00:20:00"  # Rather long, because lights turn off based on this
         state: >
           {{ is_state("binary_sensor.entertainment_in_use", "on") or
              is_state("binary_sensor.motion_hall_0_occupancy", "on") or
