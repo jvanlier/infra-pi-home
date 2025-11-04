@@ -32,6 +32,9 @@
         - binary_sensor.sufficiently_dark_for_indoor_lights
         - binary_sensor.presence_ground_floor
       to: "on"
+    - platform: state
+      entity_id: input_boolean.sleep_mode
+      to: "off"
   condition:
     - condition: state
       entity_id:
