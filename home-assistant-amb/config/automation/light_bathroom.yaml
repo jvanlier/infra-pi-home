@@ -5,10 +5,27 @@
     input:
       motion_entity: binary_sensor.motion_bathroom_occupancy
       device_no_motion_wait: number.motion_bathroom_detection_door_interval
+      # Ideally the motion sensors have the same value for (configured on-device via Z2M), otherwise, after dimming and
+      # standing still for a bit, they will go back to their default value as defined by adaptive lighting.
+      # (This does not really affect other motion-activated lights because they are usually not dimmed manually.)
       total_no_motion_wait: 300
       light_entity_id: light.light_bathroom
       adaptive_light_entity: switch.adaptive_lighting_bathroom
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_bathroom
+
+- alias: Light bathroom on to dimmed state
+  id: light-bathroon-on-to-dimmed
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.presence_first_floor
+      to: "on"
+  condition:
+    - alias: "Only turn on if currently off"
+      condition: state
+      entity_id: light.light_bathroom
+      state: "off"
+  action:
+    - action: script.turn_on_light_bathroom_dimmed
 
 - alias: "Presence activated light bathroom: off"
   description: >
