@@ -45,9 +45,22 @@
         - light.light_group_kitchen_countertop
       state: "off"
   action:
-    # Potential improvement: transition is 5 sec, use 1 sec to sync with rest of living.
-    - action: script.turn_on_light_kitchen_middle_dimmed
-    - action: script.turn_on_light_kitchen_countertop_dimmed
+    # There's one exception where we don't want dimmed state: if sleep mode is enabled
+    choose:
+      - conditions:
+          - condition: state
+            # The input boolean is probably sufficient, but in theory it's also possible to toggle sleep mode for just
+            # the kitchen lights. Let's see how this goes first.
+            entity_id: input_boolean.sleep_mode
+            state: "on"
+        sequence:
+          - service: "light.turn_on"
+            target:
+              entity_id: *kitchen_lights
+    default:
+      # Potential improvement: transition is 5 sec, use 1 sec to sync with rest of living.
+      - action: script.turn_on_light_kitchen_middle_dimmed
+      - action: script.turn_on_light_kitchen_countertop_dimmed
   mode: restart
 
 - alias: Light kitchen off when in dimmed state
