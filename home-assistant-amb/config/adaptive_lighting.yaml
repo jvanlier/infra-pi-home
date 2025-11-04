@@ -67,7 +67,7 @@
   max_brightness: 30
   min_color_temp: 2700
   max_color_temp: 4000
-  sleep_brightness: 5
+  sleep_brightness: 4
 
 - name: "kitchen-countertop"
   lights: ["light.light_group_kitchen_countertop"]
@@ -75,7 +75,7 @@
   max_brightness: 60
   min_color_temp: 2700
   max_color_temp: 4000
-  sleep_brightness: 10
+  sleep_brightness: 8
 
 - name: "bathroom"
   lights: ["light.light_bathroom"]
