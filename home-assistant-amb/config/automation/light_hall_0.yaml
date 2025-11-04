@@ -1,7 +1,7 @@
 - alias: Motion-activated Light Hall 0 Wall
   id: mal-hall-0-wall
   use_blueprint:
-    path: custom/light_motion_activated_dark_aware.yaml
+    path: custom/light_motion_activated_dark_aware_script.yaml
     input:
       motion_entity: binary_sensor.motion_hall_0_occupancy
       device_no_motion_wait: number.motion_hall_0_detection_interval
@@ -9,11 +9,12 @@
       light_entity_id: light.light_hall_0_wall
       adaptive_light_entity: switch.adaptive_lighting_hall_0_wall
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_hall_0_wall
+      dim_script: script.turn_on_light_hall_0_spot_dimmed
 
 - alias: Motion-activated Light Hall 0 Spot
   id: mal-hall-0-spot
   use_blueprint:
-    path: custom/light_motion_activated_dark_aware.yaml
+    path: custom/light_motion_activated_dark_aware_script.yaml
     input:
       motion_entity: binary_sensor.motion_hall_0_occupancy
       device_no_motion_wait: number.motion_hall_0_detection_interval
@@ -21,3 +22,82 @@
       light_entity_id: light.light_group_hall_0_spot
       adaptive_light_entity: switch.adaptive_lighting_hall_0_spot
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_hall_0_spot
+      dim_script: script.turn_on_light_hall_0_wall_dimmed
+
+- alias: Light hall 0 on to dimmed state
+  id: light-hall-0-on-to-dimmed
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.sufficiently_dark_for_indoor_lights
+        - binary_sensor.presence_ground_floor
+      to: "on"
+    - platform: state
+      entity_id: input_boolean.sleep_mode
+      to: "off"
+  condition:
+    - condition: state
+      entity_id:
+        - binary_sensor.sufficiently_dark_for_indoor_lights
+        - binary_sensor.presence_ground_floor
+      state: "on"
+    - alias: "Only turn on if not in sleep mode (dimmed state is too bright)"
+      condition: state
+      entity_id: input_boolean.sleep_mode
+      state: "off"
+    - alias: "Only turn on if currently off"
+      condition: state
+      entity_id: &hall_0_lights
+        - light.light_group_hall_0_spot
+        - light.light_hall_0_wall
+      state: "off"
+  action:
+    # Potential improvement: transition in script is 5 sec, in this case 1 sec is more appropriate.
+    - action: script.turn_on_light_hall_0_spot_dimmed
+    - action: script.turn_on_light_hall_0_wall_dimmed
+  mode: restart
+
+- alias: Light hall 0 off when in dimmed state
+  id: light-hall-0-off-when-in-dimmed-state
+  description: >
+    Turn off hall 0 lights when no presence detected anymore, or it becomes sufficiently bright.
+
+    The goal is to turn off lights that are in dimmed state, when that is no longer needed.
+    Dimmed state assumed when lights are on but there is no motion-activated automation running.
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.sufficiently_dark_for_indoor_lights
+        - binary_sensor.presence_ground_floor
+      to: "off"
+  condition:
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: light.light_group_hall_0_spot
+          state: "on"
+        - condition: state
+          entity_id: light.light_hall_0_wall
+          state: "on"
+    - alias: "Ensure automation for spot not running (i.e. no motion detected)"
+      condition: state
+      entity_id: automation.motion_activated_light_hall_0_spot
+      attribute: current
+      state: 0
+    - alias: "Ensure automation for wall not running (i.e. no motion detected)"
+      condition: state
+      entity_id: automation.motion_activated_light_hall_0_wall
+      attribute: current
+      state: 0
+  action:
+    - service: "light.turn_off"
+      data:
+        transition: 10
+      target:
+        entity_id: *hall_0_lights
+    - service: "switch.turn_on"
+      target:
+        entity_id:
+          - switch.adaptive_lighting_adapt_brightness_hall_0_spot
+          - switch.adaptive_lighting_adapt_brightness_hall_0_wall
+  mode: restart
