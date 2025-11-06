@@ -24,7 +24,7 @@
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_kitchen_countertop
       dim_script: script.turn_on_light_kitchen_countertop_dimmed
 
-- alias: Light kitchen on to dimmmed state
+- alias: Light kitchen on to dimmed state
   id: light-kitchen-on-to-dimmed
   trigger:
     - platform: state

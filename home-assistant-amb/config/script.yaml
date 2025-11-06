@@ -41,3 +41,31 @@ turn_on_light_bathroom_dimmed:
         transition: 5
       target:
         entity_id: light.light_bathroom
+
+turn_on_light_hall_0_spot_dimmed:
+  alias: "Turn on light hall 0 spot dimmed"
+  sequence:
+    - service: "switch.turn_off"
+      target:
+        entity_id: switch.adaptive_lighting_adapt_brightness_hall_0_spot
+    # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
+    - service: "light.turn_on"
+      data:
+        brightness: 10
+        transition: 5
+      target:
+        entity_id: light.light_group_hall_0_spot
+
+turn_on_light_hall_0_wall_dimmed:
+  alias: "Turn on light hall 0 wall dimmed"
+  sequence:
+    - service: "switch.turn_off"
+      target:
+        entity_id: switch.adaptive_lighting_adapt_brightness_hall_0_wall
+    # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
+    - service: "light.turn_on"
+      data:
+        brightness: 7
+        transition: 5
+      target:
+        entity_id: light.light_hall_0_wall

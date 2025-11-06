@@ -1,7 +1,7 @@
 - alias: Motion-activated Light Bathroom
   id: mal-bathroom
   use_blueprint:
-    path: custom/light_motion_activated_dark_aware.yaml
+    path: custom/light_motion_activated_dark_aware_script.yaml
     input:
       motion_entity: binary_sensor.motion_bathroom_occupancy
       device_no_motion_wait: number.motion_bathroom_detection_door_interval
@@ -12,6 +12,7 @@
       light_entity_id: light.light_bathroom
       adaptive_light_entity: switch.adaptive_lighting_bathroom
       adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_bathroom
+      dim_script: script.turn_on_light_bathroom_dimmed
 
 - alias: Light bathroom on to dimmed state
   id: light-bathroon-on-to-dimmed
