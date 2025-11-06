@@ -5,9 +5,9 @@
     input:
       motion_entity: binary_sensor.motion_bathroom_occupancy
       device_no_motion_wait: number.motion_bathroom_detection_door_interval
-      # Ideally the motion sensors have the same value for no_motion_wait (aka occupancy_timeout) configured on-device
-      # via Z2M, otherwise after dimming and standing still for a bit, they will go back to their default value as
-      # defined by adaptive lighting.
+      # Ideally the motion sensors have value for total_no_motion_wait set as occupancy_timeout on-device via Z2M,
+      # otherwise after dimming and standing still for a bit, they will go back to their default value as defined by
+      # adaptive lighting.
       # (This does not really affect other motion-activated lights because they are usually not dimmed manually.)
       total_no_motion_wait: 300
       light_entity_id: light.light_bathroom
