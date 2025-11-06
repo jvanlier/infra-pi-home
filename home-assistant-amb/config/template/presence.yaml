@@ -2,58 +2,63 @@
  # So these are not caught at test time, nor do they result in error in the logs.
  # Maybe change this to input_booleans + automations to set/unset in combination with a timer.
 
- - binary_sensor:
-      - name: Door Living Stair Cabinet Door Contact Recent
-        auto_off: "00:01:00"
-        state: >
-          {{ is_state("binary_sensor.door_living_stair_cabinet_contact", "on") }}
+- triggers:
+  - trigger: state
+    entity_id: binary_sensor.door_living_stair_cabinet_contact
+    to: "on"
+  binary_sensor:
+    name: Door Living Stair Cabinet Door Contact Recent
+    state: "on"
+    auto_off:
+      minutes: 1
 
-      - name: Presence Ground Floor
-        icon: mdi:numeric-0-box
-        delay_off: "00:20:00"  # Rather long, because lights turn off based on this
-        state: >
-          {{ expand([
-              "binary_sensor.door_living_stair_cabinet_contact_recent",
-              "binary_sensor.entertainment_in_use",
-              "binary_sensor.motion_hall_0_occupancy",
-              "binary_sensor.motion_toilet_occupancy",
-              "binary_sensor.motion_stairs_0_occupancy",
-              "binary_sensor.motion_dining_occupancy",
-              "binary_sensor.motion_living_occupancy",
-              "binary_sensor.motion_kitchen_occupancy"
-             ]) | selectattr("state", "eq", "on") | list | count > 0
-          }}
+- binary_sensor:
+  - name: Presence Ground Floor
+    icon: mdi:numeric-0-box
+    delay_off: "00:20:00"  # Rather long, because lights turn off based on this
+    state: >
+      {{ expand([
+          "binary_sensor.door_living_stair_cabinet_contact_recent",
+          "binary_sensor.entertainment_in_use",
+          "binary_sensor.motion_hall_0_occupancy",
+          "binary_sensor.motion_toilet_occupancy",
+          "binary_sensor.motion_stairs_0_occupancy",
+          "binary_sensor.motion_dining_occupancy",
+          "binary_sensor.motion_living_occupancy",
+          "binary_sensor.motion_kitchen_occupancy"
+          ]) | selectattr("state", "eq", "on") | list | count > 0
+      }}
 
-      - name: Presence First Floor
-        icon: mdi:numeric-1-box
-        delay_off: "00:15:00"
-        state: >
-          {{ expand([
-              "binary_sensor.motion_stairs_0_occupancy",
-              "binary_sensor.motion_stairs_1_occupancy",
-              "binary_sensor.motion_bathroom_door_occupancy",
-              "binary_sensor.motion_bathroom_shower_occupancy"
-             ]) | selectattr("state","eq","on") | list | count > 0
-          }}
+  - name: Presence First Floor
+    icon: mdi:numeric-1-box
+    delay_off: "00:15:00"
+    state: >
+      {{ expand([
+          "binary_sensor.motion_stairs_0_occupancy",
+          "binary_sensor.motion_stairs_1_occupancy",
+          "binary_sensor.motion_bathroom_door_occupancy",
+          "binary_sensor.motion_bathroom_shower_occupancy"
+          ]) | selectattr("state","eq","on") | list | count > 0
+      }}
 
-      - name: Presence Second Floor
-        icon: mdi:numeric-2-box
-        delay_off: "00:05:00"
-        state: >
-          {{ expand([
-              "binary_sensor.workstation_in_use",
-              "binary_sensor.motion_stairs_1_occupancy"
-             ]) | selectattr("state", "eq", "on") | list | count > 0
-          }}
+  - name: Presence Second Floor
+    icon: mdi:numeric-2-box
+    delay_off: "00:05:00"
+    state: >
+      {{ expand([
+          "binary_sensor.workstation_in_use",
+          "binary_sensor.motion_stairs_1_occupancy"
+          ]) | selectattr("state", "eq", "on") | list | count > 0
+      }}
 
-      - name: Presence House
-        icon: mdi:home-account
-        state: >
-          {{ expand([
-              "person.jori",
-              "person.chantal",
-              "binary_sensor.presence_ground_floor",
-              "binary_sensor.presence_first_floor",
-              "binary_sensor.presence_second_floor",
-             ]) | selectattr("state", "eq", "on") | list | count > 0
-          }}
+  - name: Presence House
+    icon: mdi:home-account
+    state: >
+      {{ expand([
+        "person.jori",
+        "person.chantal",
+        "binary_sensor.presence_ground_floor",
+        "binary_sensor.presence_first_floor",
+        "binary_sensor.presence_second_floor",
+        ]) | selectattr("state", "eq", "on") | list | count > 0
+      }}
