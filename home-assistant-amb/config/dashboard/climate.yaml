@@ -187,6 +187,8 @@ views:
                 name: Bedroom Olivier
               - entity: sensor.climate_bedroom_duco_humidity
                 name: Bedroom Duco
+              - entity: sensor.climate_storage_humidity
+                name: Storage
             stat_types: *stat_types
             min_y_axis: &min_y_axis_humidity 30
             max_y_axis: &max_y_axis_humidity 80
