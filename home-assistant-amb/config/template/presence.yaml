@@ -1,3 +1,7 @@
+ # Footgun: Typos in entity ids in is_state(entity_id, state) silently evaluate to false.
+ # So these are not caught at test time, nor do they result in error in the logs.
+ # Maybe change this to input_booleans + automations to set/unset in combination with a timer.
+
  - binary_sensor:
       - name: Presence Ground Floor
         icon: mdi:numeric-0-box
