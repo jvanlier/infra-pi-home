@@ -8,7 +8,6 @@
       total_no_motion_wait: 300
       light_entity_id: light.light_hall_0_wall
       adaptive_light_entity: switch.adaptive_lighting_hall_0_wall
-      adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_hall_0_wall
       dim_script: script.turn_on_light_hall_0_spot_dimmed
 
 - alias: Motion-activated Light Hall 0 Spot
@@ -21,7 +20,6 @@
       total_no_motion_wait: 300
       light_entity_id: light.light_group_hall_0_spot
       adaptive_light_entity: switch.adaptive_lighting_hall_0_spot
-      adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_hall_0_spot
       dim_script: script.turn_on_light_hall_0_wall_dimmed
 
 - alias: Light hall 0 on to dimmed state
@@ -95,9 +93,4 @@
         transition: 10
       target:
         entity_id: *hall_0_lights
-    - service: "switch.turn_on"
-      target:
-        entity_id:
-          - switch.adaptive_lighting_adapt_brightness_hall_0_spot
-          - switch.adaptive_lighting_adapt_brightness_hall_0_wall
   mode: restart

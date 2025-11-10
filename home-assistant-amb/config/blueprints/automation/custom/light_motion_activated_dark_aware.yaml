@@ -40,12 +40,6 @@ blueprint:
       selector:
         entity:
           domain: switch
-    adaptive_light_adapt_brightness_entity:
-      name: Adaptive Lighting adapt brightness entity.
-      description: Entity to use to disable adaptive brightness when in dimmed state.
-      selector:
-        entity:
-          domain: switch
     dim_percentage:
       name: Dim percentage
       description: Percentage to dim to, relative to previous value
@@ -71,10 +65,6 @@ variables:
   dim_percentage: !input dim_percentage
 
 action:
-  - alias: "Enable adaptive brightness"
-    service: switch.turn_on
-    target:
-      entity_id: !input adaptive_light_adapt_brightness_entity
   - choose:
       - conditions:
           - condition: state
@@ -112,10 +102,6 @@ action:
             entity_id: !input light_entity_id
             state: "on"
         sequence:
-          - alias: "Disable adaptive brightness"
-            service: switch.turn_off
-            target:
-              entity_id: !input adaptive_light_adapt_brightness_entity
           - alias: "Dim the light"
             service: light.turn_on
             data:

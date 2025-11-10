@@ -3,9 +3,6 @@
 turn_on_light_kitchen_middle_dimmed:
   alias: "Turn on light kitchen middle dimmed"
   sequence:
-    - service: "switch.turn_off"
-      target:
-        entity_id: switch.adaptive_lighting_adapt_brightness_kitchen_middle
     # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
     - service: "light.turn_on"
       data:
@@ -17,9 +14,6 @@ turn_on_light_kitchen_middle_dimmed:
 turn_on_light_kitchen_countertop_dimmed:
   alias: "Turn on light kitchen countertop dimmed"
   sequence:
-    - service: "switch.turn_off"
-      target:
-        entity_id: switch.adaptive_lighting_adapt_brightness_kitchen_countertop
     # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
     - service: "light.turn_on"
       data:
@@ -31,9 +25,6 @@ turn_on_light_kitchen_countertop_dimmed:
 turn_on_light_bathroom_dimmed:
   alias: "Turn on light bathroom dimmed"
   sequence:
-    - service: "switch.turn_off"
-      target:
-        entity_id: switch.adaptive_lighting_adapt_brightness_bathroom
     # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
     - service: "light.turn_on"
       data:
@@ -45,9 +36,6 @@ turn_on_light_bathroom_dimmed:
 turn_on_light_hall_0_spot_dimmed:
   alias: "Turn on light hall 0 spot dimmed"
   sequence:
-    - service: "switch.turn_off"
-      target:
-        entity_id: switch.adaptive_lighting_adapt_brightness_hall_0_spot
     # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
     - service: "light.turn_on"
       data:
@@ -59,9 +47,6 @@ turn_on_light_hall_0_spot_dimmed:
 turn_on_light_hall_0_wall_dimmed:
   alias: "Turn on light hall 0 wall dimmed"
   sequence:
-    - service: "switch.turn_off"
-      target:
-        entity_id: switch.adaptive_lighting_adapt_brightness_hall_0_wall
     # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
     - service: "light.turn_on"
       data:

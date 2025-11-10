@@ -12,7 +12,6 @@
       total_no_motion_wait: 300
       light_entity_id: light.light_bathroom
       adaptive_light_entity: switch.adaptive_lighting_bathroom
-      adaptive_light_adapt_brightness_entity: switch.adaptive_lighting_adapt_brightness_bathroom
       dim_script: script.turn_on_light_bathroom_dimmed
 
 - alias: Light bathroom on to dimmed state
