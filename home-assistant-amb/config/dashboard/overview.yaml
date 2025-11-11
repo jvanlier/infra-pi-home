@@ -215,6 +215,22 @@ views:
           #   tap_action:
           #     action: toggle
 
+          - type: heading
+            heading: Illuminance (approx using cloud coverage)
+            heading_style: title
+          - type: history-graph
+            entities:
+              - entity: sensor.illuminance_cloud_coverage
+                name: Illuminance
+              - entity: input_number.illuminance_threshold_indoor_lights
+                name: Thr. indoor
+              - entity: input_number.illuminance_threshold_outdoor_lights
+                name: Thr. outdoor
+            hours_to_show: 24
+            grid_options:
+              columns: 12
+              rows: 4
+
       - type: grid
         cards:
           - type: heading

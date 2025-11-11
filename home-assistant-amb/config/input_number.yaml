@@ -1,0 +1,15 @@
+illuminance_threshold_indoor_lights:
+  name: Illuminance Threshold Indoor Lights
+  initial: 4000
+  min: 1000
+  max: 6000
+  step: 100
+  unit_of_measurement: "lx"
+
+illuminance_threshold_outdoor_lights:
+  name: Illuminance Threshold Outdoor Lights
+  initial: 500
+  min: 100
+  max: 1000
+  step: 50
+  unit_of_measurement: "lx"
