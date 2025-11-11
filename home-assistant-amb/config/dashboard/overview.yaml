@@ -125,7 +125,7 @@ views:
           - type: history-graph
             entities:
               - entity: sensor.illuminance_cloud_coverage
-                name: Using cloud coverage
+                name: Cloud
               - entity: sensor.illuminance_weatherless
                 name: Weatherless
               - entity: input_number.illuminance_threshold_indoor_lights
