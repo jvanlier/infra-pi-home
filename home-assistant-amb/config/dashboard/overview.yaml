@@ -199,6 +199,23 @@ views:
             entity: light.light_bedroom_jc_bed_c
 
           - type: heading
+            heading: Light automation
+            heading_style: subtitle
+            icon: mdi:robot
+            # tap_action:
+            #   action: navigate
+            #   navigation_path: /dashboard-lights/automation
+          - type: tile
+            entity: input_boolean.adaptive_lighting
+            tap_action:
+              action: toggle
+          # Input boolean not in use yet:
+          # - type: tile
+          #   entity: input_boolean.motion_activated_lights
+          #   tap_action:
+          #     action: toggle
+
+          - type: heading
             heading: Illuminance
             heading_style: title
           - type: history-graph
@@ -215,23 +232,6 @@ views:
             grid_options:
               columns: 12
               rows: 4
-
-          - type: heading
-            heading: Light automation
-            heading_style: subtitle
-            icon: mdi:robot
-            # tap_action:
-            #   action: navigate
-            #   navigation_path: /dashboard-lights/automation
-          - type: tile
-            entity: input_boolean.adaptive_lighting
-            tap_action:
-              action: toggle
-          # Input boolean not in use yet:
-          # - type: tile
-          #   entity: input_boolean.motion_activated_lights
-          #   tap_action:
-          #     action: toggle
 
       - type: grid
         cards:
