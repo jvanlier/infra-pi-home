@@ -216,7 +216,7 @@ views:
           #     action: toggle
 
           - type: heading
-            heading: Illuminance (approximated w/ cloud coverage)
+            heading: Illuminance (approx using cloud coverage)
             heading_style: title
           - type: history-graph
             entities:
