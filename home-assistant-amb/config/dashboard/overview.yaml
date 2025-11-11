@@ -216,14 +216,12 @@ views:
           #     action: toggle
 
           - type: heading
-            heading: Illuminance
+            heading: Illuminance (approximated w/ cloud coverage)
             heading_style: title
           - type: history-graph
             entities:
               - entity: sensor.illuminance_cloud_coverage
-                name: Cloud
-              - entity: sensor.illuminance_weatherless
-                name: Weatherless
+                name: Illuminance
               - entity: input_number.illuminance_threshold_indoor_lights
                 name: Thr. indoor
               - entity: input_number.illuminance_threshold_outdoor_lights
