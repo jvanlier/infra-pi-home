@@ -120,24 +120,6 @@ views:
           #     action: toggle
 
           - type: heading
-            heading: Illuminance
-            heading_style: title
-          - type: history-graph
-            entities:
-              - entity: sensor.illuminance_cloud_coverage
-                name: Cloud
-              - entity: sensor.illuminance_weatherless
-                name: Weatherless
-              - entity: input_number.illuminance_threshold_indoor_lights
-                name: Thr. indoor
-              - entity: input_number.illuminance_threshold_outdoor_lights
-                name: Thr. outdoor
-            hours_to_show: 24
-            grid_options:
-              columns: 12
-              rows: 3
-
-          - type: heading
             heading: Lights
             heading_style: title
             icon: mdi:globe-light
@@ -215,6 +197,24 @@ views:
           - type: tile
             name: Chantal
             entity: light.light_bedroom_jc_bed_c
+
+          - type: heading
+            heading: Illuminance
+            heading_style: title
+          - type: history-graph
+            entities:
+              - entity: sensor.illuminance_cloud_coverage
+                name: Cloud
+              - entity: sensor.illuminance_weatherless
+                name: Weatherless
+              - entity: input_number.illuminance_threshold_indoor_lights
+                name: Thr. indoor
+              - entity: input_number.illuminance_threshold_outdoor_lights
+                name: Thr. outdoor
+            hours_to_show: 24
+            grid_options:
+              columns: 12
+              rows: 4
 
           - type: heading
             heading: Light automation
