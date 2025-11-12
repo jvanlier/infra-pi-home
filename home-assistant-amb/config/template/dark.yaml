@@ -13,5 +13,5 @@
       icon: mdi:moon-waning-crescent
       state: >
         {{ states('sensor.illuminance_cloud_coverage') | int(0) <
-           states('input_number.illuminance_threshold_outdoor_lights') | int(500)
+           states('input_number.illuminance_threshold_outdoor_lights') | int(400)
         }}

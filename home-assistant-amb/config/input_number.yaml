@@ -8,7 +8,7 @@ illuminance_threshold_indoor_lights:
 
 illuminance_threshold_outdoor_lights:
   name: Illuminance Threshold Outdoor Lights
-  initial: 500
+  initial: 400
   min: 100
   max: 1000
   step: 50
