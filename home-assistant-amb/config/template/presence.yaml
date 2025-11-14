@@ -14,10 +14,10 @@
 
 - triggers:
   - trigger: state
-    entity_id: binary_sensor.door_rear_contact
+    entity_id: binary_sensor.door_back_contact
     to: "on"
   binary_sensor:
-    name: Door Rear Contact Recent
+    name: Door Back Contact Recent
     state: "on"
     auto_off:
       minutes: 1
@@ -39,7 +39,7 @@
     state: >
       {{ expand([
           "binary_sensor.door_front_contact_recent",
-          "binary_sensor.door_rear_contact_recent",
+          "binary_sensor.door_back_contact_recent",
           "binary_sensor.door_living_stair_cabinet_contact_recent",
           "binary_sensor.entertainment_in_use",
           "binary_sensor.motion_hall_0_occupancy",
