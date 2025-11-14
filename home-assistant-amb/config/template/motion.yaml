@@ -1,8 +1,0 @@
-
-- binary_sensor:
-    - name: "Motion Bathroom Occupancy"
-      device_class: occupancy
-      state: >
-        {{ is_state("binary_sensor.motion_bathroom_door_occupancy", "on") or
-           is_state("binary_sensor.motion_bathroom_shower_occupancy", "on")
-        }}

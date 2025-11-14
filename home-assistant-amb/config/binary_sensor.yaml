@@ -1,0 +1,6 @@
+- platform: group
+  name: "Motion Bathroom Occupancy"
+  device_class: occupancy
+  entities:
+    - binary_sensor.motion_bathroom_door_occupancy
+    - binary_sensor.motion_bathroom_shower_occupancy
