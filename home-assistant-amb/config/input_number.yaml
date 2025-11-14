@@ -1,6 +1,6 @@
 illuminance_threshold_indoor_lights:
   name: Illuminance Threshold Indoor Lights
-  initial: 2500
+  initial: 3000
   min: 1000
   max: 6000
   step: 100

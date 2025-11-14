@@ -6,7 +6,7 @@
       icon: mdi:moon-waning-crescent
       state: >
         {{ states('sensor.illuminance_cloud_coverage') | int(0) <
-           states('input_number.illuminance_threshold_indoor_lights') | int(2500)
+           states('input_number.illuminance_threshold_indoor_lights') | int(3000)
         }}
 
     - name: Sufficiently Dark For Outdoor Lights
