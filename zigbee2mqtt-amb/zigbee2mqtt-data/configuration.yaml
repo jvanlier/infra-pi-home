@@ -192,6 +192,8 @@ devices:
     friendly_name: Motion Bathroom Door
   '0x0015bc001a022855':
     friendly_name: Motion Bathroom Shower
+  '0x001788010f695c68':
+    friendly_name: Motion Garden
 groups:
   '1':
     friendly_name: Light Group Living Spot
