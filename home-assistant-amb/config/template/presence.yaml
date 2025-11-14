@@ -1,6 +1,26 @@
- # Footgun: Typos in entity ids are silently ignored .
+ # Footgun: Typos in entity ids are silently ignored.
  # So these are not caught at test time, nor do they result in error in the logs.
  # Maybe change this to input_booleans + automations to set/unset in combination with a timer.
+
+- triggers:
+  - trigger: state
+    entity_id: binary_sensor.door_front_contact
+    to: "on"
+  binary_sensor:
+    name: Door Front Contact Recent
+    state: "on"
+    auto_off:
+      minutes: 1
+
+- triggers:
+  - trigger: state
+    entity_id: binary_sensor.door_rear_contact
+    to: "on"
+  binary_sensor:
+    name: Door Rear Contact Recent
+    state: "on"
+    auto_off:
+      minutes: 1
 
 - triggers:
   - trigger: state
@@ -18,6 +38,8 @@
     delay_off: "00:20:00"  # Rather long, because lights turn off based on this
     state: >
       {{ expand([
+          "binary_sensor.door_front_contact_recent",
+          "binary_sensor.door_rear_contact_recent",
           "binary_sensor.door_living_stair_cabinet_contact_recent",
           "binary_sensor.entertainment_in_use",
           "binary_sensor.motion_hall_0_occupancy",
