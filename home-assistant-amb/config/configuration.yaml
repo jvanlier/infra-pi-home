@@ -20,7 +20,6 @@ input_number: !include input_number.yaml
 lovelace: !include lovelace.yaml
 logbook: !include logbook.yaml
 script: !include script.yaml
-timer: !include timer.yaml
 
 # Custom component config files to include
 adaptive_lighting: !include adaptive_lighting.yaml
