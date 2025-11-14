@@ -20,6 +20,7 @@ input_number: !include input_number.yaml
 lovelace: !include lovelace.yaml
 logbook: !include logbook.yaml
 script: !include script.yaml
+binary_sensor: !include binary_sensor.yaml
 
 # Custom component config files to include
 adaptive_lighting: !include adaptive_lighting.yaml
