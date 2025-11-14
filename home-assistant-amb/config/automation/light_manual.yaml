@@ -1,0 +1,24 @@
+# These automations are for manually activated lights, i.e. lights that only activate and deactivate using a switch
+# and not by motion or presence.
+
+- alias: Turn off manual lights in the morning
+  trigger:
+    - platform: sun
+      event: sunrise
+  action:
+    - alias: "Wait until it is sufficiently light outside"
+      wait_for_trigger:
+        platform: state
+        entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
+        to: "false"
+    - service: light.turn_off
+      data:
+        transition: 30
+      target:
+        entity_id:
+          - light.light_bedroom_jc_bed_c
+          - light.light_bedroom_jc_bed_j
+          - light.light_group_bedroom_olivier_ambiance
+          - light.light_group_bedroom_olivier_color
+          - light.light_group_bedroom_duco_ambiance
+          - light.light_group_bedroom_olivier_ambiance
