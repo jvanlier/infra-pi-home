@@ -178,8 +178,6 @@ devices:
     friendly_name: Motion Hall 0
   '0x0015bc001a02378a':
     friendly_name: Motion Kitchen
-  '0x0015bc001a022a06':
-    friendly_name: Motion Toilet
   '0x54ef44100053d5bf':
     friendly_name: Motion Dining
   '0x54ef44100053d284':
