@@ -2,6 +2,7 @@
 # and not by motion or presence.
 
 - alias: Turn off manual lights in the morning
+  id: turn-off-manual-lights-in-the-morning
   trigger:
     - platform: sun
       event: sunrise
