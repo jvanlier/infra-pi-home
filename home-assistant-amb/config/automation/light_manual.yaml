@@ -12,6 +12,8 @@
         platform: state
         entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
         to: "false"
+      timeout:
+        hours: 3
     - service: light.turn_off
       data:
         transition: 30
