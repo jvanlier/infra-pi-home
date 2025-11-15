@@ -198,6 +198,8 @@ devices:
     friendly_name: Door Back
   '0x54ef441001461b45':
     friendly_name: Door Front
+  '0x54ef44100146c860':
+    friendly_name: Presence Toilet
 groups:
   '1':
     friendly_name: Light Group Living Spot
