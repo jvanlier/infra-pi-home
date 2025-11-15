@@ -1,10 +1,11 @@
-- alias: Motion-activated Light Toilet
+- alias: Presence-activated Light Toilet
   id: mal-toilet
   use_blueprint:
+    # Bit wonky to keep using "motion" below, should probably generalize that.
     path: custom/light_motion_activated.yaml
     input:
-      motion_entity: binary_sensor.motion_toilet_occupancy
-      device_no_motion_wait: number.motion_toilet_detection_interval
-      total_no_motion_wait: 420
+      motion_entity: binary_sensor.presence_toilet_presence
+      device_no_motion_wait: number.presence_toilet_absence_delay_timer
+      total_no_motion_wait: 10
       light_target:
         entity_id: light.light_toilet
