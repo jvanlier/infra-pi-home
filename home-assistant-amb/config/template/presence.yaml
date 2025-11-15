@@ -43,7 +43,7 @@
           "binary_sensor.door_living_stair_cabinet_contact_recent",
           "binary_sensor.entertainment_in_use",
           "binary_sensor.motion_hall_0_occupancy",
-          "binary_sensor.motion_toilet_occupancy",
+          "binary_sensor.presence_toilet_occupancy",
           "binary_sensor.motion_stairs_0_occupancy",
           "binary_sensor.motion_dining_occupancy",
           "binary_sensor.motion_living_occupancy",
