@@ -27,7 +27,17 @@
     entity_id: binary_sensor.door_living_stair_cabinet_contact
     to: "on"
   binary_sensor:
-    name: Door Living Stair Cabinet Door Contact Recent
+    name: Door Living Stair Cabinet Contact Recent
+    state: "on"
+    auto_off:
+      minutes: 1
+
+- triggers:
+  - trigger: mqtt
+    topic: "zigbee2mqtt/Vibration Garden Fence/action"
+    payload: movement
+  binary_sensor:
+    name: "Vibration Garden Fence Movement Recent"
     state: "on"
     auto_off:
       minutes: 1
