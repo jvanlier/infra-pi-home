@@ -42,56 +42,79 @@
     auto_off:
       minutes: 1
 
-- binary_sensor:
+- triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.door_living_stair_cabinet_contact
+      - binary_sensor.door_front_contact_recent
+      - binary_sensor.door_back_contact_recent
+      - binary_sensor.door_living_stair_cabinet_contact_recent
+      - binary_sensor.vibration_garden_fence_movement_recent
+      - binary_sensor.entertainment_in_use
+      - binary_sensor.presence_toilet_occupancy
+      - binary_sensor.motion_hall_0_occupancy
+      - binary_sensor.motion_stairs_0_occupancy
+      - binary_sensor.motion_dining_occupancy
+      - binary_sensor.motion_living_occupancy
+      - binary_sensor.motion_kitchen_occupancy
+  binary_sensor:
   - name: Presence Ground Floor
     icon: mdi:numeric-0-box
-    delay_off: "00:20:00"  # Rather long, because lights turn off based on this
-    state: >
-      {{ expand([
-          "binary_sensor.door_front_contact_recent",
-          "binary_sensor.door_back_contact_recent",
-          "binary_sensor.door_living_stair_cabinet_contact_recent",
-          "binary_sensor.vibration_garden_fence_movement_recent",
-          "binary_sensor.entertainment_in_use",
-          "binary_sensor.presence_toilet_occupancy",
-          "binary_sensor.motion_hall_0_occupancy",
-          "binary_sensor.motion_stairs_0_occupancy",
-          "binary_sensor.motion_dining_occupancy",
-          "binary_sensor.motion_living_occupancy",
-          "binary_sensor.motion_kitchen_occupancy"
-          ]) | selectattr("state", "eq", "on") | list | count > 0
-      }}
+    state: "{{ expand(trigger.entity_id) | selectattr('state', 'eq', 'on') | list | length > 0 }}"
+    delay_off:
+      minutes: 20  # Rather long, because lights turn off based on this
 
+- triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.motion_stairs_0_occupancy
+      - binary_sensor.motion_stairs_1_occupancy
+      - binary_sensor.motion_bathroom_door_occupancy
+      - binary_sensor.motion_bathroom_shower_occupancy
+  binary_sensor:
   - name: Presence First Floor
     icon: mdi:numeric-1-box
-    delay_off: "00:15:00"
-    state: >
-      {{ expand([
-          "binary_sensor.motion_stairs_0_occupancy",
-          "binary_sensor.motion_stairs_1_occupancy",
-          "binary_sensor.motion_bathroom_door_occupancy",
-          "binary_sensor.motion_bathroom_shower_occupancy"
-          ]) | selectattr("state","eq","on") | list | count > 0
-      }}
+    state: "{{ expand(trigger.entity_id) | selectattr('state', 'eq', 'on') | list | length > 0 }}"
+    delay_off:
+      minutes: 15
 
+- triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.workstation_in_use
+      - binary_sensor.motion_stairs_1_occupancy
+  binary_sensor:
   - name: Presence Second Floor
     icon: mdi:numeric-2-box
-    delay_off: "00:05:00"
-    state: >
-      {{ expand([
-          "binary_sensor.workstation_in_use",
-          "binary_sensor.motion_stairs_1_occupancy"
-          ]) | selectattr("state", "eq", "on") | list | count > 0
-      }}
+    state: "{{ expand(trigger.entity_id) | selectattr('state', 'eq', 'on') | list | length > 0 }}"
+    delay_off:
+      minutes: 5
 
+# Helpers to make the presence house sensor only have to deal with bools
+- triggers:
+  - trigger: state
+    entity_id: person.jori
+  binary_sensor:
+  - name: Jori Home
+    state: "{{ is_state(trigger.entity_id, 'home') }}"
+
+- triggers:
+  - trigger: state
+    entity_id: person.chantal
+  binary_sensor:
+  - name: Chantal Home
+    state: "{{ is_state(trigger.entity_id, 'home') }}"
+
+- triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.jori_home
+      - binary_sensor.chantal_home
+      - binary_sensor.presence_ground_floor
+      - binary_sensor.presence_first_floor
+      - binary_sensor.presence_second_floor
+      - binary_sensor.blablab
+  binary_sensor:
   - name: Presence House
     icon: mdi:home-account
-    state: >
-      {{ expand([
-        "person.jori",
-        "person.chantal",
-        "binary_sensor.presence_ground_floor",
-        "binary_sensor.presence_first_floor",
-        "binary_sensor.presence_second_floor",
-        ]) | selectattr("state", "eq", "on") | list | count > 0
-      }}
+    state: "{{ expand(trigger.entity_id) | selectattr('state', 'eq', 'on') | list | length > 0 }}"
