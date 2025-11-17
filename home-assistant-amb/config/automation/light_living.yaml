@@ -73,6 +73,7 @@
           - light.light_group_living_spot_always
           - light.light_group_living_spot_dark_outside
           - light.light_dining_table
+          - light.light_go
   mode: restart
 
 - alias: Light dark transition living
