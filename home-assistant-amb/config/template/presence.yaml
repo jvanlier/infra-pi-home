@@ -42,6 +42,21 @@
     auto_off:
       minutes: 1
 
+# Helpers to make the presence house sensor only have to deal with bools
+- triggers:
+  - trigger: state
+    entity_id: person.jori
+  binary_sensor:
+  - name: Jori Home
+    state: "{{ is_state(trigger.entity_id, 'home') }}"
+
+- triggers:
+  - trigger: state
+    entity_id: person.chantal
+  binary_sensor:
+  - name: Chantal Home
+    state: "{{ is_state(trigger.entity_id, 'home') }}"
+
 - binary_sensor:
   - name: Presence Ground Floor
     icon: mdi:numeric-0-box
@@ -88,8 +103,8 @@
     icon: mdi:home-account
     state: >
       {{ expand([
-        "person.jori",
-        "person.chantal",
+        "binary_sensor.jori_home",
+        "binary_sensor.chantal_home",
         "binary_sensor.presence_ground_floor",
         "binary_sensor.presence_first_floor",
         "binary_sensor.presence_second_floor",
