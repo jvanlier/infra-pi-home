@@ -8,13 +8,13 @@
   max_brightness: 25
   min_color_temp: 2500
   max_color_temp: 4000
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "hall-0-wall"
   lights: ["light.light_hall_0_wall"]
   min_brightness: 15
   max_brightness: 20
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "toilet"
   lights: ["light.light_toilet"]
@@ -22,7 +22,7 @@
   max_brightness: 60
   min_color_temp: 2500
   max_color_temp: 4000
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "living-spot-always"
   lights: ["light.light_group_living_spot_always"]
@@ -30,7 +30,7 @@
   max_brightness: 40
   min_color_temp: 2500
   max_color_temp: 4000
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "living-spot-dark-outside"
   lights: ["light.light_group_living_spot_dark_outside"]
@@ -38,7 +38,7 @@
   max_brightness: 40
   min_color_temp: 2500
   max_color_temp: 4000
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "living-white-cabinet"
   lights: ["light.light_living_white_cabinet"]
@@ -47,7 +47,7 @@
   # Is more yellow than the spots, so make it go to warmer color temp:
   min_color_temp: 2000
   max_color_temp: 4000
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "stair-cabinet"
   lights: ["light.light_stair_cabinet"]
@@ -58,7 +58,7 @@
   max_color_temp: 4000
   # It's nice to see it come on gradually, otherwise the effect finishes before the door is open:
   initial_transition: 2
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "dining-table"
   lights: ["light.light_dining_table"]
@@ -67,7 +67,7 @@
   sleep_brightness: 10
   min_color_temp: 2500
   max_color_temp: 4000
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "kitchen-middle"
   lights: ["light.light_group_kitchen_middle"]
@@ -76,7 +76,7 @@
   min_color_temp: 2700
   max_color_temp: 4000
   sleep_brightness: 4
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "kitchen-countertop"
   lights: ["light.light_group_kitchen_countertop"]
@@ -85,7 +85,7 @@
   min_color_temp: 2700
   max_color_temp: 4000
   sleep_brightness: 8
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "bathroom"
   lights: ["light.light_bathroom"]
@@ -93,7 +93,7 @@
   max_brightness: 30
   # The default of 1 is very low here and it kind of struggles to come on, do a bit higher:
   sleep_brightness: 3
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "bedroom-duco-ambiance"
   lights: ["light.light_group_bedroom_duco_ambiance"]
@@ -102,7 +102,7 @@
   min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "bedroom-duco-color"
   lights: ["light.light_group_bedroom_duco_color"]
@@ -111,7 +111,7 @@
   min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "bedroom-olivier-ambiance"
   lights: ["light.light_group_bedroom_olivier_ambiance"]
@@ -120,7 +120,7 @@
   min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
-  sleep_transition: 10
+  sleep_transition: 5
 
 - name: "bedroom-olivier-color"
   lights: ["light.light_group_bedroom_olivier_color"]
@@ -129,4 +129,4 @@
   min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
-  sleep_transition: 10
+  sleep_transition: 5
