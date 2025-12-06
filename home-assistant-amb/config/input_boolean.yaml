@@ -18,6 +18,16 @@ disco_duco:
   icon: mdi:party-popper
   initial: false
 
+wake_up_light_kids_enabled:
+  name: Wake Up Light Kids Enabled
+  icon: mdi:alarm-check
+  initial: true
+
+wake_up_lights_kids_cycle_in_progress:
+  name: Wake Up Lights Kids Cycle In Progress
+  icon: mdi:alarm-check
+  initial: false
+
 # Not yet installed, coming soon:
 # motion_activated_lights:
 #   name: Motion Activated Lights

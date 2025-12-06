@@ -172,3 +172,55 @@ views:
           #   entity: input_boolean.motion_activated_lights
           #   tap_action:
           #     action: toggle
+  - title: Wake up lights
+    path: wake-up-lights
+    icon: mdi:alarm-check
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Wake up light kids
+            heading_style: title
+
+          - type: heading
+            heading: Status
+            heading_style: subtitle
+          - type: tile
+            name: Olivier Color
+            entity: light.light_group_bedroom_olivier_color
+            tap_action:
+              action: none
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Duco Color
+            entity: light.light_group_bedroom_duco_color
+            tap_action:
+              action: none
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Cycle in progress
+            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
+            tap_action:
+              action: none
+            icon_tap_action:
+              action: none
+
+          - type: heading
+            heading: Settings
+            heading_style: subtitle
+          - type: tile
+            name: Enabled
+            entity: input_boolean.wake_up_light_kids_enabled
+          - type: tile
+            name: Start time (orange)
+            entity: input_datetime.wake_up_light_kids_start_orange
+            grid_options:
+              columns: 7
+          - type: tile
+            name: Minutes until green
+            entity: input_number.wake_up_light_kids_minutes_until_green
+            grid_options:
+              columns: 7

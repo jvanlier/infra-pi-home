@@ -1,0 +1,45 @@
+- alias: Wake up light kids
+  id: wake_up_light_kids
+  description: "Turn on kids color lights to orange x mins before wake up time, green at wake-up time"
+  trigger:
+    - platform: time
+      at: input_datetime.wake_up_light_kids_start_orange
+  condition:
+    - condition: state
+      entity_id: input_boolean.wake_up_light_kids_enabled
+      state: "on"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: &bool_in_progress input_boolean.wake_up_lights_kids_cycle_in_progress
+    # With explictly marking manual control, AL overrides the color:
+    - service: adaptive_lighting.set_manual_control
+      entity_id:
+        - switch.adaptive_lighting_bedroom_duco_color
+        - switch.adaptive_lighting_bedroom_olivier_color
+    - service: light.turn_on
+      target:
+        entity_id: &lights
+          - light.light_group_bedroom_duco_color
+          - light.light_group_bedroom_olivier_color
+      data:
+        color_name: "orange"
+        brightness_pct: 1
+        transition: 1
+    - delay:
+        minutes: "{{ states('input_number.wake_up_light_kids_minutes_until_green') | int(30) }}"
+    # Mark again in case kids turned off the lights in the meantime:
+    - service: adaptive_lighting.set_manual_control
+      entity_id:
+        - switch.adaptive_lighting_bedroom_duco_color
+        - switch.adaptive_lighting_bedroom_olivier_color
+    - service: light.turn_on
+      target:
+        entity_id: *lights
+      data:
+        color_name: "green"
+        brightness_pct: 10
+        transition: 1
+    - service: input_boolean.turn_off
+      target:
+        entity_id: *bool_in_progress
