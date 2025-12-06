@@ -1,4 +1,5 @@
-- alias: "Wake up light kids"
+- alias: Wake up light kids
+  id: wake_up_light_kids
   description: "Turn on kids color lights to orange x mins before wake up time, green at wake-up time"
   trigger:
     - platform: time
