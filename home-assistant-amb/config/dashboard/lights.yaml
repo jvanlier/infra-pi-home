@@ -195,13 +195,18 @@ views:
           - type: tile
             name: Olivier Color
             entity: light.light_group_bedroom_olivier_color
+            # Disable actions. Goal is to show status, prevent accidentally messing with the cycle:
             tap_action:
-              # Goal is to show status, disable action to prevent accidentally messing with the cycle:
+              action: none
+            icon_tap_action:
               action: none
           - type: tile
             name: Duco Color
             entity: light.light_group_bedroom_duco_color
+            # Disable actions. Goal is to show status, prevent accidentally messing with the cycle:
             tap_action:
+              action: none
+            icon_tap_action:
               action: none
           - type: heading
             heading: Settings
