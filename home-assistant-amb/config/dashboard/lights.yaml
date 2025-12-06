@@ -188,8 +188,21 @@ views:
             heading: Status
             heading_style: subtitle
           - type: tile
-            name: Cycle in progres
-            entity: input_boolean.wake_up_light_enabled
+            name: Cycle in progress
+            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
+            tap_action:
+              action: none
+          - type: tile
+            name: Olivier Color
+            entity: light.light_group_bedroom_olivier_color
+            tap_action:
+              # Goal is to show status, disable action to prevent accidentally messing with the cycle:
+              action: none
+          - type: tile
+            name: Duco Color
+            entity: light.light_group_bedroom_duco_color
+            tap_action:
+              action: none
           - type: heading
             heading: Settings
             heading_style: subtitle
