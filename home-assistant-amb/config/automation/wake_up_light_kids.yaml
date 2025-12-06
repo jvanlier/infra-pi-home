@@ -1,0 +1,31 @@
+- alias: "Wake up light kids"
+  description: "Turn on kids color lights to orange x mins before wake up time, green at wake-up time"
+  trigger:
+    - platform: time
+      at: input_datetime.wake_up_light_kids_start_orange
+  condition:
+    - condition: state
+      entity_id: input_boolean.wake_up_light_kids_enabled
+      state: "on"
+  action:
+    # TODO: Disable light buttons for color lights during excution
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_bedroom_duco_color
+          - light.light_group_bedroom_olivier_color
+      data:
+        color_name: "orange"
+        brightness_pct: 1
+        transition: 1
+    - delay:
+        minutes: "{{ states('input_number.wake_up_light_kids_minutes_until_green') | int(30) }}"
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_bedroom_duco_color
+          - light.light_group_bedroom_olivier_color
+      data:
+        color_name: "green"
+        brightness_pct: 10
+        transition: 1

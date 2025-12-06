@@ -13,3 +13,11 @@ illuminance_threshold_outdoor_lights:
   max: 1000
   step: 50
   unit_of_measurement: "lx"
+
+wake_up_light_kids_minutes_until_green:
+  name: Wake Up Light Kids Minutes Until Green
+  initial: 30
+  min: 1
+  max: 59 # Keep under 60 to simply usage in time strings
+  step: 1
+  unit_of_measurement: "minutes"
