@@ -182,6 +182,7 @@ views:
           - type: heading
             heading: Wake up light kids
             heading_style: title
+
           - type: heading
             heading: Status
             heading_style: subtitle
@@ -206,6 +207,7 @@ views:
               action: none
             icon_tap_action:
               action: none
+
           - type: heading
             heading: Settings
             heading_style: subtitle

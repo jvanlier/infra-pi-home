@@ -28,6 +28,11 @@
         transition: 1
     - delay:
         minutes: "{{ states('input_number.wake_up_light_kids_minutes_until_green') | int(30) }}"
+    # Mark again in case kids turned off the lights in the meantime:
+    - service: adaptive_lighting.set_manual_control
+      entity_id:
+        - switch.adaptive_lighting_bedroom_duco_color
+        - switch.adaptive_lighting_bedroom_olivier_color
     - service: light.turn_on
       target:
         entity_id: *lights
