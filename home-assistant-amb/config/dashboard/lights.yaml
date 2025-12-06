@@ -186,13 +186,6 @@ views:
             heading: Status
             heading_style: subtitle
           - type: tile
-            name: Cycle in progress
-            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
-            tap_action:
-              action: none
-            icon_tap_action:
-              action: none
-          - type: tile
             name: Olivier Color
             entity: light.light_group_bedroom_olivier_color
             tap_action:
@@ -202,6 +195,13 @@ views:
           - type: tile
             name: Duco Color
             entity: light.light_group_bedroom_duco_color
+            tap_action:
+              action: none
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Cycle in progress
+            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
             tap_action:
               action: none
             icon_tap_action:

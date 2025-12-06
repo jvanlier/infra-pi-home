@@ -9,10 +9,13 @@
       entity_id: input_boolean.wake_up_light_kids_enabled
       state: "on"
   action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: &bool_in_progress input_boolean.wake_up_lights_kids_cycle_in_progress
     # TODO: Disable light buttons for color lights during excution
     - service: light.turn_on
       target:
-        entity_id:
+        entity_id: &lights
           - light.light_group_bedroom_duco_color
           - light.light_group_bedroom_olivier_color
       data:
@@ -23,10 +26,11 @@
         minutes: "{{ states('input_number.wake_up_light_kids_minutes_until_green') | int(30) }}"
     - service: light.turn_on
       target:
-        entity_id:
-          - light.light_group_bedroom_duco_color
-          - light.light_group_bedroom_olivier_color
+        entity_id: *lights
       data:
         color_name: "green"
         brightness_pct: 10
         transition: 1
+    - service: input_boolean.turn_off
+      target:
+        entity_id: *bool_in_progress
