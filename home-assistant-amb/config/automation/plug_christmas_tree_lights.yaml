@@ -1,0 +1,13 @@
+- alias: Proximity-activated light christmas tree
+  id: proximity-activated-light-christmas-tree
+  trigger:
+    - platform: state
+      entity_id: light.light_group_living_spot_always
+      to:
+        - "on"
+        - "off"
+  action:
+    - service: "switch.turn_{{ trigger.to_state.state }}"
+      target:
+        entity_id: switch.plug_christmas_tree_lights
+  mode: restart
