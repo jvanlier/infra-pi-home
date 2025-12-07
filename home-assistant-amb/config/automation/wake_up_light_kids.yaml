@@ -23,7 +23,7 @@
           - light.light_group_bedroom_duco_color
           - light.light_group_bedroom_olivier_color
       data:
-        color_name: "orange"
+        rgb_color: [250, 70, 3]
         brightness_pct: 1
         transition: 1
     - delay:
@@ -43,3 +43,4 @@
     - service: input_boolean.turn_off
       target:
         entity_id: *bool_in_progress
+  mode: restart
