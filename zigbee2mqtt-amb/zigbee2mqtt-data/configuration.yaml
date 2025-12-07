@@ -200,6 +200,8 @@ devices:
     friendly_name: Presence Toilet
   '0x54ef44100136d206':
     friendly_name: Vibration Garden Fence
+  '0x54ef4410004dbaa3':
+    friendly_name: Plug Christmas Tree Lights
 groups:
   '1':
     friendly_name: Light Group Living Spot
