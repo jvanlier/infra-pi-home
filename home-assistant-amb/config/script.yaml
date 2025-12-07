@@ -6,7 +6,7 @@ turn_on_light_kitchen_middle_dimmed:
     # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
     - service: "light.turn_on"
       data:
-        brightness: 48
+        brightness: 60
         transition: 5
       target:
         entity_id: light.light_group_kitchen_middle
@@ -17,7 +17,7 @@ turn_on_light_kitchen_countertop_dimmed:
     # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
     - service: "light.turn_on"
       data:
-        brightness: 96
+        brightness: 125
         transition: 5
       target:
         entity_id: light.light_group_kitchen_countertop
