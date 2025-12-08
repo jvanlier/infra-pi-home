@@ -21,3 +21,4 @@ wake_up_light_kids_minutes_until_green:
   max: 59 # Keep under 60 to simply usage in time strings
   step: 1
   unit_of_measurement: "minutes"
+  icon: "mdi:clock-plus-outline"

@@ -25,7 +25,7 @@ wake_up_light_kids_enabled:
 
 wake_up_lights_kids_cycle_in_progress:
   name: Wake Up Lights Kids Cycle In Progress
-  icon: mdi:alarm-check
+  icon: mdi:alarm-note
   initial: false
 
 # Not yet installed, coming soon:

@@ -23,7 +23,7 @@
           - light.light_group_bedroom_duco_color
           - light.light_group_bedroom_olivier_color
       data:
-        rgb_color: [255, 100, 100]
+        rgb_color: [255, 100, 0]
         brightness_pct: 1
         transition: 1
     - delay:

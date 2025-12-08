@@ -217,10 +217,12 @@ views:
           - type: tile
             name: Start time (orange)
             entity: input_datetime.wake_up_light_kids_start_orange
+            color: deep-orange
             grid_options:
               columns: 7
           - type: tile
             name: Minutes until green
             entity: input_number.wake_up_light_kids_minutes_until_green
+            color: green
             grid_options:
               columns: 7

@@ -1,5 +1,5 @@
 wake_up_light_kids_start_orange:
-  icon: "mdi:alarm-check"
+  icon: "mdi:clock-edit-outline"
   name: Wake up time kids start orange
   has_date: false
   has_time: true
