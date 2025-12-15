@@ -202,6 +202,8 @@ devices:
     friendly_name: Vibration Garden Fence
   '0x54ef4410004dbaa3':
     friendly_name: Plug Christmas Tree Lights
+  '0xa4c138631f04a21d':
+    friendly_name: Plug Outdoor Christmas Lights
 groups:
   '1':
     friendly_name: Light Group Living Spot
