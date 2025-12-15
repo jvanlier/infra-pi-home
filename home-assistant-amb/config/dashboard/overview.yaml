@@ -356,6 +356,13 @@ views:
             color: accent
             icon: mdi:pine-tree
             name: Christmas Tree Lights
+          - type: tile
+            entity: switch.plug_outdoor_christmas_lights
+            features_position: bottom
+            vertical: false
+            color: accent
+            icon: mdi:string-lights
+            name: Outdoor Christmas Lights
           - type: heading
             heading: Appliances
             heading_style: title
