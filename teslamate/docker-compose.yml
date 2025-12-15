@@ -1,8 +1,6 @@
-version: "3"
-
 services:
   teslamate:
-    image: teslamate/teslamate:1.31.1
+    image: teslamate/teslamate:2.2.0
     restart: always
     depends_on:
       - database
@@ -22,33 +20,25 @@ services:
       - all
 
   database:
-    # latest on website has postgres:17 but it's not compatible with our DB
-    # TODO: migrate
-    # But 13 seems to work just fine.
-    image: postgres:13
+    image: postgres:18-trixie
     restart: always
     environment:
       - POSTGRES_USER=${TM_DB_USER}
       - POSTGRES_PASSWORD=${TM_DB_PASS}
       - POSTGRES_DB=${TM_DB_NAME}
     volumes:
-      - teslamate-db:/var/lib/postgresql/data
+      - teslamate-db:/var/lib/postgresql
 
   grafana:
-    image: teslamate/grafana:1.31
+    image: teslamate/grafana:2.2.0
     restart: always
     environment:
       - DATABASE_USER=${TM_DB_USER}
       - DATABASE_PASS=${TM_DB_PASS}
       - DATABASE_NAME=${TM_DB_NAME}
       - DATABASE_HOST=database
-      - GRAFANA_PASSWD=${GRAFANA_PW}
-      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PW}
-      - GF_AUTH_ANONYMOUS_ENABLED=false
     ports:
       - 3000:3000
-
     volumes:
       - teslamate-grafana-data:/var/lib/grafana
 
