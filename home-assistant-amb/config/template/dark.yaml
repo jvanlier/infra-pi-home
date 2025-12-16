@@ -5,13 +5,13 @@
     - name: Sufficiently Dark For Indoor Lights
       icon: mdi:moon-waning-crescent
       state: >
-        {{ states('sensor.motion_garden_illuminance') | int(0) <
+        {{ states('sensor.motion_garden_illuminance_filtered') | int(0) <
            states('input_number.illuminance_threshold_indoor_lights') | int(2500)
         }}
 
     - name: Sufficiently Dark For Outdoor Lights
       icon: mdi:moon-waning-crescent
       state: >
-        {{ states('sensor.motion_garden_illuminance') | int(0) <
+        {{ states('sensor.motion_garden_illuminance_filtered') | int(0) <
            states('input_number.illuminance_threshold_outdoor_lights') | int(300)
         }}

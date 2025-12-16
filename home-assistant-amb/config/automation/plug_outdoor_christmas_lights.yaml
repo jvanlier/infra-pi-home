@@ -10,13 +10,7 @@
     - service: switch.turn_on
       target:
         entity_id: switch.plug_outdoor_christmas_lights
-    # Add a delay to prevent flip floppping if the lux value is close to threshold.
-    # This may happen when e.g. walking by the sesnor around sunset, it gets momentarily darker, so the lights turn on,
-    # and a bit later they turn off again.
-    - delay:
-        minutes: 30
-  mode: single
-  max_exceeded: silent
+  mode: restart
 
 - alias: Turn off outdoor christmas lights
   id: turn-off-outdor-christmas-lights
@@ -30,7 +24,4 @@
     - service: switch.turn_off
       target:
         entity_id: switch.plug_outdoor_christmas_lights
-    - delay:
-        minutes: 30
-  mode: single
-  max_exceeded: silent
+  mode: restart

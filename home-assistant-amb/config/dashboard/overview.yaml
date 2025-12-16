@@ -220,7 +220,7 @@ views:
             heading_style: title
           - type: history-graph
             entities:
-              - entity: sensor.motion_garden_illuminance
+              - entity: sensor.motion_garden_illuminance_filtered
                 name: Illuminance
               - entity: input_number.illuminance_threshold_indoor_lights
                 name: Thr. indoor
