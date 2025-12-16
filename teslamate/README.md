@@ -15,4 +15,3 @@ Crontab entry for backups:
 
 NOTE: data is stored in Docker volume, not in the infra-pi-home dir.
 When you reinstall, be sure to grab a fresh dump first. Otherwise you may lose some data if you go by the monthly dumps on AWS.
-
