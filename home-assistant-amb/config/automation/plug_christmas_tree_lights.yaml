@@ -26,6 +26,9 @@
     - platform: state
       entity_id: light.light_group_living_spot_always
       to: "off"
+    - platform: state
+      entity_id: input_boolean.sleep_mode
+      to: "on"
   action:
     - service: switch.turn_off
       target:
