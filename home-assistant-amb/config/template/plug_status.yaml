@@ -2,7 +2,15 @@
     - name: "Workstation in use"
       state: >
         {{ states("sensor.plug_workstation_power") | float(0) > 60 }}
+      delay_on:
+        minutes: 1
+      delay_off:
+        minutes: 1
 
     - name: "Entertainment in use"
       state: >
-        {{ states("sensor.plug_entertainment_power") | float(0) > 30 }}
+        {{ states("sensor.plug_entertainment_power") | float(0) > 50 }}
+      delay_on:
+        minutes: 1
+      delay_off:
+        minutes: 1
