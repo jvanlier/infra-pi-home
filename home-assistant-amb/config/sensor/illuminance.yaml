@@ -3,28 +3,5 @@
   entity_id: sensor.motion_garden_illuminance
   filters:
     - filter: lowpass
-      time_constant: 10
-      precision: 0
-
-# Temporary for testing:
-- platform: filter
-  name: "Motion Garden Illuminance Filtered tau 5"
-  entity_id: sensor.motion_garden_illuminance
-  filters:
-    - filter: lowpass
       time_constant: 5
-      precision: 0
-- platform: filter
-  name: "Motion Garden Illuminance Filtered tau 10"
-  entity_id: sensor.motion_garden_illuminance
-  filters:
-    - filter: lowpass
-      time_constant: 10
-      precision: 0
-- platform: filter
-  name: "Motion Garden Illuminance Filtered tau 20"
-  entity_id: sensor.motion_garden_illuminance
-  filters:
-    - filter: lowpass
-      time_constant: 20
       precision: 0
