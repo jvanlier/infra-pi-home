@@ -1,11 +1,8 @@
-# Turn on/off the living white cabinet light when living spots go on/off.
-# This is useful to prevent cluttering the switch configuation.
-# And it was already ignored for dimming. It should just gently light up the cabinet, never be super bright
-- alias: Proximity-activated light living white cabinet
-  id: proximity-activated-light-living-white-cabinet
+- alias: Presence activated light living white cabinet
+  id: presence-activated-light-living-white-cabinet
   trigger:
     - platform: state
-      entity_id: &living_spot light.light_group_living_spot_always
+      entity_id: binary_sensor.presence_ground_floor
       to:
         - "on"
         - "off"

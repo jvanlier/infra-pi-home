@@ -2,3 +2,4 @@
 .htpasswd
 *.swo
 *.swp
+.DS_Store

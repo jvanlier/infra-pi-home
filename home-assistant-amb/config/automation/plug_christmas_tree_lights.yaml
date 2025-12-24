@@ -1,15 +1,15 @@
-- alias: Proximity-activated light christmas tree on
-  id: proximity-activated-light-christmas-tree-on
+- alias: Presence activated light christmas tree on
+  id: presence-activated-light-christmas-tree-on
   trigger:
     - platform: state
-      entity_id: light.light_group_living_spot_always
+      entity_id: binary_sensor.presence_ground_floor
       to: "on"
     - platform: state
       entity_id: input_boolean.sleep_mode
       to: "off"
   condition:
     - condition: state
-      entity_id: light.light_group_living_spot_always
+      entity_id: binary_sensor.presence_ground_floor
       state: "on"
     - condition: state
       entity_id: input_boolean.sleep_mode
@@ -20,11 +20,11 @@
         entity_id: switch.plug_christmas_tree_lights
   mode: restart
 
-- alias: Proximity-activated light christmas tree off
-  id: proximity-activated-light-christmas-tree-off
+- alias: Presence activated light christmas tree off
+  id: presence-activated-light-christmas-tree-off
   trigger:
     - platform: state
-      entity_id: light.light_group_living_spot_always
+      entity_id: binary_sensor.presence_ground_floor
       to: "off"
     - platform: state
       entity_id: input_boolean.sleep_mode
