@@ -36,7 +36,7 @@ trigger:
   - platform: numeric_state
     entity_id: !input temperature_sensor
     below: !input threshold
-
+    for: "00:05:00"
 variables:
   sensor: !input temperature_sensor
   threshold: !input threshold
