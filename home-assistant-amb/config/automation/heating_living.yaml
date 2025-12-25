@@ -2,7 +2,7 @@
   id: heating-living-scheduled-on
   trigger:
     - platform: time
-      at: &turn_on_time "06:30:00"
+      at: &turn_on_time "06:00:00"
   condition:
     - condition: state
       entity_id: binary_sensor.presence_house
@@ -24,11 +24,13 @@
       entity_id: binary_sensor.presence_house
       to: "off"
   condition:
-    # Avoid setting it if manually set lower already
+    # Avoid setting it if manually set lower already (e.g. during holidays)
     - condition: numeric_state
       entity_id: climate.living
       attribute: temperature
-      above: &target_night_temp 18
+      # Need to keep this relatively high due to slow floor heating with 30℃ water.
+      # If set to 18.0℃, when freezing outside, it takes the entire day to heat up.
+      above: &target_night_temp 18.5
   action:
     - service: climate.set_temperature
       data:
