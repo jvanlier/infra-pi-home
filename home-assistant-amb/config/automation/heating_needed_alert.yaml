@@ -1,3 +1,15 @@
+- alias: "Heating needed alert - Living"
+  id: heating-needed-alert-living
+  use_blueprint:
+    path: custom/heating_needed_alert.yaml
+    input:
+      temperature_sensor: sensor.climate_living_temperature
+      room_name: "Living"
+      # Thermostat should turn on below 18.5 at night / when no-one's home.
+      # Although if we're on holiday, we probably set it lower and this may trigger without being needed.
+      # Solve that later.
+      threshold: 18
+
 - alias: "Heating needed alert - Bedroom Duco"
   id: heating-needed-alert-bedroom-duco
   use_blueprint:
@@ -29,7 +41,9 @@
     input:
       temperature_sensor: sensor.climate_study_temperature
       room_name: "Study"
-      threshold: 14  # Smart Radiator Value should turn on below 15℃, give it some time to react
+      # Smart Radiator Value should turn on below 15℃, give it some time to react
+      # Something is probaly wrong if it drops below 14℃.
+      threshold: 14
 
 - alias: "Heating needed alert - Storage"
   id: heating-needed-alert-storage
