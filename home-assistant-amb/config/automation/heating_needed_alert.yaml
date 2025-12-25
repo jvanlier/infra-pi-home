@@ -1,0 +1,40 @@
+- alias: "Heating needed alert - Bedroom Duco"
+  id: heating-needed-alert-bedroom-duco
+  use_blueprint:
+    path: custom/heating_needed_alert.yaml
+    input:
+      temperature_sensor: sensor.climate_bedroom_duco_temperature
+      room_name: "Bedroom Duco"
+
+- alias: "Heating needed alert - Bedroom Olivier"
+  id: heating-needed-alert-bedroom-olivier
+  use_blueprint:
+    path: custom/heating_needed_alert.yaml
+    input:
+      temperature_sensor: sensor.climate_bedroom_olivier_temperature
+      room_name: "Bedroom Olivier"
+
+- alias: "Heating needed alert - Bedroom JC"
+  id: heating-needed-alert-bedroom-jc
+  use_blueprint:
+    path: custom/heating_needed_alert.yaml
+    input:
+      temperature_sensor: sensor.climate_bedroom_jc_temperature
+      room_name: "Bedroom JC"
+
+- alias: "Heating needed alert - Study"
+  id: heating-needed-alert-study
+  use_blueprint:
+    path: custom/heating_needed_alert.yaml
+    input:
+      temperature_sensor: sensor.climate_study_temperature
+      room_name: "Study"
+      threshold: 14  # Smart Radiator Value should turn on below 15℃, give it some time to react
+
+- alias: "Heating needed alert - Storage"
+  id: heating-needed-alert-storage
+  use_blueprint:
+    path: custom/heating_needed_alert.yaml
+    input:
+      temperature_sensor: sensor.climate_storage_temperature
+      room_name: "Storage"
