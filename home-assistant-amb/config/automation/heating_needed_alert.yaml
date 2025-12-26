@@ -6,8 +6,8 @@
       temperature_sensor: sensor.climate_living_temperature
       room_name: "Living"
       # Thermostat should turn on below 18.5 at night / when no-one's home.
-      # Although if we're on holiday, we probably set it lower and this may trigger without being needed.
-      # Solve that later.
+      # So if we're <= 18, something may be wrong.
+      # Although we could be on holiday and have set the thermostat lower manually...
       threshold: 18
 
 - alias: "Heating needed alert - Bedroom Duco"
@@ -41,9 +41,6 @@
     input:
       temperature_sensor: sensor.climate_study_temperature
       room_name: "Study"
-      # Smart Radiator Value should turn on below 15℃, give it some time to react
-      # Something is probaly wrong if it drops below 14℃.
-      threshold: 14
 
 - alias: "Heating needed alert - Storage"
   id: heating-needed-alert-storage

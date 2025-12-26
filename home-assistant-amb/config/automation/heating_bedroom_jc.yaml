@@ -10,7 +10,7 @@
     - condition: numeric_state
       entity_id: &climate_entity climate.bedroom_jc
       attribute: temperature
-      above: &target_night_temp 15  # RIVM advice to prevent condensation
+      above: &target_night_temp 16
   action:
     - service: climate.set_temperature
       data:
