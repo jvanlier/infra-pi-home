@@ -265,9 +265,8 @@ views:
             heading_style: subtitle
             heading: Temperature 1 day
             icon: mdi:thermometer
-          - type: statistics-graph
-            period: hour
-            chart_type: line
+          - type: history-graph
+            hours_to_show: 24
             entities:
               - entity: sensor.climate_living_temperature
                 name: Living
@@ -277,9 +276,6 @@ views:
                 name: Bedroom JC
               - entity: sensor.climate_study_temperature
                 name: Study
-            stat_types:
-              - mean
-            days_to_show: 1
             grid_options:
               columns: 12
               rows: 4
@@ -287,9 +283,8 @@ views:
             heading_style: subtitle
             heading: Humidity 1 day
             icon: mdi:water-percent
-          - type: statistics-graph
-            period: hour
-            chart_type: line
+          - type: history-graph
+            hours_to_show: 24
             entities:
               - entity: sensor.climate_living_humidity
                 name: Living
@@ -299,9 +294,6 @@ views:
                 name: Bedroom JC
               - entity: sensor.climate_study_humidity
                 name: Study
-            stat_types:
-              - mean
-            days_to_show: 1
             min_y_axis: 30
             max_y_axis: 80
             fit_y_data: true
