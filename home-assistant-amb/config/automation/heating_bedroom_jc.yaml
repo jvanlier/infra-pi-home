@@ -1,14 +1,62 @@
-# This thermostat is not turned on by any automation, but just in case someone turned it on manually,
-# disable it for the night.
+# Turn on heating upstairs when heating downstairs goes off, to keep the bathroom warm until bedtime.
+# Except when no-one's home or if sleep mode is already active.
+- alias: Heating Bedroom JC on time trigger
+  id: heating-bedroom-jc-on-time-trigger
+  trigger:
+    - platform: time
+      at: &turn_on_time "21:00:00"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.presence_house
+      state: "on"
+    - condition: state
+      entity_id: input_boolean.sleep_mode
+      state: "off"
+  action:
+    - service: climate.set_temperature
+      data:
+        temperature: &target_day_temp 20
+      target:
+        entity_id: &climate_entity climate.bedroom_jc
+  mode: restart
+
+# To turn it on  during the scheduled heating time when a state change occurs, e.g. someone comes home or sleep mode is deactivated.
+- alias: Heating Bedroom JC on during scheduled heating time
+  id: heating-bedroom-jc-on-during-scheduled-heating-time
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.presence_house
+      to: "on"
+    - platform: state
+      entity_id: input_boolean.sleep_mode
+      to: "off"
+  condition:
+    - condition: time
+      after: *turn_on_time
+      before: &turn_off_time "23:00:00"
+  action:
+    - service: climate.set_temperature
+      data:
+        temperature: *target_day_temp
+      target:
+        entity_id: *climate_entity
+  mode: restart
+
 - alias: Heating Bedroom JC off
   id: heating-bedroom-jc-off
   trigger:
     - platform: time
-      at: "21:00:00"
+      at: *turn_off_time
+    - platform: state
+      entity_id: input_boolean.sleep_mode
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.presence_house
+      to: "off"
   condition:
     # Avoid setting it if manually set lower already, or if unchanged
     - condition: numeric_state
-      entity_id: &climate_entity climate.bedroom_jc
+      entity_id: *climate_entity
       attribute: temperature
       above: &target_night_temp 16
   action:
