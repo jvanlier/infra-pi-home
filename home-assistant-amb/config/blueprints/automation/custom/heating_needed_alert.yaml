@@ -1,0 +1,49 @@
+blueprint:
+  name: Heating needed alert
+  description: >
+    Send a notification when a temperature sensor drops below a specified threshold.
+    Useful to reuse the same logic for many rooms.
+  domain: automation
+
+  input:
+    temperature_sensor:
+      name: Temperature sensor
+      description: Sensor to monitor (temperature)
+      selector:
+        entity:
+          domain: sensor
+          device_class: temperature
+
+    threshold:
+      name: Threshold (°C)
+      description: Notify when the sensor drops below this value
+      default: 16
+      selector:
+        number:
+          min: 15  # Condenstation issues may appear below 15 degrees, don't go any lower than this.
+          max: 18
+          step: 0.5
+
+    room_name:
+      name: Room name
+      description: Human readable name for the room shown in notifications
+      selector:
+        text: {}
+
+mode: restart
+
+trigger:
+  - platform: numeric_state
+    entity_id: !input temperature_sensor
+    below: !input threshold
+    for: "00:30:00"
+variables:
+  sensor: !input temperature_sensor
+  threshold: !input threshold
+  room_name: !input room_name
+
+action:
+  - service: notify.notify
+    data:
+      title: "Heating needed in {{ room_name }}"
+      message: "The temperature has dropped below {{ threshold }}℃."
