@@ -3,4 +3,4 @@ wake_up_light_kids_start_orange:
   name: Wake up time kids start orange
   has_date: false
   has_time: true
-  initial: "06:30"
+  initial: "06:45"

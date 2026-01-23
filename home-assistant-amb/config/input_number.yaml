@@ -16,7 +16,7 @@ illuminance_threshold_outdoor_lights:
 
 wake_up_light_kids_minutes_until_green:
   name: Wake Up Light Kids Minutes Until Green
-  initial: 30
+  initial: 15
   min: 1
   max: 30
   step: 1
