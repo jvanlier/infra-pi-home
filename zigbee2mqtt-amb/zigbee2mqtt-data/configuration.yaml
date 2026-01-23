@@ -200,9 +200,7 @@ devices:
     friendly_name: Presence Toilet
   '0x54ef44100136d206':
     friendly_name: Vibration Garden Fence
-  '0x54ef4410004dbaa3':
-    friendly_name: Plug Christmas Tree Lights
-  '0xa4c138631f04a21d':
+  '0xf0d1b8be2409045a':
     friendly_name: Plug Outdoor Christmas Lights
 groups:
   '1':
