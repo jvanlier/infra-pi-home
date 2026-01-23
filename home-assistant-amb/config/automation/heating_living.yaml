@@ -12,7 +12,7 @@
       data:
         temperature: &target_day_temp 20
       target:
-        entity_id: climate.living
+        entity_id: &climate_entity climate.living
   mode: restart
 
 - alias: Heating living off
@@ -36,7 +36,7 @@
       data:
         temperature: *target_night_temp
       target:
-        entity_id: climate.living
+        entity_id: *climate_entity
   mode: restart
 
 - alias: Heating living on when someone comes home
@@ -54,5 +54,5 @@
       data:
         temperature: *target_day_temp
       target:
-        entity_id: climate.living
+        entity_id: *climate_entity
   mode: restart
