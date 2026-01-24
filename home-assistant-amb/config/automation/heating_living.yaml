@@ -30,7 +30,7 @@
       attribute: temperature
       # Need to keep this relatively high due to slow floor heating with 30℃ water.
       # If set to 18.0℃, when freezing outside, it takes the entire day to heat up.
-      above: &target_night_temp 18.5
+      above: &target_night_temp 19
   action:
     - service: climate.set_temperature
       data:

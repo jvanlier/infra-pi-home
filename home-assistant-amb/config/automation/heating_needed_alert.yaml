@@ -5,10 +5,10 @@
     input:
       temperature_sensor: sensor.climate_living_temperature
       room_name: "Living"
-      # Thermostat should turn on below 18.5 at night / when no-one's home.
-      # So if we're <= 18, something may be wrong.
+      # Thermostat should turn on below 19 at night / when no-one's home.
+      # So if we're <= 18.5, something may be wrong.
       # Although we could be on holiday and have set the thermostat lower manually...
-      threshold: 18
+      threshold: 18.5
 
 - alias: "Heating needed alert - Bedroom Duco"
   id: heating-needed-alert-bedroom-duco
