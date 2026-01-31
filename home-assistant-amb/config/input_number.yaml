@@ -1,6 +1,7 @@
 illuminance_threshold_indoor_lights:
+  # "Dark Outside" lights turn on when illuminance is below this threshold.
   name: Illuminance Threshold Indoor Lights
-  initial: 2400
+  initial: 2600
   min: 1000
   max: 6000
   step: 100

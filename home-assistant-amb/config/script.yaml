@@ -43,7 +43,7 @@ turn_on_light_hall_0_spot_dimmed:
     # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
     - service: "light.turn_on"
       data:
-        brightness: 35
+        brightness: 45
         transition: 5
       target:
         entity_id: light.light_group_hall_0_spot
@@ -54,7 +54,7 @@ turn_on_light_hall_0_wall_dimmed:
     # Need to ensure that these values are below the minimum brightness configured in adaptive lighting.
     - service: "light.turn_on"
       data:
-        brightness: 28
+        brightness: 35
         transition: 5
       target:
         entity_id: light.light_hall_0_wall

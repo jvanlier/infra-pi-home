@@ -97,8 +97,8 @@
 
 - name: "bedroom-duco-ambiance"
   lights: ["light.light_group_bedroom_duco_ambiance"]
-  min_brightness: 25
-  max_brightness: 30
+  min_brightness: 30
+  max_brightness: 35
   min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
@@ -106,8 +106,8 @@
 
 - name: "bedroom-duco-color"
   lights: ["light.light_group_bedroom_duco_color"]
-  min_brightness: 25
-  max_brightness: 30
+  min_brightness: 30
+  max_brightness: 35
   min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
