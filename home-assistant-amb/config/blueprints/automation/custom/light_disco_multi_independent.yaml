@@ -37,25 +37,65 @@ trigger:
 action:
   - variables:
       input_boolean_entity: !input input_boolean_disco
-      light_list: !input light_entities
-  # Start a parallel loop for each light
+  # Start a parallel sequence for each light - each runs independently
   - parallel:
-      # Create one parallel sequence per light by repeating over the light list
       - repeat:
-          for_each: "{{ light_list }}"
+          while:
+            - condition: template
+              value_template: "{{ states(input_boolean_entity) == 'on' }}"
           sequence:
-            - repeat:
-                while:
-                  - condition: template
-                    value_template: "{{ states(input_boolean_entity) == 'on' }}"
-                sequence:
-                  - service: light.turn_on
-                    data:
-                      rgb_color:
-                        - "{{ range(0, 255) | random }}"
-                        - "{{ range(0, 255) | random }}"
-                        - "{{ range(0, 255) | random }}"
-                    target:
-                      entity_id: "{{ repeat.item }}"
-                  - delay:
-                      seconds: "{{ range(1, 4) | random }}"
+            - service: light.turn_on
+              data:
+                rgb_color:
+                  - "{{ range(0, 255) | random }}"
+                  - "{{ range(0, 255) | random }}"
+                  - "{{ range(0, 255) | random }}"
+              target:
+                entity_id: "{{ light_entities[0] }}"
+            - delay:
+                seconds: "{{ range(1, 4) | random }}"
+      - repeat:
+          while:
+            - condition: template
+              value_template: "{{ states(input_boolean_entity) == 'on' }}"
+          sequence:
+            - service: light.turn_on
+              data:
+                rgb_color:
+                  - "{{ range(0, 255) | random }}"
+                  - "{{ range(0, 255) | random }}"
+                  - "{{ range(0, 255) | random }}"
+              target:
+                entity_id: "{{ light_entities[1] }}"
+            - delay:
+                seconds: "{{ range(1, 4) | random }}"
+      - repeat:
+          while:
+            - condition: template
+              value_template: "{{ states(input_boolean_entity) == 'on' }}"
+          sequence:
+            - service: light.turn_on
+              data:
+                rgb_color:
+                  - "{{ range(0, 255) | random }}"
+                  - "{{ range(0, 255) | random }}"
+                  - "{{ range(0, 255) | random }}"
+              target:
+                entity_id: "{{ light_entities[2] }}"
+            - delay:
+                seconds: "{{ range(1, 4) | random }}"
+      - repeat:
+          while:
+            - condition: template
+              value_template: "{{ states(input_boolean_entity) == 'on' }}"
+          sequence:
+            - service: light.turn_on
+              data:
+                rgb_color:
+                  - "{{ range(0, 255) | random }}"
+                  - "{{ range(0, 255) | random }}"
+                  - "{{ range(0, 255) | random }}"
+              target:
+                entity_id: "{{ light_entities[3] }}"
+            - delay:
+                seconds: "{{ range(1, 4) | random }}"
