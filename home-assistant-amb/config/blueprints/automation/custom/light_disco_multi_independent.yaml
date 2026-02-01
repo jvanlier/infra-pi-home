@@ -37,6 +37,7 @@ trigger:
 action:
   - variables:
       input_boolean_entity: !input input_boolean_disco
+      light_entities: !input light_entities
   # Start a parallel sequence for each light - each runs independently
   - parallel:
       - repeat:
