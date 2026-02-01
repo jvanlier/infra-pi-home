@@ -123,6 +123,7 @@
       light_entity: light.light_living_white_cabinet
       input_boolean_disco: input_boolean.disco_living
       transition_seconds: 0.5
+      max_brightness: 125
 
 - alias: Light Disco Living Off
   id: light-disco-living-off
