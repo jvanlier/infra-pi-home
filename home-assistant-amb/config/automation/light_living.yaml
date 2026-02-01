@@ -90,3 +90,27 @@
       target:
         entity_id: light.light_group_living_spot_dark_outside
   mode: restart
+
+- alias: Light Disco Living
+  id: light-disco-living
+  use_blueprint:
+    path: custom/light_disco_multi_independent.yaml
+    input:
+      light_entities: &light_living_color
+        - light.light_living_wall_left_1
+        - light.light_living_wall_left_2
+        - light.light_living_wall_left_3
+        - light.light_living_white_cabinet
+      input_boolean_disco: &bool_living input_boolean.disco_living
+
+- alias: Light Disco Living Off
+  id: light-disco-living-off
+  trigger:
+    - platform: state
+      entity_id: *light_living_color
+      to: "off"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: *bool_living
+  mode: restart
