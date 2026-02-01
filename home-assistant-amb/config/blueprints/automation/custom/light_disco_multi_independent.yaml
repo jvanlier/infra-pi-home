@@ -31,7 +31,7 @@ blueprint:
       name: Minimum delay between color changes
       description: >
         Minimum seconds to wait before changing color
-      default: 1
+      default: 2
       selector:
         number:
           min: 0
@@ -42,7 +42,7 @@ blueprint:
       name: Maximum delay between color changes
       description: >
         Maximum seconds to wait before changing color
-      default: 3
+      default: 4
       selector:
         number:
           min: 1
