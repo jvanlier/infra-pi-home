@@ -54,7 +54,7 @@ blueprint:
       name: Transition time for color changes
       description: >
         Transition time in seconds for smooth color changes
-      default: 0.1
+      default: 0.2
       selector:
         number:
           min: 0
