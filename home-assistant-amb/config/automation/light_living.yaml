@@ -90,3 +90,53 @@
       target:
         entity_id: light.light_group_living_spot_dark_outside
   mode: restart
+
+- alias: Light Disco Living Wall Left 1
+  id: light-disco-living-wall-left-1
+  use_blueprint:
+    path: custom/light_disco_single.yaml
+    input:
+      light_entity: light.light_living_wall_left_1
+      input_boolean_disco: input_boolean.disco_living
+
+- alias: Light Disco Living Wall Left 2
+  id: light-disco-living-wall-left-2
+  use_blueprint:
+    path: custom/light_disco_single.yaml
+    input:
+      light_entity: light.light_living_wall_left_2
+      input_boolean_disco: input_boolean.disco_living
+
+- alias: Light Disco Living Wall Left 3
+  id: light-disco-living-wall-left-3
+  use_blueprint:
+    path: custom/light_disco_single.yaml
+    input:
+      light_entity: light.light_living_wall_left_3
+      input_boolean_disco: input_boolean.disco_living
+
+- alias: Light Disco Living White Cabinet
+  id: light-disco-living-white-cabinet
+  use_blueprint:
+    path: custom/light_disco_single.yaml
+    input:
+      light_entity: light.light_living_white_cabinet
+      input_boolean_disco: input_boolean.disco_living
+      transition_seconds: 0.5
+      max_brightness: 125
+
+- alias: Light Disco Living Off
+  id: light-disco-living-off
+  trigger:
+    - platform: state
+      entity_id:
+        - light.light_living_wall_left_1
+        - light.light_living_wall_left_2
+        - light.light_living_wall_left_3
+        - light.light_living_white_cabinet
+      to: "off"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.disco_living
+  mode: restart

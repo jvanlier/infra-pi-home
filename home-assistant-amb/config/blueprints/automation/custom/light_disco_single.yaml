@@ -1,0 +1,117 @@
+blueprint:
+  name: Light Disco Single
+  description: >
+    Disco mode for a single light that cycles through random colors independently.
+    Use multiple instances of this automation for multiple lights to create
+    an independent multi-light disco effect.
+
+  domain: automation
+
+  input:
+    light_entity:
+      name: Color light
+      description: >
+        Individual color light to cycle.
+      selector:
+        entity:
+          domain: light
+          multiple: false
+
+    input_boolean_disco:
+      name: Input boolean for disco
+      description: >
+        Input boolean for disco toggle.
+      selector:
+        entity:
+          domain: input_boolean
+          multiple: false
+
+    min_delay_seconds:
+      name: Minimum delay between color changes
+      description: >
+        Minimum seconds to wait before changing color (supports decimals)
+      default: 2
+      selector:
+        number:
+          min: 0
+          max: 10
+          step: 0.1
+          unit_of_measurement: seconds
+
+    max_delay_seconds:
+      name: Maximum delay between color changes
+      description: >
+        Maximum seconds to wait before changing color (supports decimals)
+      default: 3
+      selector:
+        number:
+          min: 1
+          max: 20
+          step: 0.1
+          unit_of_measurement: seconds
+
+    transition_seconds:
+      name: Transition time for color changes
+      description: >
+        Transition time in seconds for smooth color changes
+      default: 0.2
+      selector:
+        number:
+          min: 0
+          max: 5
+          step: 0.1
+          unit_of_measurement: seconds
+
+    min_brightness:
+      name: Minimum brightness
+      description: >
+        Minimum brightness level (0-255)
+      default: 100
+      selector:
+        number:
+          min: 1
+          max: 255
+
+    max_brightness:
+      name: Maximum brightness
+      description: >
+        Maximum brightness level (0-255)
+      default: 255
+      selector:
+        number:
+          min: 1
+          max: 255
+
+mode: restart
+
+trigger:
+  - platform: state
+    entity_id: !input input_boolean_disco
+    to: "on"
+
+action:
+  - variables:
+      input_boolean_entity: !input input_boolean_disco
+      light_entity: !input light_entity
+      min_delay: !input min_delay_seconds
+      max_delay: !input max_delay_seconds
+      transition: !input transition_seconds
+      min_bright: !input min_brightness
+      max_bright: !input max_brightness
+  - repeat:
+      while:
+        - condition: template
+          value_template: "{{ states(input_boolean_entity) == 'on' }}"
+      sequence:
+        - service: light.turn_on
+          data:
+            rgb_color:
+              - "{{ range(0, 255) | random }}"
+              - "{{ range(0, 255) | random }}"
+              - "{{ range(0, 255) | random }}"
+            brightness: "{{ range(min_bright, max_bright + 1) | random }}"
+            transition: "{{ transition }}"
+          target:
+            entity_id: "{{ light_entity }}"
+        - delay:
+            seconds: "{{ range(min_delay * 100, (max_delay * 100) | int + 1) | random / 100.0 }}"

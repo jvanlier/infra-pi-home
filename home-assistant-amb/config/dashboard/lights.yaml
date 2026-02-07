@@ -58,6 +58,8 @@ views:
             entity: light.light_go
             features:
               - type: light-brightness
+          - type: tile
+            entity: input_boolean.disco_living
           - type: heading
             heading: Kitchen
             heading_style: subtitle

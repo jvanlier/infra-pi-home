@@ -17,6 +17,10 @@ disco_duco:
   name: Disco Duco
   icon: mdi:party-popper
   initial: false
+disco_living:
+  name: Disco Living
+  icon: mdi:party-popper
+  initial: false
 
 wake_up_light_kids_enabled:
   name: Wake Up Light Kids Enabled
