@@ -85,8 +85,6 @@
       {{ expand([
           "binary_sensor.motion_stairs_0_occupancy",
           "binary_sensor.motion_stairs_1_occupancy",
-          "binary_sensor.motion_bathroom_door_occupancy",
-          "binary_sensor.motion_bathroom_shower_occupancy"
           ]) | selectattr("state","eq","on") | list | count > 0
       }}
 
