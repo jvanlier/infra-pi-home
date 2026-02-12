@@ -342,13 +342,6 @@ views:
             icon: mdi:light-flood-up
             name: Garden Lights
           - type: tile
-            entity: switch.plug_christmas_tree_lights
-            features_position: bottom
-            vertical: false
-            color: accent
-            icon: mdi:pine-tree
-            name: Christmas Tree Lights
-          - type: tile
             entity: switch.plug_outdoor_christmas_lights
             features_position: bottom
             vertical: false
