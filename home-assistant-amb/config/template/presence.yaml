@@ -32,16 +32,6 @@
     auto_off:
       minutes: 1
 
-- triggers:
-  - trigger: mqtt
-    topic: "zigbee2mqtt/Vibration Garden Fence/action"
-    payload: movement
-  binary_sensor:
-    name: "Vibration Garden Fence Movement Recent"
-    state: "on"
-    auto_off:
-      minutes: 1
-
 # Helpers to make the presence house sensor only have to deal with bools
 - triggers:
   - trigger: state
@@ -67,7 +57,6 @@
           "binary_sensor.door_front_contact_recent",
           "binary_sensor.door_back_contact_recent",
           "binary_sensor.door_living_stair_cabinet_contact_recent",
-          "binary_sensor.vibration_garden_fence_movement_recent",
           "binary_sensor.motion_garden_occupancy",
           "binary_sensor.motion_hall_0_occupancy",
           "binary_sensor.motion_stairs_0_occupancy",
