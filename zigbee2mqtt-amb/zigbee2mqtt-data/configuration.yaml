@@ -194,8 +194,6 @@ devices:
     friendly_name: Door Front
   '0x54ef44100146c860':
     friendly_name: Presence Toilet
-  '0x54ef44100136d206':
-    friendly_name: Vibration Garden Fence
   '0xf0d1b8be2409045a':
     friendly_name: Plug Outdoor Christmas Lights
 groups:
