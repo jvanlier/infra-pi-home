@@ -173,7 +173,7 @@ views:
             heading_style: subtitle
             icon: mdi:shower-head
           - type: tile
-           name: Bathroom
+            name: Bathroom
             entity: light.light_bathroom
           - type: heading
             heading: Bedrooms
