@@ -1,4 +1,5 @@
 .HA_VERSION
+.ha_run.lock
 .storage/
 core
 blueprints/automation/homeassistant/

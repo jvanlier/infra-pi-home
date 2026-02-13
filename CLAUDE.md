@@ -24,7 +24,7 @@ just build              # Build Docker image with custom components
 just test               # Validate Home Assistant configuration
 ```
 
-The build process creates a custom Docker image based on `ghcr.io/home-assistant/home-assistant:2025.9.0` with two baked-in custom components:
+The build process creates a custom Docker image based on `ghcr.io/home-assistant/home-assistant:2026.2.2` with two baked-in custom components:
 - **adaptive-lighting**: Dynamic light color/brightness adjustment
 - **ha-illuminance**: Light level calculations based on weather/sun position
 
@@ -97,7 +97,9 @@ When modifying Home Assistant configuration:
 1. Edit YAML files in `home-assistant-amb/config/`
 2. Run `just test` to validate configuration locally
 3. Create a branch, commit and push (CI will validate again)
-4. To verify on live Home Assistant, assuming the image is unchanged, instruct the user to checkout the branch on Raspberry pi (or simply pull if that has already happened and we're iterating), and reload configuration or restart via UI
+4. To verify on live Home Assistant
+    - If the image is unchanged, instruct the user to checkout the branch on Raspberry pi (or simply pull if that has already happened and we're iterating), and reload configuration or restart via UI
+    - If the image is changed (either the `Dockerfile` itself or the tag in `docker-compose.yaml`), instruct the user to run `docker compose up -d --build` on the Raspberry pi in the `home-assistant-amb` directory.
 
 When adding/removing adaptive lighting configs, update references in:
 - `automation/light_adaptive.yaml`
