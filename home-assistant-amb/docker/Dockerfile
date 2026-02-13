@@ -1,6 +1,6 @@
 FROM ghcr.io/home-assistant/home-assistant:2026.2.2
 
-ARG ADAPTIVE_LIGHTING_VERSION=1.26.0
+ARG ADAPTIVE_LIGHTING_VERSION=1.30.1
 ARG HA_ILLUMINANCE_VERSION=5.7.0
 
 # Setup alternative custom_components directory.
