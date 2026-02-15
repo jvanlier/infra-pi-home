@@ -223,12 +223,13 @@ views:
                 entity_id: automation.wake_up_light_kids
             grid_options:
               columns: 7
-          - type: tile
+          - type: button
             name: Set to green
-            entity: script.wake_up_light_kids_set_green
             tap_action:
               action: call-service
               service: script.wake_up_light_kids_set_green
+            icon: mdi:lightbulb-on
+            show_name: true
             grid_options:
               columns: 7
 
