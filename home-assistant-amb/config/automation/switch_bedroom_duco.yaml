@@ -7,14 +7,20 @@
       brightness_max: 125
       brightness_step: 10
       light_group_all: light.light_group_bedroom_duco
+      light_group_ambiance: light.light_group_bedroom_duco_ambiance
       light_group_color: light.light_group_bedroom_duco_color
       switch_entities_adaptive_lighting:
         - switch.adaptive_lighting_bedroom_duco_ambiance
         - switch.adaptive_lighting_bedroom_duco_color
+      switch_entities_adaptive_lighting_ambiance:
+        - switch.adaptive_lighting_bedroom_duco_ambiance
       switch_entities_adapt_brightness: &ref_switch_adapt_brightness
         - switch.adaptive_lighting_adapt_brightness_bedroom_duco_ambiance
         - switch.adaptive_lighting_adapt_brightness_bedroom_duco_color
+      switch_entities_adapt_brightness_ambiance: &ref_switch_adapt_brightness_ambiance
+        - switch.adaptive_lighting_adapt_brightness_bedroom_duco_ambiance
       input_boolean_disco: input_boolean.disco_duco
+      input_boolean_color_controls_disabled: input_boolean.wake_up_lights_kids_cycle_in_progress
 
 - alias: Switch Wall Bedroom Duco
   id: switch_wall_bedroom_duco
@@ -23,7 +29,12 @@
     input:
       controller: Switch Wall Bedroom Duco
       left_light_group_all: light.light_group_bedroom_duco
+      left_light_group_ambiance: light.light_group_bedroom_duco_ambiance
       left_light_entities_on:
         - light.light_group_bedroom_duco_ambiance
         - light.light_group_bedroom_duco_color
+      left_light_entities_on_ambiance:
+        - light.light_group_bedroom_duco_ambiance
       left_switch_entities_adapt_brightness: *ref_switch_adapt_brightness
+      left_switch_entities_adapt_brightness_ambiance: *ref_switch_adapt_brightness_ambiance
+      input_boolean_color_controls_disabled: input_boolean.wake_up_lights_kids_cycle_in_progress
