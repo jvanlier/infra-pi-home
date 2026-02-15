@@ -203,12 +203,14 @@ views:
             icon_tap_action:
               action: none
           - type: tile
-            name: Cycle in progress
+            name: Wake up light in progress
             entity: input_boolean.wake_up_lights_kids_cycle_in_progress
             tap_action:
               action: none
             icon_tap_action:
               action: none
+            grid_options:
+              columns: 12
 
           - type: heading
             heading: Actions
@@ -266,6 +268,8 @@ views:
             entity: input_datetime.wake_up_light_kids_start_orange
             color: deep-orange
           - type: tile
-            name: Time until green
+            name: Minutes until green
             entity: input_number.wake_up_light_kids_minutes_until_green
             color: green
+            grid_options:
+              columns: 12
