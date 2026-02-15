@@ -253,7 +253,7 @@ views:
             icon_tap_action:
               action: none
             grid_options:
-              columns: 8
+              columns: 12
 
           - type: heading
             heading: Settings
