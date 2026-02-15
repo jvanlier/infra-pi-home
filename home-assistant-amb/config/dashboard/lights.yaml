@@ -229,6 +229,17 @@ views:
             icon_tap_action:
               action: none
           - type: tile
+            name: Stop
+            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
+            icon: mdi:stop
+            color: red
+            hide_state: true
+            tap_action:
+              action: call-service
+              service: script.wake_up_light_kids_stop_cycle
+            icon_tap_action:
+              action: none
+          - type: tile
             name: Set to green
             entity: automation.wake_up_light_kids
             icon: mdi:lightbulb-on
@@ -240,18 +251,7 @@ views:
             icon_tap_action:
               action: none
           - type: tile
-            name: Stop cycle
-            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
-            icon: mdi:stop
-            color: red
-            hide_state: true
-            tap_action:
-              action: call-service
-              service: script.wake_up_light_kids_stop_cycle
-            icon_tap_action:
-              action: none
-          - type: tile
-            name: Turn off color lights
+            name: Color lights off
             entity: automation.wake_up_light_kids
             icon: mdi:lightbulb-off
             color: gray
@@ -265,8 +265,6 @@ views:
                   - light.light_group_bedroom_olivier_color
             icon_tap_action:
               action: none
-            grid_options:
-              columns: 12
 
           - type: heading
             heading: Settings
