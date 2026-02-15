@@ -211,6 +211,28 @@ views:
               action: none
 
           - type: heading
+            heading: Actions
+            heading_style: subtitle
+          - type: tile
+            name: Start cycle
+            entity: automation.wake_up_light_kids
+            tap_action:
+              action: call-service
+              service: automation.trigger
+              service_data:
+                entity_id: automation.wake_up_light_kids
+            grid_options:
+              columns: 7
+          - type: tile
+            name: Set to green
+            entity: script.wake_up_light_kids_set_green
+            tap_action:
+              action: call-service
+              service: script.wake_up_light_kids_set_green
+            grid_options:
+              columns: 7
+
+          - type: heading
             heading: Settings
             heading_style: subtitle
           - type: tile

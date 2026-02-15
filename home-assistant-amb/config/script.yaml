@@ -43,3 +43,20 @@ turn_on_light_hall_0_wall_dimmed:
         transition: 5
       target:
         entity_id: light.light_hall_0_wall
+
+wake_up_light_kids_set_green:
+  alias: "Wake up light kids: Set to green"
+  sequence:
+    - service: adaptive_lighting.set_manual_control
+      entity_id:
+        - switch.adaptive_lighting_bedroom_duco_color
+        - switch.adaptive_lighting_bedroom_olivier_color
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_bedroom_duco_color
+          - light.light_group_bedroom_olivier_color
+      data:
+        color_name: "green"
+        brightness_pct: 10
+        transition: 1
