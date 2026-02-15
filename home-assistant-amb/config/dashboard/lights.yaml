@@ -222,8 +222,6 @@ views:
               service: automation.trigger
               service_data:
                 entity_id: automation.wake_up_light_kids
-            grid_options:
-              columns: 7
           - type: tile
             name: Set to green
             entity: automation.wake_up_light_kids
@@ -231,8 +229,16 @@ views:
             tap_action:
               action: call-service
               service: script.wake_up_light_kids_set_green
-            grid_options:
-              columns: 7
+          - type: tile
+            name: Turn off color lights
+            entity: automation.wake_up_light_kids
+            tap_action:
+              action: call-service
+              service: light.turn_off
+              service_data:
+                entity_id:
+                  - light.light_group_bedroom_duco_color
+                  - light.light_group_bedroom_olivier_color
 
           - type: heading
             heading: Settings
