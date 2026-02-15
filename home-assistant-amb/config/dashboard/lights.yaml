@@ -240,6 +240,17 @@ views:
             icon_tap_action:
               action: none
           - type: tile
+            name: Stop cycle
+            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
+            icon: mdi:stop
+            color: red
+            hide_state: true
+            tap_action:
+              action: call-service
+              service: script.wake_up_light_kids_stop_cycle
+            icon_tap_action:
+              action: none
+          - type: tile
             name: Turn off color lights
             entity: automation.wake_up_light_kids
             icon: mdi:lightbulb-off
