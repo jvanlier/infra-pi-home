@@ -203,10 +203,66 @@ views:
             icon_tap_action:
               action: none
           - type: tile
-            name: Cycle in progress
+            name: Wake up light in progress
             entity: input_boolean.wake_up_lights_kids_cycle_in_progress
             tap_action:
               action: none
+            icon_tap_action:
+              action: none
+            grid_options:
+              columns: 12
+
+          - type: heading
+            heading: Actions
+            heading_style: subtitle
+          - type: tile
+            name: Start now
+            entity: automation.wake_up_light_kids
+            icon: mdi:play
+            color: deep-orange
+            hide_state: true
+            tap_action:
+              action: call-service
+              service: automation.trigger
+              service_data:
+                entity_id: automation.wake_up_light_kids
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Stop
+            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
+            icon: mdi:stop
+            color: red
+            hide_state: true
+            tap_action:
+              action: call-service
+              service: script.wake_up_light_kids_stop_cycle
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Set to green
+            entity: automation.wake_up_light_kids
+            icon: mdi:lightbulb-on
+            color: green
+            hide_state: true
+            tap_action:
+              action: call-service
+              service: script.wake_up_light_kids_set_green
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Color lights off
+            entity: automation.wake_up_light_kids
+            icon: mdi:lightbulb-off
+            color: gray
+            hide_state: true
+            tap_action:
+              action: call-service
+              service: light.turn_off
+              service_data:
+                entity_id:
+                  - light.light_group_bedroom_duco_color
+                  - light.light_group_bedroom_olivier_color
             icon_tap_action:
               action: none
 
@@ -217,14 +273,12 @@ views:
             name: Enabled
             entity: input_boolean.wake_up_light_kids_enabled
           - type: tile
-            name: Start time (orange)
+            name: Start (orange)
             entity: input_datetime.wake_up_light_kids_start_orange
             color: deep-orange
-            grid_options:
-              columns: 7
           - type: tile
             name: Minutes until green
             entity: input_number.wake_up_light_kids_minutes_until_green
             color: green
             grid_options:
-              columns: 7
+              columns: 12
