@@ -27,8 +27,18 @@ blueprint:
           domain: light
           multiple: false
 
+    left_light_group_ambiance:
+      name: Single Zigbee group that contains only the ambiance lights.
+      description: >
+        Used for turning off when color controls are disabled.
+      default: []
+      selector:
+        entity:
+          domain: light
+          multiple: false
+
     left_light_entities_on:
-      name: Light entities for the "on" switch.
+      name: Light entities for the "on" switch (all).
       description: >
         Light entities for the "on" switch.
         Each of these must be in a Adaptive Lighting configuration.
@@ -40,13 +50,41 @@ blueprint:
         entity:
           domain: light
 
+    left_light_entities_on_ambiance:
+      name: Light entities for the "on" switch (ambiance only).
+      description: >
+        Ambiance light entities only, used when color controls are disabled.
+      default: []
+      selector:
+        entity:
+          domain: light
+
     left_switch_entities_adapt_brightness:
-      name: Adaptive Lighting adapt brightness switch entities.
+      name: Adaptive Lighting adapt brightness switch entities (all).
       description: >
         The adaptive lighting switches, in order to  adaptive brightness when dimming them via the zigbee group (which is not in AL config).
       selector:
         entity:
           domain: switch
+
+    left_switch_entities_adapt_brightness_ambiance:
+      name: Adaptive Lighting adapt brightness switch entities (ambiance only).
+      description: >
+        The adaptive lighting switches for ambiance lights only, used when color controls are disabled.
+      default: []
+      selector:
+        entity:
+          domain: switch
+
+    input_boolean_color_controls_disabled:
+      name: Input boolean to disable color light controls.
+      description: >
+        Optional. When this input boolean is "on", only ambiance lights will be controlled.
+      default: []
+      selector:
+        entity:
+          domain: input_boolean
+          multiple: false
 
 mode: restart
 
@@ -70,25 +108,47 @@ action:
       controller: !input controller
       command: "{{ trigger.payload }}"
       left_light_group_all: !input left_light_group_all
+      left_light_group_ambiance: !input left_light_group_ambiance
+      input_boolean_color_controls_disabled: !input input_boolean_color_controls_disabled
+      color_controls_disabled: >
+        {{ input_boolean_color_controls_disabled != [] and is_state(input_boolean_color_controls_disabled, 'on') }}
+      active_light_group: >
+        {{ left_light_group_ambiance if color_controls_disabled and left_light_group_ambiance != [] else left_light_group_all }}
   - choose:
-      - conditions: '{{ command == "left_press" and states(left_light_group_all) != "on" }}'
+      - conditions: '{{ command == "left_press" and states(active_light_group) != "on" }}'
         sequence:
-          # Turn on adaptive brightness, in case it was turned off earlier due to dimming (via tap dial):
-          - service: switch.turn_on
-            target:
-              entity_id: !input left_switch_entities_adapt_brightness
-          - service: light.turn_on
-            target:
-              entity_id:
-                !input left_light_entities_on
-      - conditions: '{{ command == "left_press" and states(left_light_group_all) == "on" }}'
+          - choose:
+              - conditions: '{{ color_controls_disabled }}'
+                sequence:
+                  # Only control ambiance lights when color controls are disabled
+                  - service: switch.turn_on
+                    target:
+                      entity_id: !input left_switch_entities_adapt_brightness_ambiance
+                  - service: light.turn_on
+                    target:
+                      entity_id: !input left_light_entities_on_ambiance
+            default:
+              # Normal operation: control all lights
+              - service: switch.turn_on
+                target:
+                  entity_id: !input left_switch_entities_adapt_brightness
+              - service: light.turn_on
+                target:
+                  entity_id: !input left_light_entities_on
+      - conditions: '{{ command == "left_press" and states(active_light_group) == "on" }}'
         sequence:
           - service: light.turn_off
             target:
-              entity_id: !input left_light_group_all
-          # Turn on adaptive brightness, in case it was turned off earlier due to dimming (via tap dial), to be prepared
-          # for the next turn on (it's also enabled above for turn-on; the goal of this is handling turn-on via different
-          # means.)
-          - service: switch.turn_on
-            target:
-              entity_id: !input left_switch_entities_adapt_brightness
+              entity_id: '{{ active_light_group }}'
+          - choose:
+              - conditions: '{{ color_controls_disabled }}'
+                sequence:
+                  # Only control ambiance lights when color controls are disabled
+                  - service: switch.turn_on
+                    target:
+                      entity_id: !input left_switch_entities_adapt_brightness_ambiance
+            default:
+              # Normal operation: control all lights
+              - service: switch.turn_on
+                target:
+                  entity_id: !input left_switch_entities_adapt_brightness
