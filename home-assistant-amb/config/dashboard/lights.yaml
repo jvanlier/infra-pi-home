@@ -216,6 +216,7 @@ views:
           - type: tile
             name: Start cycle
             entity: automation.wake_up_light_kids
+            color: deep-orange
             tap_action:
               action: call-service
               service: automation.trigger
@@ -223,13 +224,13 @@ views:
                 entity_id: automation.wake_up_light_kids
             grid_options:
               columns: 7
-          - type: button
+          - type: tile
             name: Set to green
+            entity: automation.wake_up_light_kids
+            color: green
             tap_action:
               action: call-service
               service: script.wake_up_light_kids_set_green
-            icon: mdi:lightbulb-on
-            show_name: true
             grid_options:
               columns: 7
 
