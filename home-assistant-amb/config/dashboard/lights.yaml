@@ -214,7 +214,7 @@ views:
             heading: Actions
             heading_style: subtitle
           - type: tile
-            name: Start cycle
+            name: Start now
             entity: automation.wake_up_light_kids
             icon: mdi:play
             color: deep-orange
@@ -224,6 +224,8 @@ views:
               service: automation.trigger
               service_data:
                 entity_id: automation.wake_up_light_kids
+            icon_tap_action:
+              action: none
           - type: tile
             name: Set to green
             entity: automation.wake_up_light_kids
@@ -233,6 +235,8 @@ views:
             tap_action:
               action: call-service
               service: script.wake_up_light_kids_set_green
+            icon_tap_action:
+              action: none
           - type: tile
             name: Turn off color lights
             entity: automation.wake_up_light_kids
@@ -246,6 +250,8 @@ views:
                 entity_id:
                   - light.light_group_bedroom_duco_color
                   - light.light_group_bedroom_olivier_color
+            icon_tap_action:
+              action: none
 
           - type: heading
             heading: Settings
