@@ -252,6 +252,8 @@ views:
                   - light.light_group_bedroom_olivier_color
             icon_tap_action:
               action: none
+            grid_options:
+              columns: 8
 
           - type: heading
             heading: Settings
