@@ -260,14 +260,10 @@ views:
             name: Enabled
             entity: input_boolean.wake_up_light_kids_enabled
           - type: tile
-            name: Start time (orange)
+            name: Start (orange)
             entity: input_datetime.wake_up_light_kids_start_orange
             color: deep-orange
-            grid_options:
-              columns: 7
           - type: tile
-            name: Minutes until green
+            name: Time until green
             entity: input_number.wake_up_light_kids_minutes_until_green
             color: green
-            grid_options:
-              columns: 7
