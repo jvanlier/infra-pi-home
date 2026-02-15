@@ -216,7 +216,9 @@ views:
           - type: tile
             name: Start cycle
             entity: automation.wake_up_light_kids
+            icon: mdi:play
             color: deep-orange
+            hide_state: true
             tap_action:
               action: call-service
               service: automation.trigger
@@ -225,13 +227,18 @@ views:
           - type: tile
             name: Set to green
             entity: automation.wake_up_light_kids
+            icon: mdi:lightbulb-on
             color: green
+            hide_state: true
             tap_action:
               action: call-service
               service: script.wake_up_light_kids_set_green
           - type: tile
             name: Turn off color lights
             entity: automation.wake_up_light_kids
+            icon: mdi:lightbulb-off
+            color: gray
+            hide_state: true
             tap_action:
               action: call-service
               service: light.turn_off
