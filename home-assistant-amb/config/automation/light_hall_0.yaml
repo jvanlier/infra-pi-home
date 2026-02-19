@@ -9,6 +9,10 @@
       light_entity_id: light.light_hall_0_wall
       adaptive_light_entity: switch.adaptive_lighting_hall_0_wall
       dim_script: script.turn_on_light_hall_0_spot_dimmed
+      additional_conditions:
+        - condition: state
+          entity_id: input_boolean.holiday_mode
+          state: "off"
 
 - alias: Motion-activated Light Hall 0 Spot
   id: mal-hall-0-spot
@@ -21,6 +25,10 @@
       light_entity_id: light.light_group_hall_0_spot
       adaptive_light_entity: switch.adaptive_lighting_hall_0_spot
       dim_script: script.turn_on_light_hall_0_wall_dimmed
+      additional_conditions:
+        - condition: state
+          entity_id: input_boolean.holiday_mode
+          state: "off"
 
 - alias: Light hall 0 on to dimmed state
   id: light-hall-0-on-to-dimmed
@@ -34,6 +42,9 @@
       entity_id: input_boolean.sleep_mode
       to: "off"
   condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "off"
     - condition: state
       entity_id:
         - binary_sensor.sufficiently_dark_for_indoor_lights

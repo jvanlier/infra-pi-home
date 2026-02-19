@@ -1,0 +1,251 @@
+- alias: Holiday mode morning sequence
+  id: holiday-mode-morning-sequence
+  description: Simulate morning activity with lights turning on in sequence
+  trigger:
+    - platform: template
+      value_template: >
+        {% set now_time = now().strftime('%H:%M') %}
+        {% set target_time = states('input_datetime.holiday_morning_start')[0:5] %}
+        {% set random_offset = range(-30, 31) | random %}
+        {% set target_timestamp = as_timestamp(today_at(target_time)) + (random_offset * 60) %}
+        {{ as_timestamp(now()) | int == target_timestamp | int }}
+  condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "on"
+    - condition: state
+      entity_id: binary_sensor.presence_house
+      state: "off"
+    - condition: state
+      entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
+      state: "on"
+  action:
+    # Turn on Hall 0 lights
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_hall_0_spot
+          - light.light_hall_0_wall
+    # Random delay 2-5 minutes
+    - delay:
+        minutes: "{{ range(2, 6) | random }}"
+    # Turn on Kitchen lights
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_kitchen_middle
+          - light.light_group_kitchen_countertop
+    # Random delay 15-25 minutes
+    - delay:
+        minutes: "{{ range(15, 26) | random }}"
+    # Turn on Living room lights
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_living_spot_always
+          - light.light_group_living_spot_dark_outside
+          - light.light_dining_table
+    # Random delay 20-40 minutes
+    - delay:
+        minutes: "{{ range(20, 41) | random }}"
+    # Turn off Kitchen lights
+    - service: light.turn_off
+      data:
+        transition: 5
+      target:
+        entity_id:
+          - light.light_group_kitchen_middle
+          - light.light_group_kitchen_countertop
+    # Random delay 10-20 minutes
+    - delay:
+        minutes: "{{ range(10, 21) | random }}"
+    # Turn off Hall 0 lights
+    - service: light.turn_off
+      data:
+        transition: 5
+      target:
+        entity_id:
+          - light.light_group_hall_0_spot
+          - light.light_hall_0_wall
+    # Turn off Living room lights if still dark
+    - condition: state
+      entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
+      state: "off"
+    - service: light.turn_off
+      data:
+        transition: 10
+      target:
+        entity_id:
+          - light.light_group_living_spot_always
+          - light.light_group_living_spot_dark_outside
+          - light.light_dining_table
+  mode: single
+
+- alias: Holiday mode evening sequence
+  id: holiday-mode-evening-sequence
+  description: Simulate evening activity when it gets dark
+  trigger:
+    - platform: template
+      value_template: >
+        {% set now_time = now().strftime('%H:%M') %}
+        {% set target_time = states('input_datetime.holiday_evening_start')[0:5] %}
+        {% set random_offset = range(-30, 31) | random %}
+        {% set target_timestamp = as_timestamp(today_at(target_time)) + (random_offset * 60) %}
+        {{ as_timestamp(now()) | int == target_timestamp | int }}
+    - platform: state
+      entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "on"
+    - condition: state
+      entity_id: binary_sensor.presence_house
+      state: "off"
+    - condition: state
+      entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
+      state: "on"
+    - condition: time
+      after: "17:00:00"
+      before: "22:00:00"
+  action:
+    # Turn on Hall 0 lights
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_hall_0_spot
+          - light.light_hall_0_wall
+    # Random delay 1-3 minutes
+    - delay:
+        minutes: "{{ range(1, 4) | random }}"
+    # Turn on Living room lights
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_living_spot_always
+          - light.light_group_living_spot_dark_outside
+          - light.light_dining_table
+    # Random delay 45-75 minutes
+    - delay:
+        minutes: "{{ range(45, 76) | random }}"
+    # Turn on Kitchen lights
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_kitchen_middle
+          - light.light_group_kitchen_countertop
+    # Random delay 20-35 minutes
+    - delay:
+        minutes: "{{ range(20, 36) | random }}"
+    # Turn off Kitchen lights
+    - service: light.turn_off
+      data:
+        transition: 5
+      target:
+        entity_id:
+          - light.light_group_kitchen_middle
+          - light.light_group_kitchen_countertop
+    # Random delay 5-10 minutes
+    - delay:
+        minutes: "{{ range(5, 11) | random }}"
+    # Ensure Hall 0 lights are on
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_hall_0_spot
+          - light.light_hall_0_wall
+  mode: single
+
+- alias: Holiday mode kids bedtime sequence
+  id: holiday-mode-kids-bedtime-sequence
+  description: Simulate kids going to bed
+  trigger:
+    - platform: template
+      value_template: >
+        {% set now_time = now().strftime('%H:%M') %}
+        {% set target_time = states('input_datetime.holiday_kids_bedtime')[0:5] %}
+        {% set random_offset = range(-20, 21) | random %}
+        {% set target_timestamp = as_timestamp(today_at(target_time)) + (random_offset * 60) %}
+        {{ as_timestamp(now()) | int == target_timestamp | int }}
+  condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "on"
+    - condition: state
+      entity_id: binary_sensor.presence_house
+      state: "off"
+  action:
+    # Turn on kids bedroom lights (Duco and Olivier)
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.light_group_bedroom_duco
+          - light.light_group_bedroom_olivier
+    # Random delay 15-25 minutes
+    - delay:
+        minutes: "{{ range(15, 26) | random }}"
+    # Turn off kids bedroom lights
+    - service: light.turn_off
+      data:
+        transition: 10
+      target:
+        entity_id:
+          - light.light_group_bedroom_duco
+          - light.light_group_bedroom_olivier
+    # Random delay 2-5 minutes
+    - delay:
+        minutes: "{{ range(2, 6) | random }}"
+    # Turn off Hall 0 lights
+    - service: light.turn_off
+      data:
+        transition: 5
+      target:
+        entity_id:
+          - light.light_group_hall_0_spot
+          - light.light_hall_0_wall
+  mode: single
+
+- alias: Holiday mode lights off sequence
+  id: holiday-mode-lights-off-sequence
+  description: Turn off all remaining lights for the night
+  trigger:
+    - platform: template
+      value_template: >
+        {% set now_time = now().strftime('%H:%M') %}
+        {% set target_time = states('input_datetime.holiday_lights_off')[0:5] %}
+        {% set random_offset = range(-30, 31) | random %}
+        {% set target_timestamp = as_timestamp(today_at(target_time)) + (random_offset * 60) %}
+        {{ as_timestamp(now()) | int == target_timestamp | int }}
+  condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "on"
+    - condition: state
+      entity_id: binary_sensor.presence_house
+      state: "off"
+  action:
+    # Turn off Living room lights with slow transition
+    - service: light.turn_off
+      data:
+        transition: 60
+      target:
+        entity_id:
+          - light.light_group_living_spot_always
+          - light.light_group_living_spot_dark_outside
+          - light.light_dining_table
+    # Random delay 5-15 minutes
+    - delay:
+        minutes: "{{ range(5, 16) | random }}"
+    # Turn off any remaining lights
+    - service: light.turn_off
+      data:
+        transition: 10
+      target:
+        entity_id:
+          - light.light_group_hall_0_spot
+          - light.light_hall_0_wall
+          - light.light_group_bedroom_duco
+          - light.light_group_bedroom_olivier
+          - light.light_group_kitchen_middle
+          - light.light_group_kitchen_countertop
+  mode: single

@@ -1,0 +1,57 @@
+- alias: Holiday mode set thermostats on activation
+  id: holiday-mode-set-thermostats-on-activation
+  trigger:
+    - platform: state
+      entity_id: input_boolean.holiday_mode
+      to: "on"
+  action:
+    - service: climate.set_temperature
+      data:
+        temperature: 16
+      target:
+        entity_id:
+          - climate.living
+          - climate.bedroom_jc
+          - climate.study
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.wake_up_light_kids_enabled
+  mode: restart
+
+- alias: Holiday mode restore wake up lights on deactivation
+  id: holiday-mode-restore-wake-up-lights-on-deactivation
+  trigger:
+    - platform: state
+      entity_id: input_boolean.holiday_mode
+      to: "off"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.wake_up_light_kids_enabled
+  mode: restart
+
+- alias: Holiday mode maintain 16°C
+  id: holiday-mode-maintain-16c
+  description: >
+    Maintain 16°C on all thermostats during holiday mode.
+    This prevents automated heating schedules and manual changes from overriding holiday mode.
+  trigger:
+    - platform: state
+      entity_id:
+        - climate.living
+        - climate.bedroom_jc
+        - climate.study
+      attribute: temperature
+  condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "on"
+    - condition: template
+      value_template: "{{ trigger.to_state.attributes.temperature | float(16) != 16 }}"
+  action:
+    - service: climate.set_temperature
+      data:
+        temperature: 16
+      target:
+        entity_id: "{{ trigger.entity_id }}"
+  mode: queued
