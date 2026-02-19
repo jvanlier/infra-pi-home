@@ -7,6 +7,9 @@
       at: &turn_on_time "21:00:00"
   condition:
     - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "off"
+    - condition: state
       entity_id: binary_sensor.presence_house
       state: "on"
     - condition: state
@@ -31,6 +34,9 @@
       entity_id: input_boolean.sleep_mode
       to: "off"
   condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "off"
     - condition: time
       after: *turn_on_time
       before: &turn_off_time "23:00:00"
@@ -54,6 +60,9 @@
       entity_id: binary_sensor.presence_house
       to: "off"
   condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "off"
     # Avoid setting it if manually set lower already, or if unchanged
     - condition: numeric_state
       entity_id: *climate_entity

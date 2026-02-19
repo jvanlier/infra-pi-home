@@ -5,6 +5,9 @@
       entity_id: binary_sensor.workstation_in_use
       to: "on"
   condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "off"
     - condition: time
       before: &off_time "21:00:00"
     - condition: state
@@ -63,6 +66,9 @@
   variables:
     study_target_temp: *target_temp
   condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: "off"
     - alias: "Only if turn-on automation is running/waiting"
       condition: template
       value_template: "{{ is_state_attr('automation.heating_study_on_when_working', 'current', '1') }}"

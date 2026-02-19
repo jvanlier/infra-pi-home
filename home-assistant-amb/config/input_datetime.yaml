@@ -4,3 +4,23 @@ wake_up_light_kids_start_orange:
   has_date: false
   has_time: true
   initial: "06:45"
+
+holiday_morning_start:
+  name: Holiday Morning Lights Start
+  has_time: true
+  initial: "07:00:00"
+
+holiday_evening_start:
+  name: Holiday Evening Lights Start
+  has_time: true
+  initial: "18:00:00"
+
+holiday_kids_bedtime:
+  name: Holiday Kids Bedtime
+  has_time: true
+  initial: "19:00:00"
+
+holiday_lights_off:
+  name: Holiday Lights Off Time
+  has_time: true
+  initial: "23:30:00"

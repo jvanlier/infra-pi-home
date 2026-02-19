@@ -32,6 +32,10 @@ wake_up_lights_kids_cycle_in_progress:
   icon: mdi:alarm-note
   initial: false
 
+holiday_mode:
+  name: Holiday Mode
+  icon: mdi:airplane-takeoff
+
 # Not yet installed, coming soon:
 # motion_activated_lights:
 #   name: Motion Activated Lights
