@@ -194,8 +194,14 @@ devices:
     friendly_name: Door Front
   '0x54ef44100146c860':
     friendly_name: Presence Toilet
-  '0xf0d1b8be2409045a':
-    friendly_name: Plug Outdoor Christmas Lights
+  '0x001788010fa669e5':
+    friendly_name: Light Study 2
+  '0x001788010fae25e8':
+    friendly_name: Light Study 1
+  '0x001788010fa668c4':
+    friendly_name: Light Study 7
+  '0x001788010fa48e40':
+    friendly_name: Light Study 8
 groups:
   '1':
     friendly_name: Light Group Living Spot
@@ -221,3 +227,5 @@ groups:
     friendly_name: Light Group Bedroom Olivier
   '12':
     friendly_name: Light Group Bedroom Duco
+  '13':
+    friendly_name: Light Group Study
