@@ -4,7 +4,7 @@ blueprint:
     Turn on a light when motion is detected.
     When dark, goes to lower brightness instead of off.
 
-    Supports only a single light entity, with associated adaptive ligthting config.
+    Supports only a single light entity, with associated adaptive lighting config.
     The adaptive lighting entity should not be shared with other lights, because adapt brightness gets turned off.
   domain: automation
   input:
