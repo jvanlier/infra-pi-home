@@ -197,6 +197,13 @@ views:
           - type: tile
             name: Chantal
             entity: light.light_bedroom_jc_bed_c
+          - type: heading
+            heading: Study
+            heading_style: subtitle
+            icon: mdi:desk
+          - type: tile
+            name: Study
+            entity: light.light_group_study
 
           - type: heading
             heading: Light automation

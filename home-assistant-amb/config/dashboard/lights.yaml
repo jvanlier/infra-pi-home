@@ -159,6 +159,16 @@ views:
               - type: light-brightness
 
           - type: heading
+            heading: Study
+            heading_style: subtitle
+            icon: mdi:desk
+          - type: tile
+            name: Study
+            entity: light.light_group_study
+            features:
+              - type: light-brightness
+
+          - type: heading
             heading: Light automation
             heading_style: subtitle
             icon: mdi:robot
