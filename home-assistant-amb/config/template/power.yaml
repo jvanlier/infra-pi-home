@@ -1,0 +1,32 @@
+- sensor:
+  - name: Electricity Meter Power net
+    unique_id: electricity_meter_power_net
+    unit_of_measurement: kW
+    state: >-
+      {{ states('sensor.electricity_meter_power_consumption') | float(0) -
+         states('sensor.electricity_meter_power_production') | float(0)
+      }}
+
+  - name: Electricity Meter Power net phase L1
+    unique_id: electricity_meter_power_net_phase_l1
+    unit_of_measurement: kW
+    state: >-
+      {{ states('sensor.electricity_meter_power_consumption_phase_l1') | float(0) -
+         states('sensor.electricity_meter_power_production_phase_l1') | float(0)
+      }}
+
+  - name: Electricity Meter Power net phase L2
+    unique_id: electricity_meter_power_net_phase_l2
+    unit_of_measurement: kW
+    state: >-
+      {{ states('sensor.electricity_meter_power_consumption_phase_l2') | float(0) -
+         states('sensor.electricity_meter_power_production_phase_l2') | float(0)
+      }}
+
+  - name: Electricity Meter Power net phase L3
+    unique_id: electricity_meter_power_net_phase_l3
+    unit_of_measurement: kW
+    state: >-
+      {{ states('sensor.electricity_meter_power_consumption_phase_l3') | float(0) -
+         states('sensor.electricity_meter_power_production_phase_l3') | float(0)
+      }}
