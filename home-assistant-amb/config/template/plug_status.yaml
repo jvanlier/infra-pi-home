@@ -1,6 +1,7 @@
 - binary_sensor:
-    - name: "Workstation in use"
-      unique_id: workstation_in_use
+    - unique_id: workstation_in_use
+      device_class: occupancy
+      name: "Workstation in use"
       state: >
         {{ states("sensor.plug_workstation_power") | float(0) > 60 }}
       delay_on:
@@ -8,8 +9,9 @@
       delay_off:
         minutes: 1
 
-    - name: "Entertainment in use"
-      unique_id: entertainment_in_use
+    - unique_id: entertainment_in_use
+      device_class: occupancy
+      name: "Entertainment in use"
       state: >
         {{ states("sensor.plug_entertainment_power") | float(0) > 50 }}
       delay_on:

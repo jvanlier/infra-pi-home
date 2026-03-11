@@ -8,6 +8,7 @@
     to: "on"
   binary_sensor:
     unique_id: door_front_contact_recent
+    device_class: occupancy
     name: Door Front Contact Recent
     state: "on"
     auto_off:
@@ -19,6 +20,7 @@
     to: "on"
   binary_sensor:
     unique_id: door_back_contact_recent
+    device_class: occupancy
     name: Door Back Contact Recent
     state: "on"
     auto_off:
@@ -30,6 +32,7 @@
     to: "on"
   binary_sensor:
     unique_id: door_living_stair_cabinet_contact_recent
+    device_class: occupancy
     name: Door Living Stair Cabinet Contact Recent
     state: "on"
     auto_off:
@@ -41,6 +44,7 @@
     entity_id: person.jori
   binary_sensor:
   - unique_id: jori_home
+    device_class: presence
     name: Jori Home
     state: "{{ is_state(trigger.entity_id, 'home') }}"
 
@@ -49,11 +53,13 @@
     entity_id: person.chantal
   binary_sensor:
   - unique_id: chantal_home
+    device_class: presence
     name: Chantal Home
     state: "{{ is_state(trigger.entity_id, 'home') }}"
 
 - binary_sensor:
   - unique_id: presence_ground_floor
+    device_class: occupancy
     name: Presence Ground Floor
     icon: mdi:numeric-0-box
     delay_off: "00:20:00"  # Rather long, because lights turn off based on this
@@ -74,6 +80,7 @@
       }}
 
   - unique_id: presence_first_floor
+    device_class: occupancy
     name: Presence First Floor
     icon: mdi:numeric-1-box
     delay_off: "00:15:00"
@@ -85,6 +92,7 @@
       }}
 
   - unique_id: presence_second_floor
+    device_class: occupancy
     name: Presence Second Floor
     icon: mdi:numeric-2-box
     delay_off: "00:05:00"
@@ -96,6 +104,7 @@
       }}
 
   - unique_id: presence_house
+    device_class: occupancy
     name: Presence House
     icon: mdi:home-account
     state: >
