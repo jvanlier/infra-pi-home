@@ -21,7 +21,7 @@ The home-assistant-amb service is the most actively developed component. Command
 ```bash
 cd home-assistant-amb
 just build              # Build Docker image with custom components
-just test               # Validate Home Assistant configuration
+just test               # Validate Home Assistant configuration (requires Docker)
 ```
 
 The build process creates a custom Docker image based on `ghcr.io/home-assistant/home-assistant:2026.2.2` with two baked-in custom components:
@@ -49,7 +49,7 @@ Home Assistant config uses a split configuration model (see `home-assistant-amb/
 
 - **Individual files included** (`!include`):
   - `input_boolean.yaml`, `input_datetime.yaml`, `input_number.yaml`: User inputs
-  - `lovelace.yaml`: Dashboard index — sets mode to yaml and registers dashboards from `dashboard/*.yaml`
+  - `lovelace.yaml`: Dashboard index — uses `resource_mode: yaml` and registers dashboards from `dashboard/*.yaml` (overview, climate, lights, power)
   - `logbook.yaml`: Logbook configuration
   - `script.yaml`: Scripts
   - `binary_sensor.yaml`: Binary sensor definitions
@@ -68,7 +68,7 @@ The Dockerfile installs custom components to `/custom_components`. The mounted c
 - `sleep_brightness`/`sleep_transition`: Sleep mode behavior
 - `max_sunset_time`: Override sunset time for bedrooms
 
-**Blueprints**: Custom automation blueprints live in `blueprints/automation/custom/`. Key ones:
+**Blueprints**: Custom automation blueprints live in `config/blueprints/automation/custom/`. Key ones:
 - `light_motion_activated_dark_aware.yaml` / `light_motion_activated_dark_aware_script.yaml`: Motion-activated lights with dark awareness
 - `hue_dimmer_switch.yaml`, `hue_tap_dial.yaml`, `hue_wall_switch.yaml`, `friends_of_hue_switch.yaml`: Hue switch/dial handlers
 - `heating_needed_alert.yaml`: Heating alert logic
@@ -96,7 +96,7 @@ The Dockerfile installs custom components to `/custom_components`. The mounted c
 
 GitHub Actions workflow validates Home Assistant config on every push to `home-assistant-amb/**`:
 1. Builds Docker image
-2. Runs `just test-config` (Home Assistant's `hass --script check_config`)
+2. Runs `just test` (Home Assistant's `hass --script check_config`)
 
 ## Making Changes
 
