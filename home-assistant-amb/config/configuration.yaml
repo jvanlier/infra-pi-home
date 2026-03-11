@@ -8,6 +8,10 @@ tts:
 
 recorder:
   purge_keep_days: 30  # default is 10 days
+  exclude:
+    entity_globs:
+      # High-frequency sensors that bloat the database
+      - sensor.*_last_seen
 
 # Dirs to include
 automation: !include_dir_merge_list automation/
