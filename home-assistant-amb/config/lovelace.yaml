@@ -1,5 +1,5 @@
 # https://www.home-assistant.io/dashboards/dashboards/#adding-more-dashboards-with-yaml
-mode: yaml
+resource_mode: yaml
 dashboards:
   dashboard-overview:
     mode: yaml
