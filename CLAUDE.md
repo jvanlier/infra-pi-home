@@ -103,7 +103,7 @@ GitHub Actions workflow validates Home Assistant config on every push to `home-a
 When modifying Home Assistant configuration:
 
 1. Edit YAML files in `home-assistant-amb/config/`
-2. Run `just test` to validate configuration locally
+2. Run `just test` to validate configuration locally. If there are no problems, there is no output. It may seem like it didn't work. Make sure the return code is not an error code.
 3. Create a branch, commit and push (CI will validate again)
 4. To verify on live Home Assistant
     - If the image is unchanged, instruct the user to checkout the branch on Raspberry pi (or simply pull if that has already happened and we're iterating), and reload configuration or restart via UI
