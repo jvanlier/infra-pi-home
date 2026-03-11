@@ -1,0 +1,6 @@
+- sensor:
+  - name: Weather Cloud Coverage
+    unique_id: weather_cloud_coverage
+    unit_of_measurement: percentage
+    state: >-
+      {{ state_attr("weather.forecast_home", "cloud_coverage") | float(0) }}

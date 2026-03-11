@@ -1,0 +1,13 @@
+- sensor:
+  - name: Washing Machine State
+    unique_id: washing_machine_state_v1
+    state: >-
+      {% if states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 1000 %}
+        heating
+      {% elif states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 4.5 %}
+        washing
+      {% elif states('sensor.plug_washing_machine_power_filtered')|float(default=0) >= 1 %}
+        idle
+      {% else %}
+        off
+      {% endif %}
