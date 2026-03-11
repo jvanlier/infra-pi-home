@@ -3,6 +3,7 @@
     # such that dark rainy/cloudy conditions may turn on lights.
 
     - name: Sufficiently Dark For Indoor Lights
+      unique_id: sufficiently_dark_for_indoor_lights
       icon: mdi:moon-waning-crescent
       state: >
         {{ states('sensor.motion_garden_illuminance_filtered') | int(0) <
@@ -10,6 +11,7 @@
         }}
 
     - name: Sufficiently Dark For Outdoor Lights
+      unique_id: sufficiently_dark_for_outdoor_lights
       icon: mdi:moon-waning-crescent
       state: >
         {{ states('sensor.motion_garden_illuminance_filtered') | int(0) <
