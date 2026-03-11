@@ -49,7 +49,8 @@ Home Assistant config uses a split configuration model (see `home-assistant-amb/
 
 - **Individual files included** (`!include`):
   - `input_boolean.yaml`, `input_datetime.yaml`, `input_number.yaml`: User inputs
-  - `lovelace.yaml`: Dashboard configuration
+  - `lovelace.yaml`: Dashboard index — sets mode to yaml and registers dashboards from `dashboard/*.yaml`
+  - `logbook.yaml`: Logbook configuration
   - `script.yaml`: Scripts
   - `binary_sensor.yaml`: Binary sensor definitions
   - `adaptive_lighting.yaml`: Adaptive lighting configurations for each light/room
@@ -66,6 +67,13 @@ The Dockerfile installs custom components to `/custom_components`. The mounted c
 - `min_color_temp`/`max_color_temp`: Color temperature range (Kelvin)
 - `sleep_brightness`/`sleep_transition`: Sleep mode behavior
 - `max_sunset_time`: Override sunset time for bedrooms
+
+**Blueprints**: Custom automation blueprints live in `blueprints/automation/custom/`. Key ones:
+- `light_motion_activated_dark_aware.yaml` / `light_motion_activated_dark_aware_script.yaml`: Motion-activated lights with dark awareness
+- `hue_dimmer_switch.yaml`, `hue_tap_dial.yaml`, `hue_wall_switch.yaml`, `friends_of_hue_switch.yaml`: Hue switch/dial handlers
+- `heating_needed_alert.yaml`: Heating alert logic
+- `water_leak.yaml`: Water leak notifications
+- `light_disco.yaml`, `light_disco_single.yaml`: Disco light effects
 
 **Motion-Activated Lights**: Custom blueprint `light_motion_activated_dark_aware.yaml` implements:
 - Turn on at full adaptive brightness when motion detected
@@ -102,5 +110,5 @@ When modifying Home Assistant configuration:
     - If the image is changed (either the `Dockerfile` itself or the tag in `docker-compose.yaml`), instruct the user to run `docker compose up -d --build` on the Raspberry pi in the `home-assistant-amb` directory.
 
 When adding/removing adaptive lighting configs, update references in:
-- `automation/light_adaptive.yaml`
+- `automation/light_adaptive_toggle.yaml`
 - `automation/sleep_mode.yaml`
