@@ -60,6 +60,16 @@ blueprint:
           domain: light
           multiple: false
 
+    light_group_ambiance:
+      name: Single Zigbee group that contains only the ambiance lights.
+      description: >
+        Used for turning off and dimming when color controls are disabled.
+      default: []
+      selector:
+        entity:
+          domain: light
+          multiple: false
+
     light_group_color:
       name: Single Zigbee group that contains all the color lights.
       description: >
@@ -70,18 +80,36 @@ blueprint:
           multiple: false
 
     switch_entities_adaptive_lighting:
-      name: Adaptive Lighting switch entities.
+      name: Adaptive Lighting switch entities (all).
       description: >
-        The adaptive lighting switches, used for turning on with service adaptive_lighting.apply.
+        The adaptive lighting switches for all lights, used for turning on with service adaptive_lighting.apply.
+      selector:
+        entity:
+          domain: switch
+
+    switch_entities_adaptive_lighting_ambiance:
+      name: Adaptive Lighting switch entities (ambiance only).
+      description: >
+        The adaptive lighting switches for ambiance lights only, used when color controls are disabled.
+      default: []
       selector:
         entity:
           domain: switch
 
     switch_entities_adapt_brightness:
-      name: Adaptive Lighting adapt brightness switch entities.
+      name: Adaptive Lighting adapt brightness switch entities (all).
       description: >
-        The adaptive lighting adapt brightness switches, in order to turn off adaptive brightness when dimming them
+        The adaptive lighting adapt brightness switches for all lights, in order to turn off adaptive brightness when dimming them
         via the _all_ zigbee group.
+      selector:
+        entity:
+          domain: switch
+
+    switch_entities_adapt_brightness_ambiance:
+      name: Adaptive Lighting adapt brightness switch entities (ambiance only).
+      description: >
+        The adaptive lighting adapt brightness switches for ambiance lights only, used when color controls are disabled.
+      default: []
       selector:
         entity:
           domain: switch
@@ -90,6 +118,18 @@ blueprint:
       name: Input boolean for disco.
       description: >
         Input boolean for disco toggle.
+      selector:
+        entity:
+          domain: input_boolean
+          multiple: false
+
+    input_boolean_color_controls_disabled:
+      name: Input boolean to disable color light controls.
+      description: >
+        Optional. When this input boolean is "on", color light controls will be restricted:
+        - Buttons 2 and 4 (color cycle and disco) will be completely disabled
+        - Buttons 1 and 3 (AL on/off) and brightness controls will only affect ambiance lights
+      default: []
       selector:
         entity:
           domain: input_boolean
@@ -124,8 +164,14 @@ action:
       controller: !input controller
       command: "{{ trigger.payload }}"
       light_group_all: !input light_group_all
+      light_group_ambiance: !input light_group_ambiance
+      input_boolean_color_controls_disabled: !input input_boolean_color_controls_disabled
+      color_controls_disabled: >
+        {{ input_boolean_color_controls_disabled != [] and is_state(input_boolean_color_controls_disabled, 'on') }}
+      active_light_group: >
+        {{ light_group_ambiance if color_controls_disabled and light_group_ambiance != [] else light_group_all }}
       current_brightness: >
-        {{ state_attr(light_group_all, 'brightness') | int(0) }}
+        {{ state_attr(active_light_group, 'brightness') | int(0) }}
       brightness_max: !input brightness_max
       brightness_step: !input brightness_step
   - choose:
@@ -135,14 +181,26 @@ action:
           - service: input_boolean.turn_off
             target:
               entity_id: !input input_boolean_disco
-          # Turn on adaptive brightness, in case it was turned off earlier due to dimming:
-          - service: switch.turn_on
-            target:
-              entity_id: !input switch_entities_adapt_brightness
-          - service: adaptive_lighting.apply
-            data:
-              entity_id: !input switch_entities_adaptive_lighting
-              turn_on_lights: true
+          - choose:
+              - conditions: '{{ color_controls_disabled }}'
+                sequence:
+                  # Only control ambiance lights when color controls are disabled
+                  - service: switch.turn_on
+                    target:
+                      entity_id: !input switch_entities_adapt_brightness_ambiance
+                  - service: adaptive_lighting.apply
+                    data:
+                      entity_id: !input switch_entities_adaptive_lighting_ambiance
+                      turn_on_lights: true
+            default:
+              # Normal operation: control all lights
+              - service: switch.turn_on
+                target:
+                  entity_id: !input switch_entities_adapt_brightness
+              - service: adaptive_lighting.apply
+                data:
+                  entity_id: !input switch_entities_adaptive_lighting
+                  turn_on_lights: true
       - conditions: '{{ command == "button_3_press" }}'
         sequence:
           # Turn off disco, in case it was running:
@@ -151,40 +209,76 @@ action:
               entity_id: !input input_boolean_disco
           - service: light.turn_off
             target:
-              entity_id: !input light_group_all
-          # Turn on adaptive brightness, in case it was turned off earlier due to dimming, to be prepared
-          # for the next turn on (it's also enabled above for button 1; the goal of this is handling turn-on via different
-          # means.)
-          - service: switch.turn_on
-            target:
-              entity_id: !input switch_entities_adapt_brightness
+              entity_id: '{{ active_light_group }}'
+          - choose:
+              - conditions: '{{ color_controls_disabled }}'
+                sequence:
+                  # Only control ambiance lights when color controls are disabled
+                  - service: switch.turn_on
+                    target:
+                      entity_id: !input switch_entities_adapt_brightness_ambiance
+            default:
+              # Normal operation: control all lights
+              - service: switch.turn_on
+                target:
+                  entity_id: !input switch_entities_adapt_brightness
       - conditions: '{{ command == "brightness_step_down" }}'
         sequence:
-          # Since we dim using Zigbee group with all lights, AL doesn't mark them as manually controlled.
-          # So we turn off adaptive brightness manually:
-          - service: switch.turn_off
-            target:
-              entity_id: !input switch_entities_adapt_brightness
-          - service: light.turn_on
-            data:
-              transition: 1
-              brightness: "{{ max(current_brightness - brightness_step, 1) }}"
-            target:
-              entity_id: !input light_group_all
+          - choose:
+              - conditions: '{{ color_controls_disabled }}'
+                sequence:
+                  # Only control ambiance lights when color controls are disabled
+                  - service: switch.turn_off
+                    target:
+                      entity_id: !input switch_entities_adapt_brightness_ambiance
+                  - service: light.turn_on
+                    data:
+                      transition: 1
+                      brightness: "{{ max(current_brightness - brightness_step, 1) }}"
+                    target:
+                      entity_id: '{{ light_group_ambiance }}'
+            default:
+              # Normal operation: control all lights
+              - service: switch.turn_off
+                target:
+                  entity_id: !input switch_entities_adapt_brightness
+              - service: light.turn_on
+                data:
+                  transition: 1
+                  brightness: "{{ max(current_brightness - brightness_step, 1) }}"
+                target:
+                  entity_id: !input light_group_all
       - conditions: '{{ command == "brightness_step_up" }}'
         sequence:
-          - service: switch.turn_off
-            target:
-              entity_id: !input switch_entities_adapt_brightness
-          - service: light.turn_on
-            data:
-              transition: 1
-              brightness: "{{ min(current_brightness + brightness_step, brightness_max) }}"
-            target:
-              entity_id: !input light_group_all
+          - choose:
+              - conditions: '{{ color_controls_disabled }}'
+                sequence:
+                  # Only control ambiance lights when color controls are disabled
+                  - service: switch.turn_off
+                    target:
+                      entity_id: !input switch_entities_adapt_brightness_ambiance
+                  - service: light.turn_on
+                    data:
+                      transition: 1
+                      brightness: "{{ min(current_brightness + brightness_step, brightness_max) }}"
+                    target:
+                      entity_id: '{{ light_group_ambiance }}'
+            default:
+              # Normal operation: control all lights
+              - service: switch.turn_off
+                target:
+                  entity_id: !input switch_entities_adapt_brightness
+              - service: light.turn_on
+                data:
+                  transition: 1
+                  brightness: "{{ min(current_brightness + brightness_step, brightness_max) }}"
+                target:
+                  entity_id: !input light_group_all
       - conditions: '{{ command == "button_2_press" }}'
-        # Manual random color
+        # Manual random color - disabled when color controls are disabled
         sequence:
+          - condition: template
+            value_template: '{{ not color_controls_disabled }}'
           # Turn off disco, in case it was running:
           - service: input_boolean.turn_off
             target:
@@ -196,8 +290,10 @@ action:
             target:
               entity_id: !input light_group_color
       - conditions: '{{ command == "button_4_press" }}'
-        # Automatic disco
+        # Automatic disco - disabled when color controls are disabled
         sequence:
+          - condition: template
+            value_template: '{{ not color_controls_disabled }}'
           - service: input_boolean.toggle
             target:
               entity_id: !input input_boolean_disco
