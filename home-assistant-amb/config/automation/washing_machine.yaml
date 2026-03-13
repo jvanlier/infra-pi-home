@@ -9,7 +9,7 @@
   action:
     - service: notify.notify
       data:
-        title: Washine machine
+        title: Washing machine
         message: Done
         data:
           push:

@@ -1,0 +1,2 @@
+# Empty file - binary_sensor key required by configuration.yaml, but all template
+# binary sensors are defined in template/*.yaml using the newer template integration syntax.

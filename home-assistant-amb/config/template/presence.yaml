@@ -1,4 +1,4 @@
- # Footgun: Typos in entity ids are silently ignored.
+# Footgun: Typos in entity ids are silently ignored.
  # So these are not caught at test time, nor do they result in error in the logs.
  # Maybe change this to input_booleans + automations to set/unset in combination with a timer.
 
@@ -81,11 +81,13 @@
     name: Presence First Floor
     icon: mdi:numeric-1-box
     delay_off: "00:15:00"
+    # Note: motion_stairs_0_occupancy is intentionally in both ground and first floor
+    # presence sensors, as the stairs connect both floors.
     state: >
       {{ expand([
           "binary_sensor.motion_stairs_0_occupancy",
           "binary_sensor.motion_stairs_1_occupancy",
-          ]) | selectattr("state","eq","on") | list | count > 0
+          ]) | selectattr("state", "eq", "on") | list | count > 0
       }}
 
   - unique_id: presence_second_floor

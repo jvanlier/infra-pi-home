@@ -62,7 +62,7 @@ blueprint:
     left_switch_entities_adapt_brightness:
       name: Adaptive Lighting adapt brightness switch entities (all).
       description: >
-        The adaptive lighting switches, in order to  adaptive brightness when dimming them via the zigbee group (which is not in AL config).
+        The adaptive lighting switches, in order to disable adaptive brightness when dimming them via the zigbee group (which is not in AL config).
       selector:
         entity:
           domain: switch

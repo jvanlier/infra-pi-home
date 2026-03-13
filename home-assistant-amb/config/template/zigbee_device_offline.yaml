@@ -27,7 +27,6 @@
           {% else %}
             {% set last_seen_timestamp = as_timestamp(states(state.entity_id)) %}
             {% if (as_timestamp(now()) - last_seen_timestamp) > (24 * 60 * 60) %}
-              {% set time_ago = relative_time(strptime(states(state.entity_id), '%Y-%m-%dT%H:%M:%S%z')) %}
               {% set result.sensors = result.sensors + [pretty_name ~ ": " ~ last_seen_timestamp | timestamp_custom("%Y-%m-%d %H:%M:%S")] %}
             {% endif %}
           {% endif %}
