@@ -9,7 +9,7 @@
       above: 25
     # L3 is not connected
   action:
-    - service: notify.mobile_app_J16
+    - service: notify.mobile_app_j16
       data:
         title: Electricity overload warning
         message: >

@@ -1,5 +1,5 @@
 - alias: Switch Dimmer Bedroom JC Bed C
-  id: switch-dimme-bedroom-jc-bed-c
+  id: switch-dimmer-bedroom-jc-bed-c
   description: ""
   use_blueprint:
     path: custom/hue_dimmer_switch.yaml
@@ -33,7 +33,7 @@
             entity_id: *ref_c
 
 - alias: Switch Dimmer Bedroom JC Bed J
-  id: switch-dimme-bedroom-jc-bed-j
+  id: switch-dimmer-bedroom-jc-bed-j
   description: ""
   use_blueprint:
     path: custom/hue_dimmer_switch.yaml
