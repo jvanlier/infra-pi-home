@@ -31,14 +31,3 @@ wake_up_lights_kids_cycle_in_progress:
   name: Wake Up Lights Kids Cycle In Progress
   icon: mdi:alarm-note
   initial: false
-
-# Not yet installed, coming soon:
-# motion_activated_lights:
-#   name: Motion Activated Lights
-#   icon: mdi:motion-sensor
-
-# TODO:
-# housekeeping_mode:
-#   # Toggle Adaptive Lighting + all motion sensors and set lights to max white.
-#   name: Housekeeping Mode
-#   icon: mdi:broom

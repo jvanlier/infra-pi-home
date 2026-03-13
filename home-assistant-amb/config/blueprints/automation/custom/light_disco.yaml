@@ -1,7 +1,7 @@
 blueprint:
   name: Light Disco
   description: >
-    TODO
+    Cycle lights through random colors while input boolean is on.
 
   domain: automation
 
