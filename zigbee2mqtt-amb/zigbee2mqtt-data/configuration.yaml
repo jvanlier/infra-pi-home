@@ -202,6 +202,10 @@ devices:
     friendly_name: Light Study 7
   '0x001788010fa48e40':
     friendly_name: Light Study 8
+  '0x001788010fa48e46':
+    friendly_name: Light Study 3
+  '0x001788010fac51cd':
+    friendly_name: Light Study 4
 groups:
   '1':
     friendly_name: Light Group Living Spot
