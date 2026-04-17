@@ -206,6 +206,13 @@ devices:
     friendly_name: Light Study 3
   '0x001788010fac51cd':
     friendly_name: Light Study 4
+<<<<<<< Updated upstream
+=======
+  '0x001788010fae31b4':
+    friendly_name: Light Study 5
+  '0x001788010fa65e29':
+    friendly_name: Light Study 6
+>>>>>>> Stashed changes
 groups:
   '1':
     friendly_name: Light Group Living Spot
