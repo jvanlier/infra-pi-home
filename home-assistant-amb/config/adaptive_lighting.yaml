@@ -75,7 +75,7 @@
   max_brightness: 40
   min_color_temp: 2700
   max_color_temp: 4000
-  sleep_brightness: 4
+  sleep_brightness: 8
   sleep_transition: 5
 
 - name: "kitchen-countertop"
@@ -84,7 +84,7 @@
   max_brightness: 80
   min_color_temp: 2700
   max_color_temp: 4000
-  sleep_brightness: 8
+  sleep_brightness: 16
   sleep_transition: 5
 
 - name: "bathroom"
