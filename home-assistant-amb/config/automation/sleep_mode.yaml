@@ -28,6 +28,7 @@
         - switch.adaptive_lighting_sleep_mode_kitchen_countertop
         - switch.adaptive_lighting_sleep_mode_toilet
         - switch.adaptive_lighting_sleep_mode_stair_cabinet
+        - switch.adaptive_lighting_sleep_mode_study
   mode: restart
 
 - alias: "Sleep mode: scheduled on"

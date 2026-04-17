@@ -130,3 +130,11 @@
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
   sleep_transition: 5
+
+- name: "study"
+  lights: ["light.light_group_study"]
+  min_brightness: 50
+  max_brightness: 50
+  min_color_temp: 2700
+  max_color_temp: 4000
+  sleep_transition: 5
