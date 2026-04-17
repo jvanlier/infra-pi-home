@@ -1,4 +1,4 @@
-# TODO: apparently script blueprints are a thing, move tot that.
+# TODO: apparently script blueprints are a thing, move to that.
 
 turn_on_light_kitchen_middle_dimmed:
   alias: "Turn on light kitchen middle dimmed"

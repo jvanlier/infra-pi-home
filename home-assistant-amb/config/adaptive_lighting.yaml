@@ -1,5 +1,5 @@
 # N.b.: when adding/removing configs, also update:
-# - automation/light_adaptive.yaml
+# - automation/light_adaptive_toggle.yaml
 # - automation/sleep_mode.yaml
 
 - name: "hall-0-spot"

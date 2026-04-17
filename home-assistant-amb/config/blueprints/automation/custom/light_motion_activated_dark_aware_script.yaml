@@ -7,7 +7,7 @@ blueprint:
     Alternate version that takes the entity id of a script to go into dimmed state. Useful for DRY when you want
     to go immediately into dimmed state upon other triggers as well.
 
-    Supports only a single light entity, with associated adaptive ligthting config.
+    Supports only a single light entity, with associated adaptive lighting config.
     The adaptive lighting entity should not be shared with other lights, because adapt brightness gets turned off.
   domain: automation
   input:

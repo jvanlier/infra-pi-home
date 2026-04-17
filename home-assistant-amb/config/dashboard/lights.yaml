@@ -31,8 +31,6 @@ views:
             heading: Living
             heading_style: subtitle
             icon: mdi:sofa
-            features:
-              - type: light-brightness
           - type: tile
             name: Spot Always
             entity: light.light_group_living_spot_always
@@ -172,18 +170,10 @@ views:
             heading: Light automation
             heading_style: subtitle
             icon: mdi:robot
-            # tap_action:
-            #   action: navigate
-            #   navigation_path: /dashboard-lights/automation
           - type: tile
             entity: input_boolean.adaptive_lighting
             tap_action:
               action: toggle
-          # Input boolean not in use yet:
-          # - type: tile
-          #   entity: input_boolean.motion_activated_lights
-          #   tap_action:
-          #     action: toggle
   - title: Wake up lights
     path: wake-up-lights
     icon: mdi:alarm-check
