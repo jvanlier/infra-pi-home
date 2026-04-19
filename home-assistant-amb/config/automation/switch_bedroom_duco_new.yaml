@@ -3,7 +3,7 @@
   use_blueprint:
     path: custom/hue_wall_switch.yaml
     input:
-      controller: switch_wall_bedroom_duco_new
+      controller: Switch Wall Bedroom Duco New
       left_press:
         - action: light.toggle
           target:
