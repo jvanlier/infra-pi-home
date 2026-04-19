@@ -1,0 +1,183 @@
+blueprint:
+  name: Hue Wall Switch (Z2M) - Hold to Dim
+  description: >
+    Hue Wall Switch for Zigbee2MQTT with hold-to-dim support.
+
+    Short press (release): toggle light on/off.
+    Hold: dim light brightness. First hold dims down, next hold (within 5s) dims up, alternating.
+
+    Requires push button mode configured in Zigbee2MQTT.
+    Requires an input_text helper for dim direction state tracking (initial value: "left_down_0|right_down_0").
+  domain: automation
+
+  input:
+    controller:
+      name: (Zigbee2MQTT) Controller Name
+      description: The name of the device in Zigbee2MQTT
+      default: ""
+    base_topic:
+      name: Root/Base mqtt topic from Zigbee2MQTT
+      description: The Root/base topic as configured in Zigbee2MQTT
+      default: zigbee2mqtt
+    brightness_step_pct:
+      name: Brightness step percentage
+      description: Percentage to change brightness per hold event.
+      default: 10
+      selector:
+        number:
+          min: 3
+          max: 25
+          step: 1
+          unit_of_measurement: "%"
+    direction_timeout:
+      name: Direction timeout
+      description: Seconds after the last dim before direction resets to "down".
+      default: 5
+      selector:
+        number:
+          min: 2
+          max: 30
+          step: 1
+          unit_of_measurement: seconds
+
+    left_light:
+      name: Left button light
+      description: Light entity to control with the left button.
+      selector:
+        entity:
+          domain: light
+          multiple: false
+    right_light:
+      name: Right button light (optional)
+      description: Light entity to control with the right button. Leave empty to disable.
+      default: []
+      selector:
+        entity:
+          domain: light
+          multiple: false
+
+    dim_direction_entity:
+      name: Dim direction input_text helper
+      description: >
+        An input_text entity for persisting dim direction state.
+        Create one per switch. Initial value: "left_down_0|right_down_0".
+      selector:
+        entity:
+          domain: input_text
+          multiple: false
+
+mode: parallel
+max: 10
+
+trigger_variables:
+  base_topic: !input base_topic
+  controller: !input controller
+
+trigger:
+  - platform: mqtt
+    topic: "{{ base_topic ~ '/' ~ controller ~ '/action' }}"
+
+condition:
+  - condition: template
+    value_template: >
+      {{ trigger.payload in [
+        'left_release', 'right_release',
+        'left_hold', 'right_hold',
+        'left_hold_release', 'right_hold_release'
+      ] }}
+
+action:
+  - variables:
+      command: "{{ trigger.payload }}"
+      side: "{{ 'left' if 'left' in command else 'right' }}"
+      light_left: !input left_light
+      light_right: !input right_light
+      light_entity: "{{ light_left if side == 'left' else light_right }}"
+      dim_direction_entity: !input dim_direction_entity
+      brightness_step_pct: !input brightness_step_pct
+      direction_timeout: !input direction_timeout
+
+  - condition: template
+    value_template: "{{ not (side == 'right' and light_right == []) }}"
+
+  - choose:
+      - conditions: "{{ command in ['left_release', 'right_release'] }}"
+        sequence:
+          - action: light.toggle
+            target:
+              entity_id: "{{ light_entity }}"
+
+      - conditions: "{{ command in ['left_hold', 'right_hold'] }}"
+        sequence:
+          - condition: template
+            value_template: "{{ states(light_entity) == 'on' }}"
+          - variables:
+              raw_state: "{{ states(dim_direction_entity) }}"
+              parsed: >
+                {% set parts = raw_state.split('|') %}
+                {% set ns = namespace(dir='down', ts=0) %}
+                {% for part in parts %}
+                  {% if part.startswith(side ~ '_') %}
+                    {% set tokens = part.split('_') %}
+                    {% if tokens | length >= 3 %}
+                      {% set ns.dir = tokens[1] %}
+                      {% set ns.ts = tokens[2] | int(0) %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+                {{ ns.dir ~ '|' ~ ns.ts }}
+              prev_dir: "{{ (parsed | trim).split('|')[0] }}"
+              prev_ts: "{{ (parsed | trim).split('|')[1] | int(0) }}"
+              now_ts: "{{ now().timestamp() | int }}"
+              timed_out: "{{ (now_ts - prev_ts) > direction_timeout }}"
+              current_dir: "{{ 'down' if timed_out else prev_dir }}"
+              step_value: "{{ brightness_step_pct | int if current_dir == 'up' else (brightness_step_pct | int * -1) }}"
+          - action: light.turn_on
+            data:
+              brightness_step_pct: "{{ step_value }}"
+            target:
+              entity_id: "{{ light_entity }}"
+
+      - conditions: "{{ command in ['left_hold_release', 'right_hold_release'] }}"
+        sequence:
+          - variables:
+              raw_state: "{{ states(dim_direction_entity) }}"
+              parsed: >
+                {% set parts = raw_state.split('|') %}
+                {% set ns = namespace(dir='down', ts=0) %}
+                {% for part in parts %}
+                  {% if part.startswith(side ~ '_') %}
+                    {% set tokens = part.split('_') %}
+                    {% if tokens | length >= 3 %}
+                      {% set ns.dir = tokens[1] %}
+                      {% set ns.ts = tokens[2] | int(0) %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+                {{ ns.dir ~ '|' ~ ns.ts }}
+              prev_dir: "{{ (parsed | trim).split('|')[0] }}"
+              prev_ts: "{{ (parsed | trim).split('|')[1] | int(0) }}"
+              now_ts: "{{ now().timestamp() | int }}"
+              timed_out: "{{ (now_ts - prev_ts) > direction_timeout }}"
+              current_dir: "{{ 'down' if timed_out else prev_dir }}"
+              next_dir: "{{ 'up' if current_dir == 'down' else 'down' }}"
+              new_state: >
+                {% set parts = raw_state.split('|') %}
+                {% set ns = namespace(found=false, result=[]) %}
+                {% for part in parts %}
+                  {% if part.startswith(side ~ '_') %}
+                    {% set ns.found = true %}
+                    {% set ns.result = ns.result + [side ~ '_' ~ next_dir ~ '_' ~ now_ts] %}
+                  {% else %}
+                    {% set ns.result = ns.result + [part] %}
+                  {% endif %}
+                {% endfor %}
+                {% if not ns.found %}
+                  {% set ns.result = ns.result + [side ~ '_' ~ next_dir ~ '_' ~ now_ts] %}
+                {% endif %}
+                {{ ns.result | join('|') | trim }}
+          - action: input_text.set_value
+            target:
+              entity_id: "{{ dim_direction_entity }}"
+            data:
+              value: "{{ new_state }}"

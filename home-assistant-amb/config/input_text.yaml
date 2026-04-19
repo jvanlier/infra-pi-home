@@ -1,0 +1,4 @@
+dim_direction_switch_wall_toilet:
+  name: Dim direction Switch Wall Toilet
+  initial: "left_down_0|right_down_0"
+  max: 255
