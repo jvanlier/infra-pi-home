@@ -210,6 +210,24 @@ devices:
     friendly_name: Light Study 5
   '0x001788010fa65e29':
     friendly_name: Light Study 6
+  '0x001788010cc29e08':
+    friendly_name: Switch Wall Bedroom Duco New
+  '0x0017880108d06187':
+    friendly_name: Light Bedroom Duco New 1
+  '0x0017880108cad8f9':
+    friendly_name: Light Bedroom Duco New 2
+  '0x001788010fa9c4cb':
+    friendly_name: Light Bedroom Duco New 3
+  '0x001788010fa9c4a2':
+    friendly_name: Light Bedroom Duco New 4
+  '0x001788010fa4901f':
+    friendly_name: Light Bedroom Duco New 5
+  '0x001788010fae25e0':
+    friendly_name: Light Bedroom Duco New 6
+  '0x001788010fa49026':
+    friendly_name: Light Bedroom Duco New 7
+  '0x001788010fac52aa':
+    friendly_name: Light Bedroom Duco New 8
 groups:
   '1':
     friendly_name: Light Group Living Spot
@@ -237,3 +255,5 @@ groups:
     friendly_name: Light Group Bedroom Duco
   '13':
     friendly_name: Light Group Study
+  '14':
+    friendly_name: Light Group Bedroom Duco New
