@@ -181,6 +181,9 @@ views:
             name: Duco Color
             entity: light.light_group_bedroom_duco_color
           - type: tile
+            name: Duco New
+            entity: light.light_group_bedroom_duco_new
+          - type: tile
             name: Olivier Ambiance
             entity: light.light_group_bedroom_olivier_ambiance
           - type: tile
