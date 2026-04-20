@@ -91,7 +91,7 @@ condition:
   - condition: template
     value_template: >
       {{ trigger.payload in [
-        'left_release', 'right_release',
+        'left_press_release', 'right_press_release',
         'left_hold', 'right_hold',
         'left_hold_release', 'right_hold_release'
       ] }}
@@ -113,7 +113,7 @@ action:
     value_template: "{{ not (side == 'right' and light_right == []) }}"
 
   - choose:
-      - conditions: "{{ command in ['left_release', 'right_release'] }}"
+      - conditions: "{{ command in ['left_press_release', 'right_press_release'] }}"
         sequence:
           - action: light.toggle
             target:
