@@ -140,6 +140,11 @@ action:
               transition: 1
             target:
               entity_id: "{{ light_entity }}"
+          - action: input_text.set_value
+            target:
+              entity_id: "{{ dim_direction_entity }}"
+            data:
+              value: "{{ current_dir ~ '_' ~ now_ts }}"
 
       - conditions: "{{ command in ['left_hold_release', 'right_hold_release'] }}"
         sequence:
