@@ -7,7 +7,7 @@ blueprint:
     Hold: dim light brightness. First hold dims down, next hold (within 5s) dims up, alternating.
 
     Requires push button mode configured in Zigbee2MQTT.
-    Requires an input_text helper for dim direction state tracking (initial value: "left_down_0|right_down_0").
+    Requires one input_text helper per button side for dim direction state (initial value: "down_0").
   domain: automation
 
   input:
@@ -47,6 +47,16 @@ blueprint:
         entity:
           domain: light
           multiple: false
+    left_dim_direction_entity:
+      name: Left dim direction input_text helper
+      description: >
+        An input_text entity for persisting left button dim direction state.
+        Initial value: "down_0".
+      selector:
+        entity:
+          domain: input_text
+          multiple: false
+
     right_light:
       name: Right button light (optional)
       description: Light entity to control with the right button. Leave empty to disable.
@@ -55,12 +65,12 @@ blueprint:
         entity:
           domain: light
           multiple: false
-
-    dim_direction_entity:
-      name: Dim direction input_text helper
+    right_dim_direction_entity:
+      name: Right dim direction input_text helper (optional)
       description: >
-        An input_text entity for persisting dim direction state.
-        Create one per switch. Initial value: "left_down_0|right_down_0".
+        An input_text entity for persisting right button dim direction state.
+        Initial value: "down_0". Required when right_light is set.
+      default: []
       selector:
         entity:
           domain: input_text
@@ -93,7 +103,9 @@ action:
       light_left: !input left_light
       light_right: !input right_light
       light_entity: "{{ light_left if side == 'left' else light_right }}"
-      dim_direction_entity: !input dim_direction_entity
+      dim_dir_left: !input left_dim_direction_entity
+      dim_dir_right: !input right_dim_direction_entity
+      dim_direction_entity: "{{ dim_dir_left if side == 'left' else dim_dir_right }}"
       brightness_step_pct: !input brightness_step_pct
       direction_timeout: !input direction_timeout
 
@@ -113,21 +125,9 @@ action:
             value_template: "{{ states(light_entity) == 'on' }}"
           - variables:
               raw_state: "{{ states(dim_direction_entity) }}"
-              parsed: >
-                {% set parts = raw_state.split('|') %}
-                {% set ns = namespace(dir='down', ts=0) %}
-                {% for part in parts %}
-                  {% if part.startswith(side ~ '_') %}
-                    {% set tokens = part.split('_') %}
-                    {% if tokens | length >= 3 %}
-                      {% set ns.dir = tokens[1] %}
-                      {% set ns.ts = tokens[2] | int(0) %}
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-                {{ ns.dir ~ '|' ~ ns.ts }}
-              prev_dir: "{{ (parsed | trim).split('|')[0] }}"
-              prev_ts: "{{ (parsed | trim).split('|')[1] | int(0) }}"
+              parts: "{{ raw_state.split('_') }}"
+              prev_dir: "{{ parts[0] if parts | length >= 2 else 'down' }}"
+              prev_ts: "{{ parts[1] | int(0) if parts | length >= 2 else 0 }}"
               now_ts: "{{ now().timestamp() | int }}"
               timed_out: "{{ (now_ts - prev_ts) > direction_timeout }}"
               current_dir: "{{ 'down' if timed_out else prev_dir }}"
@@ -142,42 +142,15 @@ action:
         sequence:
           - variables:
               raw_state: "{{ states(dim_direction_entity) }}"
-              parsed: >
-                {% set parts = raw_state.split('|') %}
-                {% set ns = namespace(dir='down', ts=0) %}
-                {% for part in parts %}
-                  {% if part.startswith(side ~ '_') %}
-                    {% set tokens = part.split('_') %}
-                    {% if tokens | length >= 3 %}
-                      {% set ns.dir = tokens[1] %}
-                      {% set ns.ts = tokens[2] | int(0) %}
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-                {{ ns.dir ~ '|' ~ ns.ts }}
-              prev_dir: "{{ (parsed | trim).split('|')[0] }}"
-              prev_ts: "{{ (parsed | trim).split('|')[1] | int(0) }}"
+              parts: "{{ raw_state.split('_') }}"
+              prev_dir: "{{ parts[0] if parts | length >= 2 else 'down' }}"
+              prev_ts: "{{ parts[1] | int(0) if parts | length >= 2 else 0 }}"
               now_ts: "{{ now().timestamp() | int }}"
               timed_out: "{{ (now_ts - prev_ts) > direction_timeout }}"
               current_dir: "{{ 'down' if timed_out else prev_dir }}"
               next_dir: "{{ 'up' if current_dir == 'down' else 'down' }}"
-              new_state: >
-                {% set parts = raw_state.split('|') %}
-                {% set ns = namespace(found=false, result=[]) %}
-                {% for part in parts %}
-                  {% if part.startswith(side ~ '_') %}
-                    {% set ns.found = true %}
-                    {% set ns.result = ns.result + [side ~ '_' ~ next_dir ~ '_' ~ now_ts] %}
-                  {% else %}
-                    {% set ns.result = ns.result + [part] %}
-                  {% endif %}
-                {% endfor %}
-                {% if not ns.found %}
-                  {% set ns.result = ns.result + [side ~ '_' ~ next_dir ~ '_' ~ now_ts] %}
-                {% endif %}
-                {{ ns.result | join('|') | trim }}
           - action: input_text.set_value
             target:
               entity_id: "{{ dim_direction_entity }}"
             data:
-              value: "{{ new_state }}"
+              value: "{{ next_dir ~ '_' ~ now_ts }}"

@@ -6,4 +6,4 @@
     input:
       controller: Switch Wall Toilet
       left_light: light.light_toilet
-      dim_direction_entity: input_text.dim_direction_switch_wall_toilet
+      left_dim_direction_entity: input_text.dim_direction_switch_wall_toilet_left
