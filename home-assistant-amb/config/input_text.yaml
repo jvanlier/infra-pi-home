@@ -1,4 +1,19 @@
 dim_direction_switch_wall_toilet_left:
   name: Dim direction Switch Wall Toilet Left
   initial: "down_0"
-  max: 255
+  max: 30
+
+dim_direction_switch_wall_kitchen_left:
+  name: Dim direction Switch Wall Kitchen Left
+  initial: "down_0"
+  max: 30
+
+dim_direction_switch_wall_living_left:
+  name: Dim direction Switch Wall Living Left
+  initial: "down_0"
+  max: 30
+
+dim_direction_switch_wall_living_right:
+  name: Dim direction Switch Wall Living Right
+  initial: "down_0"
+  max: 30
