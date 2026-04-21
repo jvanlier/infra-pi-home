@@ -1,4 +1,4 @@
-FROM ghcr.io/home-assistant/home-assistant:2026.3.2
+FROM ghcr.io/home-assistant/home-assistant:2026.4.3
 
 ARG ADAPTIVE_LIGHTING_VERSION=1.30.1
 ARG HA_ILLUMINANCE_VERSION=5.7.0
