@@ -17,3 +17,8 @@ dim_direction_switch_wall_living_right:
   name: Dim direction Switch Wall Living Right
   initial: "down_0"
   max: 30
+
+dim_direction_switch_wall_bedroom_duco_new_left:
+  name: Dim direction Switch Wall Bedroom Duco New Left
+  initial: "down_0"
+  max: 30
