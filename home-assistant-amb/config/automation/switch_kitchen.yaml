@@ -1,12 +1,10 @@
 - alias: Switch Wall Kitchen
   id: switch_wall_kitchen
   use_blueprint:
-    path: custom/hue_wall_switch.yaml
+    path: custom/hue_wall_switch_dim.yaml
     input:
       controller: Switch Wall Kitchen
-      left_press:
-        - action: light.toggle
-          target:
-            entity_id:
-              - light.light_group_kitchen_middle
-              - light.light_group_kitchen_countertop
+      left_light:
+        - light.light_group_kitchen_middle
+        - light.light_group_kitchen_countertop
+      left_dim_direction_entity: input_text.dim_direction_switch_wall_kitchen_left

@@ -2,29 +2,19 @@
 - alias: Switch Wall Living
   id: switch_wall_living
   use_blueprint:
-    path: custom/hue_wall_switch.yaml
+    path: custom/hue_wall_switch_dim.yaml
     input:
       controller: Switch Wall Living
-      left_press:
-        - action: light.toggle
-          target:
-            entity_id: light.light_dining_table
-      right_press:
-          - choose:
-              - conditions:
-                  - condition: state
-                    entity_id: binary_sensor.sufficiently_dark_for_indoor_lights
-                    state: "on"
-                sequence:
-                  - service: light.toggle
-                    target:
-                      entity_id:
-                        - light.light_group_living_spot_dark_outside
-                        - light.light_group_living_spot_always
-            default:
-              - service: light.toggle
-                target:
-                  entity_id: light.light_group_living_spot_always
+      left_light:
+        - light.light_dining_table
+      left_dim_direction_entity: input_text.dim_direction_switch_wall_living_left
+      right_light:
+        - light.light_group_living_spot_always
+        - light.light_group_living_spot_dark_outside
+      right_dim_direction_entity: input_text.dim_direction_switch_wall_living_right
+      right_condition_entity: binary_sensor.sufficiently_dark_for_indoor_lights
+      right_light_alt:
+        - light.light_group_living_spot_always
 
 - alias: Switch Tap Dial Living
   id: switch_tap_dial_living

@@ -1,0 +1,218 @@
+blueprint:
+  name: Hue Wall Switch (Z2M) - Hold to Dim
+  description: >
+    Hue Wall Switch for Zigbee2MQTT with hold-to-dim support.
+
+    Short press (release): toggle light on/off.
+    Hold: dim light brightness. First hold dims down, next hold (within 5s) dims up, alternating.
+
+    Supports multiple light entities per button and optional conditional light selection
+    (e.g. different lights based on a binary sensor like darkness).
+
+    Requires push button mode configured in Zigbee2MQTT.
+    Requires one input_text helper per button side for dim direction state (initial value: "down_0").
+  domain: automation
+
+  input:
+    controller:
+      name: (Zigbee2MQTT) Controller Name
+      description: The name of the device in Zigbee2MQTT
+      default: ""
+    base_topic:
+      name: Root/Base mqtt topic from Zigbee2MQTT
+      description: The Root/base topic as configured in Zigbee2MQTT
+      default: zigbee2mqtt
+    brightness_step_pct:
+      name: Brightness step percentage
+      description: Percentage to change brightness per hold event.
+      default: 15
+      selector:
+        number:
+          min: 3
+          max: 25
+          step: 1
+          unit_of_measurement: "%"
+    direction_timeout:
+      name: Direction timeout
+      description: Seconds after the last dim before direction resets to "down".
+      default: 5
+      selector:
+        number:
+          min: 2
+          max: 30
+          step: 1
+          unit_of_measurement: seconds
+
+    left_light:
+      name: Left button light(s)
+      description: Light entity or entities to control with the left button.
+      selector:
+        entity:
+          domain: light
+          multiple: true
+    left_dim_direction_entity:
+      name: Left dim direction input_text helper
+      description: >
+        An input_text entity for persisting left button dim direction state.
+        Initial value: "down_0".
+      selector:
+        entity:
+          domain: input_text
+          multiple: false
+    left_condition_entity:
+      name: Left condition entity (optional)
+      description: >
+        Binary sensor. When "on", left_light is used. When "off", left_light_alt is used.
+      default: []
+      selector:
+        entity:
+          domain: binary_sensor
+          multiple: false
+    left_light_alt:
+      name: Left button alternative light(s) (optional)
+      description: Alternative light entities when left_condition_entity is "off".
+      default: []
+      selector:
+        entity:
+          domain: light
+          multiple: true
+
+    right_light:
+      name: Right button light(s) (optional)
+      description: Light entity or entities to control with the right button. Leave empty to disable.
+      default: []
+      selector:
+        entity:
+          domain: light
+          multiple: true
+    right_dim_direction_entity:
+      name: Right dim direction input_text helper (optional)
+      description: >
+        An input_text entity for persisting right button dim direction state.
+        Initial value: "down_0". Required when right_light is set.
+      default: []
+      selector:
+        entity:
+          domain: input_text
+          multiple: false
+    right_condition_entity:
+      name: Right condition entity (optional)
+      description: >
+        Binary sensor. When "on", right_light is used. When "off", right_light_alt is used.
+      default: []
+      selector:
+        entity:
+          domain: binary_sensor
+          multiple: false
+    right_light_alt:
+      name: Right button alternative light(s) (optional)
+      description: Alternative light entities when right_condition_entity is "off".
+      default: []
+      selector:
+        entity:
+          domain: light
+          multiple: true
+
+mode: parallel
+max: 10
+
+trigger_variables:
+  base_topic: !input base_topic
+  controller: !input controller
+
+trigger:
+  - platform: mqtt
+    topic: "{{ base_topic ~ '/' ~ controller ~ '/action' }}"
+
+condition:
+  - condition: template
+    value_template: >
+      {{ trigger.payload in [
+        'left_press_release', 'right_press_release',
+        'left_hold', 'right_hold',
+        'left_hold_release', 'right_hold_release'
+      ] }}
+
+action:
+  - variables:
+      command: "{{ trigger.payload }}"
+      side: "{{ 'left' if 'left' in command else 'right' }}"
+      light_left: !input left_light
+      light_right: !input right_light
+      light_left_alt: !input left_light_alt
+      light_right_alt: !input right_light_alt
+      left_condition_entity: !input left_condition_entity
+      right_condition_entity: !input right_condition_entity
+      condition_entity: "{{ left_condition_entity if side == 'left' else right_condition_entity }}"
+      primary_lights: "{{ light_left if side == 'left' else light_right }}"
+      alt_lights: "{{ light_left_alt if side == 'left' else light_right_alt }}"
+      active_lights: >
+        {% if condition_entity != [] and not is_state(condition_entity, 'on') and alt_lights != [] %}
+          {{ alt_lights }}
+        {% else %}
+          {{ primary_lights }}
+        {% endif %}
+      first_light: "{{ active_lights[0] if active_lights | length > 0 else '' }}"
+      dim_dir_left: !input left_dim_direction_entity
+      dim_dir_right: !input right_dim_direction_entity
+      dim_direction_entity: "{{ dim_dir_left if side == 'left' else dim_dir_right }}"
+      brightness_step_pct: !input brightness_step_pct
+      direction_timeout: !input direction_timeout
+
+  - condition: template
+    value_template: "{{ active_lights | length > 0 }}"
+
+  - choose:
+      - conditions: "{{ command in ['left_press_release', 'right_press_release'] }}"
+        sequence:
+          - action: light.toggle
+            target:
+              entity_id: "{{ active_lights }}"
+
+      - conditions: "{{ command in ['left_hold', 'right_hold'] }}"
+        sequence:
+          - condition: template
+            value_template: "{{ states(first_light) == 'on' }}"
+          - variables:
+              raw_state: "{{ states(dim_direction_entity) }}"
+              parts: "{{ raw_state.split('_') }}"
+              prev_dir: "{{ parts[0] if parts | length >= 2 else 'down' }}"
+              prev_ts: "{{ parts[1] | int(0) if parts | length >= 2 else 0 }}"
+              now_ts: "{{ now().timestamp() | int }}"
+              timed_out: "{{ (now_ts - prev_ts) > direction_timeout }}"
+              current_dir: "{{ 'down' if timed_out else prev_dir }}"
+              step_value: "{{ brightness_step_pct | int if current_dir == 'up' else (brightness_step_pct | int * -1) }}"
+          - repeat:
+              for_each: "{{ active_lights }}"
+              sequence:
+                - variables:
+                    current_brightness: "{{ (state_attr(repeat.item, 'brightness') | float(0) / 255 * 100) | round(0) | int }}"
+                    target_brightness: "{{ [[current_brightness + step_value, 1] | max, 100] | min }}"
+                - action: light.turn_on
+                  data:
+                    brightness_pct: "{{ target_brightness }}"
+                    transition: 0.8
+                  target:
+                    entity_id: "{{ repeat.item }}"
+          - action: input_text.set_value
+            target:
+              entity_id: "{{ dim_direction_entity }}"
+            data:
+              value: "{{ current_dir ~ '_' ~ now_ts }}"
+
+      - conditions: "{{ command in ['left_hold_release', 'right_hold_release'] }}"
+        sequence:
+          - variables:
+              raw_state: "{{ states(dim_direction_entity) }}"
+              parts: "{{ raw_state.split('_') }}"
+              prev_dir: "{{ parts[0] if parts | length >= 2 else 'down' }}"
+              prev_ts: "{{ parts[1] | int(0) if parts | length >= 2 else 0 }}"
+              now_ts: "{{ now().timestamp() | int }}"
+              timed_out: "{{ (now_ts - prev_ts) > direction_timeout }}"
+              current_dir: "{{ 'down' if timed_out else prev_dir }}"
+              next_dir: "{{ 'up' if current_dir == 'down' else 'down' }}"
+          - action: input_text.set_value
+            target:
+              entity_id: "{{ dim_direction_entity }}"
+            data:
+              value: "{{ next_dir ~ '_' ~ now_ts }}"
