@@ -1,0 +1,9 @@
+- alias: Switch Wall Study
+  id: switch_wall_study
+  use_blueprint:
+    path: custom/hue_wall_switch_dim.yaml
+    input:
+      controller: Switch Wall Study
+      left_light:
+        - light.light_group_study
+      left_dim_direction_entity: input_text.dim_direction_switch_wall_study_left
