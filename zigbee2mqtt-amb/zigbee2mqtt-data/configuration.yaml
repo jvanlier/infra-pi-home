@@ -228,6 +228,8 @@ devices:
     friendly_name: Light Bedroom Duco New 7
   '0x001788010fac52aa':
     friendly_name: Light Bedroom Duco New 8
+  '0x001788010cc472d2':
+    friendly_name: Switch Wall Study
 groups:
   '1':
     friendly_name: Light Group Living Spot
@@ -257,3 +259,5 @@ groups:
     friendly_name: Light Group Study
   '14':
     friendly_name: Light Group Bedroom Duco New
+  '15':
+    friendly_name: Light Group Kitchen
