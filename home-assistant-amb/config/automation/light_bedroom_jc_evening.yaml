@@ -18,32 +18,20 @@
 
 - alias: "Light Bedroom JC Bed J midnight off"
   id: light-bedroom-jc-bed-j-midnight-off
-  trigger:
-    - platform: time
-      at: "00:00:00"
-  condition:
-    - condition: state
-      entity_id: light.light_bedroom_jc_bed_j
-      state: "on"
-  action:
-    - service: light.turn_off
-      data:
-        transition: 10
-      target:
-        entity_id: light.light_bedroom_jc_bed_j
+  use_blueprint:
+    path: custom/light_turn_off_at_time.yaml
+    input:
+      person_entity: person.jori
+      light_entity: light.light_bedroom_jc_bed_j
+      time: "00:00:00"
+      transition: 10
 
 - alias: "Light Bedroom JC Bed C midnight off"
   id: light-bedroom-jc-bed-c-midnight-off
-  trigger:
-    - platform: time
-      at: "00:00:00"
-  condition:
-    - condition: state
-      entity_id: light.light_bedroom_jc_bed_c
-      state: "on"
-  action:
-    - service: light.turn_off
-      data:
-        transition: 10
-      target:
-        entity_id: light.light_bedroom_jc_bed_c
+  use_blueprint:
+    path: custom/light_turn_off_at_time.yaml
+    input:
+      person_entity: person.chantal
+      light_entity: light.light_bedroom_jc_bed_c
+      time: "00:00:00"
+      transition: 10
