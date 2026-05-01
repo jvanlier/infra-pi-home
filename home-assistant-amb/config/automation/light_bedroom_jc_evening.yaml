@@ -16,6 +16,7 @@
       light_entity: light.light_bedroom_jc_bed_c
       time: "21:00:00"
 
+# Turn off at midnight if person left after 21:00 (light would stay on all night otherwise)
 - alias: "Light Bedroom JC Bed J midnight off"
   id: light-bedroom-jc-bed-j-midnight-off
   use_blueprint:
