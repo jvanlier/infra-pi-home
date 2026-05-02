@@ -1,0 +1,56 @@
+blueprint:
+  name: Turn off light at time if person is not home
+  description: >
+    Turn off a light at a specified time if the person is not home
+    and the light is on.
+  domain: automation
+  input:
+    person_entity:
+      name: Person
+      description: Person entity to check presence for.
+      selector:
+        entity:
+          domain: person
+    light_entity:
+      name: Light
+      selector:
+        entity:
+          domain: light
+    time:
+      name: Time
+      description: Time at which to turn off the light.
+      selector:
+        time: {}
+    transition:
+      name: Transition
+      description: Transition time in seconds.
+      default: 5
+      selector:
+        number:
+          min: 0
+          max: 60
+          step: 1
+          unit_of_measurement: s
+
+mode: single
+
+trigger:
+  - platform: time
+    at: !input time
+
+condition:
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: !input person_entity
+        state: home
+  - condition: state
+    entity_id: !input light_entity
+    state: "on"
+
+action:
+  - service: light.turn_off
+    data:
+      transition: !input transition
+    target:
+      entity_id: !input light_entity

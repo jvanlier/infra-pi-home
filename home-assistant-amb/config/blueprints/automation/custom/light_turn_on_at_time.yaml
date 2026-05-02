@@ -1,0 +1,45 @@
+blueprint:
+  name: Turn on light at time if person is home
+  description: >
+    Turn on a light at a specified time if a person is detected at home
+    and the light is not already on. Uses only a transition (no brightness
+    or color temperature) so that adaptive lighting can take over.
+  domain: automation
+  input:
+    person_entity:
+      name: Person
+      description: Person entity to check presence for.
+      selector:
+        entity:
+          domain: person
+    light_entity:
+      name: Light
+      selector:
+        entity:
+          domain: light
+    time:
+      name: Time
+      description: Time at which to turn on the light.
+      selector:
+        time: {}
+
+mode: single
+
+trigger:
+  - platform: time
+    at: !input time
+
+condition:
+  - condition: state
+    entity_id: !input person_entity
+    state: home
+  - condition: state
+    entity_id: !input light_entity
+    state: "off"
+
+action:
+  - service: light.turn_on
+    data:
+      transition: 5
+    target:
+      entity_id: !input light_entity
