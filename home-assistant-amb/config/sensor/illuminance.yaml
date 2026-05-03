@@ -3,5 +3,5 @@
   entity_id: sensor.motion_garden_illuminance
   filters:
     - filter: lowpass
-      time_constant: 3
+      time_constant: 2
       precision: 0
