@@ -1,9 +1,8 @@
 blueprint:
-  name: Turn on light when person arrives home
+  name: Bedside light on when person arrives
   description: >
-    Turn on a light when a person arrives home during a time window,
-    but only if another light is already on (indicating the other person
-    is present with their light on).
+    Turn on a bedside light when a person arrives home during a time
+    window, but only if the other bedside light is already on.
   domain: automation
   input:
     person_entity:

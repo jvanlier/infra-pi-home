@@ -1,7 +1,7 @@
 - alias: "Light Bedroom JC Bed J evening on"
   id: light-bedroom-jc-bed-j-evening-on
   use_blueprint:
-    path: custom/light_turn_on_at_time.yaml
+    path: custom/bedside_light_on_at_time.yaml
     input:
       person_entity: person.jori
       light_entity: light.light_bedroom_jc_bed_j
@@ -10,7 +10,7 @@
 - alias: "Light Bedroom JC Bed C evening on"
   id: light-bedroom-jc-bed-c-evening-on
   use_blueprint:
-    path: custom/light_turn_on_at_time.yaml
+    path: custom/bedside_light_on_at_time.yaml
     input:
       person_entity: person.chantal
       light_entity: light.light_bedroom_jc_bed_c
@@ -20,7 +20,7 @@
 - alias: "Light Bedroom JC Bed J on when Jori arrives"
   id: light-bedroom-jc-bed-j-on-person-arrives
   use_blueprint:
-    path: custom/light_turn_on_person_arrives.yaml
+    path: custom/bedside_light_on_person_arrives.yaml
     input:
       person_entity: person.jori
       light_entity: light.light_bedroom_jc_bed_j
@@ -31,7 +31,7 @@
 - alias: "Light Bedroom JC Bed C on when Chantal arrives"
   id: light-bedroom-jc-bed-c-on-person-arrives
   use_blueprint:
-    path: custom/light_turn_on_person_arrives.yaml
+    path: custom/bedside_light_on_person_arrives.yaml
     input:
       person_entity: person.chantal
       light_entity: light.light_bedroom_jc_bed_c
@@ -43,7 +43,7 @@
 - alias: "Light Bedroom JC Bed J midnight off"
   id: light-bedroom-jc-bed-j-midnight-off
   use_blueprint:
-    path: custom/light_turn_off_at_time.yaml
+    path: custom/bedside_light_off_at_time.yaml
     input:
       person_entity: person.jori
       light_entity: light.light_bedroom_jc_bed_j
@@ -53,7 +53,7 @@
 - alias: "Light Bedroom JC Bed C midnight off"
   id: light-bedroom-jc-bed-c-midnight-off
   use_blueprint:
-    path: custom/light_turn_off_at_time.yaml
+    path: custom/bedside_light_off_at_time.yaml
     input:
       person_entity: person.chantal
       light_entity: light.light_bedroom_jc_bed_c

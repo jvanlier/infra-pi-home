@@ -1,9 +1,8 @@
 blueprint:
-  name: Turn on light at time if person is home
+  name: Bedside light on at time
   description: >
-    Turn on a light at a specified time if a person is detected at home
-    and the light is not already on. Uses only a transition (no brightness
-    or color temperature) so that adaptive lighting can take over.
+    Turn on a bedside light at a specified time if the person is home
+    and the light is off.
   domain: automation
   input:
     person_entity:
