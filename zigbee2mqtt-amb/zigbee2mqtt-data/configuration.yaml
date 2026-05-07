@@ -17,7 +17,7 @@ advanced:
   channel: 25
   pan_id: 35539
   network_key: '!secret.yaml network_key'
-  log_level: warning
+  log_level: debug
   last_seen: ISO_8601
 device_options:
   homeassistant:
@@ -230,6 +230,18 @@ devices:
     friendly_name: Light Bedroom Duco New 8
   '0x001788010cc472d2':
     friendly_name: Switch Wall Study
+  '0x00158d008c7ee9f4':
+    friendly_name: Door Central Heating
+  '0x00158d008c80cd9a':
+    friendly_name: Climate Attic
+  '0x00158d008c7e994f':
+    friendly_name: Climate Central Heating
+  '0x001788010fa7304d':
+    friendly_name: Light Central Heating 2
+  '0x001788010fa7306b':
+    friendly_name: Light Central Heating 1
+  '0x001788010fa7141d':
+    friendly_name: Light Central Heating 3
 groups:
   '1':
     friendly_name: Light Group Living Spot
@@ -261,3 +273,5 @@ groups:
     friendly_name: Light Group Bedroom Duco New
   '15':
     friendly_name: Light Group Kitchen
+  '16':
+    friendly_name: Light Group Central Heating
