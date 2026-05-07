@@ -60,6 +60,16 @@
   initial_transition: 2
   sleep_transition: 5
 
+- name: "central-heating"
+  lights: ["light.light_group_central_heating"]
+  min_brightness: 30
+  max_brightness: 70
+  sleep_brightness: 20
+  min_color_temp: 3000
+  max_color_temp: 4000
+  initial_transition: 2
+  sleep_transition: 5
+
 - name: "dining-table"
   lights: ["light.light_dining_table"]
   min_brightness: 100
