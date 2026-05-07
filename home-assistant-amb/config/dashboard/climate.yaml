@@ -122,7 +122,7 @@ views:
         entity: sensor.climate_attic_temperature
         icon: mdi:home-roof
         name: Attic
-        color: blue-grey
+        color: blue
       - type: entity
         show_name: true
         show_state: true
@@ -130,7 +130,7 @@ views:
         entity: sensor.climate_central_heating_temperature
         icon: mdi:radiator
         name: Central Heating
-        color: deep-orange
+        color: green
     sections:
       - type: grid
         cards:
@@ -200,6 +200,10 @@ views:
                 name: Bedroom Duco
               - entity: sensor.climate_storage_humidity
                 name: Storage
+              - entity: sensor.climate_attic_humidity
+                name: Attic
+              - entity: sensor.climate_central_heating_humidity
+                name: Central Heating
             min_y_axis: &min_y_axis_humidity 30
             max_y_axis: &max_y_axis_humidity 80
             fit_y_data: true
