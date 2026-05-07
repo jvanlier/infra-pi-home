@@ -1,8 +1,8 @@
 blueprint:
-  name: Turn off light at time if person is not home
+  name: Bedside light off at time
   description: >
-    Turn off a light at a specified time if the person is not home
-    and the light is on.
+    Turn off a bedside light at a specified time if the person is not
+    home and the light is on.
   domain: automation
   input:
     person_entity:

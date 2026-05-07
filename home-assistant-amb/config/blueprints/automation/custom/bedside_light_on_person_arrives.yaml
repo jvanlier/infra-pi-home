@@ -1,0 +1,61 @@
+blueprint:
+  name: Bedside light on when person arrives
+  description: >
+    Turn on a bedside light when a person arrives home during a time
+    window, but only if the other bedside light is already on.
+  domain: automation
+  input:
+    person_entity:
+      name: Person
+      description: Person whose arrival triggers the light.
+      selector:
+        entity:
+          domain: person
+    light_entity:
+      name: Light
+      description: Light to turn on.
+      selector:
+        entity:
+          domain: light
+    other_light_entity:
+      name: Other light
+      description: The other person's light (must be on for this to trigger).
+      selector:
+        entity:
+          domain: light
+    after_time:
+      name: After
+      description: Start of time window.
+      selector:
+        time: {}
+    before_time:
+      name: Before
+      description: End of time window.
+      selector:
+        time: {}
+
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: !input person_entity
+    from: away
+    to: home
+
+condition:
+  - condition: time
+    after: !input after_time
+    before: !input before_time
+  - condition: state
+    entity_id: !input other_light_entity
+    state: "on"
+  - condition: state
+    entity_id: !input light_entity
+    state: "off"
+
+action:
+  - service: light.turn_on
+    data:
+      transition: 5
+    target:
+      entity_id: !input light_entity
