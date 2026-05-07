@@ -115,6 +115,22 @@ views:
         icon: mdi:box-shadow  # can be improved
         name: Storage
         color: brown
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_attic_temperature
+        icon: mdi:home-roof
+        name: Attic
+        color: blue-grey
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_central_heating_temperature
+        icon: mdi:radiator
+        name: Central Heating
+        color: deep-orange
     sections:
       - type: grid
         cards:
@@ -144,6 +160,10 @@ views:
                 name: Bedroom Duco
               - entity: sensor.climate_storage_temperature
                 name: Storage
+              - entity: sensor.climate_attic_temperature
+                name: Attic
+              - entity: sensor.climate_central_heating_temperature
+                name: Central Heating
             grid_options: &grid_options_temperature
               columns: full
               rows: 6
