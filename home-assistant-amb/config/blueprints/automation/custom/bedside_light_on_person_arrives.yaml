@@ -39,7 +39,7 @@ mode: single
 trigger:
   - platform: state
     entity_id: !input person_entity
-    from: away
+    from: not_home
     to: home
 
 condition:

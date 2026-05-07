@@ -12,11 +12,11 @@
     # Attempt to turn on lights when only one of us arrives home:
     - platform: state
       entity_id: person.jori
-      from: away
+      from: not_home 
       to: home
     - platform: state
       entity_id: person.chantal
-      from: away
+      from: not_home
       to: home
   condition:
     - condition: state
