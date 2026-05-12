@@ -248,6 +248,9 @@ views:
             heading: Illuminance
             heading_style: subtitle
             icon: mdi:weather-sunny
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-lights/illuminance
           - type: history-graph
             entities:
               - entity: sensor.motion_garden_illuminance_filtered

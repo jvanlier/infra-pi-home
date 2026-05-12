@@ -295,9 +295,16 @@ views:
             tap_action:
               action: toggle
 
+  - title: Illuminance
+    path: illuminance
+    icon: mdi:weather-sunny
+    type: sections
+    sections:
+      - type: grid
+        cards:
           - type: heading
             heading: Illuminance
-            heading_style: subtitle
+            heading_style: title
             icon: mdi:weather-sunny
           - type: history-graph
             entities:
