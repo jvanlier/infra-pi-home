@@ -122,16 +122,12 @@ views:
               action: navigate
               navigation_path: /dashboard-lights
           - type: heading
-            heading: Wake up lights
+            heading: "Wake up lights (read-only, tap to edit)"
             heading_style: subtitle
             icon: mdi:alarm-check
             tap_action:
               action: navigate
               navigation_path: /dashboard-lights/wake-up-lights
-          - type: markdown
-            content: "Read-only. Tap heading to modify."
-            grid_options:
-              columns: 12
           - type: tile
             name: Enabled
             entity: input_boolean.wake_up_light_kids_enabled
