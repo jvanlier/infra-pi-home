@@ -299,10 +299,10 @@ views:
     path: illuminance
     icon: mdi:weather-sunny
     type: sections
-    max_columns: 1
+    max_columns: 4
     sections:
       - type: grid
-        column_span: 1
+        column_span: 4
         cards:
           - type: heading
             heading: Illuminance
