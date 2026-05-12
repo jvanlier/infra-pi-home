@@ -319,4 +319,4 @@ views:
             hours_to_show: 24
             grid_options:
               columns: 12
-              rows: 4
+              rows: 8
