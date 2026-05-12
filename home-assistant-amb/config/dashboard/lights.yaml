@@ -298,27 +298,16 @@ views:
   - title: Illuminance
     path: illuminance
     icon: mdi:weather-sunny
-    type: sections
-    max_columns: 4
-    sections:
-      - type: grid
-        column_span: 4
-        cards:
-          - type: heading
-            heading: Illuminance
-            heading_style: title
-            icon: mdi:weather-sunny
-          - type: history-graph
-            entities:
-              - entity: sensor.motion_garden_illuminance
-                name: Illuminance (raw)
-              - entity: sensor.motion_garden_illuminance_filtered
-                name: Illuminance (filtered)
-              - entity: input_number.illuminance_threshold_indoor_lights
-                name: Thr. indoor
-              - entity: input_number.illuminance_threshold_outdoor_lights
-                name: Thr. outdoor
-            hours_to_show: 24
-            grid_options:
-              columns: 12
-              rows: 8
+    type: panel
+    cards:
+      - type: history-graph
+        entities:
+          - entity: sensor.motion_garden_illuminance
+            name: Illuminance (raw)
+          - entity: sensor.motion_garden_illuminance_filtered
+            name: Illuminance (filtered)
+          - entity: input_number.illuminance_threshold_indoor_lights
+            name: Thr. indoor
+          - entity: input_number.illuminance_threshold_outdoor_lights
+            name: Thr. outdoor
+        hours_to_show: 24
