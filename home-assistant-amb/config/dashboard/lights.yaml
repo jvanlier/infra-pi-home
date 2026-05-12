@@ -107,9 +107,9 @@ views:
             color: green
             grid_options:
               columns: 12
-  - title: Lights
+  - title: Toggles
     path: main
-    icon: mdi:globe-light
+    icon: mdi:light-switch
     type: sections
     max_columns: 4
     sections:
