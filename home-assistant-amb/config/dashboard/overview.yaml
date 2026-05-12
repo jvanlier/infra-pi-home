@@ -144,7 +144,7 @@ views:
             icon: mdi:light-switch
             tap_action:
               action: navigate
-              navigation_path: /dashboard-lights
+              navigation_path: /dashboard-lights/toggles
           - type: tile
             name: Living Spot Always
             entity: light.light_group_living_spot_always

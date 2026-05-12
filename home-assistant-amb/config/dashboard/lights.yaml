@@ -108,7 +108,7 @@ views:
             grid_options:
               columns: 12
   - title: Toggles
-    path: main
+    path: toggles
     icon: mdi:light-switch
     type: sections
     max_columns: 4
