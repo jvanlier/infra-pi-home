@@ -125,15 +125,17 @@ views:
             heading: Hall 0 (Ground floor hall)
             heading_style: subtitle
             icon: mdi:coat-rack
-          - type: tile
-            name: Spot
-            entity: light.light_group_hall_0_spot
-          - type: tile
-            name: Wall
-            entity: light.light_hall_0_wall
-          - type: tile
-            name: Toilet
-            entity: light.light_toilet
+          - type: horizontal-stack
+            cards:
+              - type: tile
+                name: Spot
+                entity: light.light_group_hall_0_spot
+              - type: tile
+                name: Wall
+                entity: light.light_hall_0_wall
+              - type: tile
+                name: Toilet
+                entity: light.light_toilet
           - type: heading
             heading: Living
             heading_style: subtitle
