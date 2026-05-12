@@ -159,15 +159,6 @@ views:
             entity: light.light_group_study
 
           - type: heading
-            heading: Light automation
-            heading_style: subtitle
-            icon: mdi:robot
-          - type: tile
-            entity: input_boolean.adaptive_lighting
-            tap_action:
-              action: toggle
-
-          - type: heading
             heading: Illuminance
             heading_style: subtitle
             icon: mdi:weather-sunny

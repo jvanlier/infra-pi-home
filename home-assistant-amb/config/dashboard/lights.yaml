@@ -286,15 +286,6 @@ views:
             features:
               - type: light-brightness
 
-          - type: heading
-            heading: Light automation
-            heading_style: subtitle
-            icon: mdi:robot
-          - type: tile
-            entity: input_boolean.adaptive_lighting
-            tap_action:
-              action: toggle
-
   - title: Illuminance
     path: illuminance
     icon: mdi:weather-sunny
@@ -311,3 +302,14 @@ views:
           - entity: input_number.illuminance_threshold_outdoor_lights
             name: Thr. outdoor
         hours_to_show: 24
+  - title: Light automation
+    path: light-automation
+    icon: mdi:robot
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: tile
+            entity: input_boolean.adaptive_lighting
+            tap_action:
+              action: toggle
