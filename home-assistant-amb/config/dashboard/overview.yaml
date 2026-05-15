@@ -118,105 +118,53 @@ views:
             heading: Lights
             heading_style: title
             icon: mdi:globe-light
+          - type: heading
+            heading: Wake up lights
+            heading_style: subtitle
+            icon: mdi:alarm-check
             tap_action:
               action: navigate
-              navigation_path: /dashboard-lights
-          - type: heading
-            heading: Hall 0 (Ground floor hall)
-            heading_style: subtitle
-            icon: mdi:coat-rack
+              navigation_path: /dashboard-lights/wake-up-lights
           - type: horizontal-stack
             cards:
               - type: tile
-                name: Spot
-                entity: light.light_group_hall_0_spot
+                name: Enabled
+                entity: input_boolean.wake_up_light_kids_enabled
               - type: tile
-                name: Wall
-                entity: light.light_hall_0_wall
+                name: Start
+                entity: input_datetime.wake_up_light_kids_start_orange
+                color: deep-orange
               - type: tile
-                name: Toilet
-                entity: light.light_toilet
+                name: Min. to green
+                entity: input_number.wake_up_light_kids_minutes_until_green
+                color: green
           - type: heading
-            heading: Living
+            heading: Toggles
             heading_style: subtitle
-            icon: mdi:sofa
+            icon: mdi:light-switch
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-lights/toggles
           - type: tile
-            name: Spot Always
+            name: Living Spot Always
             entity: light.light_group_living_spot_always
           - type: tile
-            name: Spot Dark Outside
+            name: Living Spot Dark
             entity: light.light_group_living_spot_dark_outside
-          - type: tile
-            name: White Cabinet
-            entity: light.light_living_white_cabinet
-          - type: tile
-            name: Dining Table
-            entity: light.light_dining_table
-          - type: tile
-            name: Go
-            entity: light.light_go
-          - type: heading
-            heading: Kitchen
-            heading_style: subtitle
-            icon: mdi:fridge
-          - type: tile
-            name: Middle
-            entity: light.light_group_kitchen_middle
-          - type: tile
-            name: Countertop
-            entity: light.light_group_kitchen_countertop
-          - type: heading
-            heading: Bathroom
-            heading_style: subtitle
-            icon: mdi:shower-head
           - type: tile
             name: Bathroom
             entity: light.light_bathroom
-          - type: heading
-            heading: Bedrooms
-            heading_style: subtitle
-            icon: mdi:bed
-          - type: tile
-            name: Duco Ambiance
-            entity: light.light_group_bedroom_duco_ambiance
-          - type: tile
-            name: Duco Color
-            entity: light.light_group_bedroom_duco_color
-          - type: tile
-            name: Duco New
-            entity: light.light_group_bedroom_duco_new
-          - type: tile
-            name: Olivier Ambiance
-            entity: light.light_group_bedroom_olivier_ambiance
-          - type: tile
-            name: Olivier Color
-            entity: light.light_group_bedroom_olivier_color
-          - type: tile
-            name: Jori
-            entity: light.light_bedroom_jc_bed_j
-          - type: tile
-            name: Chantal
-            entity: light.light_bedroom_jc_bed_c
-          - type: heading
-            heading: Study
-            heading_style: subtitle
-            icon: mdi:desk
           - type: tile
             name: Study
             entity: light.light_group_study
 
           - type: heading
-            heading: Light automation
-            heading_style: subtitle
-            icon: mdi:robot
-          - type: tile
-            entity: input_boolean.adaptive_lighting
-            tap_action:
-              action: toggle
-
-          - type: heading
             heading: Illuminance
-            heading_style: title
+            heading_style: subtitle
+            icon: mdi:weather-sunny
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-lights/illuminance
           - type: history-graph
             entities:
               - entity: sensor.motion_garden_illuminance_filtered

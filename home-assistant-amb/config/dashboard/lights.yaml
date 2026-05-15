@@ -1,7 +1,115 @@
 views:
-  - title: Lights
-    path: main
-    icon: mdi:globe-light
+  - title: Wake up lights
+    path: wake-up-lights
+    icon: mdi:alarm-check
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Wake up light kids
+            heading_style: title
+
+          - type: heading
+            heading: Status
+            heading_style: subtitle
+          - type: tile
+            name: Olivier Color
+            entity: light.light_group_bedroom_olivier_color
+            tap_action:
+              action: none
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Duco Color
+            entity: light.light_group_bedroom_duco_color
+            tap_action:
+              action: none
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Wake up light in progress
+            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
+            tap_action:
+              action: none
+            icon_tap_action:
+              action: none
+            grid_options:
+              columns: 12
+
+          - type: heading
+            heading: Actions
+            heading_style: subtitle
+          - type: tile
+            name: Start now
+            entity: automation.wake_up_light_kids
+            icon: mdi:play
+            color: deep-orange
+            hide_state: true
+            tap_action:
+              action: call-service
+              service: automation.trigger
+              service_data:
+                entity_id: automation.wake_up_light_kids
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Stop
+            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
+            icon: mdi:stop
+            color: red
+            hide_state: true
+            tap_action:
+              action: call-service
+              service: script.wake_up_light_kids_stop_cycle
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Set to green
+            entity: automation.wake_up_light_kids
+            icon: mdi:lightbulb-on
+            color: green
+            hide_state: true
+            tap_action:
+              action: call-service
+              service: script.wake_up_light_kids_set_green
+            icon_tap_action:
+              action: none
+          - type: tile
+            name: Color lights off
+            entity: automation.wake_up_light_kids
+            icon: mdi:lightbulb-off
+            color: gray
+            hide_state: true
+            tap_action:
+              action: call-service
+              service: light.turn_off
+              service_data:
+                entity_id:
+                  - light.light_group_bedroom_duco_color
+                  - light.light_group_bedroom_olivier_color
+            icon_tap_action:
+              action: none
+
+          - type: heading
+            heading: Settings
+            heading_style: subtitle
+          - type: tile
+            name: Enabled
+            entity: input_boolean.wake_up_light_kids_enabled
+          - type: tile
+            name: Start (orange)
+            entity: input_datetime.wake_up_light_kids_start_orange
+            color: deep-orange
+          - type: tile
+            name: Minutes until green
+            entity: input_number.wake_up_light_kids_minutes_until_green
+            color: green
+            grid_options:
+              columns: 12
+  - title: Toggles
+    path: toggles
+    icon: mdi:light-switch
     type: sections
     max_columns: 4
     sections:
@@ -178,119 +286,30 @@ views:
             features:
               - type: light-brightness
 
-          - type: heading
-            heading: Light automation
-            heading_style: subtitle
-            icon: mdi:robot
-          - type: tile
-            entity: input_boolean.adaptive_lighting
-            tap_action:
-              action: toggle
-  - title: Wake up lights
-    path: wake-up-lights
-    icon: mdi:alarm-check
+  - title: Illuminance
+    path: illuminance
+    icon: mdi:weather-sunny
+    type: panel
+    cards:
+      - type: history-graph
+        entities:
+          - entity: sensor.motion_garden_illuminance
+            name: Illuminance (raw)
+          - entity: sensor.motion_garden_illuminance_filtered
+            name: Illuminance (filtered)
+          - entity: input_number.illuminance_threshold_indoor_lights
+            name: Thr. indoor
+          - entity: input_number.illuminance_threshold_outdoor_lights
+            name: Thr. outdoor
+        hours_to_show: 24
+  - title: Light automation
+    path: light-automation
+    icon: mdi:robot
     type: sections
     sections:
       - type: grid
         cards:
-          - type: heading
-            heading: Wake up light kids
-            heading_style: title
-
-          - type: heading
-            heading: Status
-            heading_style: subtitle
           - type: tile
-            name: Olivier Color
-            entity: light.light_group_bedroom_olivier_color
+            entity: input_boolean.adaptive_lighting
             tap_action:
-              action: none
-            icon_tap_action:
-              action: none
-          - type: tile
-            name: Duco Color
-            entity: light.light_group_bedroom_duco_color
-            tap_action:
-              action: none
-            icon_tap_action:
-              action: none
-          - type: tile
-            name: Wake up light in progress
-            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
-            tap_action:
-              action: none
-            icon_tap_action:
-              action: none
-            grid_options:
-              columns: 12
-
-          - type: heading
-            heading: Actions
-            heading_style: subtitle
-          - type: tile
-            name: Start now
-            entity: automation.wake_up_light_kids
-            icon: mdi:play
-            color: deep-orange
-            hide_state: true
-            tap_action:
-              action: call-service
-              service: automation.trigger
-              service_data:
-                entity_id: automation.wake_up_light_kids
-            icon_tap_action:
-              action: none
-          - type: tile
-            name: Stop
-            entity: input_boolean.wake_up_lights_kids_cycle_in_progress
-            icon: mdi:stop
-            color: red
-            hide_state: true
-            tap_action:
-              action: call-service
-              service: script.wake_up_light_kids_stop_cycle
-            icon_tap_action:
-              action: none
-          - type: tile
-            name: Set to green
-            entity: automation.wake_up_light_kids
-            icon: mdi:lightbulb-on
-            color: green
-            hide_state: true
-            tap_action:
-              action: call-service
-              service: script.wake_up_light_kids_set_green
-            icon_tap_action:
-              action: none
-          - type: tile
-            name: Color lights off
-            entity: automation.wake_up_light_kids
-            icon: mdi:lightbulb-off
-            color: gray
-            hide_state: true
-            tap_action:
-              action: call-service
-              service: light.turn_off
-              service_data:
-                entity_id:
-                  - light.light_group_bedroom_duco_color
-                  - light.light_group_bedroom_olivier_color
-            icon_tap_action:
-              action: none
-
-          - type: heading
-            heading: Settings
-            heading_style: subtitle
-          - type: tile
-            name: Enabled
-            entity: input_boolean.wake_up_light_kids_enabled
-          - type: tile
-            name: Start (orange)
-            entity: input_datetime.wake_up_light_kids_start_orange
-            color: deep-orange
-          - type: tile
-            name: Minutes until green
-            entity: input_number.wake_up_light_kids_minutes_until_green
-            color: green
-            grid_options:
-              columns: 12
+              action: toggle
