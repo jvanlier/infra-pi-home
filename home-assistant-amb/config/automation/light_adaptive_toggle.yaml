@@ -24,6 +24,7 @@
         - switch.adaptive_lighting_bathroom
         - switch.adaptive_lighting_bedroom_duco_ambiance
         - switch.adaptive_lighting_bedroom_duco_color
+        - switch.adaptive_lighting_bedroom_duco_new
         - switch.adaptive_lighting_bedroom_olivier_ambiance
         - switch.adaptive_lighting_bedroom_olivier_color
         - switch.adaptive_lighting_study

@@ -10,26 +10,30 @@
   action:
     - service: "switch.turn_{{ sleep_mode }}"
       entity_id:
-        - switch.adaptive_lighting_sleep_mode_bathroom
         - switch.adaptive_lighting_sleep_mode_hall_0_spot
         - switch.adaptive_lighting_sleep_mode_hall_0_wall
+        - switch.adaptive_lighting_sleep_mode_kitchen_middle
+        - switch.adaptive_lighting_sleep_mode_kitchen_countertop
     # Use some delays to prevent flooding the Zigbee network
     - delay: "00:00:01"
     - service: "switch.turn_{{ sleep_mode }}"
       entity_id:
         - switch.adaptive_lighting_sleep_mode_living_spot_always
         - switch.adaptive_lighting_sleep_mode_living_spot_dark_outside
-        - switch.adaptive_lighting_sleep_mode_living_white_cabinet
         - switch.adaptive_lighting_sleep_mode_dining_table
     - delay: "00:00:01"
     - service: "switch.turn_{{ sleep_mode }}"
       entity_id:
-        - switch.adaptive_lighting_sleep_mode_kitchen_middle
-        - switch.adaptive_lighting_sleep_mode_kitchen_countertop
         - switch.adaptive_lighting_sleep_mode_toilet
         - switch.adaptive_lighting_sleep_mode_stair_cabinet
+        - switch.adaptive_lighting_sleep_mode_bathroom
+    - delay: "00:00:01"
+    - service: "switch.turn_{{ sleep_mode }}"
+      entity_id:
         - switch.adaptive_lighting_sleep_mode_central_heating
         - switch.adaptive_lighting_sleep_mode_study
+        - switch.adaptive_lighting_sleep_mode_bedroom_duco_new
+        - switch.adaptive_lighting_sleep_mode_living_white_cabinet
   mode: restart
 
 - alias: "Sleep mode: scheduled on"
