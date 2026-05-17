@@ -1,9 +1,20 @@
 - alias: Switch Wall Bedroom Duco
   id: switch_wall_bedroom_duco
   use_blueprint:
-    path: custom/hue_wall_switch_dim.yaml
+    path: custom/hue_wall_switch_dim_adaptive_lighting.yaml
     input:
       controller: Switch Wall Bedroom Duco
-      left_light:
-        - light.light_group_bedroom_duco
-      left_dim_direction_entity: input_text.dim_direction_switch_wall_bedroom_duco_left
+      dim_direction_entity: input_text.dim_direction_switch_wall_bedroom_duco_left
+      light_all: light.light_group_bedroom_duco
+      light_ambiance: light.light_group_bedroom_duco_ambiance
+      input_boolean_color_blocked: input_boolean.wake_up_lights_kids_cycle_in_progress
+      switch_entities_adapt_brightness:
+        - switch.adaptive_lighting_adapt_brightness_bedroom_duco_ambiance
+        - switch.adaptive_lighting_adapt_brightness_bedroom_duco_color
+      switch_entities_adapt_brightness_ambiance:
+        - switch.adaptive_lighting_adapt_brightness_bedroom_duco_ambiance
+      switch_entities_adaptive_lighting:
+        - switch.adaptive_lighting_bedroom_duco_ambiance
+        - switch.adaptive_lighting_bedroom_duco_color
+      switch_entities_adaptive_lighting_ambiance:
+        - switch.adaptive_lighting_bedroom_duco_ambiance
