@@ -209,7 +209,6 @@ views:
               action: navigate
               navigation_path: /dashboard-climate/measurements
           - type: history-graph
-            title: "Temperature (24h)"
             hours_to_show: 24
             entities:
               - entity: sensor.climate_living_temperature
@@ -224,7 +223,6 @@ views:
               columns: 12
               rows: 4
           - type: history-graph
-            title: "Humidity (24h)"
             hours_to_show: 24
             entities:
               - entity: sensor.climate_living_humidity
