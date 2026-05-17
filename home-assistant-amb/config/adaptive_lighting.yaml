@@ -123,6 +123,15 @@
   max_sunset_time: "19:00:00"
   sleep_transition: 5
 
+- name: "bedroom-duco-new"
+  lights: ["light.light_group_bedroom_duco_new"]
+  min_brightness: 40
+  max_brightness: 40
+  min_color_temp: 2700
+  max_color_temp: 4000
+  max_sunset_time: "19:00:00"
+  sleep_transition: 5
+
 - name: "bedroom-olivier-ambiance"
   lights: ["light.light_group_bedroom_olivier_ambiance"]
   min_brightness: 25
@@ -139,14 +148,6 @@
   min_color_temp: 2200
   max_color_temp: 4000
   max_sunset_time: "19:00:00"
-  sleep_transition: 5
-
-- name: "bedroom-duco-new"
-  lights: ["light.light_group_bedroom_duco_new"]
-  min_brightness: 40
-  max_brightness: 40
-  min_color_temp: 2700
-  max_color_temp: 4000
   sleep_transition: 5
 
 - name: "study"
