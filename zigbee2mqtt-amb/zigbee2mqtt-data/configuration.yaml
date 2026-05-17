@@ -275,3 +275,7 @@ groups:
     friendly_name: Light Group Kitchen
   '16':
     friendly_name: Light Group Central Heating
+  '17':
+    friendly_name: Light Group Bedroom Duco Ambiance
+  '18':
+    friendly_name: Light Group Bedroom Duco Color
