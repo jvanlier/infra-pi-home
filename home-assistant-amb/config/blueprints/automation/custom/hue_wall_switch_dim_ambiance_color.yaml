@@ -170,6 +170,8 @@ action:
           - action: adaptive_lighting.apply
             target:
               entity_id: "{{ active_al_apply }}"
+            data:
+              turn_on_lights: true
 
       - conditions: "{{ command == 'left_press_release' and states(active_lights) == 'on' }}"
         sequence:
