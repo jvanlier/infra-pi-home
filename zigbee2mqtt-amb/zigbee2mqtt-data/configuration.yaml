@@ -107,7 +107,7 @@ devices:
   '0x00158d00091ead1d':
     friendly_name: Climate Fridge
   '0x00158d0008328d33':
-    friendly_name: Climate Storage
+    friendly_name: Climate Bedroom Duco
   '0x00158d008bbe4913':
     friendly_name: Water Leak Dishwasher
   '0x001788010c24ce62':
