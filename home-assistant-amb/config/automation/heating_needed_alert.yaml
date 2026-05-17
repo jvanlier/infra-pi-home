@@ -42,10 +42,10 @@
       temperature_sensor: sensor.climate_study_temperature
       room_name: "Study"
 
-- alias: "Heating needed alert - Storage"
-  id: heating-needed-alert-storage
+- alias: "Heating needed alert - Bedroom Duco"
+  id: heating-needed-alert-bedroom-duco
   use_blueprint:
     path: custom/heating_needed_alert.yaml
     input:
-      temperature_sensor: sensor.climate_storage_temperature
-      room_name: "Storage"
+      temperature_sensor: sensor.climate_bedroom_duco_temperature
+      room_name: "Bedroom Duco"
