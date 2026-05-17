@@ -15,12 +15,12 @@
     # Without explicitly marking manual control, AL overrides the color:
     - service: adaptive_lighting.set_manual_control
       entity_id:
-        - switch.adaptive_lighting_bedroom_duco_color
+        - switch.adaptive_lighting_laundry_color
         - switch.adaptive_lighting_bedroom_olivier_color
     - service: light.turn_on
       target:
         entity_id: &lights
-          - light.light_group_bedroom_duco_color
+          - light.light_group_laundry_color
           - light.light_group_bedroom_olivier_color
       data:
         rgb_color: [255, 100, 0]

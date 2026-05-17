@@ -22,8 +22,8 @@
         - switch.adaptive_lighting_kitchen_middle
         - switch.adaptive_lighting_kitchen_countertop
         - switch.adaptive_lighting_bathroom
-        - switch.adaptive_lighting_bedroom_duco_ambiance
-        - switch.adaptive_lighting_bedroom_duco_color
+        - switch.adaptive_lighting_laundry_ambiance
+        - switch.adaptive_lighting_laundry_color
         - switch.adaptive_lighting_bedroom_duco_new
         - switch.adaptive_lighting_bedroom_olivier_ambiance
         - switch.adaptive_lighting_bedroom_olivier_color
