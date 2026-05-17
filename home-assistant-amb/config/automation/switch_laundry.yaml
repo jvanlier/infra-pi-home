@@ -1,3 +1,5 @@
+# This used to be Duco's bedroom. We are in the process of converting it into a laundry room, but there's still a bed
+# in there and a color light, so keeping the disco and wake up light in place for now.
 - alias: Switch Tap Dial Laundry
   id: switch_tap_dial_laundry
   use_blueprint:
@@ -19,7 +21,7 @@
         - switch.adaptive_lighting_adapt_brightness_laundry_color
       switch_entities_adapt_brightness_ambiance: &ref_switch_adapt_brightness_ambiance
         - switch.adaptive_lighting_adapt_brightness_laundry_ambiance
-      input_boolean_disco: input_boolean.disco_duco
+      input_boolean_disco: input_boolean.disco_laundry
       input_boolean_color_controls_disabled: input_boolean.wake_up_lights_kids_cycle_in_progress
 
 - alias: Switch Wall Laundry
