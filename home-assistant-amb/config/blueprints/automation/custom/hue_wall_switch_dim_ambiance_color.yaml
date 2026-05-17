@@ -159,33 +159,46 @@ action:
       direction_timeout: !input direction_timeout
 
   - choose:
+      # --- TURN ON ---
       - conditions: "{{ command == 'left_press_release' and states(active_lights) != 'on' }}"
         sequence:
+          # Turn on via the Zigbee group (single broadcast = all lights respond atomically).
+          # The group itself is NOT in the AL config (only the individual sub-groups are),
+          # so AL won't intercept this and won't apply color temp / brightness automatically.
           - action: light.turn_on
             target:
               entity_id: "{{ active_lights }}"
+          # Re-enable adapt_brightness so AL resumes control after any prior manual dimming.
           - action: switch.turn_on
             target:
               entity_id: "{{ active_adapt_brightness }}"
+          # Explicitly apply AL settings to the sub-group switches. Needed because the
+          # Zigbee group we turned on isn't tracked by AL. turn_on_lights is required
+          # because HA state for the sub-groups hasn't caught up yet (race condition:
+          # the broadcast went to Zigbee, but HA still sees the entities as "off").
           - action: adaptive_lighting.apply
             target:
               entity_id: "{{ active_al_apply }}"
             data:
               turn_on_lights: true
 
+      # --- TURN OFF ---
       - conditions: "{{ command == 'left_press_release' and states(active_lights) == 'on' }}"
         sequence:
           - action: light.turn_off
             target:
               entity_id: "{{ active_lights }}"
+          # Re-enable adapt_brightness so AL takes over cleanly on next turn-on.
           - action: switch.turn_on
             target:
               entity_id: "{{ active_adapt_brightness }}"
 
+      # --- DIM (hold) ---
       - conditions: "{{ command == 'left_hold' }}"
         sequence:
           - condition: template
             value_template: "{{ states(active_lights) == 'on' }}"
+          # Disable adapt_brightness so AL doesn't fight with our manual brightness change.
           - action: switch.turn_off
             target:
               entity_id: "{{ active_adapt_brightness }}"
@@ -198,6 +211,7 @@ action:
               timed_out: "{{ (now_ts - prev_ts) > direction_timeout }}"
               current_dir: "{{ 'down' if timed_out else prev_dir }}"
               step_value: "{{ brightness_step_pct | int if current_dir == 'up' else (brightness_step_pct | int * -1) }}"
+          # Dim via the Zigbee group for consistent brightness across all lights.
           - action: light.turn_on
             data:
               brightness_pct: >
@@ -205,12 +219,15 @@ action:
               transition: 0.8
             target:
               entity_id: "{{ active_lights }}"
+          # Persist direction + timestamp so hold_release can flip direction.
           - action: input_text.set_value
             target:
               entity_id: "{{ dim_direction_entity }}"
             data:
               value: "{{ current_dir ~ '_' ~ now_ts }}"
 
+      # --- DIM DIRECTION FLIP (hold release) ---
+      # Alternates between up/down on each hold cycle. Resets to "down" after timeout.
       - conditions: "{{ command == 'left_hold_release' }}"
         sequence:
           - variables:
