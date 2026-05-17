@@ -240,6 +240,8 @@ devices:
     friendly_name: Light Central Heating 3
   '0x001788010fa7304a':
     friendly_name: Light Bedroom Duco New 2
+  '0x001788010fb6593c':
+    friendly_name: Light Laundry 2
 groups:
   '1':
     friendly_name: Light Group Living Spot
