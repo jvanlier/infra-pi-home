@@ -105,6 +105,7 @@ views:
           - type: heading
             heading: House scenes
             heading_style: title
+            icon: mdi:palette
           - type: tile
             entity: input_boolean.sleep_mode
             tap_action:
@@ -178,6 +179,14 @@ views:
               columns: 12
               rows: 4
 
+          - type: heading
+            heading: Light automation
+            heading_style: subtitle
+            icon: mdi:robot
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-lights/light-automation
+
       - type: grid
         cards:
           - type: heading
@@ -208,10 +217,6 @@ views:
             tap_action:
               action: navigate
               navigation_path: /dashboard-climate/measurements
-          - type: heading
-            heading_style: subtitle
-            heading: Temperature 1 day
-            icon: mdi:thermometer
           - type: history-graph
             hours_to_show: 24
             entities:
@@ -226,10 +231,6 @@ views:
             grid_options:
               columns: 12
               rows: 4
-          - type: heading
-            heading_style: subtitle
-            heading: Humidity 1 day
-            icon: mdi:water-percent
           - type: history-graph
             hours_to_show: 24
             entities:
@@ -255,7 +256,7 @@ views:
             icon: mdi:alpha-w
           - type: heading
             icon: mdi:transmission-tower
-            heading: Grid net use (2h)
+            heading: Grid
             heading_style: subtitle
             tap_action:
               action: navigate
@@ -270,7 +271,7 @@ views:
           - type: heading
             icon: mdi:power-plug
             heading_style: subtitle
-            heading: Plug on/off switches
+            heading: Plugs
             tap_action:
               action: navigate
               navigation_path: /dashboard-power/plugs
@@ -290,8 +291,11 @@ views:
             name: Garden Lights
           - type: heading
             heading: Appliances
-            heading_style: title
+            heading_style: subtitle
             icon: mdi:washing-machine
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-power/appliances
           - type: tile
             entity: sensor.washing_machine_state
             icon: mdi:washing-machine
