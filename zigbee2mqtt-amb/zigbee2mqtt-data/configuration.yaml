@@ -169,7 +169,7 @@ devices:
   '0x001788010eed6db0':
     friendly_name: Light Living Wall Left 1
   '0x001788010eed5e3b':
-    friendly_name: Light Bedroom Duco New 1
+    friendly_name: Light Bedroom Duco 1
   '0x001788010efd454a':
     friendly_name: Light Go
     availability: false
@@ -211,19 +211,19 @@ devices:
   '0x001788010fa65e29':
     friendly_name: Light Study 6
   '0x001788010cc29e08':
-    friendly_name: Switch Wall Bedroom Duco New
+    friendly_name: Switch Wall Bedroom Duco
   '0x001788010fa9c4cb':
-    friendly_name: Light Bedroom Duco New 3
+    friendly_name: Light Bedroom Duco 3
   '0x001788010fa9c4a2':
-    friendly_name: Light Bedroom Duco New 4
+    friendly_name: Light Bedroom Duco 4
   '0x001788010fa4901f':
-    friendly_name: Light Bedroom Duco New 5
+    friendly_name: Light Bedroom Duco 5
   '0x001788010fae25e0':
-    friendly_name: Light Bedroom Duco New 6
+    friendly_name: Light Bedroom Duco 6
   '0x001788010fa49026':
-    friendly_name: Light Bedroom Duco New 7
+    friendly_name: Light Bedroom Duco 7
   '0x001788010fac52aa':
-    friendly_name: Light Bedroom Duco New 8
+    friendly_name: Light Bedroom Duco 8
   '0x001788010cc472d2':
     friendly_name: Switch Wall Study
   '0x00158d008c7ee9f4':
@@ -239,7 +239,7 @@ devices:
   '0x001788010fa7141d':
     friendly_name: Light Central Heating 3
   '0x001788010fa7304a':
-    friendly_name: Light Bedroom Duco New 2
+    friendly_name: Light Bedroom Duco 2
   '0x001788010fb6593c':
     friendly_name: Light Laundry 2
 groups:
@@ -270,7 +270,7 @@ groups:
   '13':
     friendly_name: Light Group Study
   '14':
-    friendly_name: Light Group Bedroom Duco New
+    friendly_name: Light Group Bedroom Duco
   '15':
     friendly_name: Light Group Kitchen
   '16':

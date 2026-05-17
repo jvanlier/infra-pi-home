@@ -126,8 +126,8 @@
   max_sunset_time: "19:00:00"
   sleep_transition: 5
 
-- name: "bedroom-duco-new"
-  lights: ["light.light_group_bedroom_duco_new"]
+- name: "bedroom-duco"
+  lights: ["light.light_group_bedroom_duco"]
   min_brightness: 40
   max_brightness: 40
   min_color_temp: 2700

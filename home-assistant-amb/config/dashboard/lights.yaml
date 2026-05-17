@@ -252,12 +252,12 @@ views:
             entity: input_boolean.disco_laundry
 
           - type: heading
-            heading: Bedroom Duco New
+            heading: Bedroom Duco
             heading_style: subtitle
             icon: mdi:bed
           - type: tile
-            name: Bedroom Duco New
-            entity: light.light_group_bedroom_duco_new
+            name: Bedroom Duco
+            entity: light.light_group_bedroom_duco
             features:
               - type: light-brightness
 
