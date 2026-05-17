@@ -32,7 +32,7 @@
       entity_id:
         - switch.adaptive_lighting_sleep_mode_central_heating
         - switch.adaptive_lighting_sleep_mode_study
-        - switch.adaptive_lighting_sleep_mode_bedroom_duco_new
+        - switch.adaptive_lighting_sleep_mode_bedroom_duco
         - switch.adaptive_lighting_sleep_mode_living_white_cabinet
   mode: restart
 
