@@ -67,6 +67,22 @@ views:
                 name: L2
               - entity: sensor.electricity_meter_current_phase_l3
                 name: L3
+  - title: Appliances
+    path: appliances
+    icon: mdi:washing-machine
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: tile
+            entity: sensor.washing_machine_state
+            icon: mdi:washing-machine
+          - type: history-graph
+            title: "Washing machine (12h)"
+            entities:
+              - entity: sensor.washing_machine_state
+                name: WM
+            hours_to_show: 12
   - title: Plugs
     path: plugs
     icon: mdi:power-plug
