@@ -178,6 +178,14 @@ views:
               columns: 12
               rows: 4
 
+          - type: heading
+            heading: Light automation
+            heading_style: subtitle
+            icon: mdi:robot
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-lights/light-automation
+
       - type: grid
         cards:
           - type: heading
