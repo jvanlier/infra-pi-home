@@ -225,7 +225,7 @@ views:
           - type: heading
             heading: Laundry
             heading_style: subtitle
-            icon: mdi:washing-machine
+            icon: mdi:tshirt-crew
           - type: tile
             name: Ambiance
             entity: light.light_group_laundry_ambiance

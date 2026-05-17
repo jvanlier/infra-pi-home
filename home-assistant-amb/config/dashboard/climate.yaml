@@ -104,7 +104,7 @@ views:
         show_state: true
         show_icon: true
         entity: sensor.climate_laundry_temperature
-        icon: mdi:washing-machine
+        icon: mdi:tshirt-crew
         name: Laundry
         color: pink
       - type: entity
