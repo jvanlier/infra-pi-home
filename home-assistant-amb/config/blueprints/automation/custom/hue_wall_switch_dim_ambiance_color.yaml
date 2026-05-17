@@ -1,10 +1,10 @@
 blueprint:
-  name: Hue Wall Switch (Z2M) - Hold to Dim + Adaptive Lighting
+  name: Hue Wall Switch (Z2M) - Hold to Dim, Ambiance + Color
   description: >
-    Hue Wall Switch for Zigbee2MQTT with hold-to-dim support and Adaptive Lighting (AL) integration.
-    Left button only.
+    Hue Wall Switch for Zigbee2MQTT with hold-to-dim support.
+    Left button only. For rooms with separate ambiance and color light groups.
 
-    Short press (release): toggle lights on/off with AL apply on turn-on.
+    Short press (release): toggle lights on/off with Adaptive Lighting apply on turn-on.
     Hold: dim light brightness (disables AL adapt_brightness while dimming).
 
     When input_boolean_color_blocked is "on", only ambiance lights are controlled.
