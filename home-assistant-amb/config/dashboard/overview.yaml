@@ -105,6 +105,7 @@ views:
           - type: heading
             heading: House scenes
             heading_style: title
+            icon: mdi:palette
           - type: tile
             entity: input_boolean.sleep_mode
             tap_action:
