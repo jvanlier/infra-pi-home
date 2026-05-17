@@ -93,7 +93,7 @@ devices:
   '0x00158d0008980cd7':
     friendly_name: Climate Bedroom Olivier
   '0x00158d0007ef3720':
-    friendly_name: Climate Bedroom Duco
+    friendly_name: Climate Laundry
   '0x00158d000838465a':
     friendly_name: Climate Bedroom JC
   '0x00158d0007f82b0b':
@@ -127,11 +127,11 @@ devices:
   '0x001788010eee17e5':
     friendly_name: Light Stair Cabinet
   '0x001788010ef1af8a':
-    friendly_name: Light Bedroom Duco 4
+    friendly_name: Light Laundry 4
   '0x001788010eed58f2':
-    friendly_name: Light Bedroom Duco 1
+    friendly_name: Light Laundry 1
   '0x001788010eef9259':
-    friendly_name: Light Bedroom Duco 3
+    friendly_name: Light Laundry 3
   '0x001788010eef928d':
     friendly_name: Light Bedroom Olivier 6
   '0x001788010ef1af85':
@@ -145,11 +145,11 @@ devices:
   '0x001788010e43e179':
     friendly_name: Light Bedroom Olivier 4
   '0x001788010d348233':
-    friendly_name: Switch Tap Dial Bedroom Duco
+    friendly_name: Switch Tap Dial Laundry
   '0x001788010d3460ef':
     friendly_name: Switch Tap Dial Bedroom Olivier
   '0x001788010cc472c2':
-    friendly_name: Switch Wall Bedroom Duco
+    friendly_name: Switch Wall Laundry
   '0x001788010cc472cb':
     friendly_name: Switch Wall Bedroom Olivier
   '0x001788010cc472a6':
@@ -250,11 +250,11 @@ groups:
   '4':
     friendly_name: Light Group Kitchen Countertop
   '5':
-    friendly_name: Light Group Bedroom Duco Ambiance
+    friendly_name: Light Group Laundry Ambiance
   '6':
     friendly_name: Light Group Bedroom Olivier Ambiance
   '7':
-    friendly_name: Light Group Bedroom Duco Color
+    friendly_name: Light Group Laundry Color
   '8':
     friendly_name: Light Group Living Spot Dark Outside
   '9':
@@ -264,7 +264,7 @@ groups:
   '11':
     friendly_name: Light Group Bedroom Olivier
   '12':
-    friendly_name: Light Group Bedroom Duco
+    friendly_name: Light Group Laundry
   '13':
     friendly_name: Light Group Study
   '14':
