@@ -21,8 +21,8 @@ views:
             icon_tap_action:
               action: none
           - type: tile
-            name: Duco Color
-            entity: light.light_group_bedroom_duco_color
+            name: Laundry Color
+            entity: light.light_group_laundry_color
             tap_action:
               action: none
             icon_tap_action:
@@ -86,7 +86,7 @@ views:
               service: light.turn_off
               service_data:
                 entity_id:
-                  - light.light_group_bedroom_duco_color
+                  - light.light_group_laundry_color
                   - light.light_group_bedroom_olivier_color
             icon_tap_action:
               action: none
@@ -223,33 +223,33 @@ views:
             entity: input_boolean.disco_olivier
 
           - type: heading
-            heading: Bedroom Duco
+            heading: Laundry
             heading_style: subtitle
-            icon: mdi:bed
+            icon: mdi:tshirt-crew
           - type: tile
             name: Ambiance
-            entity: light.light_group_bedroom_duco_ambiance
+            entity: light.light_group_laundry_ambiance
             features_position: bottom
             features:
               - type: light-brightness
           - type: tile
             name: Color
-            entity: light.light_group_bedroom_duco_color
+            entity: light.light_group_laundry_color
             features_position: bottom
             features:
               - type: light-brightness
           - type: tile
             name: Ambiance adapt brightness
-            entity: switch.adaptive_lighting_adapt_brightness_bedroom_duco_ambiance
+            entity: switch.adaptive_lighting_adapt_brightness_laundry_ambiance
             grid_options:
               columns: 9
           - type: tile
             name: Color adapt brightness
-            entity: switch.adaptive_lighting_adapt_brightness_bedroom_duco_color
+            entity: switch.adaptive_lighting_adapt_brightness_laundry_color
             grid_options:
               columns: 9
           - type: tile
-            entity: input_boolean.disco_duco
+            entity: input_boolean.disco_laundry
 
           - type: heading
             heading: Bedroom Duco New

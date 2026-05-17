@@ -1,0 +1,42 @@
+# This used to be Duco's bedroom. We are in the process of converting it into a laundry room, but there's still a bed
+# in there and a color light, so keeping the disco and wake up light in place for now.
+- alias: Switch Tap Dial Laundry
+  id: switch_tap_dial_laundry
+  use_blueprint:
+    path: custom/hue_tap_dial_adaptive_lighting_disco.yaml
+    input:
+      controller: Switch Tap Dial Laundry
+      brightness_max: 125
+      brightness_step: 10
+      light_group_all: light.light_group_laundry
+      light_group_ambiance: light.light_group_laundry_ambiance
+      light_group_color: light.light_group_laundry_color
+      switch_entities_adaptive_lighting:
+        - switch.adaptive_lighting_laundry_ambiance
+        - switch.adaptive_lighting_laundry_color
+      switch_entities_adaptive_lighting_ambiance:
+        - switch.adaptive_lighting_laundry_ambiance
+      switch_entities_adapt_brightness: &ref_switch_adapt_brightness
+        - switch.adaptive_lighting_adapt_brightness_laundry_ambiance
+        - switch.adaptive_lighting_adapt_brightness_laundry_color
+      switch_entities_adapt_brightness_ambiance: &ref_switch_adapt_brightness_ambiance
+        - switch.adaptive_lighting_adapt_brightness_laundry_ambiance
+      input_boolean_disco: input_boolean.disco_laundry
+      input_boolean_color_controls_disabled: input_boolean.wake_up_lights_kids_cycle_in_progress
+
+- alias: Switch Wall Laundry
+  id: switch_wall_laundry
+  use_blueprint:
+    path: custom/hue_wall_switch_adaptive_lighting.yaml
+    input:
+      controller: Switch Wall Laundry
+      left_light_group_all: light.light_group_laundry
+      left_light_group_ambiance: light.light_group_laundry_ambiance
+      left_light_entities_on:
+        - light.light_group_laundry_ambiance
+        - light.light_group_laundry_color
+      left_light_entities_on_ambiance:
+        - light.light_group_laundry_ambiance
+      left_switch_entities_adapt_brightness: *ref_switch_adapt_brightness
+      left_switch_entities_adapt_brightness_ambiance: *ref_switch_adapt_brightness_ambiance
+      input_boolean_color_controls_disabled: input_boolean.wake_up_lights_kids_cycle_in_progress

@@ -1,0 +1,21 @@
+# This used to be Duco's bedroom. We are in the process of converting it into a laundry room, but there's still a bed
+# in there and a color light, so keeping this in place for now.
+- alias: Light Disco Laundry
+  id: light-disco-laundry
+  use_blueprint:
+    path: custom/light_disco.yaml
+    input:
+      light_group_color: &light_laundry_color light.light_group_laundry_color
+      input_boolean_disco: &bool_laundry input_boolean.disco_laundry
+
+- alias: Light Disco Laundry Off
+  id: light-disco-laundry-off
+  trigger:
+    - platform: state
+      entity_id: *light_laundry_color
+      to: "off"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: *bool_laundry
+  mode: restart
