@@ -169,7 +169,7 @@ devices:
   '0x001788010eed6db0':
     friendly_name: Light Living Wall Left 1
   '0x001788010eed5e3b':
-    friendly_name: Light Bedroom Duco 2
+    friendly_name: Light Bedroom Duco New 1
   '0x001788010efd454a':
     friendly_name: Light Go
     availability: false
@@ -212,10 +212,6 @@ devices:
     friendly_name: Light Study 6
   '0x001788010cc29e08':
     friendly_name: Switch Wall Bedroom Duco New
-  '0x0017880108d06187':
-    friendly_name: Light Bedroom Duco New 1
-  '0x0017880108cad8f9':
-    friendly_name: Light Bedroom Duco New 2
   '0x001788010fa9c4cb':
     friendly_name: Light Bedroom Duco New 3
   '0x001788010fa9c4a2':
@@ -242,6 +238,8 @@ devices:
     friendly_name: Light Central Heating 1
   '0x001788010fa7141d':
     friendly_name: Light Central Heating 3
+  '0x001788010fa7304a':
+    friendly_name: Light Bedroom Duco New 2
 groups:
   '1':
     friendly_name: Light Group Living Spot
