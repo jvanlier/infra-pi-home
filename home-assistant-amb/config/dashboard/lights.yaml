@@ -249,7 +249,7 @@ views:
             grid_options:
               columns: 9
           - type: tile
-            entity: input_boolean.disco_duco
+            entity: input_boolean.disco_laundry
 
           - type: heading
             heading: Bedroom Duco New
