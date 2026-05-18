@@ -1,0 +1,246 @@
+blueprint:
+  name: Hue Wall Switch (Z2M) - Hold to Dim, Ambiance + Color
+  description: >
+    Hue Wall Switch for Zigbee2MQTT with hold-to-dim support.
+    Left button only. For rooms with separate ambiance and color light groups.
+
+    Short press (release): toggle lights on/off with Adaptive Lighting apply on turn-on.
+    Hold: dim light brightness (disables AL adapt_brightness while dimming).
+
+    When input_boolean_color_blocked is "on", only ambiance lights are controlled.
+    This prevents the switch from interfering with wake-up light colors.
+
+    Requires push button mode configured in Zigbee2MQTT.
+    Requires one input_text helper for dim direction state (initial value: "down_0").
+  domain: automation
+
+  input:
+    controller:
+      name: (Zigbee2MQTT) Controller Name
+      description: The name of the device in Zigbee2MQTT
+      default: ""
+    base_topic:
+      name: Root/Base mqtt topic from Zigbee2MQTT
+      description: The Root/base topic as configured in Zigbee2MQTT
+      default: zigbee2mqtt
+    brightness_step_pct:
+      name: Brightness step percentage
+      description: Percentage to change brightness per hold event.
+      default: 15
+      selector:
+        number:
+          min: 3
+          max: 25
+          step: 1
+          unit_of_measurement: "%"
+    direction_timeout:
+      name: Direction timeout
+      description: Seconds after the last dim before direction resets to "down".
+      default: 5
+      selector:
+        number:
+          min: 2
+          max: 30
+          step: 1
+          unit_of_measurement: seconds
+
+    dim_direction_entity:
+      name: Dim direction input_text helper
+      description: >
+        An input_text entity for persisting dim direction state.
+        Initial value: "down_0".
+      selector:
+        entity:
+          domain: input_text
+          multiple: false
+
+    light_all:
+      name: Light group (all lights)
+      description: >
+        Zigbee group containing all lights in the room.
+        Used during normal operation.
+      selector:
+        entity:
+          domain: light
+          multiple: false
+    light_ambiance:
+      name: Light group (ambiance only)
+      description: >
+        Zigbee group containing only ambiance lights.
+        Used when color lights are blocked.
+      selector:
+        entity:
+          domain: light
+          multiple: false
+
+    input_boolean_color_blocked:
+      name: Color blocked input_boolean
+      description: >
+        When this input_boolean is "on", only ambiance lights are controlled.
+        Typically input_boolean.wake_up_lights_kids_cycle_in_progress.
+      selector:
+        entity:
+          domain: input_boolean
+          multiple: false
+
+    switch_entities_adapt_brightness:
+      name: Adapt brightness switches (all)
+      description: >
+        All adaptive_lighting adapt_brightness switches (ambiance + color).
+        Turned OFF when dimming, turned ON when toggling on/off.
+      selector:
+        entity:
+          domain: switch
+          multiple: true
+    switch_entities_adapt_brightness_ambiance:
+      name: Adapt brightness switches (ambiance only)
+      description: >
+        Ambiance-only adaptive_lighting adapt_brightness switches.
+        Used when color lights are blocked.
+      selector:
+        entity:
+          domain: switch
+          multiple: true
+    switch_entities_adaptive_lighting:
+      name: Adaptive Lighting switches (all)
+      description: >
+        All AL switches for adaptive_lighting.apply (ambiance + color).
+        Called after turning lights on to immediately apply AL settings.
+      selector:
+        entity:
+          domain: switch
+          multiple: true
+    switch_entities_adaptive_lighting_ambiance:
+      name: Adaptive Lighting switches (ambiance only)
+      description: >
+        Ambiance-only AL switches for adaptive_lighting.apply.
+        Used when color lights are blocked.
+      selector:
+        entity:
+          domain: switch
+          multiple: true
+
+mode: parallel
+max: 10
+
+trigger_variables:
+  base_topic: !input base_topic
+  controller: !input controller
+
+trigger:
+  - platform: mqtt
+    topic: "{{ base_topic ~ '/' ~ controller ~ '/action' }}"
+
+condition:
+  - condition: template
+    value_template: >
+      {{ trigger.payload in [
+        'left_press_release',
+        'left_hold',
+        'left_hold_release'
+      ] }}
+
+action:
+  - variables:
+      command: "{{ trigger.payload }}"
+      light_all: !input light_all
+      light_ambiance: !input light_ambiance
+      input_boolean_color_blocked: !input input_boolean_color_blocked
+      color_blocked: "{{ is_state(input_boolean_color_blocked, 'on') }}"
+      active_lights: "{{ light_ambiance if color_blocked else light_all }}"
+      switch_adapt_brightness: !input switch_entities_adapt_brightness
+      switch_adapt_brightness_ambiance: !input switch_entities_adapt_brightness_ambiance
+      active_adapt_brightness: "{{ switch_adapt_brightness_ambiance if color_blocked else switch_adapt_brightness }}"
+      switch_al: !input switch_entities_adaptive_lighting
+      switch_al_ambiance: !input switch_entities_adaptive_lighting_ambiance
+      active_al_apply: "{{ switch_al_ambiance if color_blocked else switch_al }}"
+      dim_direction_entity: !input dim_direction_entity
+      brightness_step_pct: !input brightness_step_pct
+      direction_timeout: !input direction_timeout
+
+  - choose:
+      # --- TURN ON ---
+      - conditions: "{{ command == 'left_press_release' and states(active_lights) != 'on' }}"
+        sequence:
+          # Turn on via the Zigbee group (single broadcast = all lights respond atomically).
+          # The group itself is NOT in the AL config (only the individual sub-groups are),
+          # so AL won't intercept this and won't apply color temp / brightness automatically.
+          - action: light.turn_on
+            target:
+              entity_id: "{{ active_lights }}"
+          # Re-enable adapt_brightness so AL resumes control after any prior manual dimming.
+          - action: switch.turn_on
+            target:
+              entity_id: "{{ active_adapt_brightness }}"
+          # Explicitly apply AL settings to the sub-group switches. Needed because the
+          # Zigbee group we turned on isn't tracked by AL. turn_on_lights is required
+          # because HA state for the sub-groups hasn't caught up yet (race condition:
+          # the broadcast went to Zigbee, but HA still sees the entities as "off").
+          - action: adaptive_lighting.apply
+            target:
+              entity_id: "{{ active_al_apply }}"
+            data:
+              turn_on_lights: true
+
+      # --- TURN OFF ---
+      - conditions: "{{ command == 'left_press_release' and states(active_lights) == 'on' }}"
+        sequence:
+          - action: light.turn_off
+            target:
+              entity_id: "{{ active_lights }}"
+          # Re-enable adapt_brightness so AL takes over cleanly on next turn-on.
+          - action: switch.turn_on
+            target:
+              entity_id: "{{ active_adapt_brightness }}"
+
+      # --- DIM (hold) ---
+      - conditions: "{{ command == 'left_hold' }}"
+        sequence:
+          - condition: template
+            value_template: "{{ states(active_lights) == 'on' }}"
+          # Disable adapt_brightness so AL doesn't fight with our manual brightness change.
+          - action: switch.turn_off
+            target:
+              entity_id: "{{ active_adapt_brightness }}"
+          - variables:
+              raw_state: "{{ states(dim_direction_entity) }}"
+              parts: "{{ raw_state.split('_') }}"
+              prev_dir: "{{ parts[0] if parts | length >= 2 else 'down' }}"
+              prev_ts: "{{ parts[1] | int(0) if parts | length >= 2 else 0 }}"
+              now_ts: "{{ now().timestamp() | int }}"
+              timed_out: "{{ (now_ts - prev_ts) > direction_timeout }}"
+              current_dir: "{{ 'down' if timed_out else prev_dir }}"
+              step_value: "{{ brightness_step_pct | int if current_dir == 'up' else (brightness_step_pct | int * -1) }}"
+          # Dim via the Zigbee group for consistent brightness across all lights.
+          - action: light.turn_on
+            data:
+              brightness_pct: >
+                {{ [[((state_attr(active_lights, 'brightness') | float(0) / 255 * 100) | round(0) | int) + step_value, 1] | max, 100] | min }}
+              transition: 0.8
+            target:
+              entity_id: "{{ active_lights }}"
+          # Persist direction + timestamp so hold_release can flip direction.
+          - action: input_text.set_value
+            target:
+              entity_id: "{{ dim_direction_entity }}"
+            data:
+              value: "{{ current_dir ~ '_' ~ now_ts }}"
+
+      # --- DIM DIRECTION FLIP (hold release) ---
+      # Alternates between up/down on each hold cycle. Resets to "down" after timeout.
+      - conditions: "{{ command == 'left_hold_release' }}"
+        sequence:
+          - variables:
+              raw_state: "{{ states(dim_direction_entity) }}"
+              parts: "{{ raw_state.split('_') }}"
+              prev_dir: "{{ parts[0] if parts | length >= 2 else 'down' }}"
+              prev_ts: "{{ parts[1] | int(0) if parts | length >= 2 else 0 }}"
+              now_ts: "{{ now().timestamp() | int }}"
+              timed_out: "{{ (now_ts - prev_ts) > direction_timeout }}"
+              current_dir: "{{ 'down' if timed_out else prev_dir }}"
+              next_dir: "{{ 'up' if current_dir == 'down' else 'down' }}"
+          - action: input_text.set_value
+            target:
+              entity_id: "{{ dim_direction_entity }}"
+            data:
+              value: "{{ next_dir ~ '_' ~ now_ts }}"

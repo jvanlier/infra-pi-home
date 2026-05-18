@@ -25,16 +25,17 @@
 - alias: Switch Wall Bedroom Olivier
   id: switch_wall_bedroom_olivier
   use_blueprint:
-    path: custom/hue_wall_switch_adaptive_lighting.yaml
+    path: custom/hue_wall_switch_dim_ambiance_color.yaml
     input:
       controller: Switch Wall Bedroom Olivier
-      left_light_group_all: light.light_group_bedroom_olivier
-      left_light_group_ambiance: light.light_group_bedroom_olivier_ambiance
-      left_light_entities_on:
-        - light.light_group_bedroom_olivier_ambiance
-        - light.light_group_bedroom_olivier_color
-      left_light_entities_on_ambiance:
-        - light.light_group_bedroom_olivier_ambiance
-      left_switch_entities_adapt_brightness: *ref_switch_adapt_brightness
-      left_switch_entities_adapt_brightness_ambiance: *ref_switch_adapt_brightness_ambiance
-      input_boolean_color_controls_disabled: input_boolean.wake_up_lights_kids_cycle_in_progress
+      dim_direction_entity: input_text.dim_direction_switch_wall_bedroom_olivier_left
+      light_all: light.light_group_bedroom_olivier
+      light_ambiance: light.light_group_bedroom_olivier_ambiance
+      input_boolean_color_blocked: input_boolean.wake_up_lights_kids_cycle_in_progress
+      switch_entities_adapt_brightness: *ref_switch_adapt_brightness
+      switch_entities_adapt_brightness_ambiance: *ref_switch_adapt_brightness_ambiance
+      switch_entities_adaptive_lighting:
+        - switch.adaptive_lighting_bedroom_olivier_ambiance
+        - switch.adaptive_lighting_bedroom_olivier_color
+      switch_entities_adaptive_lighting_ambiance:
+        - switch.adaptive_lighting_bedroom_olivier_ambiance

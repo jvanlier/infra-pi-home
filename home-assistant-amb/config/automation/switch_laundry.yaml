@@ -27,16 +27,17 @@
 - alias: Switch Wall Laundry
   id: switch_wall_laundry
   use_blueprint:
-    path: custom/hue_wall_switch_adaptive_lighting.yaml
+    path: custom/hue_wall_switch_dim_ambiance_color.yaml
     input:
       controller: Switch Wall Laundry
-      left_light_group_all: light.light_group_laundry
-      left_light_group_ambiance: light.light_group_laundry_ambiance
-      left_light_entities_on:
-        - light.light_group_laundry_ambiance
-        - light.light_group_laundry_color
-      left_light_entities_on_ambiance:
-        - light.light_group_laundry_ambiance
-      left_switch_entities_adapt_brightness: *ref_switch_adapt_brightness
-      left_switch_entities_adapt_brightness_ambiance: *ref_switch_adapt_brightness_ambiance
-      input_boolean_color_controls_disabled: input_boolean.wake_up_lights_kids_cycle_in_progress
+      dim_direction_entity: input_text.dim_direction_switch_wall_laundry_left
+      light_all: light.light_group_laundry
+      light_ambiance: light.light_group_laundry_ambiance
+      input_boolean_color_blocked: input_boolean.wake_up_lights_kids_cycle_in_progress
+      switch_entities_adapt_brightness: *ref_switch_adapt_brightness
+      switch_entities_adapt_brightness_ambiance: *ref_switch_adapt_brightness_ambiance
+      switch_entities_adaptive_lighting:
+        - switch.adaptive_lighting_laundry_ambiance
+        - switch.adaptive_lighting_laundry_color
+      switch_entities_adaptive_lighting_ambiance:
+        - switch.adaptive_lighting_laundry_ambiance
