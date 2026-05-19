@@ -30,4 +30,3 @@ binary_sensor: !include binary_sensor.yaml
 
 # Custom component config files to include
 adaptive_lighting: !include adaptive_lighting.yaml
-illuminance: !include illuminance.yaml

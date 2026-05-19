@@ -1,6 +1,0 @@
-- unique_id: illuminance-cloud-coverage
-  name: Illuminance Cloud Coverage
-  entity_id: sensor.weather_cloud_coverage
-
-- unique_id: illuminance-weatherless
-  name: Illuminance Weatherless

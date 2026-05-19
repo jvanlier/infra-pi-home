@@ -1,7 +1,4 @@
 - binary_sensor:
-    # These sensors rely on ha-illuminance custom component that combines elevation data with weather data,
-    # such that dark rainy/cloudy conditions may turn on lights.
-
     - name: Sufficiently Dark For Indoor Lights
       unique_id: sufficiently_dark_for_indoor_lights
       icon: mdi:moon-waning-crescent
