@@ -24,9 +24,8 @@ just build              # Build Docker image with custom components
 just test               # Validate Home Assistant configuration (requires Docker)
 ```
 
-The build process creates a custom Docker image based on `ghcr.io/home-assistant/home-assistant:2026.4.3` with two baked-in custom components:
+The build process creates a custom Docker image based on `ghcr.io/home-assistant/home-assistant:2026.5.2` with one baked-in custom component:
 - **adaptive-lighting**: Dynamic light color/brightness adjustment
-- **ha-illuminance**: Light level calculations based on weather/sun position
 
 ### Pre-commit Hooks
 
@@ -54,7 +53,6 @@ Home Assistant config uses a split configuration model (see `home-assistant-amb/
   - `script.yaml`: Scripts
   - `binary_sensor.yaml`: Binary sensor definitions
   - `adaptive_lighting.yaml`: Adaptive lighting configurations for each light/room
-  - `illuminance.yaml`: Illuminance sensor definitions
 
 ### Custom Components Symlink Pattern
 
@@ -90,7 +88,6 @@ The Dockerfile installs custom components to `/custom_components`. The mounted c
 **Dark Awareness**: Binary sensors in `template/dark.yaml`:
 - `Sufficiently Dark For Indoor Lights`: Illuminance < threshold (uses `motion_garden_illuminance_filtered`)
 - `Sufficiently Dark For Outdoor Lights`: Illuminance < lower threshold
-- Uses ha-illuminance component which combines sun elevation + weather cloud coverage
 
 ### CI/CD
 
