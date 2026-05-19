@@ -27,21 +27,18 @@ views:
             heading: Thermostats
             heading_style: title
             icon: mdi:thermostat
-          - type: thermostat
+          - type: tile
             entity: climate.living
-            grid_options:
-              rows: 3
-              columns: 6
-          - type: thermostat
+            features:
+              - type: target-temperature
+          - type: tile
             entity: climate.study
-            grid_options:
-              rows: 3
-              columns: 6
-          - type: thermostat
+            features:
+              - type: target-temperature
+          - type: tile
             entity: climate.bedroom_jc
-            grid_options:
-              rows: 3
-              columns: 6
+            features:
+              - type: target-temperature
           - type: heading
             heading: Heating percentage 24h
             heading_style: subtitle
