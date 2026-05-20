@@ -2,6 +2,13 @@
 # - automation/light_adaptive_toggle.yaml
 # - automation/sleep_mode.yaml
 
+# Interval tuning: each instance uses a distinct prime number (181-269s) so that no two
+# instances ever update at the exact same moment. Two primes A and B can only collide
+# every A*B seconds (e.g. 181*191 = ~9.6 hours), effectively eliminating simultaneous
+# Zigbee group commands that would overload the coordinator.
+# Lights that toggle frequently via motion/door sensors use only_once instead, since they
+# get a fresh adaptation each time they turn on anyway.
+
 - name: "hall-0-spot"
   lights: ["light.light_group_hall_0_spot"]
   min_brightness: 20
@@ -9,12 +16,14 @@
   min_color_temp: 2500
   max_color_temp: 4000
   sleep_transition: 5
+  interval: 181
 
 - name: "hall-0-wall"
   lights: ["light.light_hall_0_wall"]
   min_brightness: 15
   max_brightness: 20
   sleep_transition: 5
+  interval: 191
 
 - name: "toilet"
   lights: ["light.light_toilet"]
@@ -23,6 +32,7 @@
   min_color_temp: 2500
   max_color_temp: 4000
   sleep_transition: 5
+  only_once: true
 
 - name: "living-spot-always"
   lights: ["light.light_group_living_spot_always"]
@@ -31,6 +41,7 @@
   min_color_temp: 2500
   max_color_temp: 4000
   sleep_transition: 5
+  interval: 193
 
 - name: "living-spot-dark-outside"
   lights: ["light.light_group_living_spot_dark_outside"]
@@ -39,6 +50,7 @@
   min_color_temp: 2500
   max_color_temp: 4000
   sleep_transition: 5
+  interval: 197
 
 - name: "living-white-cabinet"
   lights: ["light.light_living_white_cabinet"]
@@ -48,6 +60,7 @@
   min_color_temp: 2000
   max_color_temp: 4000
   sleep_transition: 5
+  interval: 199
 
 - name: "stair-cabinet"
   lights: ["light.light_stair_cabinet"]
@@ -59,6 +72,7 @@
   # It's nice to see it come on gradually, otherwise the effect finishes before the door is open:
   initial_transition: 2
   sleep_transition: 5
+  only_once: true
 
 - name: "central-heating"
   lights: ["light.light_group_central_heating"]
@@ -69,6 +83,7 @@
   max_color_temp: 4000
   initial_transition: 2
   sleep_transition: 5
+  only_once: true
 
 - name: "dining-table"
   lights: ["light.light_dining_table"]
@@ -78,6 +93,7 @@
   min_color_temp: 2500
   max_color_temp: 4000
   sleep_transition: 5
+  interval: 211
 
 - name: "kitchen-middle"
   lights: ["light.light_group_kitchen_middle"]
@@ -87,6 +103,7 @@
   max_color_temp: 4000
   sleep_brightness: 8
   sleep_transition: 5
+  interval: 223
 
 - name: "kitchen-countertop"
   lights: ["light.light_group_kitchen_countertop"]
@@ -96,6 +113,7 @@
   max_color_temp: 4000
   sleep_brightness: 16
   sleep_transition: 5
+  interval: 227
 
 - name: "bathroom"
   lights: ["light.light_bathroom"]
@@ -104,6 +122,7 @@
   # The default of 1 is very low here and it kind of struggles to come on, do a bit higher:
   sleep_brightness: 3
   sleep_transition: 5
+  interval: 229
 
 # This used to be Duco's bedroom. We are in the process of converting it into a laundry room, but there's still a bed
 # in there and a color light, Olivier decided to sleep in this bed the first night Duco moved to his new room, so
@@ -116,6 +135,7 @@
   max_color_temp: 4000
   max_sunset_time: "20:00:00"
   sleep_transition: 5
+  interval: 233
 
 - name: "laundry-color"
   lights: ["light.light_group_laundry_color"]
@@ -125,6 +145,7 @@
   max_color_temp: 4000
   max_sunset_time: "20:00:00"
   sleep_transition: 5
+  interval: 239
 
 - name: "bedroom-duco-ambiance"
   lights: ["light.light_group_bedroom_duco_ambiance"]
@@ -134,6 +155,7 @@
   max_color_temp: 4000
   max_sunset_time: "20:00:00"
   sleep_transition: 5
+  interval: 241
 
 - name: "bedroom-duco-color"
   lights: ["light.light_group_bedroom_duco_color"]
@@ -143,6 +165,7 @@
   max_color_temp: 4000
   max_sunset_time: "20:00:00"
   sleep_transition: 5
+  interval: 251
 
 - name: "bedroom-olivier-ambiance"
   lights: ["light.light_group_bedroom_olivier_ambiance"]
@@ -152,6 +175,7 @@
   max_color_temp: 4000
   max_sunset_time: "20:00:00"
   sleep_transition: 5
+  interval: 257
 
 - name: "bedroom-olivier-color"
   lights: ["light.light_group_bedroom_olivier_color"]
@@ -161,6 +185,7 @@
   max_color_temp: 4000
   max_sunset_time: "20:00:00"
   sleep_transition: 5
+  interval: 263
 
 - name: "study"
   lights: ["light.light_group_study"]
@@ -169,3 +194,4 @@
   min_color_temp: 2700
   max_color_temp: 4000
   sleep_transition: 5
+  interval: 269
