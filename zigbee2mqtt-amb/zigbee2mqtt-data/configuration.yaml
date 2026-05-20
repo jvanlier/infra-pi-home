@@ -20,6 +20,9 @@ advanced:
   log_level: debug
   last_seen: ISO_8601
 device_options:
+  temperature_precision: 1
+  humidity_precision: 1
+  pressure_precision: 0
   homeassistant:
     last_seen:
       enabled_by_default: true
