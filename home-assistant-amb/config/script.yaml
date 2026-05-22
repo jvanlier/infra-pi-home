@@ -47,11 +47,6 @@ turn_on_light_hall_0_wall_dimmed:
 wake_up_light_kids_set_green:
   alias: "Wake up light kids: Set to green"
   sequence:
-    - service: adaptive_lighting.set_manual_control
-      entity_id:
-        - switch.adaptive_lighting_laundry_color
-        - switch.adaptive_lighting_bedroom_olivier_color
-        - switch.adaptive_lighting_bedroom_duco_color
     - service: light.turn_on
       target:
         entity_id:

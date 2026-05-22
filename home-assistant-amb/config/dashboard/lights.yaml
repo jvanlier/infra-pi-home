@@ -221,8 +221,8 @@ views:
             grid_options:
               columns: 9
           - type: tile
-            name: Color adapt brightness
-            entity: switch.adaptive_lighting_adapt_brightness_bedroom_olivier_color
+            name: All-group adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_bedroom_olivier
             grid_options:
               columns: 9
           - type: tile
@@ -250,8 +250,8 @@ views:
             grid_options:
               columns: 9
           - type: tile
-            name: Color adapt brightness
-            entity: switch.adaptive_lighting_adapt_brightness_laundry_color
+            name: All-group adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_laundry
             grid_options:
               columns: 9
           - type: tile
@@ -279,8 +279,8 @@ views:
             grid_options:
               columns: 9
           - type: tile
-            name: Color adapt brightness
-            entity: switch.adaptive_lighting_adapt_brightness_bedroom_duco_color
+            name: All-group adapt brightness
+            entity: switch.adaptive_lighting_adapt_brightness_bedroom_duco
             grid_options:
               columns: 9
 
