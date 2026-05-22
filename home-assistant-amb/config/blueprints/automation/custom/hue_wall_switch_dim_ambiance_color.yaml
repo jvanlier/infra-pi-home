@@ -4,7 +4,7 @@ blueprint:
     Hue Wall Switch for Zigbee2MQTT with hold-to-dim support.
     Left button only. For rooms with separate ambiance and color light groups.
 
-    Short press (release): toggle lights on/off with Adaptive Lighting apply on turn-on.
+    Short press (release): toggle lights on/off (AL applies automatically via sub-groups).
     Hold: dim light brightness (disables AL adapt_brightness while dimming).
 
     When input_boolean_color_blocked is "on", only ambiance lights are controlled.
@@ -72,6 +72,15 @@ blueprint:
         entity:
           domain: light
           multiple: false
+    light_color:
+      name: Light group (color only)
+      description: >
+        Zigbee group containing only color lights.
+        Used together with light_ambiance for turn-off to ensure correct HA state.
+      selector:
+        entity:
+          domain: light
+          multiple: false
 
     input_boolean_color_blocked:
       name: Color blocked input_boolean
@@ -96,24 +105,6 @@ blueprint:
       name: Adapt brightness switches (ambiance only)
       description: >
         Ambiance-only adaptive_lighting adapt_brightness switches.
-        Used when color lights are blocked.
-      selector:
-        entity:
-          domain: switch
-          multiple: true
-    switch_entities_adaptive_lighting:
-      name: Adaptive Lighting switches (all)
-      description: >
-        All AL switches for adaptive_lighting.apply (ambiance + color).
-        Called after turning lights on to immediately apply AL settings.
-      selector:
-        entity:
-          domain: switch
-          multiple: true
-    switch_entities_adaptive_lighting_ambiance:
-      name: Adaptive Lighting switches (ambiance only)
-      description: >
-        Ambiance-only AL switches for adaptive_lighting.apply.
         Used when color lights are blocked.
       selector:
         entity:
@@ -145,15 +136,13 @@ action:
       command: "{{ trigger.payload }}"
       light_all: !input light_all
       light_ambiance: !input light_ambiance
+      light_color: !input light_color
       input_boolean_color_blocked: !input input_boolean_color_blocked
       color_blocked: "{{ is_state(input_boolean_color_blocked, 'on') }}"
       active_lights: "{{ light_ambiance if color_blocked else light_all }}"
       switch_adapt_brightness: !input switch_entities_adapt_brightness
       switch_adapt_brightness_ambiance: !input switch_entities_adapt_brightness_ambiance
       active_adapt_brightness: "{{ switch_adapt_brightness_ambiance if color_blocked else switch_adapt_brightness }}"
-      switch_al: !input switch_entities_adaptive_lighting
-      switch_al_ambiance: !input switch_entities_adaptive_lighting_ambiance
-      active_al_apply: "{{ switch_al_ambiance if color_blocked else switch_al }}"
       dim_direction_entity: !input dim_direction_entity
       brightness_step_pct: !input brightness_step_pct
       direction_timeout: !input direction_timeout
@@ -170,32 +159,24 @@ action:
       # --- TURN ON ---
       - conditions: "{{ command == 'left_press_release' and not hold_just_occurred and states(active_lights) != 'on' }}"
         sequence:
-          # Turn on via the Zigbee group (single broadcast = all lights respond atomically).
-          # The group itself is NOT in the AL config (only the individual sub-groups are),
-          # so AL won't intercept this and won't apply color temp / brightness automatically.
+          # Turn on sub-groups directly so AL (which tracks them) applies automatically.
           - action: light.turn_on
             target:
-              entity_id: "{{ active_lights }}"
+              entity_id: "{{ [light_ambiance, light_color] if not color_blocked else [light_ambiance] }}"
           # Re-enable adapt_brightness so AL resumes control after any prior manual dimming.
           - action: switch.turn_on
             target:
               entity_id: "{{ active_adapt_brightness }}"
-          # Explicitly apply AL settings to the sub-group switches. Needed because the
-          # Zigbee group we turned on isn't tracked by AL. turn_on_lights is required
-          # because HA state for the sub-groups hasn't caught up yet (race condition:
-          # the broadcast went to Zigbee, but HA still sees the entities as "off").
-          - action: adaptive_lighting.apply
-            target:
-              entity_id: "{{ active_al_apply }}"
-            data:
-              turn_on_lights: true
 
       # --- TURN OFF ---
       - conditions: "{{ command == 'left_press_release' and not hold_just_occurred and states(active_lights) == 'on' }}"
         sequence:
+          # Turn off both sub-groups individually rather than the all-group. This ensures
+          # HA state updates correctly for each sub-group (avoids stale "on" state that
+          # causes AL to turn lights back on).
           - action: light.turn_off
             target:
-              entity_id: "{{ active_lights }}"
+              entity_id: "{{ [light_ambiance, light_color] if not color_blocked else [light_ambiance] }}"
           # Re-enable adapt_brightness so AL takes over cleanly on next turn-on.
           - action: switch.turn_on
             target:

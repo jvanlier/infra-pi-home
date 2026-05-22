@@ -33,11 +33,7 @@
       dim_direction_entity: input_text.dim_direction_switch_wall_laundry_left
       light_all: light.light_group_laundry
       light_ambiance: light.light_group_laundry_ambiance
+      light_color: light.light_group_laundry_color
       input_boolean_color_blocked: input_boolean.wake_up_lights_kids_cycle_in_progress
       switch_entities_adapt_brightness: *ref_switch_adapt_brightness
       switch_entities_adapt_brightness_ambiance: *ref_switch_adapt_brightness_ambiance
-      switch_entities_adaptive_lighting:
-        - switch.adaptive_lighting_laundry_ambiance
-        - switch.adaptive_lighting_laundry_color
-      switch_entities_adaptive_lighting_ambiance:
-        - switch.adaptive_lighting_laundry_ambiance
