@@ -1,0 +1,38 @@
+# Re-enable all-group AL once color lights are turned off after wake-up.
+# The forward direction (all-group OFF, ambiance ON) is handled in wake_up_light_kids.yaml.
+- alias: "Wake up AL: restore all-group"
+  id: wake_up_al_restore_all_group
+  trigger:
+    - platform: state
+      entity_id:
+        - light.light_group_laundry_color
+        - light.light_group_bedroom_olivier_color
+        - light.light_group_bedroom_duco_color
+      from: "on"
+      to: "off"
+    - platform: state
+      entity_id: input_boolean.wake_up_lights_kids_cycle_in_progress
+      from: "on"
+      to: "off"
+  condition:
+    - condition: state
+      entity_id: light.light_group_laundry_color
+      state: "off"
+    - condition: state
+      entity_id: light.light_group_bedroom_olivier_color
+      state: "off"
+    - condition: state
+      entity_id: light.light_group_bedroom_duco_color
+      state: "off"
+  action:
+    - service: switch.turn_off
+      entity_id:
+        - switch.adaptive_lighting_bedroom_olivier_ambiance
+        - switch.adaptive_lighting_bedroom_duco_ambiance
+        - switch.adaptive_lighting_laundry_ambiance
+    - service: switch.turn_on
+      entity_id:
+        - switch.adaptive_lighting_bedroom_olivier
+        - switch.adaptive_lighting_bedroom_duco
+        - switch.adaptive_lighting_laundry
+  mode: restart

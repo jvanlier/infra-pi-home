@@ -12,12 +12,17 @@
     - service: input_boolean.turn_on
       target:
         entity_id: &bool_in_progress input_boolean.wake_up_lights_kids_cycle_in_progress
-    # Without explicitly marking manual control, AL overrides the color:
-    - service: adaptive_lighting.set_manual_control
+    # Switch from all-group AL to ambiance-only AL so color lights are free for wake-up.
+    - service: switch.turn_off
       entity_id:
-        - switch.adaptive_lighting_laundry_color
-        - switch.adaptive_lighting_bedroom_olivier_color
-        - switch.adaptive_lighting_bedroom_duco_color
+        - switch.adaptive_lighting_bedroom_olivier
+        - switch.adaptive_lighting_bedroom_duco
+        - switch.adaptive_lighting_laundry
+    - service: switch.turn_on
+      entity_id:
+        - switch.adaptive_lighting_bedroom_olivier_ambiance
+        - switch.adaptive_lighting_bedroom_duco_ambiance
+        - switch.adaptive_lighting_laundry_ambiance
     - service: light.turn_on
       target:
         entity_id: &lights
