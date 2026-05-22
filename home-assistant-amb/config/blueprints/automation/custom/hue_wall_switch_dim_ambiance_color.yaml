@@ -157,10 +157,18 @@ action:
       dim_direction_entity: !input dim_direction_entity
       brightness_step_pct: !input brightness_step_pct
       direction_timeout: !input direction_timeout
+      # Workaround: Some Hue wall switches occasionally emit left_press_release instead
+      # of left_hold_release at the end of a hold sequence (firmware timing bug that
+      # occurs when the button is released very quickly after the last hold tick).
+      # Detect this by checking if the dim direction helper was updated within the last
+      # second — if so, a hold just happened and the release should be ignored.
+      dim_state_parts: "{{ states(dim_direction_entity).split('_') }}"
+      last_dim_ts: "{{ dim_state_parts[1] | int(0) if dim_state_parts | length >= 2 else 0 }}"
+      hold_just_occurred: "{{ (now().timestamp() | int - last_dim_ts) <= 1 }}"
 
   - choose:
       # --- TURN ON ---
-      - conditions: "{{ command == 'left_press_release' and states(active_lights) != 'on' }}"
+      - conditions: "{{ command == 'left_press_release' and not hold_just_occurred and states(active_lights) != 'on' }}"
         sequence:
           # Turn on via the Zigbee group (single broadcast = all lights respond atomically).
           # The group itself is NOT in the AL config (only the individual sub-groups are),
@@ -183,7 +191,7 @@ action:
               turn_on_lights: true
 
       # --- TURN OFF ---
-      - conditions: "{{ command == 'left_press_release' and states(active_lights) == 'on' }}"
+      - conditions: "{{ command == 'left_press_release' and not hold_just_occurred and states(active_lights) == 'on' }}"
         sequence:
           - action: light.turn_off
             target:

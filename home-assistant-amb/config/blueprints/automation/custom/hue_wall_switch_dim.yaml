@@ -158,12 +158,19 @@ action:
       dim_direction_entity: "{{ dim_dir_left if side == 'left' else dim_dir_right }}"
       brightness_step_pct: !input brightness_step_pct
       direction_timeout: !input direction_timeout
+      # Workaround: Some Hue wall switches occasionally emit left/right_press_release
+      # instead of left/right_hold_release at the end of a hold sequence (firmware timing
+      # bug when the button is released quickly after the last hold tick). Detect this by
+      # checking if the dim direction helper was updated within the last second.
+      dim_state_parts: "{{ states(dim_direction_entity).split('_') }}"
+      last_dim_ts: "{{ dim_state_parts[1] | int(0) if dim_state_parts | length >= 2 else 0 }}"
+      hold_just_occurred: "{{ (now().timestamp() | int - last_dim_ts) <= 1 }}"
 
   - condition: template
     value_template: "{{ active_lights | length > 0 }}"
 
   - choose:
-      - conditions: "{{ command in ['left_press_release', 'right_press_release'] }}"
+      - conditions: "{{ command in ['left_press_release', 'right_press_release'] and not hold_just_occurred }}"
         sequence:
           - action: light.toggle
             target:
