@@ -87,7 +87,7 @@ views:
         entity: sensor.climate_study_temperature
         name: Study
         icon: mdi:chair-rolling
-        color: teal
+        color: grey
       - type: entity
         show_name: true
         show_state: true
@@ -111,7 +111,7 @@ views:
         entity: sensor.climate_bedroom_duco_temperature
         icon: mdi:bed
         name: Bedroom Duco
-        color: brown
+        color: teal
       - type: entity
         show_name: true
         show_state: true
@@ -119,7 +119,7 @@ views:
         entity: sensor.climate_attic_temperature
         icon: mdi:home-roof
         name: Attic
-        color: blue
+        color: brown
       - type: entity
         show_name: true
         show_state: true

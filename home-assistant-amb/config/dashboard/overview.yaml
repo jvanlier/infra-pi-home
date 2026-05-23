@@ -97,7 +97,7 @@ views:
         entity: sensor.climate_study_temperature
         name: Study
         icon: mdi:chair-rolling
-        color: teal
+        color: grey
     sections:
       - type: grid
         column_span: 1
