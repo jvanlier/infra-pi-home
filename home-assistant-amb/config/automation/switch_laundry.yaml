@@ -20,9 +20,6 @@
           target:
             entity_id: switch.adaptive_lighting_adapt_brightness_laundry
       brightness_step_down:
-        - service: switch.turn_off
-          target:
-            entity_id: switch.adaptive_lighting_adapt_brightness_laundry
         - service: light.turn_on
           data:
             transition: 1
@@ -30,9 +27,6 @@
           target:
             entity_id: light.light_group_laundry
       brightness_step_up:
-        - service: switch.turn_off
-          target:
-            entity_id: switch.adaptive_lighting_adapt_brightness_laundry
         - service: light.turn_on
           data:
             transition: 1
