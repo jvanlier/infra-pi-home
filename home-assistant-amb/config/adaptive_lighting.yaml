@@ -131,7 +131,7 @@
   min_color_temp: 2200
   max_color_temp: 4000
   sleep_transition: 5
-  interval: 241
+  interval: 233
 
 - name: "bedroom-duco-ambiance"
   lights: ["light.light_group_bedroom_duco_ambiance"]
