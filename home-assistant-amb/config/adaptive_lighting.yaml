@@ -124,28 +124,14 @@
   sleep_transition: 5
   interval: 229
 
-# This used to be Duco's bedroom. We are in the process of converting it into a laundry room, but there's still a bed
-# in there and a color light, Olivier decided to sleep in this bed the first night Duco moved to his new room, so
-# keeping the 20:00 sunset time in place for now.
-- name: "laundry-ambiance"
-  lights: ["light.light_group_laundry_ambiance"]
+- name: "laundry"
+  lights: ["light.light_group_laundry"]
   min_brightness: 30
   max_brightness: 35
   min_color_temp: 2200
   max_color_temp: 4000
-  max_sunset_time: "20:00:00"
   sleep_transition: 5
-  interval: 233
-
-- name: "laundry-color"
-  lights: ["light.light_group_laundry_color"]
-  min_brightness: 30
-  max_brightness: 35
-  min_color_temp: 2200
-  max_color_temp: 4000
-  max_sunset_time: "20:00:00"
-  sleep_transition: 5
-  interval: 239
+  interval: 241
 
 - name: "bedroom-duco-ambiance"
   lights: ["light.light_group_bedroom_duco_ambiance"]
