@@ -1,16 +1,44 @@
 - alias: Switch Tap Dial Laundry
   id: switch_tap_dial_laundry
   use_blueprint:
-    path: custom/hue_tap_dial_adaptive_lighting.yaml
+    path: custom/hue_tap_dial.yaml
     input:
       controller: Switch Tap Dial Laundry
-      brightness_max: 125
-      brightness_step: 10
-      light_group_all: light.light_group_laundry
-      switch_entities_adaptive_lighting:
-        - switch.adaptive_lighting_laundry
-      switch_entities_adapt_brightness:
-        - switch.adaptive_lighting_adapt_brightness_laundry
+      button_1_press:
+        - service: switch.turn_on
+          target:
+            entity_id: switch.adaptive_lighting_adapt_brightness_laundry
+        - service: adaptive_lighting.apply
+          data:
+            entity_id: switch.adaptive_lighting_laundry
+            turn_on_lights: true
+      button_3_press:
+        - service: light.turn_off
+          target:
+            entity_id: light.light_group_laundry
+        - service: switch.turn_on
+          target:
+            entity_id: switch.adaptive_lighting_adapt_brightness_laundry
+      brightness_step_down:
+        - service: switch.turn_off
+          target:
+            entity_id: switch.adaptive_lighting_adapt_brightness_laundry
+        - service: light.turn_on
+          data:
+            transition: 1
+            brightness_step_pct: -10
+          target:
+            entity_id: light.light_group_laundry
+      brightness_step_up:
+        - service: switch.turn_off
+          target:
+            entity_id: switch.adaptive_lighting_adapt_brightness_laundry
+        - service: light.turn_on
+          data:
+            transition: 1
+            brightness_step_pct: 10
+          target:
+            entity_id: light.light_group_laundry
 
 - alias: Switch Wall Laundry
   id: switch_wall_laundry
