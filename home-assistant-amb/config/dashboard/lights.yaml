@@ -140,6 +140,11 @@ views:
             heading_style: subtitle
             icon: mdi:sofa
           - type: tile
+            name: Spot
+            entity: light.light_group_ha_living_spot
+            features:
+              - type: light-brightness
+          - type: tile
             name: Spot Always
             entity: light.light_group_living_spot_always
             features:
@@ -196,6 +201,12 @@ views:
             heading_style: subtitle
             icon: mdi:bed
           - type: tile
+            name: All
+            entity: light.light_group_ha_bedroom_olivier
+            features_position: bottom
+            features:
+              - type: light-brightness
+          - type: tile
             name: Ambiance
             entity: light.light_group_bedroom_olivier_ambiance
             features_position: bottom
@@ -224,6 +235,12 @@ views:
             heading: Bedroom Duco
             heading_style: subtitle
             icon: mdi:bed
+          - type: tile
+            name: All
+            entity: light.light_group_ha_bedroom_duco
+            features_position: bottom
+            features:
+              - type: light-brightness
           - type: tile
             name: Ambiance
             entity: light.light_group_bedroom_duco_ambiance
