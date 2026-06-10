@@ -5,9 +5,6 @@
     input:
       controller: Switch Tap Dial Laundry
       button_1_press:
-        - service: switch.turn_on
-          target:
-            entity_id: switch.adaptive_lighting_adapt_brightness_laundry
         - service: adaptive_lighting.apply
           data:
             entity_id: switch.adaptive_lighting_laundry
@@ -16,9 +13,6 @@
         - service: light.turn_off
           target:
             entity_id: light.light_group_laundry
-        - service: switch.turn_on
-          target:
-            entity_id: switch.adaptive_lighting_adapt_brightness_laundry
       brightness_step_down:
         - service: light.turn_on
           data:
