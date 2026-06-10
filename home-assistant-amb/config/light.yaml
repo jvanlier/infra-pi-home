@@ -1,0 +1,22 @@
+# HA-side light groups that combine pairs of Zigbee2MQTT groups for a single
+# on/off toggle per room on the dashboard.
+#
+# Why not just merge these into one z2m group? Adaptive lighting is configured
+# per z2m group so each half can be controlled individually. Merging them in z2m
+# would break that per-group adaptive-lighting control. These HA groups sit on top
+# purely for combined on/off and leave the underlying z2m groups untouched.
+- platform: group
+  name: Light Group HA Living Spot
+  entities:
+    - light.light_group_living_spot_always
+    - light.light_group_living_spot_dark_outside
+- platform: group
+  name: Light Group HA Bedroom Duco
+  entities:
+    - light.light_group_bedroom_duco_ambiance
+    - light.light_group_bedroom_duco_color
+- platform: group
+  name: Light Group HA Bedroom Olivier
+  entities:
+    - light.light_group_bedroom_olivier_ambiance
+    - light.light_group_bedroom_olivier_color
