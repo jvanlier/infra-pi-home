@@ -131,6 +131,8 @@
   min_color_temp: 2500
   max_color_temp: 4000
   sleep_transition: 5
+  # Need to be able to see things here when sleep mode is activated:
+  sleep_brightness: 10
   interval: 233
 
 - name: "bedroom-duco-ambiance"
