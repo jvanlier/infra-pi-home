@@ -254,12 +254,8 @@ groups:
     friendly_name: Light Group Kitchen Middle
   '4':
     friendly_name: Light Group Kitchen Countertop
-  '5':
-    friendly_name: Light Group Laundry Ambiance
   '6':
     friendly_name: Light Group Bedroom Olivier Ambiance
-  '7':
-    friendly_name: Light Group Laundry Color
   '8':
     friendly_name: Light Group Living Spot Dark Outside
   '9':
