@@ -131,8 +131,6 @@ devices:
     friendly_name: Light Stair Cabinet
   '0x001788010ef1af8a':
     friendly_name: Light Laundry 4
-  '0x001788010eed58f2':
-    friendly_name: Light Laundry 1
   '0x001788010eef9259':
     friendly_name: Light Laundry 3
   '0x001788010eef928d':
@@ -141,8 +139,6 @@ devices:
     friendly_name: Light Bedroom Olivier 5
   '0x001788010eed6b09':
     friendly_name: Light Bedroom Olivier 1
-  '0x001788010ee80a35':
-    friendly_name: Light Bedroom Olivier 2
   '0x001788010eef9276':
     friendly_name: Light Bedroom Olivier 3
   '0x001788010e43e179':
@@ -241,10 +237,14 @@ devices:
     friendly_name: Light Central Heating 1
   '0x001788010fa7141d':
     friendly_name: Light Central Heating 3
-  '0x001788010fa7304a':
-    friendly_name: Light Bedroom Duco 2
   '0x001788010fb6593c':
     friendly_name: Light Laundry 2
+  '0x001788010fba450e':
+    friendly_name: Light Bedroom Duco 2
+  '0x001788010faa3c4f':
+    friendly_name: Light Bedroom Olivier 2
+  '0x001788010fa7304a':
+    friendly_name: Light Laundry 1
 groups:
   '1':
     friendly_name: Light Group Living Spot
