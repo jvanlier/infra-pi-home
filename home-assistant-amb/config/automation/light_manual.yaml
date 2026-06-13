@@ -7,6 +7,8 @@
     - platform: sun
       event: sunrise
   action:
+    - alias: "Wait until it is at least 08:00 to prevent turing off kids alarms"
+      wait_template: "{{ now().strftime('%H:%M:%S') >= '08:00:00' }}"
     - alias: "Wait until it is sufficiently light outside"
       wait_for_trigger:
         platform: state
@@ -19,7 +21,25 @@
         transition: 30
       target:
         entity_id:
+          # Individual lights:
           - light.light_bedroom_jc_bed_c
           - light.light_bedroom_jc_bed_j
+          # Zigbee groups from here on, sprinkle in some delays to not do too many broadcasts at the same time:
           - light.light_group_bedroom_olivier_ambiance
           - light.light_group_bedroom_olivier_color
+    - delay: "00:00:02"
+    - service: light.turn_off
+      data:
+        transition: 28
+      target:
+        entity_id:
+          - light.light_group_bedroom_duco_ambiance
+          - light.light_group_bedroom_duco_color
+    - delay: "00:00:02"
+    - service: light.turn_off
+      data:
+        transition: 26
+      target:
+        entity_id:
+          - light.light_group_laundry
+
