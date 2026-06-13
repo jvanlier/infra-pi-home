@@ -2,7 +2,7 @@ homeassistant:
   enabled: true
 mqtt:
   base_topic: zigbee2mqtt
-  server: mqtt://mqtt:1884
+  server: mqtt://mqtt:1883
 availability:
   enabled: true
 serial:

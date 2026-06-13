@@ -1,16 +1,4 @@
 services:
-  mqtt:
-    image: eclipse-mosquitto:2.0
-    restart: unless-stopped
-    volumes:
-      - "./mosquitto-data:/mosquitto"
-      - "./mosquitto-no-auth.conf:/mosquitto-no-auth.conf"
-    ports:
-      # 1883 is the default mqtt port, but it is in use by TeslaMate. Switch to 1884.
-      - "1884:1884"
-      - "9001:9001"
-    command: "mosquitto -c /mosquitto-no-auth.conf -p 1884"
-
   zigbee2mqtt:
     container_name: zigbee2mqtt
     restart: unless-stopped
@@ -28,3 +16,10 @@ services:
       - 8002:8080
     environment:
       - TZ=Europe/Amsterdam
+    networks:
+      - default
+      - mqtt
+
+networks:
+  mqtt:
+    external: true
