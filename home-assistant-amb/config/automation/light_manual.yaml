@@ -42,4 +42,3 @@
       target:
         entity_id:
           - light.light_group_laundry
-
