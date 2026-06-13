@@ -1,4 +1,4 @@
-# local-mqtt
+# mqtt
 
 Single shared MQTT broker for the trusted internal services: zigbee2mqtt, teslamate,
 Home Assistant, and frigate (future). All of these are co-located on the Pi and
@@ -9,17 +9,10 @@ communicate over a shared Docker bridge network or the host loopback — not the
 No single service owns the broker — it is shared infrastructure used by at least four
 services. Embedding it inside one service's compose file creates a false ownership
 dependency and causes the broker to be stopped/started as a side effect of that
-service's lifecycle. A dedicated `local-mqtt/` directory with its own compose project
+service's lifecycle. A dedicated `mqtt/` directory with its own compose project
 makes the dependency explicit and the lifecycle independent.
 
-## Why the name `local-mqtt`
-
-The name emphasises the key security property: this broker is loopback-only and is
-never reachable from the LAN, IoT devices, or the internet. The Docker service,
-network, and container are all named `mqtt` (the standard alias clients use), but the
-*directory* is `local-mqtt/` to make the scope obvious at a glance.
-
-## Security posture (Option A: loopback-bind, keep anonymous)
+## Security posture (loopback-bind, keep anonymous)
 
 The published port is bound to `127.0.0.1` only. This is deliberate and sufficient:
 
@@ -73,7 +66,7 @@ and re-add `- "127.0.0.1:9001:9001"` to the compose `ports`.
 The broker lives in its own compose project. Docker Compose `depends_on` only works
 within a single project, so zigbee2mqtt and teslamate cannot declare a hard startup
 dependency on this broker. This is fine: both services reconnect automatically on
-failure and carry `restart` policies. Bring `local-mqtt/` up first (see Deployment)
+failure and carry `restart` policies. Bring `mqtt/` up first (see Deployment)
 to avoid harmless startup error spam in the client logs.
 
 ## Port choice: 1883
@@ -91,14 +84,14 @@ enabling frigate's MQTT integration in the future will require no port change.
 
 2. **(Optional) Preserve retained messages** from the old z2m broker:
    ```
-   cp -a zigbee2mqtt-amb/mosquitto-data local-mqtt/mosquitto-data
+   cp -a zigbee2mqtt-amb/mosquitto-data mqtt/mosquitto-data
    ```
    If skipped, the broker starts fresh. zigbee2mqtt re-publishes HA discovery messages
    on connect, so devices repopulate automatically — acceptable either way.
 
 3. **Bring up the broker first:**
    ```
-   cd local-mqtt && docker compose up -d
+   cd mqtt && docker compose up -d
    ```
 
 4. **Bring up zigbee2mqtt-amb** (broker service removed; z2m now joins the shared net):
