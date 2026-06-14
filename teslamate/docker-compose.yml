@@ -10,7 +10,8 @@ services:
       - DATABASE_PASS=${TM_DB_PASS}
       - DATABASE_NAME=${TM_DB_NAME}
       - DATABASE_HOST=database
-      - MQTT_HOST=mosquitto
+      - MQTT_HOST=mqtt
+      - MQTT_PORT=1883
       - TZ=${TM_TZ}
     ports:
       - 4000:4000
@@ -18,6 +19,9 @@ services:
 #      - ./import:/opt/app/import
     cap_drop:
       - all
+    networks:
+      - default
+      - mqtt
 
   database:
     image: postgres:18-trixie
@@ -42,18 +46,10 @@ services:
     volumes:
       - teslamate-grafana-data:/var/lib/grafana
 
-  mosquitto:
-    image: eclipse-mosquitto:2
-    restart: always
-    command: mosquitto -c /mosquitto-no-auth.conf
-    ports:
-      - 127.0.0.1:1883:1883
-    volumes:
-      - mosquitto-conf:/mosquitto/config
-      - mosquitto-data:/mosquitto/data
-
 volumes:
   teslamate-db:
   teslamate-grafana-data:
-  mosquitto-conf:
-  mosquitto-data:
+
+networks:
+  mqtt:
+    external: true

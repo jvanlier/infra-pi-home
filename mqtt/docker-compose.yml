@@ -1,0 +1,20 @@
+services:
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    container_name: mqtt
+    restart: unless-stopped
+    volumes:
+      - ./mosquitto-data:/mosquitto
+      - ./mosquitto-no-auth.conf:/mosquitto-no-auth.conf
+    ports:
+      # Loopback-only: HA/frigate reach it via host localhost; z2m/teslamate
+      # use the shared `mqtt` Docker net, NOT the published port. Closes all
+      # LAN/IoT/internet exposure.
+      - "127.0.0.1:1883:1883"
+    command: "mosquitto -c /mosquitto-no-auth.conf -p 1883"
+    networks:
+      - mqtt
+
+networks:
+  mqtt:
+    external: true
