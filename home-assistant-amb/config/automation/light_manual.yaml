@@ -7,8 +7,6 @@
     - platform: sun
       event: sunrise
   action:
-    - alias: "Wait until it is at least 08:00 to prevent turing off kids alarms"
-      wait_template: "{{ now().strftime('%H:%M:%S') >= '08:00:00' }}"
     - alias: "Wait until it is sufficiently light outside"
       wait_for_trigger:
         platform: state
@@ -16,6 +14,8 @@
         to: "off"
       timeout:
         hours: 3
+    - alias: "Wait until it is at least 09:00 in case still sleeping / curtains closed"
+      wait_template: "{{ now().strftime('%H:%M:%S') >= '09:00:00' }}"
     - service: light.turn_off
       data:
         transition: 30
