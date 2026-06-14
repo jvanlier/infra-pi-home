@@ -25,8 +25,15 @@ print(
     f"&state={state}"
 )
 print()
-print("After signing in, the browser will show an error page for 'tesla://'.")
-print("Copy the full URL from the address bar (starts with 'tesla://') and paste it here:")
+print("After signing in, Tesla redirects to tesla://auth/callback?code=...")
+print("The browser can't open tesla:// links, so it will show 'Verified Successfully / Loading...' and hang.")
+print("To get the URL:")
+print("  1. Open DevTools (Cmd+Option+I) BEFORE clicking the link above")
+print("  2. Go to Network tab, enable 'Preserve log'")
+print("  3. Sign in — after 'Verified Successfully', look for a failed request starting with 'tesla://'")
+print("  4. Right-click it → Copy → Copy link address")
+print()
+print("Paste the full tesla://auth/callback?code=...&state=... URL here:")
 callback_url = input("URL: ").strip()
 
 parsed = urlparse(callback_url)
