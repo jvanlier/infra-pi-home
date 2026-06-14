@@ -1,0 +1,14 @@
+[
+  {
+    "username": "ha_reader",
+    "password": "<CHOOSE_A_STRONG_PASSWORD>"
+  },
+  {
+    "username": "USER_@<MAC1>",
+    "password": "<64_CHAR_PASSWORD_FROM_SOCAT_CAPTURE_FAN1>"
+  },
+  {
+    "username": "USER_@<MAC2>",
+    "password": "<64_CHAR_PASSWORD_FROM_SOCAT_CAPTURE_FAN2>"
+  }
+]
