@@ -1,10 +1,11 @@
 services:
   teslamate:
     # TEMPORARY: pinned to the PR #5406 CI build, not a stable release.
-    # v4.0.0 does NOT fix the Tesla Owner API 403 errors (issue #5399): Tesla began
-    # fingerprint-blocking third-party Owner API clients. Earlier workarounds (TLS 1.3
-    # only, PR #5390; custom User-Agent) all failed. PR #5406 enables HTTP/2 + TLS 1.3
-    # for the Tesla auth host to mimic an accepted client fingerprint.
+    # v4.0.0 does NOT fix the Tesla Owner API 403 errors (issue #5399): Tesla now
+    # requires HTTP/2 + TLS 1.3 on the Owner API auth host, and the older HTTP client
+    # (HTTP/1.1 / TLS 1.2) is rejected even with a valid token. Earlier workarounds
+    # (TLS 1.3 only, PR #5390; custom User-Agent) all failed. PR #5406 enables
+    # HTTP/2 + TLS 1.3 for the Tesla auth host, which resolves it.
     # Revert to a stable tagged release (teslamate/teslamate:<version>) once a fix ships.
     image: ghcr.io/teslamate-org/teslamate:pr-5406
     restart: always
