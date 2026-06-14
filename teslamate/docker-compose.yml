@@ -1,6 +1,6 @@
 services:
   teslamate:
-    image: teslamate/teslamate:2.2.0
+    image: teslamate/teslamate:4.0.0
     restart: always
     depends_on:
       - database
@@ -34,7 +34,7 @@ services:
       - teslamate-db:/var/lib/postgresql
 
   grafana:
-    image: teslamate/grafana:2.2.0
+    image: teslamate/grafana:4.0.0
     restart: always
     environment:
       - DATABASE_USER=${TM_DB_USER}
