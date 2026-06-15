@@ -39,7 +39,7 @@ The cert CN/SAN must match `collector3.cloudgarden.nl` — the fan firmware veri
 
 ### 2. Capture fan credentials (socat MITM)
 
-The fans embed a firmware username (`USER_@<MAC>`) and a 64-character password. To get them, intercept the first TLS connection.
+The fans use their **MAC address** (lowercase, colon-separated, e.g. `aa:bb:cc:dd:ee:ff`) as the MQTT username, and a 64-character password. To get them, intercept the first TLS connection.
 
 Do this **per fan**, **before** bringing EMQX up:
 
@@ -59,18 +59,28 @@ Then:
 
 Example capture output (excerpt):
 ```
-...CONNECT...USER_@aabbccddeeff...64characterpasswordhere...
+...CONNECT...aa:bb:cc:dd:ee:ff...64characterpasswordhere...
 ```
+The topic prefix in the published messages (`sensor/<mac>/...`) confirms the username/device id.
 
 ### 3. Fill in credentials
 
 ```bash
 cp auth-bootstrap.json.example auth-bootstrap.json
-# Edit auth-bootstrap.json: replace ha_reader password, and both USER_@<MAC> entries
-# Edit acl.conf: replace USER_@<MAC1> and USER_@<MAC2> with the real usernames
+# Edit auth-bootstrap.json: set ha_reader password, and one entry per fan MAC
+# Edit acl.conf: replace the <MAC> placeholders with the real fan MAC(s)
 ```
 
+`auth-bootstrap.json` uses EMQX's bootstrap format — the key is **`user_id`** (not `username`),
+and `bootstrap_type = plain` (set in `emqx.conf`) means passwords are stored as written.
+
 Also choose a strong password for `ha_reader` — this is what you'll enter in the HA integration config flow.
+
+> **Important:** the bootstrap file is only read on the **first** start of a fresh data
+> volume. If EMQX already ran once, the built-in DB is non-empty and the file is ignored.
+> To re-bootstrap: `docker compose down -v && docker compose up -d` (the `-v` wipes the
+> EMQX data volume). Alternatively add users live via the dashboard
+> (**Access Control → Authentication → Built-in Database → User Management → + Add**).
 
 ### 4. UniFi DNS rewrite
 
