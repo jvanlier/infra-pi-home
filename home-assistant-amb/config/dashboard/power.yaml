@@ -137,3 +137,12 @@ views:
               - entity: sensor.washing_machine_state
                 name: WM
             hours_to_show: 12
+          - type: tile
+            entity: sensor.climate_fridge_temperature
+            icon: mdi:fridge
+          - type: history-graph
+            title: "Fridge temperature (12h)"
+            entities:
+              - entity: sensor.climate_fridge_temperature
+                name: Fridge
+            hours_to_show: 12
