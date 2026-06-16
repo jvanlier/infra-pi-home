@@ -2,7 +2,7 @@
   id: fan-study-on
   trigger:
     - platform: state
-      entity_id: binary_sensor.workstation_in_use
+      entity_id: binary_sensor.workstation_in_use_immediate
       to: "on"
   variables:
     target_pct: >
