@@ -132,8 +132,12 @@ In HA: **Settings → Devices & Services → Add Integration → "Duux Fan Local
 | Username | `ha` |
 | Password | `<ha password from auth-bootstrap.json>` |
 | Model | Whisper Flex 2 |
-| Name | e.g. `Fan Office` / `Fan Bedroom` |
-| Device ID | Fan's MAC address, **lowercased**, e.g. `aabbccddeeff` |
+| Name | e.g. `Bedroom JC` / `Study` |
+| Device ID | Fan's MAC address, lowercase **colon-separated**, e.g. `aa:bb:cc:dd:ee:ff` |
+
+The Device ID must match the MAC in the fan's MQTT topic (`sensor/<mac>/in`) exactly —
+colons included. Using a colonless form subscribes to the wrong topic and the entity
+never updates.
 
 Repeat for the second fan with its own name and MAC.
 
