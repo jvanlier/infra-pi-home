@@ -1,9 +1,9 @@
-- alias: Fridge temp above 11 degrees
+- alias: Fridge temp above 8 degrees
   id: fridge-temp-above-11
   trigger:
     - platform: numeric_state
       entity_id: sensor.climate_fridge_temperature
-      above: 11
+      above: 8
   action:
     - service: notify.notify
       data:
