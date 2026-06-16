@@ -1,0 +1,14 @@
+[
+  {
+    "user_id": "ha",
+    "password": "<CHOOSE_A_STRONG_PASSWORD>"
+  },
+  {
+    "user_id": "<FAN1_MAC>",
+    "password": "<64_CHAR_PASSWORD_FROM_SOCAT_CAPTURE_FAN1>"
+  },
+  {
+    "user_id": "<FAN2_MAC>",
+    "password": "<64_CHAR_PASSWORD_FROM_SOCAT_CAPTURE_FAN2>"
+  }
+]

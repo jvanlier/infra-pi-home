@@ -11,6 +11,7 @@ This repository contains Docker-based services for a Raspberry Pi smart home set
 - **zigbee2mqtt-amb**: Zigbee device integration via MQTT
 - **teslamate**: Tesla vehicle tracking
 - **samba**: File sharing
+- **duux-emqx**: Dedicated EMQX broker for Duux fan local control (LAN-exposed TLS on port 443)
 
 ## Common Commands
 
@@ -24,8 +25,9 @@ just build              # Build Docker image with custom components
 just test               # Validate Home Assistant configuration (requires Docker)
 ```
 
-The build process creates a custom Docker image based on `ghcr.io/home-assistant/home-assistant:2026.5.2` with one baked-in custom component:
+The build process creates a custom Docker image based on `ghcr.io/home-assistant/home-assistant:2026.5.2` with baked-in custom components:
 - **adaptive-lighting**: Dynamic light color/brightness adjustment
+- **duux_fan_local**: Local control of Duux fans via the `duux-emqx/` broker
 
 ### Pre-commit Hooks
 

@@ -14,3 +14,11 @@ RUN cd /tmp \
 	&& unzip adaptive-lighting.zip \
 	&& mv adaptive-lighting-${ADAPTIVE_LIGHTING_VERSION}/custom_components/adaptive_lighting ${CUSTOM_COMPONENTS_DIR} \
 	&& rm -rf /tmp/*
+
+# Add Duux Fan Local (local control of Duux fans via MQTT-TLS broker hijack)
+ARG DUUX_FAN_LOCAL_VERSION=2.0.1
+RUN cd /tmp \
+    && wget -O duux-fan-local.zip https://github.com/LouisR-git/duux-fan-local/archive/refs/tags/${DUUX_FAN_LOCAL_VERSION}.zip \
+    && unzip duux-fan-local.zip \
+    && mv duux-fan-local-${DUUX_FAN_LOCAL_VERSION}/custom_components/duux_fan_local ${CUSTOM_COMPONENTS_DIR} \
+    && rm -rf /tmp/*

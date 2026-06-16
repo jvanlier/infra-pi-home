@@ -1,0 +1,19 @@
+services:
+  duux-emqx:
+    image: emqx/emqx:5.10.4
+    container_name: duux-emqx
+    restart: unless-stopped
+    ports:
+      # LAN MQTT-TLS: fans connect here (DNS-hijacked from collector3.cloudgarden.nl:443)
+      - "443:8883"
+      # EMQX dashboard: loopback-only, access via SSH tunnel
+      - "127.0.0.1:18083:18083"
+    volumes:
+      - ./certs:/opt/emqx/certs:ro
+      - ./emqx.conf:/opt/emqx/etc/emqx.conf:ro
+      - ./acl.conf:/opt/emqx/etc/acl.conf:ro
+      - ./auth-bootstrap.json:/opt/emqx/etc/auth-bootstrap.json:ro
+      - duux-emqx-data:/opt/emqx/data
+
+volumes:
+  duux-emqx-data:
