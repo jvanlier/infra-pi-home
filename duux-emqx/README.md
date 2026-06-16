@@ -67,14 +67,14 @@ The topic prefix in the published messages (`sensor/<mac>/...`) confirms the use
 
 ```bash
 cp auth-bootstrap.json.example auth-bootstrap.json
-# Edit auth-bootstrap.json: set ha_reader password, and one entry per fan MAC
+# Edit auth-bootstrap.json: set ha password, and one entry per fan MAC
 # Edit acl.conf: replace the <MAC> placeholders with the real fan MAC(s)
 ```
 
 `auth-bootstrap.json` uses EMQX's bootstrap format — the key is **`user_id`** (not `username`),
 and `bootstrap_type = plain` (set in `emqx.conf`) means passwords are stored as written.
 
-Also choose a strong password for `ha_reader` — this is what you'll enter in the HA integration config flow.
+Also choose a strong password for `ha` — this is what you'll enter in the HA integration config flow.
 
 > **Important:** the bootstrap file is only read on the **first** start of a fresh data
 > volume. If EMQX already ran once, the built-in DB is non-empty and the file is ignored.
@@ -129,8 +129,8 @@ In HA: **Settings → Devices & Services → Add Integration → "Duux Fan Local
 |---|---|
 | MQTT Host | `collector3.cloudgarden.nl` |
 | MQTT Port | `443` |
-| Username | `ha_reader` |
-| Password | `<ha_reader password from auth-bootstrap.json>` |
+| Username | `ha` |
+| Password | `<ha password from auth-bootstrap.json>` |
 | Model | Whisper Flex 2 |
 | Name | e.g. `Fan Office` / `Fan Bedroom` |
 | Device ID | Fan's MAC address, **lowercased**, e.g. `aabbccddeeff` |
