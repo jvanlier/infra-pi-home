@@ -78,16 +78,24 @@ views:
             heading: Fans
             heading_style: title
             icon: mdi:fan
+          - type: markdown
+            content: |
+              | | Study | Bedroom JC |
+              |---|---|---|
+              | **On** | Workstation in use (plug > 60 W) | 21:00, if someone home |
+              | **Off** | Workstation idle | 09:00 |
+              | **Night mode** | — | 22:00 (quieter) |
+              | **< 22°C** | off | off |
+              | **≥ 22°C** | 8% | 33% |
+              | **≥ 24°C** | 15% | 50% |
+              | **≥ 26°C** | 30% | 75% |
+              | **≥ 28°C** | 50% | 100% |
+            grid_options:
+              columns: full
           - type: heading
             heading: Study
             heading_style: subtitle
             icon: mdi:chair-rolling
-          - type: markdown
-            content: >
-              Auto-on when workstation is in use (plug > 60 W). Speed by room temperature:
-              22°C→8%, 24°C→15%, 26°C→30%, 28°C→50%. Auto-off when workstation idle.
-            grid_options:
-              columns: full
           - type: tile
             entity: fan.fan_study
             features:
@@ -108,13 +116,6 @@ views:
             heading: Bedroom JC
             heading_style: subtitle
             icon: mdi:bed
-          - type: markdown
-            content: >
-              Auto-on at 21:00 if someone is home. Speed by room temperature:
-              22°C→33%, 24°C→50%, 26°C→75%, 28°C→100%. Night mode on at 22:00 (quieter).
-              Auto-off at 09:00.
-            grid_options:
-              columns: full
           - type: tile
             entity: fan.fan_bedroom_jc
             features:
