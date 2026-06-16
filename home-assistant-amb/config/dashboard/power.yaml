@@ -128,6 +128,9 @@ views:
     sections:
       - type: grid
         cards:
+          - type: heading
+            heading: Washing machine
+            heading_style: title
           - type: tile
             entity: sensor.washing_machine_state
             icon: mdi:washing-machine
@@ -136,4 +139,21 @@ views:
             entities:
               - entity: sensor.washing_machine_state
                 name: WM
+            hours_to_show: 12
+          - type: heading
+            heading: Fridge
+            heading_style: title
+          - type: tile
+            entity: binary_sensor.fridge_temperature_ok
+            state_color: true
+          - type: tile
+            entity: sensor.climate_fridge_temperature
+            icon: mdi:fridge
+          - type: history-graph
+            title: "Fridge temperature (12h)"
+            entities:
+              - entity: sensor.climate_fridge_temperature
+                name: Fridge
+              - entity: input_number.fridge_temperature_threshold
+                name: Thr.
             hours_to_show: 12
