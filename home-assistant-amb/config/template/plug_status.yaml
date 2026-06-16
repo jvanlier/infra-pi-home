@@ -9,6 +9,14 @@
       delay_off:
         minutes: 1
 
+    - unique_id: workstation_in_use_immediate
+      device_class: occupancy
+      name: "Workstation in use immediate"
+      state: >
+        {{ states("sensor.plug_workstation_power") | float(0) > 60 }}
+      delay_off:
+        minutes: 1
+
     - unique_id: entertainment_in_use
       device_class: occupancy
       name: "Entertainment in use"
