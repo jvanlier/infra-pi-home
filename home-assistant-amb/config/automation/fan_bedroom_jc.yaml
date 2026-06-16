@@ -1,0 +1,62 @@
+- alias: Fan bedroom jc on
+  id: fan-bedroom-jc-on
+  trigger:
+    - platform: time
+      at: &turn_on_time "21:00:00"
+  variables:
+    target_pct: >
+      {% set t = states('sensor.climate_bedroom_jc_temperature') | float(0) %}
+      {% if t >= 28 %}100
+      {% elif t >= 26 %}75
+      {% elif t >= 24 %}50
+      {% elif t >= 22 %}33
+      {% else %}0{% endif %}
+  condition:
+    - condition: state
+      entity_id: binary_sensor.presence_house
+      state: "on"
+    - condition: state
+      entity_id: fan.fan_bedroom_jc
+      state: "off"
+    - condition: template
+      value_template: "{{ target_pct | int > 0 }}"
+  action:
+    - action: fan.set_percentage
+      data:
+        percentage: "{{ target_pct }}"
+      target:
+        entity_id: fan.fan_bedroom_jc
+    - action: switch.turn_off
+      target:
+        entity_id: switch.fan_bedroom_jc_night_mode
+  mode: restart
+
+- alias: Fan bedroom jc night mode on
+  id: fan-bedroom-jc-night-mode-on
+  trigger:
+    - platform: time
+      at: "22:00:00"
+  condition:
+    - condition: state
+      entity_id: fan.fan_bedroom_jc
+      state: "on"
+  action:
+    - action: switch.turn_on
+      target:
+        entity_id: switch.fan_bedroom_jc_night_mode
+  mode: restart
+
+- alias: Fan bedroom jc off
+  id: fan-bedroom-jc-off
+  trigger:
+    - platform: time
+      at: "09:00:00"
+  condition:
+    - condition: state
+      entity_id: fan.fan_bedroom_jc
+      state: "on"
+  action:
+    - action: fan.turn_off
+      target:
+        entity_id: fan.fan_bedroom_jc
+  mode: restart
