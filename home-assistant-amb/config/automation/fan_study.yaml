@@ -1,0 +1,33 @@
+- alias: Fan study on
+  id: fan-study-on
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.workstation_in_use
+      to: "on"
+  variables:
+    target_pct: >
+      {% set t = states('sensor.climate_study_temperature') | float(0) %}
+      {% if t >= 28 %}100
+      {% elif t >= 26 %}75
+      {% elif t >= 24 %}50
+      {% elif t >= 22 %}25
+      {% else %}0{% endif %}
+  action:
+    - action: fan.set_percentage
+      data:
+        percentage: "{{ target_pct }}"
+      target:
+        entity_id: fan.fan_study
+  mode: restart
+
+- alias: Fan study off
+  id: fan-study-off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.workstation_in_use
+      to: "off"
+  action:
+    - action: fan.turn_off
+      target:
+        entity_id: fan.fan_study
+  mode: restart
