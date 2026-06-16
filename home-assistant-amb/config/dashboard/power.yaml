@@ -145,6 +145,7 @@ views:
             heading_style: title
           - type: tile
             entity: binary_sensor.fridge_temperature_ok
+            state_color: true
           - type: tile
             entity: sensor.climate_fridge_temperature
             icon: mdi:fridge

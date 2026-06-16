@@ -1,9 +1,9 @@
 - binary_sensor:
     - name: Fridge Temperature OK
       unique_id: fridge_temperature_ok
-      device_class: problem
+      device_class: safety
       icon: mdi:fridge
       state: >
-        {{ states('sensor.climate_fridge_temperature') | float(0) >
+        {{ states('sensor.climate_fridge_temperature') | float(0) <=
            states('input_number.fridge_temperature_threshold') | float(8)
         }}
