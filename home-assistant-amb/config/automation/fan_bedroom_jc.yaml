@@ -1,4 +1,4 @@
-- alias: Fan Bedroom JC On
+- alias: Fan Bedroom JC on
   id: fan-bedroom-jc-on
   trigger:
     - platform: time
@@ -30,7 +30,7 @@
     # if someone is sleeping in.
   mode: restart
 
-- alias: Fan Bedroom JC Night Mode On
+- alias: Fan Bedroom JC night mode on
   id: fan-bedroom-jc-night-mode-on
   trigger:
     - platform: time
@@ -45,7 +45,7 @@
         entity_id: switch.fan_bedroom_jc_night_mode
   mode: restart
 
-- alias: Fan Bedroom JC Off
+- alias: Fan Bedroom JC off
   id: fan-bedroom-jc-off
   trigger:
     - platform: time
