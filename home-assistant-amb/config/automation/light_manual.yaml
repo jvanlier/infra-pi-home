@@ -16,29 +16,58 @@
         hours: 3
     - alias: "Wait until it is at least 09:00 in case still sleeping / curtains closed"
       wait_template: "{{ now().strftime('%H:%M:%S') >= '09:00:00' }}"
-    - service: light.turn_off
-      data:
-        transition: 30
-      target:
-        entity_id:
-          # Individual lights:
-          - light.light_bedroom_jc_bed_c
-          - light.light_bedroom_jc_bed_j
-          # Zigbee groups from here on, sprinkle in some delays to not do too many broadcasts at the same time:
-          - light.light_group_bedroom_olivier_ambiance
-          - light.light_group_bedroom_olivier_color
-    - delay: "00:00:02"
-    - service: light.turn_off
-      data:
-        transition: 28
-      target:
-        entity_id:
-          - light.light_group_bedroom_duco_ambiance
-          - light.light_group_bedroom_duco_color
-    - delay: "00:00:02"
-    - service: light.turn_off
-      data:
-        transition: 26
-      target:
-        entity_id:
-          - light.light_group_laundry
+    # Staggered turn-off shared (via the &manual_lights_off anchor) with the
+    # "house empties" automation below, so the two never drift apart. Staggering
+    # + small delays avoid firing too many Zigbee group broadcasts at once.
+    - sequence: &manual_lights_off
+        - service: light.turn_off
+          data:
+            transition: 30
+          target:
+            entity_id:
+              # Individual lights:
+              - light.light_bedroom_jc_bed_c
+              - light.light_bedroom_jc_bed_j
+              # Zigbee groups from here on, sprinkle in some delays to not do too many broadcasts at the same time:
+              - light.light_group_bedroom_olivier_ambiance
+              - light.light_group_bedroom_olivier_color
+        - delay: "00:00:02"
+        - service: light.turn_off
+          data:
+            transition: 28
+          target:
+            entity_id:
+              - light.light_group_bedroom_duco_ambiance
+              - light.light_group_bedroom_duco_color
+        - delay: "00:00:02"
+        - service: light.turn_off
+          data:
+            transition: 26
+          target:
+            entity_id:
+              - light.light_group_laundry
+
+- alias: Turn off manual lights when house empties (daytime)
+  id: turn-off-manual-lights-when-house-empty-daytime
+  # Companion to "Turn off manual lights in the morning" above. That one fires at
+  # sunrise; this one catches the house becoming empty *during* the day with manual
+  # lights left on. Window is deliberately narrow:
+  #   - after 09:00  -> earlier is already handled by the sunrise automation.
+  #   - before 15:00 -> there are NO presence sensors in the bedrooms and (for now)
+  #                     nothing on the first floor, so an evening/night false "empty"
+  #                     reading could kill lights while putting kids to bed or while
+  #                     we're in bed ourselves. Also, in winter it's dark by late
+  #                     afternoon, so 15:00 keeps us clear of leaving anyone in the dark.
+  # Note: presence_house has no delay_off of its own, but its inputs do
+  # (ground 20m / first 15m / second 5m), so this fires a few minutes after the
+  # house actually empties — not instantly.
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.presence_house
+      to: "off"
+  condition:
+    - condition: time
+      after: "09:00:00"
+      before: "15:00:00"
+  # Entire action is the shared staggered turn-off, pulled in via the anchor.
+  action: *manual_lights_off
