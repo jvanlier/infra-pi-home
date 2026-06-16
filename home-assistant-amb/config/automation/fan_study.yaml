@@ -9,7 +9,7 @@
       {% set t = states('sensor.climate_study_temperature') | float(0) %}
       {% if t >= 28 %}100
       {% elif t >= 26 %}75
-      {% elif t >= 24 %}50
+      {% elif t >= 24 %}30
       {% elif t >= 22 %}25
       {% else %}0{% endif %}
   action:
