@@ -144,6 +144,8 @@ views:
             heading: Fridge
             heading_style: title
           - type: tile
+            entity: binary_sensor.fridge_temperature_ok
+          - type: tile
             entity: sensor.climate_fridge_temperature
             icon: mdi:fridge
           - type: history-graph
