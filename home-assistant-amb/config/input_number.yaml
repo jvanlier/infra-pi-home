@@ -15,6 +15,15 @@ illuminance_threshold_outdoor_lights:
   step: 50
   unit_of_measurement: "lx"
 
+fridge_temperature_threshold:
+  name: Fridge Temperature Threshold
+  initial: 8
+  min: 5
+  max: 15
+  step: 0.5
+  unit_of_measurement: "°C"
+  icon: "mdi:fridge-alert"
+
 wake_up_light_kids_minutes_until_green:
   name: Wake Up Light Kids Minutes Until Green
   initial: 10

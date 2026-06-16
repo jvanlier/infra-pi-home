@@ -151,4 +151,6 @@ views:
             entities:
               - entity: sensor.climate_fridge_temperature
                 name: Fridge
+              - entity: input_number.fridge_temperature_threshold
+                name: Thr.
             hours_to_show: 12
