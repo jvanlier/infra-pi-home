@@ -84,7 +84,7 @@ views:
               |---|---|---|
               | **On** | Workstation in use (plug > 60 W) | 21:00, if someone home |
               | **Off** | Workstation idle | 09:00 |
-              | **Night mode** | — | 22:00 (quieter) |
+              | **Night mode** | — | 22:00 |
               | **< 22°C** | off | off |
               | **≥ 22°C** | 8% | 33% |
               | **≥ 24°C** | 15% | 50% |
