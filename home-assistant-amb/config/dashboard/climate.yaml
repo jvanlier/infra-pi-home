@@ -78,20 +78,6 @@ views:
             heading: Fans
             heading_style: title
             icon: mdi:fan
-          - type: markdown
-            content: |
-              | | Study | Bedroom JC |
-              |---|---|---|
-              | **On** | Workstation in use (plug > 60 W) | 21:00, if someone home |
-              | **Off** | Workstation idle | 09:00 |
-              | **Night mode** | — | 22:00 |
-              | **< 22°C** | off | off |
-              | **≥ 22°C** | 8% | 33% |
-              | **≥ 24°C** | 15% | 50% |
-              | **≥ 26°C** | 30% | 75% |
-              | **≥ 28°C** | 50% | 100% |
-            grid_options:
-              columns: full
           - type: heading
             heading: Study
             heading_style: subtitle
@@ -132,6 +118,24 @@ views:
             icon: mdi:lock
             tap_action:
               action: toggle
+          - type: heading
+            heading: Settings
+            heading_style: subtitle
+            icon: mdi:cog
+          - type: markdown
+            content: |
+              | | Study | Bedroom JC |
+              |---|---|---|
+              | **On** | Workstation in use (plug > 60 W) | 21:00, if someone home |
+              | **Off** | Workstation idle | 09:00 |
+              | **Night mode** | — | 22:00 |
+              | **< 22°C** | off | off |
+              | **≥ 22°C** | 8% | 33% |
+              | **≥ 24°C** | 15% | 50% |
+              | **≥ 26°C** | 30% | 75% |
+              | **≥ 28°C** | 50% | 100% |
+            grid_options:
+              columns: full
 
   - title: Measurements
     path: measurements
