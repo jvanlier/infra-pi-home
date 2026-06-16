@@ -50,6 +50,89 @@ views:
               - entity: sensor.bedroom_jc_heating
             hours_to_show: 24
 
+  - title: Fans
+    path: fans
+    icon: mdi:fan
+    type: sections
+    badges:
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_study_temperature
+        name: Study
+        icon: mdi:chair-rolling
+        color: teal
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_bedroom_jc_temperature
+        name: Bedroom JC
+        icon: mdi:bed
+        color: red
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Fans
+            heading_style: title
+            icon: mdi:fan
+          - type: markdown
+            content: |
+              | | Study | Bedroom JC |
+              |---|---|---|
+              | **On** | Workstation in use (plug > 60 W) | 21:00, if someone home |
+              | **Off** | Workstation idle | 09:00 |
+              | **Night mode** | — | 22:00 |
+              | **< 22°C** | off | off |
+              | **≥ 22°C** | 8% | 33% |
+              | **≥ 24°C** | 15% | 50% |
+              | **≥ 26°C** | 30% | 75% |
+              | **≥ 28°C** | 50% | 100% |
+            grid_options:
+              columns: full
+          - type: heading
+            heading: Study
+            heading_style: subtitle
+            icon: mdi:chair-rolling
+          - type: tile
+            entity: fan.fan_study
+            features:
+              - type: fan-speed
+          - type: tile
+            entity: switch.fan_study_night_mode
+            name: Night Mode
+            icon: mdi:weather-night
+            tap_action:
+              action: toggle
+          - type: tile
+            entity: switch.fan_study_child_lock
+            name: Child Lock
+            icon: mdi:lock
+            tap_action:
+              action: toggle
+          - type: heading
+            heading: Bedroom JC
+            heading_style: subtitle
+            icon: mdi:bed
+          - type: tile
+            entity: fan.fan_bedroom_jc
+            features:
+              - type: fan-speed
+          - type: tile
+            entity: switch.fan_bedroom_jc_night_mode
+            name: Night Mode
+            icon: mdi:weather-night
+            tap_action:
+              action: toggle
+          - type: tile
+            entity: switch.fan_bedroom_jc_child_lock
+            name: Child Lock
+            icon: mdi:lock
+            tap_action:
+              action: toggle
+
   - title: Measurements
     path: measurements
     icon: mdi:chart-areaspline

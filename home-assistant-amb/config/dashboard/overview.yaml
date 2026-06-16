@@ -209,6 +209,21 @@ views:
             features:
               - type: target-temperature
           - type: heading
+            heading: Fans
+            heading_style: subtitle
+            icon: mdi:fan
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-climate/fans
+          - type: tile
+            entity: fan.fan_study
+            features:
+              - type: fan-speed
+          - type: tile
+            entity: fan.fan_bedroom_jc
+            features:
+              - type: fan-speed
+          - type: heading
             heading_style: subtitle
             heading: Measurements
             icon: mdi:chart-areaspline
