@@ -54,6 +54,7 @@ views:
     path: fans
     icon: mdi:fan
     type: sections
+    max_columns: 2
     badges:
       - type: entity
         show_name: true
@@ -118,9 +119,11 @@ views:
             icon: mdi:lock
             tap_action:
               action: toggle
+      - type: grid
+        cards:
           - type: heading
             heading: Settings
-            heading_style: subtitle
+            heading_style: title
             icon: mdi:cog
           - type: markdown
             content: |
