@@ -184,7 +184,7 @@ views:
               margin:
                 t: 16
                 r: 16
-                b: 48
+                b: 64
                 l: 56
               xaxis:
                 title: "Temperature (°C)"
@@ -201,13 +201,13 @@ views:
                 line:
                   color: "#009688"
                 x: $ex (() => { const s=Number(hass.states['input_number.fan_study_start_temp'].state), e=Number(hass.states['input_number.fan_study_end_temp'].state); const xs=[]; for(let t=18;t<=32.0001;t+=0.5)xs.push(t); return xs; })()
-                y: $ex (() => { const s=Number(hass.states['input_number.fan_study_start_temp'].state), e=Number(hass.states['input_number.fan_study_end_temp'].state), p=Number(hass.states['input_number.fan_study_end_pct'].state); const ys=[]; for(let t=18;t<=32.0001;t+=0.5){let y; if(t<s||e<=s)y=0; else if(t>=e)y=p; else y=1+(p-1)*(t-s)/(e-s); ys.push(Math.round(y));} return ys; })()
+                y: $ex (() => { const s=Number(hass.states['input_number.fan_study_start_temp'].state), e=Number(hass.states['input_number.fan_study_end_temp'].state), p=Number(hass.states['input_number.fan_study_end_pct'].state); const ys=[]; for(let t=18;t<=32.0001;t+=0.5){let y; if(t<s||e<=s)y=0; else if(t>=e)y=p; else y=1+(p-1)*(t-s)/(e-s); ys.push(Math.round(y*10)/10);} return ys; })()
               - entity: ""
                 name: Bedroom JC
                 line:
                   color: "#f44336"
                 x: $ex (() => { const s=Number(hass.states['input_number.fan_bedroom_jc_start_temp'].state), e=Number(hass.states['input_number.fan_bedroom_jc_end_temp'].state); const xs=[]; for(let t=18;t<=32.0001;t+=0.5)xs.push(t); return xs; })()
-                y: $ex (() => { const s=Number(hass.states['input_number.fan_bedroom_jc_start_temp'].state), e=Number(hass.states['input_number.fan_bedroom_jc_end_temp'].state), p=Number(hass.states['input_number.fan_bedroom_jc_end_pct'].state); const ys=[]; for(let t=18;t<=32.0001;t+=0.5){let y; if(t<s||e<=s)y=0; else if(t>=e)y=p; else y=1+(p-1)*(t-s)/(e-s); ys.push(Math.round(y));} return ys; })()
+                y: $ex (() => { const s=Number(hass.states['input_number.fan_bedroom_jc_start_temp'].state), e=Number(hass.states['input_number.fan_bedroom_jc_end_temp'].state), p=Number(hass.states['input_number.fan_bedroom_jc_end_pct'].state); const ys=[]; for(let t=18;t<=32.0001;t+=0.5){let y; if(t<s||e<=s)y=0; else if(t>=e)y=p; else y=1+(p-1)*(t-s)/(e-s); ys.push(Math.round(y*10)/10);} return ys; })()
 
   - title: Measurements
     path: measurements
