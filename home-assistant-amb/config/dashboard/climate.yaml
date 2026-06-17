@@ -99,6 +99,13 @@ views:
             icon: mdi:lock
             tap_action:
               action: toggle
+          - type: tile
+            entity: script.fan_study_turn_on
+            name: Turn On at Calculated Speed
+            icon: mdi:fan-auto
+            tap_action:
+              action: call-service
+              service: script.fan_study_turn_on
           - type: heading
             heading: Bedroom JC
             heading_style: subtitle
@@ -119,6 +126,13 @@ views:
             icon: mdi:lock
             tap_action:
               action: toggle
+          - type: tile
+            entity: script.fan_bedroom_jc_turn_on
+            name: Turn On at Calculated Speed
+            icon: mdi:fan-auto
+            tap_action:
+              action: call-service
+              service: script.fan_bedroom_jc_turn_on
       - type: grid
         cards:
           - type: heading

@@ -61,6 +61,50 @@ wake_up_light_kids_set_green:
         brightness_pct: 10
         transition: 1
 
+fan_study_turn_on:
+  alias: "Fan Study: Turn on at calculated speed"
+  sequence:
+    - variables:
+        target_pct: >
+          {% set t = states('sensor.climate_study_temperature') | float(0) %}
+          {% set s = states('input_number.fan_study_start_temp') | float(20) %}
+          {% set e = states('input_number.fan_study_end_temp') | float(28) %}
+          {% set p = states('input_number.fan_study_end_pct') | float(50) %}
+          {% if t < s or e <= s %}0
+          {% elif t >= e %}{{ p | int }}
+          {% else %}{{ (1 + (p - 1) * (t - s) / (e - s)) | round(0) | int }}{% endif %}
+    - if:
+        - condition: template
+          value_template: "{{ target_pct | int > 0 }}"
+      then:
+        - action: fan.set_percentage
+          data:
+            percentage: "{{ target_pct }}"
+          target:
+            entity_id: fan.fan_study
+
+fan_bedroom_jc_turn_on:
+  alias: "Fan Bedroom JC: Turn on at calculated speed"
+  sequence:
+    - variables:
+        target_pct: >
+          {% set t = states('sensor.climate_bedroom_jc_temperature') | float(0) %}
+          {% set s = states('input_number.fan_bedroom_jc_start_temp') | float(20) %}
+          {% set e = states('input_number.fan_bedroom_jc_end_temp') | float(28) %}
+          {% set p = states('input_number.fan_bedroom_jc_end_pct') | float(100) %}
+          {% if t < s or e <= s %}0
+          {% elif t >= e %}{{ p | int }}
+          {% else %}{{ (1 + (p - 1) * (t - s) / (e - s)) | round(0) | int }}{% endif %}
+    - if:
+        - condition: template
+          value_template: "{{ target_pct | int > 0 }}"
+      then:
+        - action: fan.set_percentage
+          data:
+            percentage: "{{ target_pct }}"
+          target:
+            entity_id: fan.fan_bedroom_jc
+
 wake_up_light_kids_stop_cycle:
   alias: "Wake up light kids: Stop cycle"
   sequence:
