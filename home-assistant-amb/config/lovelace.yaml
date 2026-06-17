@@ -1,5 +1,8 @@
 # https://www.home-assistant.io/dashboards/dashboards/#adding-more-dashboards-with-yaml
 resource_mode: yaml
+resources:
+  - url: /local/apexcharts-card.js
+    type: module
 dashboards:
   dashboard-overview:
     mode: yaml

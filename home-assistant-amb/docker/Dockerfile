@@ -22,3 +22,9 @@ RUN cd /tmp \
     && unzip duux-fan-local.zip \
     && mv duux-fan-local-${DUUX_FAN_LOCAL_VERSION}/custom_components/duux_fan_local ${CUSTOM_COMPONENTS_DIR} \
     && rm -rf /tmp/*
+
+# Add apexcharts-card (Lovelace custom card for fan speed curve graph)
+ARG APEXCHARTS_CARD_VERSION=v2.1.2
+RUN mkdir -p /www \
+    && wget -O /www/apexcharts-card.js \
+       https://github.com/RomRider/apexcharts-card/releases/download/${APEXCHARTS_CARD_VERSION}/apexcharts-card.js
