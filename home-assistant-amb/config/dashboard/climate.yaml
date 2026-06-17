@@ -180,6 +180,15 @@ views:
               columns: full
             header:
               show: true
+              title: Test (minimal)
+            series:
+              - entity: input_number.fan_study_end_pct
+                name: Test
+          - type: custom:apexcharts-card
+            grid_options:
+              columns: full
+            header:
+              show: true
               title: Desired fan speed vs temperature
             chart_type: line
             apex_config:
