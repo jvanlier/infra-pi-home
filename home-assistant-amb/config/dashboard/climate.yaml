@@ -178,6 +178,7 @@ views:
           - type: custom:plotly-graph
             grid_options:
               columns: full
+            refresh_interval: 2
             title: Desired fan speed vs temperature
             layout:
               height: 260
