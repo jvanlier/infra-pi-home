@@ -90,8 +90,8 @@ fan_bedroom_jc_turn_on:
         target_pct: >
           {% set t = states('sensor.climate_bedroom_jc_temperature') | float(0) %}
           {% set s = states('input_number.fan_bedroom_jc_start_temp') | float(20) %}
-          {% set e = states('input_number.fan_bedroom_jc_end_temp') | float(28) %}
-          {% set p = states('input_number.fan_bedroom_jc_end_pct') | float(100) %}
+          {% set e = states('input_number.fan_bedroom_jc_end_temp') | float(30) %}
+          {% set p = states('input_number.fan_bedroom_jc_end_pct') | float(90) %}
           {% if t < s or e <= s %}0
           {% elif t >= e %}{{ p | int }}
           {% else %}{{ (1 + (p - 1) * (t - s) / (e - s)) | round(0) | int }}{% endif %}
