@@ -7,11 +7,12 @@
   variables:
     target_pct: >
       {% set t = states('sensor.climate_study_temperature') | float(0) %}
-      {% if t >= 28 %}50
-      {% elif t >= 26 %}30
-      {% elif t >= 24 %}15
-      {% elif t >= 22 %}8
-      {% else %}0{% endif %}
+      {% set s = states('input_number.fan_study_start_temp') | float(23) %}
+      {% set e = states('input_number.fan_study_end_temp') | float(30) %}
+      {% set p = states('input_number.fan_study_end_pct') | float(50) %}
+      {% if t < s or e <= s %}0
+      {% elif t >= e %}{{ p | int }}
+      {% else %}{{ (1 + (p - 1) * (t - s) / (e - s)) | round(0) | int }}{% endif %}
   action:
     - action: fan.set_percentage
       data:

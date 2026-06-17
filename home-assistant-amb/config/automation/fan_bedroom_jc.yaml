@@ -6,11 +6,12 @@
   variables:
     target_pct: >
       {% set t = states('sensor.climate_bedroom_jc_temperature') | float(0) %}
-      {% if t >= 28 %}100
-      {% elif t >= 26 %}75
-      {% elif t >= 24 %}50
-      {% elif t >= 22 %}33
-      {% else %}0{% endif %}
+      {% set s = states('input_number.fan_bedroom_jc_start_temp') | float(20) %}
+      {% set e = states('input_number.fan_bedroom_jc_end_temp') | float(30) %}
+      {% set p = states('input_number.fan_bedroom_jc_end_pct') | float(90) %}
+      {% if t < s or e <= s %}0
+      {% elif t >= e %}{{ p | int }}
+      {% else %}{{ (1 + (p - 1) * (t - s) / (e - s)) | round(0) | int }}{% endif %}
   condition:
     - condition: state
       entity_id: binary_sensor.presence_house
