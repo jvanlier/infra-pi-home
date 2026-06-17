@@ -131,6 +131,7 @@ views:
             entity: script.fan_bedroom_jc_turn_on
             name: Turn On at Calculated Speed
             icon: mdi:fan-auto
+            hide_state: true
             tap_action:
               action: call-service
               service: script.fan_bedroom_jc_turn_on
