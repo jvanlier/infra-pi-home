@@ -176,11 +176,18 @@ views:
               - type: numeric-input
                 style: buttons
           - type: custom:apexcharts-card
+            header:
+              show: true
+              title: Test NO grid_options
+            series:
+              - entity: input_number.fan_study_end_pct
+                name: Test
+          - type: custom:apexcharts-card
             grid_options:
               columns: full
             header:
               show: true
-              title: Test (minimal)
+              title: Test WITH grid_options
             series:
               - entity: input_number.fan_study_end_pct
                 name: Test
