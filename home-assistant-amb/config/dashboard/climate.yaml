@@ -125,15 +125,6 @@ views:
             heading: Settings
             heading_style: title
             icon: mdi:cog
-          - type: markdown
-            content: |
-              | | Study | Bedroom JC |
-              |---|---|---|
-              | **On** | Workstation in use (plug > 60 W) | 21:00, if someone home |
-              | **Off** | Workstation idle | 09:00 |
-              | **Night mode** | — | 22:00 |
-            grid_options:
-              columns: full
           - type: heading
             heading: Study
             heading_style: subtitle
@@ -220,6 +211,17 @@ views:
                   color: "#f44336"
                 x: $ex (() => { const s=Number(hass.states['input_number.fan_bedroom_jc_start_temp'].state), e=Number(hass.states['input_number.fan_bedroom_jc_end_temp'].state); const xs=[]; for(let t=18;t<=32.0001;t+=0.5)xs.push(t); return xs; })()
                 y: $ex (() => { const s=Number(hass.states['input_number.fan_bedroom_jc_start_temp'].state), e=Number(hass.states['input_number.fan_bedroom_jc_end_temp'].state), p=Number(hass.states['input_number.fan_bedroom_jc_end_pct'].state); const ys=[]; for(let t=18;t<=32.0001;t+=0.5){let y; if(t<s||e<=s)y=0; else if(t>=e)y=p; else y=1+(p-1)*(t-s)/(e-s); ys.push(Math.round(y*10)/10);} return ys; })()
+          - type: markdown
+            content: |
+              | | Study | Bedroom JC |
+              |---|---|---|
+              | **On** | Workstation in use (plug > 60 W) | 21:00, if someone home |
+              | **Off** | Workstation idle | 09:00 |
+              | **Night mode** | — | 22:00 |
+
+              _Hardcoded in the automation — cannot be changed here._
+            grid_options:
+              columns: full
 
   - title: Measurements
     path: measurements
