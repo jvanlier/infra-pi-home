@@ -131,39 +131,47 @@ views:
               | **Night mode** | — | 22:00 |
             grid_options:
               columns: full
+          - type: heading
+            heading: Study
+            heading_style: subtitle
+            icon: mdi:chair-rolling
           - type: tile
             entity: input_number.fan_study_start_temp
-            name: Study Start Temp
+            name: Start Temp
             features:
               - type: numeric-input
                 style: buttons
           - type: tile
             entity: input_number.fan_study_end_temp
-            name: Study End Temp
+            name: End Temp
             features:
               - type: numeric-input
                 style: buttons
           - type: tile
             entity: input_number.fan_study_end_pct
-            name: Study End Speed
+            name: End Speed
             features:
               - type: numeric-input
                 style: buttons
+          - type: heading
+            heading: Bedroom JC
+            heading_style: subtitle
+            icon: mdi:bed
           - type: tile
             entity: input_number.fan_bedroom_jc_start_temp
-            name: Bedroom JC Start Temp
+            name: Start Temp
             features:
               - type: numeric-input
                 style: buttons
           - type: tile
             entity: input_number.fan_bedroom_jc_end_temp
-            name: Bedroom JC End Temp
+            name: End Temp
             features:
               - type: numeric-input
                 style: buttons
           - type: tile
             entity: input_number.fan_bedroom_jc_end_pct
-            name: Bedroom JC End Speed
+            name: End Speed
             features:
               - type: numeric-input
                 style: buttons
@@ -180,13 +188,13 @@ views:
               xaxis:
                 type: numeric
                 tickAmount: 7
-                decimalsInFloat: 0
                 title:
                   text: "Temperature (°C)"
               yaxis:
                 min: 0
                 max: 100
                 tickAmount: 5
+                decimalsInFloat: 0
                 title:
                   text: "Speed (%)"
               stroke:
