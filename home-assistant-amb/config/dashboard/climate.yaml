@@ -189,9 +189,6 @@ views:
                 tickAmount: 5
                 title:
                   text: "Speed (%)"
-              tooltip:
-                x:
-                  formatter: "function(v){return v.toFixed(1)+'°C'}"
               stroke:
                 curve: straight
             series:
