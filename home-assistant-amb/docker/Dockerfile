@@ -23,8 +23,13 @@ RUN cd /tmp \
     && mv duux-fan-local-${DUUX_FAN_LOCAL_VERSION}/custom_components/duux_fan_local ${CUSTOM_COMPONENTS_DIR} \
     && rm -rf /tmp/*
 
-# Add apexcharts-card (Lovelace custom card for fan speed curve graph)
+# Add apexcharts-card (Lovelace custom card — kept for reference, not currently used for fan graph)
 ARG APEXCHARTS_CARD_VERSION=v2.1.2
 RUN mkdir -p /www \
     && wget -O /www/apexcharts-card.js \
        https://github.com/RomRider/apexcharts-card/releases/download/${APEXCHARTS_CARD_VERSION}/apexcharts-card.js
+
+# Add plotly-graph-card (Lovelace custom card for fan speed curve graph — numeric x-axis)
+ARG PLOTLY_GRAPH_CARD_VERSION=v3.3.5
+RUN wget -O /www/plotly-graph-card.js \
+    https://github.com/dbuezas/lovelace-plotly-graph-card/releases/download/${PLOTLY_GRAPH_CARD_VERSION}/plotly-graph-card.js

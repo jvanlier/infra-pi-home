@@ -175,65 +175,38 @@ views:
             features:
               - type: numeric-input
                 style: buttons
-          - type: vertical-stack
+          - type: custom:plotly-graph
             grid_options:
               columns: full
-            cards:
-              - type: custom:apexcharts-card
-                header:
-                  show: true
-                  title: Desired fan speed vs temperature
-                chart_type: line
-                apex_config:
-                  chart:
-                    height: 260
-                  xaxis:
-                    type: numeric
-                    tickAmount: 7
-                    title:
-                      text: "Temperature (°C)"
-                  yaxis:
-                    min: 0
-                    max: 100
-                    tickAmount: 5
-                    decimalsInFloat: 0
-                    title:
-                      text: "Speed (%)"
-                  stroke:
-                    curve: straight
-                series:
-                  - entity: input_number.fan_study_end_pct
-                    name: Study
-                    color: "#009688"
-                    data_generator: |
-                      const s = Number(hass.states['input_number.fan_study_start_temp'].state);
-                      const e = Number(hass.states['input_number.fan_study_end_temp'].state);
-                      const p = Number(hass.states['input_number.fan_study_end_pct'].state);
-                      const out = [];
-                      for (let t = 18; t <= 32.0001; t += 0.5) {
-                        let y;
-                        if (t < s || e <= s) y = 0;
-                        else if (t >= e) y = p;
-                        else y = 1 + (p - 1) * (t - s) / (e - s);
-                        out.push([t, Math.round(y)]);
-                      }
-                      return out;
-                  - entity: input_number.fan_bedroom_jc_end_pct
-                    name: Bedroom JC
-                    color: "#f44336"
-                    data_generator: |
-                      const s = Number(hass.states['input_number.fan_bedroom_jc_start_temp'].state);
-                      const e = Number(hass.states['input_number.fan_bedroom_jc_end_temp'].state);
-                      const p = Number(hass.states['input_number.fan_bedroom_jc_end_pct'].state);
-                      const out = [];
-                      for (let t = 18; t <= 32.0001; t += 0.5) {
-                        let y;
-                        if (t < s || e <= s) y = 0;
-                        else if (t >= e) y = p;
-                        else y = 1 + (p - 1) * (t - s) / (e - s);
-                        out.push([t, Math.round(y)]);
-                      }
-                      return out;
+            title: Desired fan speed vs temperature
+            layout:
+              height: 260
+              margin:
+                t: 16
+                r: 16
+                b: 48
+                l: 56
+              xaxis:
+                title: "Temperature (°C)"
+                range: [18, 32]
+                dtick: 2
+              yaxis:
+                title: "Speed (%)"
+                range: [0, 100]
+                dtick: 20
+            entities:
+              - entity: input_number.fan_study_end_pct
+                name: Study
+                line:
+                  color: "#009688"
+                x: $ex (() => { const s=Number(hass.states['input_number.fan_study_start_temp'].state), e=Number(hass.states['input_number.fan_study_end_temp'].state); const xs=[]; for(let t=18;t<=32.0001;t+=0.5)xs.push(t); return xs; })()
+                y: $ex (() => { const s=Number(hass.states['input_number.fan_study_start_temp'].state), e=Number(hass.states['input_number.fan_study_end_temp'].state), p=Number(hass.states['input_number.fan_study_end_pct'].state); const ys=[]; for(let t=18;t<=32.0001;t+=0.5){let y; if(t<s||e<=s)y=0; else if(t>=e)y=p; else y=1+(p-1)*(t-s)/(e-s); ys.push(Math.round(y));} return ys; })()
+              - entity: input_number.fan_bedroom_jc_end_pct
+                name: Bedroom JC
+                line:
+                  color: "#f44336"
+                x: $ex (() => { const s=Number(hass.states['input_number.fan_bedroom_jc_start_temp'].state), e=Number(hass.states['input_number.fan_bedroom_jc_end_temp'].state); const xs=[]; for(let t=18;t<=32.0001;t+=0.5)xs.push(t); return xs; })()
+                y: $ex (() => { const s=Number(hass.states['input_number.fan_bedroom_jc_start_temp'].state), e=Number(hass.states['input_number.fan_bedroom_jc_end_temp'].state), p=Number(hass.states['input_number.fan_bedroom_jc_end_pct'].state); const ys=[]; for(let t=18;t<=32.0001;t+=0.5){let y; if(t<s||e<=s)y=0; else if(t>=e)y=p; else y=1+(p-1)*(t-s)/(e-s); ys.push(Math.round(y));} return ys; })()
 
   - title: Measurements
     path: measurements

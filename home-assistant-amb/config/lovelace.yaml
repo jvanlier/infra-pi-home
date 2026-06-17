@@ -3,6 +3,8 @@ resource_mode: yaml
 resources:
   - url: /local/apexcharts-card.js
     type: module
+  - url: /local/plotly-graph-card.js
+    type: module
 dashboards:
   dashboard-overview:
     mode: yaml
