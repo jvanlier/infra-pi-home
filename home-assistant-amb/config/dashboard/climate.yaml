@@ -138,58 +138,54 @@ views:
             heading: Study
             heading_style: subtitle
             icon: mdi:chair-rolling
-          - type: tile
-            entity: input_number.fan_study_start_temp
-            name: Start Temp
+          - type: horizontal-stack
             grid_options:
-              columns: 4
-            features:
-              - type: numeric-input
-                style: buttons
-          - type: tile
-            entity: input_number.fan_study_end_temp
-            name: End Temp
-            grid_options:
-              columns: 4
-            features:
-              - type: numeric-input
-                style: buttons
-          - type: tile
-            entity: input_number.fan_study_end_pct
-            name: End Speed
-            grid_options:
-              columns: 4
-            features:
-              - type: numeric-input
-                style: buttons
+              columns: full
+            cards:
+              - type: tile
+                entity: input_number.fan_study_start_temp
+                name: Start Temp
+                features:
+                  - type: numeric-input
+                    style: buttons
+              - type: tile
+                entity: input_number.fan_study_end_temp
+                name: End Temp
+                features:
+                  - type: numeric-input
+                    style: buttons
+              - type: tile
+                entity: input_number.fan_study_end_pct
+                name: End Speed
+                features:
+                  - type: numeric-input
+                    style: buttons
           - type: heading
             heading: Bedroom JC
             heading_style: subtitle
             icon: mdi:bed
-          - type: tile
-            entity: input_number.fan_bedroom_jc_start_temp
-            name: Start Temp
+          - type: horizontal-stack
             grid_options:
-              columns: 4
-            features:
-              - type: numeric-input
-                style: buttons
-          - type: tile
-            entity: input_number.fan_bedroom_jc_end_temp
-            name: End Temp
-            grid_options:
-              columns: 4
-            features:
-              - type: numeric-input
-                style: buttons
-          - type: tile
-            entity: input_number.fan_bedroom_jc_end_pct
-            name: End Speed
-            grid_options:
-              columns: 4
-            features:
-              - type: numeric-input
-                style: buttons
+              columns: full
+            cards:
+              - type: tile
+                entity: input_number.fan_bedroom_jc_start_temp
+                name: Start Temp
+                features:
+                  - type: numeric-input
+                    style: buttons
+              - type: tile
+                entity: input_number.fan_bedroom_jc_end_temp
+                name: End Temp
+                features:
+                  - type: numeric-input
+                    style: buttons
+              - type: tile
+                entity: input_number.fan_bedroom_jc_end_pct
+                name: End Speed
+                features:
+                  - type: numeric-input
+                    style: buttons
           - type: custom:plotly-graph
             grid_options:
               columns: full
