@@ -141,18 +141,24 @@ views:
           - type: tile
             entity: input_number.fan_study_start_temp
             name: Start Temp
+            grid_options:
+              columns: 4
             features:
               - type: numeric-input
                 style: buttons
           - type: tile
             entity: input_number.fan_study_end_temp
             name: End Temp
+            grid_options:
+              columns: 4
             features:
               - type: numeric-input
                 style: buttons
           - type: tile
             entity: input_number.fan_study_end_pct
             name: End Speed
+            grid_options:
+              columns: 4
             features:
               - type: numeric-input
                 style: buttons
@@ -163,18 +169,24 @@ views:
           - type: tile
             entity: input_number.fan_bedroom_jc_start_temp
             name: Start Temp
+            grid_options:
+              columns: 4
             features:
               - type: numeric-input
                 style: buttons
           - type: tile
             entity: input_number.fan_bedroom_jc_end_temp
             name: End Temp
+            grid_options:
+              columns: 4
             features:
               - type: numeric-input
                 style: buttons
           - type: tile
             entity: input_number.fan_bedroom_jc_end_pct
             name: End Speed
+            grid_options:
+              columns: 4
             features:
               - type: numeric-input
                 style: buttons
