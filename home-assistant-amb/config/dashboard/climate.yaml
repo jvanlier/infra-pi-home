@@ -289,9 +289,9 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_laundry_temperature
+        entity: sensor.climate_drying_room_temperature
         icon: mdi:tshirt-crew
-        name: Laundry
+        name: Drying Room
         color: pink
       - type: entity
         show_name: true
@@ -313,9 +313,9 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_central_heating_temperature
+        entity: sensor.climate_utility_temperature
         icon: mdi:radiator
-        name: Central Heating
+        name: Utility
         color: green
     sections:
       - type: grid
@@ -342,14 +342,14 @@ views:
                 name: Study
               - entity: sensor.climate_bedroom_olivier_temperature
                 name: Bedroom Olivier
-              - entity: sensor.climate_laundry_temperature
-                name: Laundry
+              - entity: sensor.climate_drying_room_temperature
+                name: Drying Room
               - entity: sensor.climate_bedroom_duco_temperature
                 name: Bedroom Duco
               - entity: sensor.climate_attic_temperature
                 name: Attic
-              - entity: sensor.climate_central_heating_temperature
-                name: Central Heating
+              - entity: sensor.climate_utility_temperature
+                name: Utility
             grid_options: &grid_options_temperature
               columns: full
               rows: 6
@@ -382,14 +382,14 @@ views:
                 name: Study
               - entity: sensor.climate_bedroom_olivier_humidity
                 name: Bedroom Olivier
-              - entity: sensor.climate_laundry_humidity
-                name: Laundry
+              - entity: sensor.climate_drying_room_humidity
+                name: Drying Room
               - entity: sensor.climate_bedroom_duco_humidity
                 name: Bedroom Duco
               - entity: sensor.climate_attic_humidity
                 name: Attic
-              - entity: sensor.climate_central_heating_humidity
-                name: Central Heating
+              - entity: sensor.climate_utility_humidity
+                name: Utility
             min_y_axis: &min_y_axis_humidity 30
             max_y_axis: &max_y_axis_humidity 80
             fit_y_data: true

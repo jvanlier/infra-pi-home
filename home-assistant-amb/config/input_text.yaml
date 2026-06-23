@@ -28,8 +28,8 @@ dim_direction_switch_wall_bedroom_olivier_left:
   initial: "down_0"
   max: 30
 
-dim_direction_switch_wall_laundry_left:
-  name: Dim direction Switch Wall Laundry Left
+dim_direction_switch_wall_drying_room_left:
+  name: Dim direction Switch Wall Drying Room Left
   initial: "down_0"
   max: 30
 

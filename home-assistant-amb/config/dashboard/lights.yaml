@@ -265,11 +265,11 @@ views:
               columns: 9
 
           - type: heading
-            heading: Laundry
+            heading: Drying Room
             heading_style: subtitle
             icon: mdi:tshirt-crew
           - type: tile
-            entity: light.light_group_laundry
+            entity: light.light_group_drying_room
             features_position: bottom
             features:
               - type: light-brightness

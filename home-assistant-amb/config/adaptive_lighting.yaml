@@ -74,8 +74,8 @@
   sleep_transition: 5
   only_once: true
 
-- name: "central-heating"
-  lights: ["light.light_group_central_heating"]
+- name: "utility"
+  lights: ["light.light_group_utility"]
   min_brightness: 30
   max_brightness: 70
   sleep_brightness: 20
@@ -124,8 +124,8 @@
   sleep_transition: 5
   interval: 229
 
-- name: "laundry"
-  lights: ["light.light_group_laundry"]
+- name: "drying-room"
+  lights: ["light.light_group_drying_room"]
   min_brightness: 30
   max_brightness: 35
   min_color_temp: 2500
