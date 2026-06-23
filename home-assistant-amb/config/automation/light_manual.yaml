@@ -45,7 +45,7 @@
             transition: 26
           target:
             entity_id:
-              - light.light_group_drying_room
+              - light.light_group_drying
 
 - alias: Turn off manual lights when house empties (daytime)
   id: turn-off-manual-lights-when-house-empty-daytime
