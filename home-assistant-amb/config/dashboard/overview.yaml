@@ -218,7 +218,7 @@ views:
           - type: heading
             heading_style: subtitle
             heading: Measurements
-            icon: mdi:chart-areaspline
+            icon: mdi:chart-areaspline-variant
             tap_action:
               action: navigate
               navigation_path: /dashboard-climate/measurements-per-floor

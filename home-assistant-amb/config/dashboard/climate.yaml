@@ -241,7 +241,7 @@ views:
 
   - title: Measurements per floor
     path: measurements-per-floor
-    icon: mdi:chart-areaspline
+    icon: mdi:chart-areaspline-variant
     type: sections
     max_columns: 4
     badges:
