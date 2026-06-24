@@ -299,6 +299,16 @@ views:
             features:
               - type: light-brightness
 
+          - type: heading
+            heading: Utility
+            heading_style: subtitle
+            icon: mdi:washing-machine
+          - type: tile
+            entity: light.light_group_utility
+            features_position: bottom
+            features:
+              - type: light-brightness
+
   - title: Illuminance
     path: illuminance
     icon: mdi:weather-sunny
