@@ -239,8 +239,102 @@ views:
             grid_options:
               columns: full
 
-  - title: Measurements
-    path: measurements
+  - title: Measurements per floor
+    path: measurements-per-floor
+    icon: mdi:chart-areaspline
+    type: sections
+    max_columns: 4
+    badges:
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_ground_floor_temperature
+        icon: mdi:home-floor-0
+        name: Ground Floor
+        color: indigo
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_first_floor_temperature
+        icon: mdi:home-floor-1
+        name: First Floor
+        color: amber
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.climate_second_floor_temperature
+        icon: mdi:home-floor-2
+        name: Second Floor
+        color: teal
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Temperature
+            heading_style: title
+            icon: mdi:thermometer
+          - &floor_heading_1_day
+            type: heading
+            heading_style: subtitle
+            icon: ''
+            heading: 1 day
+          - type: history-graph
+            hours_to_show: 24
+            entities: &floor_entities_temperature
+              - entity: sensor.climate_ground_floor_temperature
+                name: Ground Floor
+              - entity: sensor.climate_first_floor_temperature
+                name: First Floor
+              - entity: sensor.climate_second_floor_temperature
+                name: Second Floor
+            grid_options: &floor_grid_options_temperature
+              columns: full
+              rows: 6
+          - &floor_heading_1_week
+            type: heading
+            heading_style: subtitle
+            icon: ''
+            heading: 1 week
+          - type: history-graph
+            hours_to_show: 168
+            entities: *floor_entities_temperature
+            grid_options: *floor_grid_options_temperature
+      - type: grid
+        cards:
+          - type: heading
+            heading: Humidity
+            heading_style: title
+            icon: mdi:water-percent
+          - *floor_heading_1_day
+          - type: history-graph
+            hours_to_show: 24
+            entities: &floor_entities_humidity
+              - entity: sensor.climate_ground_floor_humidity
+                name: Ground Floor
+              - entity: sensor.climate_first_floor_humidity
+                name: First Floor
+              - entity: sensor.climate_second_floor_humidity
+                name: Second Floor
+            min_y_axis: &floor_min_y_axis_humidity 30
+            max_y_axis: &floor_max_y_axis_humidity 80
+            fit_y_data: true
+            grid_options: &floor_grid_options_humidity
+              columns: 12
+              rows: 6
+          - *floor_heading_1_week
+          - type: history-graph
+            hours_to_show: 168
+            entities: *floor_entities_humidity
+            min_y_axis: *floor_min_y_axis_humidity
+            max_y_axis: *floor_max_y_axis_humidity
+            fit_y_data: true
+            grid_options: *floor_grid_options_humidity
+
+  - title: Measurements per room
+    path: measurements-per-room
     icon: mdi:chart-areaspline
     type: sections
     max_columns: 4

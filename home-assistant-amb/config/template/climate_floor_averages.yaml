@@ -1,0 +1,123 @@
+- sensor:
+  # Ground floor: only one climate-sensor room (Living), so blend the Zigbee sensor
+  # with the Tado thermostat's reading for a slightly more stable average.
+  - name: Climate Ground Floor Temperature
+    unique_id: climate_ground_floor_temperature
+    unit_of_measurement: °C
+    device_class: temperature
+    state_class: measurement
+    # float(none): unavailable/dead sensor → None; select('is_number') drops it so it
+    # doesn't drag the average. float(0) would inject a fake 0 °C instead.
+    availability: >-
+      {{ [
+        states('sensor.climate_living_temperature') | float(none),
+        states('sensor.tado_smart_thermostat_ru1574584320_current_temperature') | float(none)
+      ] | select('is_number') | list | count > 0 }}
+    state: >-
+      {% set vals = [
+        states('sensor.climate_living_temperature') | float(none),
+        states('sensor.tado_smart_thermostat_ru1574584320_current_temperature') | float(none)
+      ] | select('is_number') | list %}
+      {{ ((vals | sum) / (vals | count)) | round(1) }}
+
+  - name: Climate First Floor Temperature
+    unique_id: climate_first_floor_temperature
+    unit_of_measurement: °C
+    device_class: temperature
+    state_class: measurement
+    availability: >-
+      {{ [
+        states('sensor.climate_bathroom_temperature') | float(none),
+        states('sensor.climate_laundry_temperature') | float(none),
+        states('sensor.climate_bedroom_jc_temperature') | float(none),
+        states('sensor.climate_bedroom_olivier_temperature') | float(none)
+      ] | select('is_number') | list | count > 0 }}
+    state: >-
+      {% set vals = [
+        states('sensor.climate_bathroom_temperature') | float(none),
+        states('sensor.climate_laundry_temperature') | float(none),
+        states('sensor.climate_bedroom_jc_temperature') | float(none),
+        states('sensor.climate_bedroom_olivier_temperature') | float(none)
+      ] | select('is_number') | list %}
+      {{ ((vals | sum) / (vals | count)) | round(1) }}
+
+  # Attic is intentionally excluded from the second-floor average: it is normally
+  # closed off (accessible only via fold-out stairs) and its temperature deviates
+  # significantly from the lived-in rooms (Study, Bedroom Duco, Utility).
+  # Attic still appears on the per-room Measurements page.
+  - name: Climate Second Floor Temperature
+    unique_id: climate_second_floor_temperature
+    unit_of_measurement: °C
+    device_class: temperature
+    state_class: measurement
+    availability: >-
+      {{ [
+        states('sensor.climate_utility_temperature') | float(none),
+        states('sensor.climate_bedroom_duco_temperature') | float(none),
+        states('sensor.climate_study_temperature') | float(none)
+      ] | select('is_number') | list | count > 0 }}
+    state: >-
+      {% set vals = [
+        states('sensor.climate_utility_temperature') | float(none),
+        states('sensor.climate_bedroom_duco_temperature') | float(none),
+        states('sensor.climate_study_temperature') | float(none)
+      ] | select('is_number') | list %}
+      {{ ((vals | sum) / (vals | count)) | round(1) }}
+
+  - name: Climate Ground Floor Humidity
+    unique_id: climate_ground_floor_humidity
+    unit_of_measurement: '%'
+    device_class: humidity
+    state_class: measurement
+    availability: >-
+      {{ [
+        states('sensor.climate_living_humidity') | float(none),
+        states('sensor.tado_smart_thermostat_ru1574584320_current_humidity') | float(none)
+      ] | select('is_number') | list | count > 0 }}
+    state: >-
+      {% set vals = [
+        states('sensor.climate_living_humidity') | float(none),
+        states('sensor.tado_smart_thermostat_ru1574584320_current_humidity') | float(none)
+      ] | select('is_number') | list %}
+      {{ ((vals | sum) / (vals | count)) | round(1) }}
+
+  - name: Climate First Floor Humidity
+    unique_id: climate_first_floor_humidity
+    unit_of_measurement: '%'
+    device_class: humidity
+    state_class: measurement
+    availability: >-
+      {{ [
+        states('sensor.climate_bathroom_humidity') | float(none),
+        states('sensor.climate_laundry_humidity') | float(none),
+        states('sensor.climate_bedroom_jc_humidity') | float(none),
+        states('sensor.climate_bedroom_olivier_humidity') | float(none)
+      ] | select('is_number') | list | count > 0 }}
+    state: >-
+      {% set vals = [
+        states('sensor.climate_bathroom_humidity') | float(none),
+        states('sensor.climate_laundry_humidity') | float(none),
+        states('sensor.climate_bedroom_jc_humidity') | float(none),
+        states('sensor.climate_bedroom_olivier_humidity') | float(none)
+      ] | select('is_number') | list %}
+      {{ ((vals | sum) / (vals | count)) | round(1) }}
+
+  # Attic excluded — same reason as temperature above.
+  - name: Climate Second Floor Humidity
+    unique_id: climate_second_floor_humidity
+    unit_of_measurement: '%'
+    device_class: humidity
+    state_class: measurement
+    availability: >-
+      {{ [
+        states('sensor.climate_utility_humidity') | float(none),
+        states('sensor.climate_bedroom_duco_humidity') | float(none),
+        states('sensor.climate_study_humidity') | float(none)
+      ] | select('is_number') | list | count > 0 }}
+    state: >-
+      {% set vals = [
+        states('sensor.climate_utility_humidity') | float(none),
+        states('sensor.climate_bedroom_duco_humidity') | float(none),
+        states('sensor.climate_study_humidity') | float(none)
+      ] | select('is_number') | list %}
+      {{ ((vals | sum) / (vals | count)) | round(1) }}
