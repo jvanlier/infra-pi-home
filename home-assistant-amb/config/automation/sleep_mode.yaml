@@ -36,7 +36,7 @@
     - delay: "00:00:01"
     - service: "switch.turn_{{ sleep_mode }}"
       entity_id:
-        - switch.adaptive_lighting_sleep_mode_drying
+        - switch.adaptive_lighting_sleep_mode_laundry
   mode: restart
 
 - alias: "Sleep mode: scheduled on"

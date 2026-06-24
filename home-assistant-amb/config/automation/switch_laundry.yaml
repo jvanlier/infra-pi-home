@@ -1,39 +1,39 @@
-- alias: Switch Tap Dial Drying
-  id: switch_tap_dial_drying
+- alias: Switch Tap Dial Laundry
+  id: switch_tap_dial_laundry
   use_blueprint:
     path: custom/hue_tap_dial.yaml
     input:
-      controller: Switch Tap Dial Drying
+      controller: Switch Tap Dial Laundry
       button_1_press:
         - service: adaptive_lighting.apply
           data:
-            entity_id: switch.adaptive_lighting_drying
+            entity_id: switch.adaptive_lighting_laundry
             turn_on_lights: true
       button_3_press:
         - service: light.turn_off
           target:
-            entity_id: light.light_group_drying
+            entity_id: light.light_group_laundry
       brightness_step_down:
         - service: light.turn_on
           data:
             transition: 1
             brightness_step_pct: -10
           target:
-            entity_id: light.light_group_drying
+            entity_id: light.light_group_laundry
       brightness_step_up:
         - service: light.turn_on
           data:
             transition: 1
             brightness_step_pct: 10
           target:
-            entity_id: light.light_group_drying
+            entity_id: light.light_group_laundry
 
-- alias: Switch Wall Drying
-  id: switch_wall_drying
+- alias: Switch Wall Laundry
+  id: switch_wall_laundry
   use_blueprint:
     path: custom/hue_wall_switch_dim.yaml
     input:
-      controller: Switch Wall Drying
+      controller: Switch Wall Laundry
       left_light:
-        - light.light_group_drying
-      left_dim_direction_entity: input_text.dim_direction_switch_wall_drying_left
+        - light.light_group_laundry
+      left_dim_direction_entity: input_text.dim_direction_switch_wall_laundry_left

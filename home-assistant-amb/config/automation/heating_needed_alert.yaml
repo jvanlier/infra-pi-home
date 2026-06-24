@@ -10,13 +10,13 @@
       # Although we could be on holiday and have set the thermostat lower manually...
       threshold: 18.5
 
-- alias: "Heating needed alert - Drying"
-  id: heating-needed-alert-drying
+- alias: "Heating needed alert - Laundry"
+  id: heating-needed-alert-laundry
   use_blueprint:
     path: custom/heating_needed_alert.yaml
     input:
-      temperature_sensor: sensor.climate_drying_temperature
-      room_name: "Drying"
+      temperature_sensor: sensor.climate_laundry_temperature
+      room_name: "Laundry"
 
 - alias: "Heating needed alert - Bedroom Olivier"
   id: heating-needed-alert-bedroom-olivier

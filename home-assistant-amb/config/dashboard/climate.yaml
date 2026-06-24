@@ -289,9 +289,9 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_drying_temperature
+        entity: sensor.climate_laundry_temperature
         icon: mdi:tshirt-crew
-        name: Drying
+        name: Laundry
         color: pink
       - type: entity
         show_name: true
@@ -342,8 +342,8 @@ views:
                 name: Study
               - entity: sensor.climate_bedroom_olivier_temperature
                 name: Bedroom Olivier
-              - entity: sensor.climate_drying_temperature
-                name: Drying
+              - entity: sensor.climate_laundry_temperature
+                name: Laundry
               - entity: sensor.climate_bedroom_duco_temperature
                 name: Bedroom Duco
               - entity: sensor.climate_attic_temperature
@@ -382,8 +382,8 @@ views:
                 name: Study
               - entity: sensor.climate_bedroom_olivier_humidity
                 name: Bedroom Olivier
-              - entity: sensor.climate_drying_humidity
-                name: Drying
+              - entity: sensor.climate_laundry_humidity
+                name: Laundry
               - entity: sensor.climate_bedroom_duco_humidity
                 name: Bedroom Duco
               - entity: sensor.climate_attic_humidity
