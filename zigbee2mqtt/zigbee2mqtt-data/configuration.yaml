@@ -226,17 +226,17 @@ devices:
   '0x001788010cc472d2':
     friendly_name: Switch Wall Study
   '0x00158d008c7ee9f4':
-    friendly_name: Door Central Heating
+    friendly_name: Door Utility
   '0x00158d008c80cd9a':
     friendly_name: Climate Attic
   '0x00158d008c7e994f':
-    friendly_name: Climate Central Heating
+    friendly_name: Climate Utility
   '0x001788010fa7304d':
-    friendly_name: Light Central Heating 2
+    friendly_name: Light Utility 2
   '0x001788010fa7306b':
-    friendly_name: Light Central Heating 1
+    friendly_name: Light Utility 1
   '0x001788010fa7141d':
-    friendly_name: Light Central Heating 3
+    friendly_name: Light Utility 3
   '0x001788010fb6593c':
     friendly_name: Light Laundry 2
   '0x001788010fba450e':
@@ -273,7 +273,9 @@ groups:
   '15':
     friendly_name: Light Group Kitchen
   '16':
-    friendly_name: Light Group Central Heating
+    friendly_name: Light Group Utility
+    homeassistant:
+      name: null
   '17':
     friendly_name: Light Group Bedroom Duco Ambiance
   '18':
