@@ -61,6 +61,20 @@ Home Assistant config uses a split configuration model (see `home-assistant-amb/
   - `binary_sensor.yaml`: Binary sensor definitions
   - `adaptive_lighting.yaml`: Adaptive lighting configurations for each light/room
 
+### Dashboard Conventions
+
+Lovelace dashboards (`dashboard/*.yaml`) follow these conventions:
+
+- **Titles** (`heading_style: title`) = section names. They are never links and need no corresponding dashboard page — they organize local content within a view.
+- **Subheaders** (`heading_style: subtitle`) = view names. Subheaders tap-link directly to that view's page.
+- **View order** in a sub-dashboard (Power, Lights, Climate) must match the order the corresponding subheaders appear on the Overview dashboard, so the sidebar tab order mirrors the overview.
+
+### Zigbee2MQTT Device Renames
+
+The Z2M web UI "Rename device" dialog has an **"Update Home Assistant entity ID"** checkbox (checked by default). When checked, renaming the `friendly_name` republishes MQTT discovery with the new `object_id` and HA updates the existing entity's `entity_id` to match — no separate HA-side entity rename needed. (Z2M does *not* key HA entities by IEEE address with a sticky `entity_id`; the checkbox drives the update.)
+
+When deploying YAML that references the new `entity_id`s, do the Z2M rename (box ticked) first so entities exist under the new ids, then deploy/reload the HA config. Verify afterward in Developer Tools → States (HA may append `_2` if an orphan collides).
+
 ### Custom Components Symlink Pattern
 
 The Dockerfile installs custom components to `/custom_components`. The mounted config directory contains a symlink `custom_components -> /custom_components`. This allows custom components to be baked into the Docker image while the config directory is mounted at runtime.
