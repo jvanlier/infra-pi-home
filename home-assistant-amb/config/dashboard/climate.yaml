@@ -313,9 +313,9 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_central_heating_temperature
+        entity: sensor.climate_utility_temperature
         icon: mdi:radiator
-        name: Central Heating
+        name: Utility
         color: green
     sections:
       - type: grid
@@ -348,8 +348,8 @@ views:
                 name: Bedroom Duco
               - entity: sensor.climate_attic_temperature
                 name: Attic
-              - entity: sensor.climate_central_heating_temperature
-                name: Central Heating
+              - entity: sensor.climate_utility_temperature
+                name: Utility
             grid_options: &grid_options_temperature
               columns: full
               rows: 6
@@ -388,8 +388,8 @@ views:
                 name: Bedroom Duco
               - entity: sensor.climate_attic_humidity
                 name: Attic
-              - entity: sensor.climate_central_heating_humidity
-                name: Central Heating
+              - entity: sensor.climate_utility_humidity
+                name: Utility
             min_y_axis: &min_y_axis_humidity 30
             max_y_axis: &max_y_axis_humidity 80
             fit_y_data: true

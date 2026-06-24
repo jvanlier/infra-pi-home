@@ -1,0 +1,13 @@
+- alias: Utility cabinet light on/off
+  id: utility-cabinet-light-on-off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.door_utility_contact
+      to:
+        - 'on'
+        - 'off'
+  action:
+    - service: "light.turn_{{ trigger.to_state.state }}"
+      target:
+        entity_id: light.light_group_utility
+  mode: restart

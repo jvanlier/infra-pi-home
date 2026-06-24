@@ -30,7 +30,7 @@
     - delay: "00:00:01"
     - service: "switch.turn_{{ sleep_mode }}"
       entity_id:
-        - switch.adaptive_lighting_sleep_mode_central_heating
+        - switch.adaptive_lighting_sleep_mode_utility
         - switch.adaptive_lighting_sleep_mode_study
         - switch.adaptive_lighting_sleep_mode_living_white_cabinet
     - delay: "00:00:01"
