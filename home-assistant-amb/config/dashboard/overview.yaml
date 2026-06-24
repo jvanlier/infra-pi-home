@@ -70,33 +70,25 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_living_temperature
-        icon: mdi:sofa
-        name: Living
+        entity: sensor.climate_ground_floor_temperature
+        icon: mdi:home-floor-0
+        name: Ground Floor
         color: indigo
       - type: entity
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_bathroom_temperature
-        name: Bathroom
-        icon: mdi:shower-head
+        entity: sensor.climate_first_floor_temperature
+        icon: mdi:home-floor-1
+        name: First Floor
         color: amber
       - type: entity
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_bedroom_jc_temperature
-        icon: mdi:bed
-        name: Bedroom JC
-        color: red
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.climate_study_temperature
-        name: Study
-        icon: mdi:chair-rolling
+        entity: sensor.climate_second_floor_temperature
+        icon: mdi:home-floor-2
+        name: Second Floor
         color: teal
     sections:
       - type: grid
@@ -226,35 +218,31 @@ views:
           - type: heading
             heading_style: subtitle
             heading: Measurements
-            icon: mdi:chart-areaspline
+            icon: mdi:chart-areaspline-variant
             tap_action:
               action: navigate
-              navigation_path: /dashboard-climate/measurements
+              navigation_path: /dashboard-climate/measurements-per-floor
           - type: history-graph
             hours_to_show: 24
             entities:
-              - entity: sensor.climate_living_temperature
-                name: Living
-              - entity: sensor.climate_bathroom_temperature
-                name: Bathroom
-              - entity: sensor.climate_bedroom_jc_temperature
-                name: Bedroom JC
-              - entity: sensor.climate_study_temperature
-                name: Study
+              - entity: sensor.climate_ground_floor_temperature
+                name: Ground Floor
+              - entity: sensor.climate_first_floor_temperature
+                name: First Floor
+              - entity: sensor.climate_second_floor_temperature
+                name: Second Floor
             grid_options:
               columns: 12
               rows: 4
           - type: history-graph
             hours_to_show: 24
             entities:
-              - entity: sensor.climate_living_humidity
-                name: Living
-              - entity: sensor.climate_bathroom_humidity
-                name: Bathroom
-              - entity: sensor.climate_bedroom_jc_humidity
-                name: Bedroom JC
-              - entity: sensor.climate_study_humidity
-                name: Study
+              - entity: sensor.climate_ground_floor_humidity
+                name: Ground Floor
+              - entity: sensor.climate_first_floor_humidity
+                name: First Floor
+              - entity: sensor.climate_second_floor_humidity
+                name: Second Floor
             min_y_axis: 30
             max_y_axis: 80
             fit_y_data: true

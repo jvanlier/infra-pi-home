@@ -47,6 +47,11 @@ Home Assistant config uses a split configuration model (see `home-assistant-amb/
   - `automation/`: Individual automation YAML files
   - `sensor/`: Sensor definitions
   - `template/`: Template sensors and binary sensors
+    - `climate_floor_averages.yaml`: Floor-average temperature and humidity sensors
+      (`sensor.climate_{ground,first,second}_floor_{temperature,humidity}`).
+      **Attic is intentionally excluded from the second-floor average** — the attic is
+      normally closed off (fold-out stairs access only) and its temperature deviates
+      significantly from the lived-in second-floor rooms. Do not add it back.
 
 - **Individual files included** (`!include`):
   - `input_boolean.yaml`, `input_datetime.yaml`, `input_number.yaml`: User inputs
