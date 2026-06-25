@@ -23,7 +23,7 @@ RUN cd /tmp \
     && mv duux-fan-local-${DUUX_FAN_LOCAL_VERSION}/custom_components/duux_fan_local ${CUSTOM_COMPONENTS_DIR} \
     && rm -rf /tmp/*
 
-# Add apexcharts-card (Lovelace custom card — kept for reference, not currently used for fan graph)
+# Add apexcharts-card (Lovelace custom card - used by the inside vs outside temperature chart on the overview + climate dashboards)
 ARG APEXCHARTS_CARD_VERSION=v2.1.2
 RUN mkdir -p /www \
     && wget -O /www/apexcharts-card.js \

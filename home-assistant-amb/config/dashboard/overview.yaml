@@ -186,20 +186,93 @@ views:
             heading_style: title
             icon: mdi:thermometer
           - type: heading
-            heading: Thermostats
+            heading: Inside vs Outside
             heading_style: subtitle
-            icon: mdi:thermostat-box
+            icon: mdi:sun-thermometer
             tap_action:
               action: navigate
-              navigation_path: /dashboard-climate/thermostats
-          - type: tile
-            entity: climate.living
-            features:
-              - type: target-temperature
-          - type: tile
-            entity: climate.study
-            features:
-              - type: target-temperature
+              navigation_path: /dashboard-climate/inside-vs-outside
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 280px
+            header:
+              title: Inside versus outside temperature 24h
+              show: true
+              show_states: true
+              colorize_states: true
+            graph_span: 24h
+            span:
+              offset: +8h
+            yaxis:
+              - min: 18
+                decimals: 0
+                apex_config:
+                  tickAmount: 9
+            hours_12: false
+            all_series_config:
+              stroke_width: 3
+              fill_raw: last
+            series:
+              - entity: sensor.climate_ground_floor_temperature
+                name: Ground floor
+                unit: "°C"
+                extend_to: now
+                color: "#3F51B5"
+                opacity: 0.9
+                type: line
+                stroke_width: 3
+              - entity: sensor.climate_first_floor_temperature
+                name: First floor
+                extend_to: now
+                color: "#FFC107"
+                opacity: 0.9
+                type: line
+                stroke_width: 3
+              - entity: sensor.climate_second_floor_temperature
+                name: Second floor
+                extend_to: now
+                color: "#F44336"
+                opacity: 0.9
+                type: line
+                stroke_width: 3
+              - entity: sensor.openweathermap_temperature
+                name: Outside
+                extend_to: now
+                color: "#a8a8a8"
+                opacity: 0.3
+                type: area
+                stroke_width: 0
+              - entity: sensor.weather_forecast_hourly
+                name: Outside forecast
+                unit: "°C"
+                color: "#cccccc"
+                opacity: 0.3
+                type: area
+                stroke_width: 0
+                extend_to: end
+                show:
+                  in_header: false
+                  legend_value: false
+                data_generator: >
+                  const forecast = entity.attributes.forecast;
+                  if (!forecast || !forecast.length) return [];
+                  const now = Date.now();
+                  const future = forecast.filter(e => new Date(e.datetime).getTime() > now);
+                  const past = forecast.filter(e => new Date(e.datetime).getTime() <= now);
+                  if (!future.length) return [];
+                  const prev = past[past.length - 1];
+                  const next = future[0];
+                  let nowTemp;
+                  if (prev && next) {
+                    const t0 = new Date(prev.datetime).getTime();
+                    const t1 = new Date(next.datetime).getTime();
+                    const ratio = (now - t0) / (t1 - t0);
+                    nowTemp = prev.temperature + ratio * (next.temperature - prev.temperature);
+                  } else {
+                    nowTemp = next.temperature;
+                  }
+                  return [[now, nowTemp], ...future.map(e => [new Date(e.datetime).getTime(), e.temperature])];
           - type: heading
             heading: Fans
             heading_style: subtitle
@@ -217,23 +290,11 @@ views:
               - type: fan-speed
           - type: heading
             heading_style: subtitle
-            heading: Measurements
+            heading: Measurements per floor
             icon: mdi:chart-areaspline-variant
             tap_action:
               action: navigate
               navigation_path: /dashboard-climate/measurements-per-floor
-          - type: history-graph
-            hours_to_show: 24
-            entities:
-              - entity: sensor.climate_ground_floor_temperature
-                name: Ground Floor
-              - entity: sensor.climate_first_floor_temperature
-                name: First Floor
-              - entity: sensor.climate_second_floor_temperature
-                name: Second Floor
-            grid_options:
-              columns: 12
-              rows: 4
           - type: history-graph
             hours_to_show: 24
             entities:
@@ -249,6 +310,28 @@ views:
             grid_options:
               columns: 12
               rows: 4
+          - type: heading
+            heading_style: subtitle
+            heading: Measurements per room
+            icon: mdi:chart-areaspline
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-climate/measurements-per-room
+          - type: heading
+            heading: Thermostats
+            heading_style: subtitle
+            icon: mdi:thermostat-box
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-climate/thermostats
+          - type: tile
+            entity: climate.living
+            features:
+              - type: target-temperature
+          - type: tile
+            entity: climate.study
+            features:
+              - type: target-temperature
       - type: grid
         cards:
           - type: heading
