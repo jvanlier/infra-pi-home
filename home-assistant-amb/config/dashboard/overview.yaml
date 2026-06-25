@@ -186,15 +186,6 @@ views:
             heading_style: title
             icon: mdi:thermometer
           - type: custom:apexcharts-card
-            grid_options:
-              columns: 12
-              rows: 3
-            series:
-              - entity: sensor.climate_ground_floor_temperature
-          - type: custom:apexcharts-card
-            grid_options:
-              columns: 12
-              rows: 6
             apex_config:
               chart:
                 height: 400px

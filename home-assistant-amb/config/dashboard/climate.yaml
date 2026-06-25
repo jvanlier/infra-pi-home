@@ -24,9 +24,6 @@ views:
       - type: grid
         cards:
           - type: custom:apexcharts-card
-            grid_options:
-              columns: full
-              rows: 6
             apex_config:
               chart:
                 height: 400px
