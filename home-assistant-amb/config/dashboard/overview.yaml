@@ -219,21 +219,21 @@ views:
                 unit: "°C"
                 extend_to: now
                 color: "#3F51B5"
-                opacity: 0.5
+                opacity: 0.9
                 type: line
                 stroke_width: 3
               - entity: sensor.climate_first_floor_temperature
                 name: First floor
                 extend_to: now
                 color: "#FFC107"
-                opacity: 0.5
+                opacity: 0.9
                 type: line
                 stroke_width: 3
               - entity: sensor.climate_second_floor_temperature
                 name: Second floor
                 extend_to: now
                 color: "#F44336"
-                opacity: 0.5
+                opacity: 0.9
                 type: line
                 stroke_width: 3
               - entity: sensor.openweathermap_temperature
@@ -290,7 +290,7 @@ views:
               - type: fan-speed
           - type: heading
             heading_style: subtitle
-            heading: Measurements
+            heading: Measurements per floor
             icon: mdi:chart-areaspline-variant
             tap_action:
               action: navigate
@@ -310,6 +310,13 @@ views:
             grid_options:
               columns: 12
               rows: 4
+          - type: heading
+            heading_style: subtitle
+            heading: Measurements per room
+            icon: mdi:chart-areaspline
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-climate/measurements-per-room
           - type: heading
             heading: Thermostats
             heading_style: subtitle

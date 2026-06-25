@@ -31,21 +31,21 @@ views:
             unit: "°C"
             extend_to: now
             color: "#3F51B5"
-            opacity: 0.5
+            opacity: 0.9
             type: line
             stroke_width: 3
           - entity: sensor.climate_first_floor_temperature
             name: First floor
             extend_to: now
             color: "#FFC107"
-            opacity: 0.5
+            opacity: 0.9
             type: line
             stroke_width: 3
           - entity: sensor.climate_second_floor_temperature
             name: Second floor
             extend_to: now
             color: "#F44336"
-            opacity: 0.5
+            opacity: 0.9
             type: line
             stroke_width: 3
           - entity: sensor.openweathermap_temperature
