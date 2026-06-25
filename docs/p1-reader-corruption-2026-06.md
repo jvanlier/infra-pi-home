@@ -65,10 +65,13 @@ the E20's "Failed Bytes / Failed Frames" counters both showed **0** while it was
 
 ## The confirming test (fan)
 
-E20 TELNETD is **single-client** and only streams **after the client answers the telnet IAC
-negotiation** (plain `nc` never replies, so it only gets the 15-byte greeting - had to use a
-Python client that responds DONT/WONT). With HA's integration disabled and the E20 rebooted to
-free the socket, measured corrupt-bytes-per-telegram before and after pointing a fan at the unit:
+E20 TELNETD only streams **after the client answers the telnet IAC negotiation** (plain `nc`
+never replies, so it only gets the 15-byte greeting - had to use a Python client that responds
+DONT/WONT). Measured corrupt-bytes-per-telegram before and after pointing a fan at the unit:
+
+> During diagnosis I wrongly assumed the E20 was single-client and went through disabling the
+> HA integration + rebooting the E20 to "free the socket". That was unnecessary - see the
+> multi-client correction in Notes below. The fan measurements stand regardless.
 
 | condition | telegrams | corrupt bytes | per telegram |
 |---|---|---|---|
@@ -114,14 +117,17 @@ recovers. Explains why a setup untouched for months broke "suddenly."
   reconnects and parses clean telegrams. (Fan is a thermometer-that-cools, not a real fix.)
 - **Permanent:** **replace the reader.** Oscillator aging is one-way; it will return with the
   next warm spell. A new P1 reader (~EUR 30) ends it. Prefer a **USB-P1 cable** or **ESPHome P1
-  dongle** over the telnet bridge - avoids the single-client TELNETD quirk and the flaky module.
+  dongle** over the telnet bridge - simpler, no IAC-negotiation quirk, and avoids the flaky module.
 
 ## Notes / gotchas for next time
 
-- **E20 TELNETD is single-client.** While HA holds the socket you cannot capture in parallel;
-  while you hold it HA gets nothing. Disable the integration (or stop HA) to grab the stream.
-- **You must answer the telnet IAC negotiation** or the E20 sends only the greeting and no data.
-  `nc` alone fails; use a client that replies. Capture/measure scripts lived in `/tmp`
-  (`p1measure.py`) during diagnosis - not committed.
+- **E20 TELNETD is multi-client (verified).** Opening two concurrent negotiated connections, with
+  HA also connected, all received identical full telegram streams - no starvation. You can capture
+  alongside HA without disabling the integration. (Initial single-client assumption was wrong; it
+  came from misreading the IAC symptom below.)
+- **You must answer the telnet IAC negotiation** or the E20 sends only the greeting (~15 bytes) and
+  no data. This - not a client-slot limit - is why plain `nc` returned nothing useful. Use a client
+  that replies DONT/WONT. Capture/measure scripts lived in `/tmp` (`p1measure.py`) during
+  diagnosis - not committed.
 - The bit-7-only test is the fast discriminator: if smart-meter data corrupts and **every** bad
   byte is `good_char | 0x80`, suspect serial timing/oscillator, not firmware or config.
