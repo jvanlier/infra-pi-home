@@ -23,7 +23,7 @@ views:
               tickAmount: 9
         hours_12: false
         all_series_config:
-          stroke_width: 2
+          stroke_width: 3
           fill_raw: last
         series:
           - entity: sensor.climate_ground_floor_temperature
@@ -33,21 +33,21 @@ views:
             color: "#3F51B5"
             opacity: 0.5
             type: line
-            stroke_width: 2
+            stroke_width: 3
           - entity: sensor.climate_first_floor_temperature
             name: First floor
             extend_to: now
-            color: "#FF8F00"
+            color: "#FFC107"
             opacity: 0.5
             type: line
-            stroke_width: 2
+            stroke_width: 3
           - entity: sensor.climate_second_floor_temperature
             name: Second floor
             extend_to: now
             color: "#F44336"
             opacity: 0.5
             type: line
-            stroke_width: 2
+            stroke_width: 3
           - entity: sensor.openweathermap_temperature
             name: Outside
             extend_to: now
