@@ -1,6 +1,6 @@
 - trigger:
-    - trigger: time_pattern
-      minutes: "/30"
+    - trigger: state
+      entity_id: weather.openweathermap
     - trigger: homeassistant
       event: start
   action:
