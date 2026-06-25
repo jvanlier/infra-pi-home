@@ -89,7 +89,7 @@ views:
         entity: sensor.climate_second_floor_temperature
         icon: mdi:home-floor-2
         name: Second Floor
-        color: teal
+        color: red
     sections:
       - type: grid
         column_span: 1
