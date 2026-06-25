@@ -186,12 +186,12 @@ views:
             heading_style: title
             icon: mdi:thermometer
           - type: heading
-            heading: Temperature
+            heading: Inside vs Outside
             heading_style: subtitle
-            icon: mdi:chart-areaspline-variant
+            icon: mdi:sun-thermometer
             tap_action:
               action: navigate
-              navigation_path: /dashboard-climate/temperature
+              navigation_path: /dashboard-climate/inside-vs-outside
           - type: custom:apexcharts-card
             apex_config:
               chart:

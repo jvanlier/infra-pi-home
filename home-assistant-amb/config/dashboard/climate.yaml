@@ -1,8 +1,9 @@
 views:
-  - title: Temperature
-    path: temperature
-    icon: mdi:chart-areaspline-variant
+  - title: Inside vs Outside
+    path: inside-vs-outside
+    icon: mdi:sun-thermometer
     type: sections
+    max_columns: 1
     sections:
       - type: grid
         cards:
