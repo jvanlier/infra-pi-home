@@ -1,0 +1,20 @@
+- trigger:
+    - trigger: time_pattern
+      minutes: "/30"
+    - trigger: homeassistant
+      event: start
+  action:
+    - action: weather.get_forecasts
+      target:
+        entity_id: weather.openweathermap
+      data:
+        type: hourly
+      response_variable: hourly
+  sensor:
+    - name: Weather Forecast Hourly
+      unique_id: weather_forecast_hourly
+      state: "{{ hourly['weather.openweathermap'].forecast[0].temperature }}"
+      unit_of_measurement: "°C"
+      device_class: temperature
+      attributes:
+        forecast: "{{ hourly['weather.openweathermap'].forecast }}"

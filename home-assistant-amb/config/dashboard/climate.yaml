@@ -23,6 +23,100 @@ views:
     sections:
       - type: grid
         cards:
+          - type: custom:apexcharts-card
+            grid_options:
+              columns: full
+              rows: 6
+            apex_config:
+              chart:
+                height: 400px
+            header:
+              title: Inside versus outside temperature 24h
+              show: true
+              show_states: true
+              colorize_states: true
+            graph_span: 24h
+            span:
+              offset: +8h
+            yaxis:
+              - min: 18
+                decimals: 0
+                apex_config:
+                  tickAmount: 9
+            hours_12: false
+            all_series_config:
+              stroke_width: 2
+              fill_raw: last
+            series:
+              - entity: sensor.climate_ground_floor_temperature
+                name: Ground floor
+                unit: "°C"
+                extend_to: now
+                color: green
+                opacity: 0.5
+                type: line
+                stroke_width: 2
+              - entity: sensor.climate_first_floor_temperature
+                name: First floor
+                extend_to: now
+                color: blue
+                opacity: 0.5
+                type: line
+                stroke_width: 2
+              - entity: sensor.climate_second_floor_temperature
+                name: Second floor
+                extend_to: now
+                color: orange
+                opacity: 0.5
+                type: line
+                stroke_width: 2
+              - entity: sensor.openweathermap_temperature
+                name: Outside
+                extend_to: now
+                color: "#a8a8a8"
+                opacity: 0.3
+                type: area
+                stroke_width: 0
+              - entity: sensor.weather_forecast_hourly
+                name: Outside forecast
+                unit: "°C"
+                color: "#cccccc"
+                opacity: 0.3
+                type: area
+                stroke_width: 0
+                extend_to: end
+                show:
+                  in_header: false
+                  legend_value: false
+                data_generator: >
+                  const forecast = entity.attributes.forecast;
+                  if (!forecast || !forecast.length) return [];
+                  const now = Date.now();
+                  const future = forecast.filter(e => new Date(e.datetime).getTime() > now);
+                  const past = forecast.filter(e => new Date(e.datetime).getTime() <= now);
+                  if (!future.length) return [];
+                  const prev = past[past.length - 1];
+                  const next = future[0];
+                  let nowTemp;
+                  if (prev && next) {
+                    const t0 = new Date(prev.datetime).getTime();
+                    const t1 = new Date(next.datetime).getTime();
+                    const ratio = (now - t0) / (t1 - t0);
+                    nowTemp = prev.temperature + ratio * (next.temperature - prev.temperature);
+                  } else {
+                    nowTemp = next.temperature;
+                  }
+                  return [[now, nowTemp], ...future.map(e => [new Date(e.datetime).getTime(), e.temperature])];
+          - type: heading
+            heading: Heating percentage 24h
+            heading_style: subtitle
+            icon: mdi:heat-wave
+          - type: history-graph
+            entities:
+              - entity: sensor.living_heating
+              - entity: sensor.study_heating
+              - entity: sensor.bedroom_jc_heating
+            hours_to_show: 24
           - type: heading
             heading: Thermostats
             heading_style: title
@@ -39,16 +133,6 @@ views:
             entity: climate.bedroom_jc
             features:
               - type: target-temperature
-          - type: heading
-            heading: Heating percentage 24h
-            heading_style: subtitle
-            icon: mdi:heat-wave
-          - type: history-graph
-            entities:
-              - entity: sensor.living_heating
-              - entity: sensor.study_heating
-              - entity: sensor.bedroom_jc_heating
-            hours_to_show: 24
 
   - title: Fans
     path: fans
