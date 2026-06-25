@@ -1,25 +1,8 @@
 views:
-  - title: Thermostats
-    path: thermostats
-    icon: mdi:thermostat
+  - title: Temperature
+    path: temperature
+    icon: mdi:chart-areaspline-variant
     type: sections
-    badges:
-      - type: entity
-        entity: binary_sensor.ib1863854592_connection_state
-        name: Internet Bridge
-        show_name: true
-      - type: entity
-        entity: binary_sensor.tado_thermostat_living_battery
-        name: Living
-        show_name: true
-      - type: entity
-        entity: binary_sensor.tado_thermostat_bedroom_jc_battery
-        name: Bedroom JC
-        show_name: true
-      - type: entity
-        entity: binary_sensor.tado_thermostat_valve_study_battery
-        name: Study
-        show_name: true
     sections:
       - type: grid
         cards:
@@ -104,32 +87,6 @@ views:
                     nowTemp = next.temperature;
                   }
                   return [[now, nowTemp], ...future.map(e => [new Date(e.datetime).getTime(), e.temperature])];
-          - type: heading
-            heading: Heating percentage 24h
-            heading_style: subtitle
-            icon: mdi:heat-wave
-          - type: history-graph
-            entities:
-              - entity: sensor.living_heating
-              - entity: sensor.study_heating
-              - entity: sensor.bedroom_jc_heating
-            hours_to_show: 24
-          - type: heading
-            heading: Thermostats
-            heading_style: title
-            icon: mdi:thermostat
-          - type: tile
-            entity: climate.living
-            features:
-              - type: target-temperature
-          - type: tile
-            entity: climate.study
-            features:
-              - type: target-temperature
-          - type: tile
-            entity: climate.bedroom_jc
-            features:
-              - type: target-temperature
 
   - title: Fans
     path: fans
@@ -579,3 +536,54 @@ views:
             max_y_axis: *max_y_axis_humidity
             fit_y_data: true
             grid_options: *grid_options_humidity
+
+  - title: Thermostats
+    path: thermostats
+    icon: mdi:thermostat
+    type: sections
+    badges:
+      - type: entity
+        entity: binary_sensor.ib1863854592_connection_state
+        name: Internet Bridge
+        show_name: true
+      - type: entity
+        entity: binary_sensor.tado_thermostat_living_battery
+        name: Living
+        show_name: true
+      - type: entity
+        entity: binary_sensor.tado_thermostat_bedroom_jc_battery
+        name: Bedroom JC
+        show_name: true
+      - type: entity
+        entity: binary_sensor.tado_thermostat_valve_study_battery
+        name: Study
+        show_name: true
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Thermostats
+            heading_style: title
+            icon: mdi:thermostat
+          - type: tile
+            entity: climate.living
+            features:
+              - type: target-temperature
+          - type: tile
+            entity: climate.study
+            features:
+              - type: target-temperature
+          - type: tile
+            entity: climate.bedroom_jc
+            features:
+              - type: target-temperature
+          - type: heading
+            heading: Heating percentage 24h
+            heading_style: subtitle
+            icon: mdi:heat-wave
+          - type: history-graph
+            entities:
+              - entity: sensor.living_heating
+              - entity: sensor.study_heating
+              - entity: sensor.bedroom_jc_heating
+            hours_to_show: 24

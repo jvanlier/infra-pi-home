@@ -185,10 +185,17 @@ views:
             heading: Climate
             heading_style: title
             icon: mdi:thermometer
+          - type: heading
+            heading: Temperature
+            heading_style: subtitle
+            icon: mdi:chart-areaspline-variant
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-climate/temperature
           - type: custom:apexcharts-card
             apex_config:
               chart:
-                height: 400px
+                height: 280px
             header:
               title: Inside versus outside temperature 24h
               show: true
