@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "home-assistant": {
+      "type": "remote",
+      "url": "http://pi502.local:8123/api/mcp",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer {env:HA_TOKEN}"
+      }
+    }
+  }
+}
