@@ -201,7 +201,7 @@ views:
               show: true
               show_states: true
               colorize_states: true
-            graph_span: 24h
+            graph_span: 32h
             span:
               offset: +8h
             yaxis:
