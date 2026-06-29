@@ -50,7 +50,18 @@
   id: fan-bedroom-jc-off
   trigger:
     - platform: time
+      at: "08:00:00"
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    - platform: time
       at: "09:00:00"
+      weekday:
+        - sat
+        - sun
   condition:
     - condition: state
       entity_id: fan.fan_bedroom_jc
