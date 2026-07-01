@@ -1,0 +1,71 @@
+- alias: Fan bedroom off when leaving home
+  id: fan-bedroom-off-presence
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.presence_house
+      from: "on"
+      to: "off"
+  condition:
+    - condition: state
+      entity_id: fan.fan_bedroom_jc
+      state: "on"
+    - condition: or
+      conditions:
+        - condition: time
+          after: "08:00:00"
+          before: "21:00:00"
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+        - condition: time
+          after: "09:00:00"
+          before: "21:00:00"
+          weekday:
+            - sat
+            - sun
+  action:
+    - action: fan.turn_off
+      target:
+        entity_id: fan.fan_bedroom_jc
+  mode: restart
+
+- alias: Fan study off when leaving home
+  id: fan-study-off-presence
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.presence_house
+      from: "on"
+      to: "off"
+  condition:
+    - condition: state
+      entity_id: fan.fan_study
+      state: "on"
+    - condition: or
+      conditions:
+        - condition: time
+          after: "08:00:00"
+          before: "18:00:00"
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+        - condition: time
+          after: "09:00:00"
+          before: "18:00:00"
+          weekday:
+            - sat
+            - sun
+  # The study fan is sometimes used in Olivier's room. We limit the evening
+  # cutoff to 18:00 to avoid turning it off during his bed ritual, in case
+  # presence_house triggers an on->off transition (e.g., both parents are out
+  # but Olivier is still in the room).
+  action:
+    - action: fan.turn_off
+      target:
+        entity_id: fan.fan_study
+  mode: restart
