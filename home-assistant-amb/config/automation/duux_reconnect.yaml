@@ -1,0 +1,16 @@
+# duux_fan_local uses one paho-mqtt client per fan. If the initial connect()
+# fails (broker not up yet), paho never retries - the fan entity stays
+# stuck in its default state. Unconditional reload after a delay fixes this.
+- alias: Reconnect Duux fans after startup
+  id: duux-reconnect-after-startup
+  trigger:
+    - platform: homeassistant
+      event: start
+  action:
+    - delay: "00:00:30"
+    - action: homeassistant.reload_config_entry
+      target:
+        entity_id:
+          - fan.fan_bedroom_jc
+          - fan.fan_study
+  mode: single
