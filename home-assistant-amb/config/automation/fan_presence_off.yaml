@@ -1,0 +1,50 @@
+- alias: Fan Bedroom JC off when leaving home
+  id: fan-bedroom-jc-presence-off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.presence_house
+      to: "off"
+  condition:
+    - condition: state
+      entity_id: fan.fan_bedroom_jc
+      state: "on"
+    - condition: template
+      value_template: >-
+        {% set w = now().weekday() %}
+        {% set h = now().hour %}
+        {% set m = now().minute %}
+        {% set mins = h * 60 + m %}
+        {% if w < 5 %}{{ 8 * 60 <= mins <= 21 * 60 }}
+        {% else %}{{ 9 * 60 <= mins <= 21 * 60 }}{% endif %}
+  action:
+    - action: fan.turn_off
+      target:
+        entity_id: fan.fan_bedroom_jc
+  mode: restart
+
+- alias: Fan Study off when leaving home
+  id: fan-study-presence-off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.presence_house
+      to: "off"
+  condition:
+    - condition: state
+      entity_id: fan.fan_study
+      state: "on"
+    # The cutoff is 18:00 (not 21:00) because this fan is sometimes in
+    # Olivier's room and we don't want to disrupt his bed ritual in case
+    # the presence off trigger is wrong (e.g., a false negative).
+    - condition: template
+      value_template: >-
+        {% set w = now().weekday() %}
+        {% set h = now().hour %}
+        {% set m = now().minute %}
+        {% set mins = h * 60 + m %}
+        {% if w < 5 %}{{ 8 * 60 <= mins <= 18 * 60 }}
+        {% else %}{{ 9 * 60 <= mins <= 18 * 60 }}{% endif %}
+  action:
+    - action: fan.turn_off
+      target:
+        entity_id: fan.fan_study
+  mode: restart
