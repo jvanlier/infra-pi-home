@@ -62,8 +62,8 @@
             - sun
   # The study fan is sometimes used in Olivier's room. We limit the evening
   # cutoff to 18:00 to avoid turning it off during his bed ritual, in case
-  # presence_house triggers an on->off transition (e.g., both parents are out
-  # but Olivier is still in the room).
+  # presence_house triggers an on->off transition (e.g., everyone is in an area
+  # without movement/presence sensor coverage or battery failure)
   action:
     - action: fan.turn_off
       target:
