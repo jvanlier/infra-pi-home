@@ -1,0 +1,34 @@
+# duux_fan_local uses one paho-mqtt client per fan. If the initial connect()
+# fails (broker not up yet), paho never retries - the fan entity stays
+# unavailable until the config entry is reloaded. This automation handles
+# that after a reboot.
+- alias: Reconnect Duux fans after startup
+  id: duux-reconnect-after-startup
+  trigger:
+    - platform: homeassistant
+      event: start
+  action:
+    - repeat:
+        count: 3
+        sequence:
+          - delay: "00:00:30"
+          - condition: template
+            value_template: >
+              {{ is_state('fan.fan_bedroom_jc', 'unavailable')
+                 or is_state('fan.fan_study', 'unavailable') }}
+          - action: homeassistant.reload_config_entry
+            target:
+              entity_id:
+                - fan.fan_bedroom_jc
+                - fan.fan_study
+    - condition: template
+      value_template: >
+        {{ is_state('fan.fan_bedroom_jc', 'unavailable')
+           or is_state('fan.fan_study', 'unavailable') }}
+    - action: notify.mobile_app_j16
+      data:
+        title: Duux fans
+        message: >-
+          Failed to reconnect after 3 attempts.
+          Check if duux-emqx container is running.
+  mode: single
