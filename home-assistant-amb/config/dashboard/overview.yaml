@@ -197,11 +197,11 @@ views:
               chart:
                 height: 280px
             header:
-              title: Inside versus outside temperature 24h
+              title: Inside versus outside temperature
               show: true
               show_states: true
               colorize_states: true
-            graph_span: 24h
+            graph_span: 32h
             span:
               offset: +8h
             yaxis:
