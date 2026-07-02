@@ -9,5 +9,8 @@
         "Authorization": "Bearer {env:HA_TOKEN}"
       }
     }
+  },
+  "permission": {
+    "bash": { "just test": "allow" }
   }
 }

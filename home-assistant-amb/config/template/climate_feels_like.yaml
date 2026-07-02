@@ -1,0 +1,38 @@
+- sensor:
+    - name: Climate Study Feels Like Temperature
+      unique_id: climate_study_feels_like_temperature
+      unit_of_measurement: °C
+      device_class: temperature
+      state_class: measurement
+      availability: >-
+        {% set t = states('sensor.climate_study_temperature') | float(none) %}
+        {% set rh = states('sensor.climate_study_humidity') | float(none) %}
+        {{ t is not none and rh is not none and rh > 0 }}
+      state: >-
+        {% set t = states('sensor.climate_study_temperature') | float %}
+        {% set rh = states('sensor.climate_study_humidity') | float %}
+        {% set a = 17.27 %}
+        {% set b = 237.7 %}
+        {% set alpha = (a * t) / (b + t) + log(rh / 100) %}
+        {% set dew_point = (b * alpha) / (a - alpha) %}
+        {% set e = 6.11 * exp(5417.7530 * ((1 / 273.16) - (1 / (dew_point + 273.15)))) %}
+        {{ (t + 0.5555 * (e - 10)) | round(1) }}
+
+    - name: Climate Bedroom JC Feels Like Temperature
+      unique_id: climate_bedroom_jc_feels_like_temperature
+      unit_of_measurement: °C
+      device_class: temperature
+      state_class: measurement
+      availability: >-
+        {% set t = states('sensor.climate_bedroom_jc_temperature') | float(none) %}
+        {% set rh = states('sensor.climate_bedroom_jc_humidity') | float(none) %}
+        {{ t is not none and rh is not none and rh > 0 }}
+      state: >-
+        {% set t = states('sensor.climate_bedroom_jc_temperature') | float %}
+        {% set rh = states('sensor.climate_bedroom_jc_humidity') | float %}
+        {% set a = 17.27 %}
+        {% set b = 237.7 %}
+        {% set alpha = (a * t) / (b + t) + log(rh / 100) %}
+        {% set dew_point = (b * alpha) / (a - alpha) %}
+        {% set e = 6.11 * exp(5417.7530 * ((1 / 273.16) - (1 / (dew_point + 273.15)))) %}
+        {{ (t + 0.5555 * (e - 10)) | round(1) }}

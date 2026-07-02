@@ -34,7 +34,7 @@ wake_up_light_kids_minutes_until_green:
   icon: "mdi:clock-plus-outline"
 
 fan_study_start_temp:
-  name: Fan Study Start Temp
+  name: Fan Study Start Feels Like
   initial: 23
   min: 15
   max: 30
@@ -43,7 +43,7 @@ fan_study_start_temp:
   icon: "mdi:fan-chevron-down"
 
 fan_study_end_temp:
-  name: Fan Study End Temp
+  name: Fan Study End Feels Like
   initial: 30
   min: 18
   max: 35
@@ -61,7 +61,7 @@ fan_study_end_pct:
   icon: "mdi:fan"
 
 fan_bedroom_jc_start_temp:
-  name: Fan Bedroom JC Start Temp
+  name: Fan Bedroom JC Start Feels Like
   initial: 20
   min: 15
   max: 30
@@ -70,7 +70,7 @@ fan_bedroom_jc_start_temp:
   icon: "mdi:fan-chevron-down"
 
 fan_bedroom_jc_end_temp:
-  name: Fan Bedroom JC End Temp
+  name: Fan Bedroom JC End Feels Like
   initial: 30
   min: 18
   max: 35

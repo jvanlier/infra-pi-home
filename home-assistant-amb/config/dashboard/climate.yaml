@@ -96,7 +96,7 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_study_temperature
+        entity: sensor.climate_study_feels_like_temperature
         name: Study
         icon: mdi:chair-rolling
         color: teal
@@ -104,7 +104,7 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_bedroom_jc_temperature
+        entity: sensor.climate_bedroom_jc_feels_like_temperature
         name: Bedroom JC
         icon: mdi:bed
         color: red
@@ -187,13 +187,13 @@ views:
             cards:
               - type: tile
                 entity: input_number.fan_study_start_temp
-                name: Start Temp
+                name: Start
                 features:
                   - type: numeric-input
                     style: buttons
               - type: tile
                 entity: input_number.fan_study_end_temp
-                name: End Temp
+                name: End
                 features:
                   - type: numeric-input
                     style: buttons
@@ -213,13 +213,13 @@ views:
             cards:
               - type: tile
                 entity: input_number.fan_bedroom_jc_start_temp
-                name: Start Temp
+                name: Start
                 features:
                   - type: numeric-input
                     style: buttons
               - type: tile
                 entity: input_number.fan_bedroom_jc_end_temp
-                name: End Temp
+                name: End
                 features:
                   - type: numeric-input
                     style: buttons
@@ -233,7 +233,7 @@ views:
             grid_options:
               columns: full
             refresh_interval: 2
-            title: Desired fan speed vs temperature
+            title: Desired fan speed vs feels like temperature
             layout:
               height: 260
               margin:
@@ -242,7 +242,7 @@ views:
                 b: 64
                 l: 56
               xaxis:
-                title: "Temperature (°C)"
+                title: "Feels Like (°C)"
                 type: linear
                 range: [18, 32]
                 dtick: 2
@@ -274,6 +274,34 @@ views:
               _Hardcoded in the automation — cannot be changed here._
             grid_options:
               columns: full
+          - type: heading
+            heading: Study Temperature History
+            heading_style: subtitle
+            icon: mdi:chair-rolling
+          - type: history-graph
+            hours_to_show: 24
+            entities:
+              - entity: sensor.climate_study_temperature
+                name: Raw
+              - entity: sensor.climate_study_feels_like_temperature
+                name: Feels Like
+            grid_options:
+              columns: full
+              rows: 5
+          - type: heading
+            heading: Bedroom JC Temperature History
+            heading_style: subtitle
+            icon: mdi:bed
+          - type: history-graph
+            hours_to_show: 24
+            entities:
+              - entity: sensor.climate_bedroom_jc_temperature
+                name: Raw
+              - entity: sensor.climate_bedroom_jc_feels_like_temperature
+                name: Feels Like
+            grid_options:
+              columns: full
+              rows: 5
 
   - title: Measurements per floor
     path: measurements-per-floor
