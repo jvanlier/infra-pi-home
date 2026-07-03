@@ -60,6 +60,7 @@ Home Assistant config uses a split configuration model (see `home-assistant-amb/
   - `script.yaml`: Scripts
   - `binary_sensor.yaml`: Binary sensor definitions
   - `adaptive_lighting.yaml`: Adaptive lighting configurations for each light/room
+  - `mqtt.yaml`: Manually-defined MQTT entities (currently: TeslaMate car sensors). The MQTT broker connection itself is a separate UI-managed config entry, not YAML.
 
 ### Dashboard Conventions
 

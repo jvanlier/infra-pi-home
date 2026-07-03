@@ -27,6 +27,7 @@ logbook: !include logbook.yaml
 script: !include script.yaml
 binary_sensor: !include binary_sensor.yaml
 light: !include light.yaml
+mqtt: !include mqtt.yaml
 
 # Custom component config files to include
 adaptive_lighting: !include adaptive_lighting.yaml

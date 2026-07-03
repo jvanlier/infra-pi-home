@@ -1,0 +1,10 @@
+sensor:
+  - name: "Tesla Battery Level"
+    unique_id: tesla_battery_level
+    state_topic: "teslamate/cars/1/battery_level"
+    unit_of_measurement: "%"
+    device_class: battery
+    state_class: measurement
+    availability_topic: "teslamate/cars/1/healthy"
+    payload_available: "true"
+    payload_not_available: "false"
