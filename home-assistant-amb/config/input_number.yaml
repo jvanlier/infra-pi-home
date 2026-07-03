@@ -86,3 +86,13 @@ fan_bedroom_jc_end_pct:
   step: 1
   unit_of_measurement: "%"
   icon: "mdi:fan"
+
+washing_machine_cycle_start_energy:
+  name: Washing Machine Cycle Start Energy
+  initial: 0
+  min: 0
+  max: 100000
+  step: 0.01
+  unit_of_measurement: "kWh"
+  icon: "mdi:lightning-bolt"
+  mode: box
