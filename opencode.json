@@ -9,5 +9,12 @@
         "Authorization": "Bearer {env:HA_TOKEN}"
       }
     }
+  },
+  "permission": {
+    "home-assistant_GetLiveContext": "allow",
+    "bash": {
+        "just test": "allow",
+        "just build": "allow"
+    }
   }
 }
