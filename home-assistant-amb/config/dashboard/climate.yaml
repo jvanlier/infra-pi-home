@@ -160,13 +160,13 @@ views:
               - entity: sensor.climate_study_temperature
                 name: Actual
                 extend_to: now
-                color: "#009688"
+                color: "#2196f3"
                 opacity: 0.9
                 type: line
               - entity: sensor.climate_study_feels_like_temperature
                 name: Feels like
                 extend_to: now
-                color: "#009688"
+                color: "#ff9800"
                 opacity: 0.6
                 stroke_dash: 4
                 type: line
@@ -215,13 +215,13 @@ views:
               - entity: sensor.climate_bedroom_jc_temperature
                 name: Actual
                 extend_to: now
-                color: "#f44336"
+                color: "#2196f3"
                 opacity: 0.9
                 type: line
               - entity: sensor.climate_bedroom_jc_feels_like_temperature
                 name: Feels like
                 extend_to: now
-                color: "#f44336"
+                color: "#ff9800"
                 opacity: 0.6
                 stroke_dash: 4
                 type: line
