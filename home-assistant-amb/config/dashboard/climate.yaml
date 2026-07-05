@@ -144,6 +144,7 @@ views:
               action: call-service
               service: script.fan_study_turn_on
           - type: custom:apexcharts-card
+            section_mode: true
             grid_options:
               columns: full
             apex_config:
@@ -201,6 +202,7 @@ views:
               action: call-service
               service: script.fan_bedroom_jc_turn_on
           - type: custom:apexcharts-card
+            section_mode: true
             grid_options:
               columns: full
             apex_config:
