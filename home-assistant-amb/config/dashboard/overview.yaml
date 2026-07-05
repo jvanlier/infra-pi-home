@@ -90,6 +90,12 @@ views:
         icon: mdi:home-floor-2
         name: Second Floor
         color: red
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.tesla_battery_level
+        name: Tesla
     sections:
       - type: grid
         column_span: 1
