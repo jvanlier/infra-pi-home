@@ -66,7 +66,7 @@ fan_study_turn_on:
   sequence:
     - variables:
         target_pct: >
-          {% set t = states('sensor.climate_study_temperature') | float(0) %}
+          {% set t = states('sensor.climate_study_feels_like_temperature') | float(0) %}
           {% set s = states('input_number.fan_study_start_temp') | float(23) %}
           {% set e = states('input_number.fan_study_end_temp') | float(30) %}
           {% set p = states('input_number.fan_study_end_pct') | float(50) %}
@@ -88,7 +88,7 @@ fan_bedroom_jc_turn_on:
   sequence:
     - variables:
         target_pct: >
-          {% set t = states('sensor.climate_bedroom_jc_temperature') | float(0) %}
+          {% set t = states('sensor.climate_bedroom_jc_feels_like_temperature') | float(0) %}
           {% set s = states('input_number.fan_bedroom_jc_start_temp') | float(20) %}
           {% set e = states('input_number.fan_bedroom_jc_end_temp') | float(30) %}
           {% set p = states('input_number.fan_bedroom_jc_end_pct') | float(90) %}
