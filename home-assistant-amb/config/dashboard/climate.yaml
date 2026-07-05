@@ -96,7 +96,7 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_study_temperature
+        entity: sensor.climate_study_feels_like_temperature
         name: Study
         icon: mdi:chair-rolling
         color: teal
@@ -104,7 +104,7 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_bedroom_jc_temperature
+        entity: sensor.climate_bedroom_jc_feels_like_temperature
         name: Bedroom JC
         icon: mdi:bed
         color: red
@@ -143,6 +143,35 @@ views:
             tap_action:
               action: call-service
               service: script.fan_study_turn_on
+          - type: custom:apexcharts-card
+            grid_options:
+              columns: full
+            apex_config:
+              chart:
+                height: 200px
+            header:
+              show: true
+              title: Study temperature
+              show_states: true
+              colorize_states: true
+            graph_span: 24h
+            hours_12: false
+            all_series_config:
+              stroke_width: 3
+            series:
+              - entity: sensor.climate_study_temperature
+                name: Actual
+                extend_to: now
+                color: "#009688"
+                opacity: 0.9
+                type: line
+              - entity: sensor.climate_study_feels_like_temperature
+                name: Feels like
+                extend_to: now
+                color: "#009688"
+                opacity: 0.6
+                stroke_dash: 4
+                type: line
           - type: heading
             heading: Bedroom JC
             heading_style: subtitle
@@ -171,6 +200,35 @@ views:
             tap_action:
               action: call-service
               service: script.fan_bedroom_jc_turn_on
+          - type: custom:apexcharts-card
+            grid_options:
+              columns: full
+            apex_config:
+              chart:
+                height: 200px
+            header:
+              show: true
+              title: Bedroom JC temperature
+              show_states: true
+              colorize_states: true
+            graph_span: 24h
+            hours_12: false
+            all_series_config:
+              stroke_width: 3
+            series:
+              - entity: sensor.climate_bedroom_jc_temperature
+                name: Actual
+                extend_to: now
+                color: "#f44336"
+                opacity: 0.9
+                type: line
+              - entity: sensor.climate_bedroom_jc_feels_like_temperature
+                name: Feels like
+                extend_to: now
+                color: "#f44336"
+                opacity: 0.6
+                stroke_dash: 4
+                type: line
       - type: grid
         cards:
           - type: heading
