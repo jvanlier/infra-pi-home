@@ -96,18 +96,18 @@ views:
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_study_temperature
-        name: Study
+        entity: sensor.climate_study_feels_like_temperature
+        name: Study feels like
         icon: mdi:chair-rolling
-        color: teal
+        color: "#00c3b1"
       - type: entity
         show_name: true
         show_state: true
         show_icon: true
-        entity: sensor.climate_bedroom_jc_temperature
-        name: Bedroom JC
+        entity: sensor.climate_bedroom_jc_feels_like_temperature
+        name: Bedroom JC feels like
         icon: mdi:bed
-        color: red
+        color: "#ff5746"
     sections:
       - type: grid
         cards:
@@ -174,6 +174,50 @@ views:
       - type: grid
         cards:
           - type: heading
+            heading: Temperature
+            heading_style: title
+            icon: mdi:thermometer
+          - type: custom:apexcharts-card
+            apex_config:
+              chart:
+                height: 280px
+            header:
+              show: true
+              title: Actual vs feels-like temperature
+              show_states: true
+              colorize_states: true
+            graph_span: 24h
+            hours_12: false
+            all_series_config:
+              stroke_width: 3
+            series:
+              - entity: sensor.climate_study_feels_like_temperature
+                name: Study feels like
+                extend_to: now
+                color: "#00c3b1"
+                opacity: 0.9
+                type: line
+              - entity: sensor.climate_study_temperature
+                name: Study actual
+                extend_to: now
+                color: "#009688"
+                opacity: 0.6
+                type: line
+              - entity: sensor.climate_bedroom_jc_feels_like_temperature
+                name: Bedroom JC feels like
+                extend_to: now
+                color: "#ff5746"
+                opacity: 0.9
+                type: line
+              - entity: sensor.climate_bedroom_jc_temperature
+                name: Bedroom JC actual
+                extend_to: now
+                color: "#c3362b"
+                opacity: 0.6
+                type: line
+      - type: grid
+        cards:
+          - type: heading
             heading: Settings
             heading_style: title
             icon: mdi:cog
@@ -187,13 +231,13 @@ views:
             cards:
               - type: tile
                 entity: input_number.fan_study_start_temp
-                name: Start Temp
+                name: Start Feels Like Temp
                 features:
                   - type: numeric-input
                     style: buttons
               - type: tile
                 entity: input_number.fan_study_end_temp
-                name: End Temp
+                name: End Feels Like Temp
                 features:
                   - type: numeric-input
                     style: buttons
@@ -213,13 +257,13 @@ views:
             cards:
               - type: tile
                 entity: input_number.fan_bedroom_jc_start_temp
-                name: Start Temp
+                name: Start Feels Like Temp
                 features:
                   - type: numeric-input
                     style: buttons
               - type: tile
                 entity: input_number.fan_bedroom_jc_end_temp
-                name: End Temp
+                name: End Feels Like Temp
                 features:
                   - type: numeric-input
                     style: buttons
@@ -233,7 +277,7 @@ views:
             grid_options:
               columns: full
             refresh_interval: 2
-            title: Desired fan speed vs temperature
+            title: Desired fan speed vs feels-like temperature
             layout:
               height: 260
               margin:
@@ -242,7 +286,7 @@ views:
                 b: 64
                 l: 56
               xaxis:
-                title: "Temperature (°C)"
+                title: "Feels Like Temperature (°C)"
                 type: linear
                 range: [18, 32]
                 dtick: 2

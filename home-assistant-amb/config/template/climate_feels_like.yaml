@@ -1,0 +1,41 @@
+- sensor:
+  # "Feels like" temperature blends air temperature with humidity into a single
+  # apparent-temperature value: at the same air temperature, higher humidity feels
+  # warmer, lower humidity feels cooler. Formula: the Australian Bureau of
+  # Meteorology's simplified apparent temperature, with the wind-speed term
+  # dropped (there is no wind indoors).
+  #   vp = (RH / 100) * 6.105 * e^(17.27 * T / (237.7 + T))   -- vapor pressure (hPa)
+  #   feels_like = T + 0.33 * vp - 4.0
+  # e^x is written as `2.718281828459045 ** x` - Jinja2 has no `exp` filter, but
+  # supports the `**` power operator natively.
+  - name: Climate Study Feels Like Temperature
+    unique_id: climate_study_feels_like_temperature
+    unit_of_measurement: °C
+    device_class: temperature
+    state_class: measurement
+    availability: >-
+      {{ [
+        states('sensor.climate_study_temperature') | float(none),
+        states('sensor.climate_study_humidity') | float(none)
+      ] | select('is_number') | list | count == 2 }}
+    state: >-
+      {% set t = states('sensor.climate_study_temperature') | float(0) %}
+      {% set rh = states('sensor.climate_study_humidity') | float(0) %}
+      {% set vp = (rh / 100) * 6.105 * (2.718281828459045 ** (17.27 * t / (237.7 + t))) %}
+      {{ (t + 0.33 * vp - 4.0) | round(1) }}
+
+  - name: Climate Bedroom JC Feels Like Temperature
+    unique_id: climate_bedroom_jc_feels_like_temperature
+    unit_of_measurement: °C
+    device_class: temperature
+    state_class: measurement
+    availability: >-
+      {{ [
+        states('sensor.climate_bedroom_jc_temperature') | float(none),
+        states('sensor.climate_bedroom_jc_humidity') | float(none)
+      ] | select('is_number') | list | count == 2 }}
+    state: >-
+      {% set t = states('sensor.climate_bedroom_jc_temperature') | float(0) %}
+      {% set rh = states('sensor.climate_bedroom_jc_humidity') | float(0) %}
+      {% set vp = (rh / 100) * 6.105 * (2.718281828459045 ** (17.27 * t / (237.7 + t))) %}
+      {{ (t + 0.33 * vp - 4.0) | round(1) }}
