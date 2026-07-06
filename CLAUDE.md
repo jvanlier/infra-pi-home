@@ -25,7 +25,7 @@ just build              # Build Docker image with custom components
 just test               # Validate Home Assistant configuration (requires Docker)
 ```
 
-The build process creates a custom Docker image based on `ghcr.io/home-assistant/home-assistant:2026.5.2` with baked-in custom components:
+The build process creates a custom Docker image based on `ghcr.io/home-assistant/home-assistant:2026.7.0` with baked-in custom components:
 - **adaptive-lighting**: Dynamic light color/brightness adjustment
 - **duux_fan_local**: Local control of Duux fans via the `duux-emqx/` broker
 
