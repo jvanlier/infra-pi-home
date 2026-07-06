@@ -667,3 +667,67 @@ Pick one room (e.g. Study). In **Developer Tools → States**:
 3. On the Fans dashboard, tap the Study "Turn On at Calculated Speed" tile (or in **Developer Tools → Actions**, call `script.fan_study_turn_on`).
 4. Confirm `fan.fan_study`'s speed (the fan-speed tile, or its `percentage` attribute in Developer Tools → States) changed to a nonzero value.
 5. Restore `input_number.fan_study_start_temp` and `input_number.fan_study_end_temp` to the values you noted in step 1.
+
+---
+
+## Post-Implementation Addendum
+
+After deploying and reviewing the first implementation, the final dashboard and defaults were adjusted as follows.
+
+### Apexcharts rendering fix
+
+- The original plan placed two `custom:apexcharts-card` cards inside the Fans section with `grid_options`.
+- On the live dashboard, those cards rendered as red `Configuration error` cards.
+- Root cause: this repo pins `apexcharts-card` to `v2.1.2` in `home-assistant-amb/docker/Dockerfile`; `section_mode` was introduced in `v2.2.0`, and `grid_options` support for apexcharts in sections depends on `section_mode`.
+- Final fix: remove both `section_mode` and `grid_options` from apexcharts cards. `just test` does not catch these frontend custom-card schema errors.
+- A project-local skill documenting this quirk was added at `.claude/skills/apexcharts-home-assistant/SKILL.md`.
+
+### Final Fans dashboard layout
+
+- Instead of two separate room charts under the fan tiles, there is now one combined temperature chart.
+- A new `Temperature` section sits between the `Fans` and `Settings` sections.
+- The combined chart title is `Actual vs feels-like temperature`.
+- Series shown:
+  - `Study feels like`: bright teal `#00c3b1`, opacity `0.9`.
+  - `Study actual`: teal `#009688`, opacity `0.6`.
+  - `Bedroom JC feels like`: bright red `#ff5746`, opacity `0.9`.
+  - `Bedroom JC actual`: darker red `#c3362b`, opacity `0.6`.
+- Dashed lines were removed; actual vs feels-like is distinguished by series name, brightness, and opacity.
+
+### Final badge labels and colors
+
+- Top badges now explicitly include `feels like` in their names:
+  - `Study feels like`
+  - `Bedroom JC feels like`
+- Badge colors use the same brightened feels-like colors as the chart:
+  - Study: `#00c3b1`
+  - Bedroom JC: `#ff5746`
+
+### Final fan ramp defaults
+
+Defaults and matching Jinja `float(...)` fallbacks were updated together:
+
+| Helper | Initial / fallback |
+|---|---:|
+| `input_number.fan_study_start_temp` | `24` |
+| `input_number.fan_study_end_temp` | `32` |
+| `input_number.fan_study_end_pct` | `50` |
+| `input_number.fan_bedroom_jc_start_temp` | `25` |
+| `input_number.fan_bedroom_jc_end_temp` | `32` |
+| `input_number.fan_bedroom_jc_end_pct` | `80` |
+
+Updated files for these defaults:
+
+- `home-assistant-amb/config/input_number.yaml`
+- `home-assistant-amb/config/automation/fan_study.yaml`
+- `home-assistant-amb/config/automation/fan_bedroom_jc.yaml`
+- `home-assistant-amb/config/script.yaml`
+
+### Methodology note
+
+At the reviewed live values (`~24.6-24.9 °C`, `~57% RH`), the apparent-temperature formula naturally produced about `+1.8-1.9 °C` above actual temperature:
+
+- Study: `24.9 °C`, `56.7% RH` -> `26.8 °C` feels-like.
+- Bedroom JC: `24.6 °C`, `57.0% RH` -> `26.4 °C` feels-like.
+
+This is mathematically expected for the selected apparent-temperature formula, not a calculation bug. The fan thresholds were raised to account for the humidity-inflated feels-like values.
