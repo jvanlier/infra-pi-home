@@ -143,33 +143,6 @@ views:
             tap_action:
               action: call-service
               service: script.fan_study_turn_on
-          - type: custom:apexcharts-card
-            apex_config:
-              chart:
-                height: 200px
-            header:
-              show: true
-              title: Study temperature
-              show_states: true
-              colorize_states: true
-            graph_span: 24h
-            hours_12: false
-            all_series_config:
-              stroke_width: 3
-            series:
-              - entity: sensor.climate_study_temperature
-                name: Actual
-                extend_to: now
-                color: "#2196f3"
-                opacity: 0.9
-                type: line
-              - entity: sensor.climate_study_feels_like_temperature
-                name: Feels like
-                extend_to: now
-                color: "#ff9800"
-                opacity: 0.6
-                stroke_dash: 4
-                type: line
           - type: heading
             heading: Bedroom JC
             heading_style: subtitle
@@ -198,13 +171,19 @@ views:
             tap_action:
               action: call-service
               service: script.fan_bedroom_jc_turn_on
+      - type: grid
+        cards:
+          - type: heading
+            heading: Temperature
+            heading_style: title
+            icon: mdi:thermometer
           - type: custom:apexcharts-card
             apex_config:
               chart:
-                height: 200px
+                height: 280px
             header:
               show: true
-              title: Bedroom JC temperature
+              title: Actual vs feels-like temperature
               show_states: true
               colorize_states: true
             graph_span: 24h
@@ -212,16 +191,29 @@ views:
             all_series_config:
               stroke_width: 3
             series:
-              - entity: sensor.climate_bedroom_jc_temperature
-                name: Actual
+              - entity: sensor.climate_study_feels_like_temperature
+                name: Study feels like
                 extend_to: now
-                color: "#2196f3"
+                color: "#009688"
                 opacity: 0.9
                 type: line
-              - entity: sensor.climate_bedroom_jc_feels_like_temperature
-                name: Feels like
+              - entity: sensor.climate_study_temperature
+                name: Study actual
                 extend_to: now
-                color: "#ff9800"
+                color: "#009688"
+                opacity: 0.6
+                stroke_dash: 4
+                type: line
+              - entity: sensor.climate_bedroom_jc_feels_like_temperature
+                name: Bedroom JC feels like
+                extend_to: now
+                color: "#f44336"
+                opacity: 0.9
+                type: line
+              - entity: sensor.climate_bedroom_jc_temperature
+                name: Bedroom JC actual
+                extend_to: now
+                color: "#f44336"
                 opacity: 0.6
                 stroke_dash: 4
                 type: line
