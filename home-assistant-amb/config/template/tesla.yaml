@@ -1,0 +1,9 @@
+- sensor:
+  - name: Tesla Charger Power At Home
+    unique_id: tesla_charger_power_at_home
+    unit_of_measurement: kW
+    device_class: power
+    state_class: measurement
+    state: >-
+      {{ states('sensor.tesla_charger_power') | float(0)
+         if states('sensor.tesla_geofence') == 'Home' else 0 }}
