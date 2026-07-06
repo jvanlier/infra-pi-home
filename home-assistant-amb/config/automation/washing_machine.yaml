@@ -24,7 +24,12 @@
   trigger:
     - platform: state
       entity_id: sensor.washing_machine_state
-      from: 'off'
+      from:
+        - 'off'
+        - 'idle'
+      to:
+        - 'washing'
+        - 'heating'
   action:
     - service: input_number.set_value
       target:
