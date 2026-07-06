@@ -35,7 +35,7 @@ wake_up_light_kids_minutes_until_green:
 
 fan_study_start_temp:
   name: Fan Study Start Feels Like Temp
-  initial: 23
+  initial: 24
   min: 15
   max: 30
   step: 0.5
@@ -44,7 +44,7 @@ fan_study_start_temp:
 
 fan_study_end_temp:
   name: Fan Study End Feels Like Temp
-  initial: 30
+  initial: 32
   min: 18
   max: 35
   step: 0.5
@@ -62,7 +62,7 @@ fan_study_end_pct:
 
 fan_bedroom_jc_start_temp:
   name: Fan Bedroom JC Start Feels Like Temp
-  initial: 20
+  initial: 25
   min: 15
   max: 30
   step: 0.5
@@ -71,7 +71,7 @@ fan_bedroom_jc_start_temp:
 
 fan_bedroom_jc_end_temp:
   name: Fan Bedroom JC End Feels Like Temp
-  initial: 30
+  initial: 32
   min: 18
   max: 35
   step: 0.5
@@ -80,7 +80,7 @@ fan_bedroom_jc_end_temp:
 
 fan_bedroom_jc_end_pct:
   name: Fan Bedroom JC End Speed
-  initial: 90
+  initial: 80
   min: 1
   max: 100
   step: 1

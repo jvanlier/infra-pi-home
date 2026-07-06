@@ -7,8 +7,8 @@
   variables:
     target_pct: >
       {% set t = states('sensor.climate_study_feels_like_temperature') | float(0) %}
-      {% set s = states('input_number.fan_study_start_temp') | float(23) %}
-      {% set e = states('input_number.fan_study_end_temp') | float(30) %}
+      {% set s = states('input_number.fan_study_start_temp') | float(24) %}
+      {% set e = states('input_number.fan_study_end_temp') | float(32) %}
       {% set p = states('input_number.fan_study_end_pct') | float(50) %}
       {% if t < s or e <= s %}0
       {% elif t >= e %}{{ p | int }}

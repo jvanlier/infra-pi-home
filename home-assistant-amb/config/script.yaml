@@ -67,8 +67,8 @@ fan_study_turn_on:
     - variables:
         target_pct: >
           {% set t = states('sensor.climate_study_feels_like_temperature') | float(0) %}
-          {% set s = states('input_number.fan_study_start_temp') | float(23) %}
-          {% set e = states('input_number.fan_study_end_temp') | float(30) %}
+          {% set s = states('input_number.fan_study_start_temp') | float(24) %}
+          {% set e = states('input_number.fan_study_end_temp') | float(32) %}
           {% set p = states('input_number.fan_study_end_pct') | float(50) %}
           {% if t < s or e <= s %}0
           {% elif t >= e %}{{ p | int }}
@@ -89,9 +89,9 @@ fan_bedroom_jc_turn_on:
     - variables:
         target_pct: >
           {% set t = states('sensor.climate_bedroom_jc_feels_like_temperature') | float(0) %}
-          {% set s = states('input_number.fan_bedroom_jc_start_temp') | float(20) %}
-          {% set e = states('input_number.fan_bedroom_jc_end_temp') | float(30) %}
-          {% set p = states('input_number.fan_bedroom_jc_end_pct') | float(90) %}
+          {% set s = states('input_number.fan_bedroom_jc_start_temp') | float(25) %}
+          {% set e = states('input_number.fan_bedroom_jc_end_temp') | float(32) %}
+          {% set p = states('input_number.fan_bedroom_jc_end_pct') | float(80) %}
           {% if t < s or e <= s %}0
           {% elif t >= e %}{{ p | int }}
           {% else %}{{ (1 + (p - 1) * (t - s) / (e - s)) | round(0) | int }}{% endif %}
