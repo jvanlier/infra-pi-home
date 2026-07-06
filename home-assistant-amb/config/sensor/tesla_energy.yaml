@@ -1,0 +1,8 @@
+- platform: integration
+  source: sensor.tesla_charger_power_at_home
+  name: Tesla Energy Charged At Home
+  unique_id: tesla_energy_charged_at_home
+  unit_time: h
+  round: 2
+  max_sub_interval:
+    minutes: 1
