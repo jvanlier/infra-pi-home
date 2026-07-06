@@ -212,7 +212,7 @@ views:
               - entity: sensor.climate_bedroom_jc_temperature
                 name: Bedroom JC actual
                 extend_to: now
-                color: "#f44336"
+                color: "#c3362b"
                 opacity: 0.6
                 type: line
       - type: grid
