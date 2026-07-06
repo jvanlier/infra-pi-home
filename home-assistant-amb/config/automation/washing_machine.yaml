@@ -10,8 +10,25 @@
     - service: notify.notify
       data:
         title: Washing machine
-        message: Done
+        message: >-
+          Done. Used {{ ([ (states('sensor.plug_washing_machine_energy') | float(0)) -
+          (states('input_number.washing_machine_cycle_start_energy') | float(0)), 0 ]
+          | max) | round(2) }} kWh
         data:
           push:
             sound: "washing-machine-done.wav"
+  mode: restart
+
+- alias: Track washing machine cycle start energy
+  id: washing-machine-cycle-start-energy
+  trigger:
+    - platform: state
+      entity_id: sensor.washing_machine_state
+      from: 'off'
+  action:
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.washing_machine_cycle_start_energy
+      data:
+        value: "{{ states('sensor.plug_washing_machine_energy') | float(0) }}"
   mode: restart
