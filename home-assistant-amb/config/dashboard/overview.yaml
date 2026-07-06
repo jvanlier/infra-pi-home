@@ -389,8 +389,18 @@ views:
           - type: tile
             entity: sensor.washing_machine_state
             icon: mdi:washing-machine
-          - type: history-graph
+           - type: history-graph
             entities:
               - entity: sensor.washing_machine_state
                 name: WM
             hours_to_show: 12
+           - type: heading
+            heading: Tesla
+            heading_style: subtitle
+            icon: mdi:car-electric
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-power/tesla
+           - type: tile
+            entity: sensor.tesla_energy_charged_at_home
+            icon: mdi:car-electric
