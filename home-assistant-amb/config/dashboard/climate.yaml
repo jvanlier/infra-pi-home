@@ -97,17 +97,17 @@ views:
         show_state: true
         show_icon: true
         entity: sensor.climate_study_feels_like_temperature
-        name: Study
+        name: Study feels like
         icon: mdi:chair-rolling
-        color: teal
+        color: "#00c3b1"
       - type: entity
         show_name: true
         show_state: true
         show_icon: true
         entity: sensor.climate_bedroom_jc_feels_like_temperature
-        name: Bedroom JC
+        name: Bedroom JC feels like
         icon: mdi:bed
-        color: red
+        color: "#ff5746"
     sections:
       - type: grid
         cards:
@@ -194,7 +194,7 @@ views:
               - entity: sensor.climate_study_feels_like_temperature
                 name: Study feels like
                 extend_to: now
-                color: "#009688"
+                color: "#00c3b1"
                 opacity: 0.9
                 type: line
               - entity: sensor.climate_study_temperature
@@ -202,12 +202,11 @@ views:
                 extend_to: now
                 color: "#009688"
                 opacity: 0.6
-                stroke_dash: 4
                 type: line
               - entity: sensor.climate_bedroom_jc_feels_like_temperature
                 name: Bedroom JC feels like
                 extend_to: now
-                color: "#f44336"
+                color: "#ff5746"
                 opacity: 0.9
                 type: line
               - entity: sensor.climate_bedroom_jc_temperature
@@ -215,7 +214,6 @@ views:
                 extend_to: now
                 color: "#f44336"
                 opacity: 0.6
-                stroke_dash: 4
                 type: line
       - type: grid
         cards:
