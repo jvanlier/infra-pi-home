@@ -402,5 +402,7 @@ views:
               action: navigate
               navigation_path: /dashboard-power/tesla
           - type: tile
-            entity: sensor.tesla_energy_charged_at_home
+            entity: sensor.tesla_charger_power
             icon: mdi:car-electric
+          - type: tile
+            entity: sensor.tesla_battery_level
