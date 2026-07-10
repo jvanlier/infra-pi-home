@@ -157,3 +157,25 @@ views:
               - entity: input_number.fridge_temperature_threshold
                 name: Thr.
             hours_to_show: 12
+  - title: Tesla
+    path: tesla
+    icon: mdi:car-electric
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Tesla charging
+            heading_style: title
+            icon: mdi:car-electric
+          - type: tile
+            entity: sensor.tesla_energy_charged_at_home
+            icon: mdi:car-electric
+          - type: tile
+            entity: sensor.tesla_battery_level
+          - type: history-graph
+            title: "Tesla charger power (24h)"
+            entities:
+              - entity: sensor.tesla_charger_power
+                name: Power
+            hours_to_show: 24

@@ -70,6 +70,10 @@ Lovelace dashboards (`dashboard/*.yaml`) follow these conventions:
 - **Subheaders** (`heading_style: subtitle`) = view names. Subheaders tap-link directly to that view's page.
 - **View order** in a sub-dashboard (Power, Lights, Climate) must match the order the corresponding subheaders appear on the Overview dashboard, so the sidebar tab order mirrors the overview.
 
+### Energy Dashboard
+
+The built-in Home Assistant Energy dashboard (grid source, "Individual devices" list, and the "Energy flow" Sankey chart) is configured entirely via **Settings → Dashboards → Energy** in the UI and stored in `.storage/energy` — it is not represented anywhere in this repo's YAML. To make a new sensor appear in the Energy flow chart, first deploy the entity (as YAML, via the normal flow), then manually add it as an Individual Device in that UI. Energy-tracking sensors should have `device_class: energy`, a `kWh`/`Wh`/`MWh` unit, and a `total` or `total_increasing` state class (see e.g. `sensor.tesla_energy_charged_at_home`, built from the `integration` platform in `config/sensor/tesla_energy.yaml`).
+
 ### Zigbee2MQTT Device Renames
 
 The Z2M web UI "Rename device" dialog has an **"Update Home Assistant entity ID"** checkbox (checked by default). When checked, renaming the `friendly_name` republishes MQTT discovery with the new `object_id` and HA updates the existing entity's `entity_id` to match — no separate HA-side entity rename needed. (Z2M does *not* key HA entities by IEEE address with a sticky `entity_id`; the checkbox drives the update.)

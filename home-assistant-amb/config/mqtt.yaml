@@ -8,3 +8,20 @@ sensor:
     availability_topic: "teslamate/cars/1/healthy"
     payload_available: "true"
     payload_not_available: "false"
+
+  - name: "Tesla Charger Power"
+    unique_id: tesla_charger_power
+    state_topic: "teslamate/cars/1/charger_power"
+    unit_of_measurement: "kW"
+    device_class: power
+    state_class: measurement
+    availability_topic: "teslamate/cars/1/healthy"
+    payload_available: "true"
+    payload_not_available: "false"
+
+  - name: "Tesla Geofence"
+    unique_id: tesla_geofence
+    state_topic: "teslamate/cars/1/geofence"
+    availability_topic: "teslamate/cars/1/healthy"
+    payload_available: "true"
+    payload_not_available: "false"

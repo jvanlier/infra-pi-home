@@ -394,3 +394,15 @@ views:
               - entity: sensor.washing_machine_state
                 name: WM
             hours_to_show: 12
+          - type: heading
+            heading: Tesla
+            heading_style: subtitle
+            icon: mdi:car-electric
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-power/tesla
+          - type: tile
+            entity: sensor.tesla_charger_power
+            icon: mdi:car-electric
+          - type: tile
+            entity: sensor.tesla_battery_level
