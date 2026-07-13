@@ -27,3 +27,21 @@ wake_up_lights_kids_cycle_in_progress:
   name: Wake Up Lights Kids Cycle In Progress
   icon: mdi:alarm-note
   initial: false
+
+window_alerts_armed:
+  name: Window Alerts Armed
+  icon: mdi:window-open-variant
+  initial: false
+
+windows_closed_ground_floor:
+  name: Windows Closed Ground Floor
+  icon: mdi:window-closed
+  initial: false
+windows_closed_first_floor:
+  name: Windows Closed First Floor
+  icon: mdi:window-closed
+  initial: false
+windows_closed_second_floor:
+  name: Windows Closed Second Floor
+  icon: mdi:window-closed
+  initial: false
