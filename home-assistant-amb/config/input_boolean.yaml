@@ -27,3 +27,24 @@ wake_up_lights_kids_cycle_in_progress:
   name: Wake Up Lights Kids Cycle In Progress
   icon: mdi:alarm-note
   initial: false
+
+# Window temperature alert latches. No `initial:` so a Home Assistant restart
+# does not clear today's notification history and cause a duplicate alert.
+window_close_ground_floor_sent:
+  name: Window Close Ground Floor Sent
+  icon: mdi:window-closed
+window_close_first_floor_sent:
+  name: Window Close First Floor Sent
+  icon: mdi:window-closed
+window_close_second_floor_sent:
+  name: Window Close Second Floor Sent
+  icon: mdi:window-closed
+window_open_ground_floor_sent:
+  name: Window Open Ground Floor Sent
+  icon: mdi:window-open
+window_open_first_floor_sent:
+  name: Window Open First Floor Sent
+  icon: mdi:window-open
+window_open_second_floor_sent:
+  name: Window Open Second Floor Sent
+  icon: mdi:window-open

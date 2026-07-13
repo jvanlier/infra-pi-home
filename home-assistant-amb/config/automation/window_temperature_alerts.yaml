@@ -1,0 +1,255 @@
+# Hot-day window open/close alerts, per floor.
+#
+# On mornings where today's forecast high exceeds 25°C, the system activates
+# and sends a confirmation. While active, each floor independently gets a
+# "close your windows" alert once the outside temperature has stayed above
+# that floor's average for 5 minutes, and later an independent "open your
+# windows" alert once outside has stayed below that floor's average for 5
+# minutes (this does not require the close alert to have fired first).
+# Each direction fires at most once per floor per day.
+- alias: Window Alerts - Activate on hot day
+  id: window-alerts-activate
+  trigger:
+    - platform: time
+      at: "08:00:00"
+    - platform: homeassistant
+      event: start
+  condition:
+    - condition: time
+      after: "08:00:00"
+    # The 08:00 trigger always runs (daily reset + activation check). The
+    # startup trigger only runs the check if today hasn't already been
+    # activated, so a restart later in an already-active day does not clear
+    # the notification latches and cause duplicate alerts.
+    - condition: or
+      conditions:
+        - condition: template
+          value_template: "{{ trigger.platform == 'time' }}"
+        - condition: template
+          value_template: >-
+            {{ states('input_datetime.window_alerts_active_date') | as_datetime | as_local
+                 != now().replace(hour=0, minute=0, second=0, microsecond=0) }}
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.window_close_ground_floor_sent
+          - input_boolean.window_close_first_floor_sent
+          - input_boolean.window_close_second_floor_sent
+          - input_boolean.window_open_ground_floor_sent
+          - input_boolean.window_open_first_floor_sent
+          - input_boolean.window_open_second_floor_sent
+    - variables:
+        forecast: "{{ state_attr('sensor.weather_forecast_hourly', 'forecast') or [] }}"
+        todays_max: >-
+          {% set ns = namespace(temps=[]) %}
+          {% for entry in forecast %}
+            {% set dt = entry.datetime | default(none) %}
+            {% set temp = entry.temperature | default(none) %}
+            {% if dt and temp is number %}
+              {% set d = as_datetime(dt) | as_local %}
+              {% if d and d >= now() and d.date() == now().date() %}
+                {% set ns.temps = ns.temps + [temp] %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.temps | max if ns.temps | count > 0 else none }}
+    - condition: template
+      value_template: "{{ todays_max is not none and todays_max > 25 }}"
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.window_alerts_active_date
+      data:
+        date: "{{ now().strftime('%Y-%m-%d') }}"
+    - service: notify.mobile_app_j16
+      data:
+        title: Window Alerts Active
+        message: >-
+          Today's forecast high is {{ todays_max | round(1) }}°C.
+          You'll get an alert for each floor when it's time to close or open windows.
+        data:
+          url: /dashboard-climate/inside-vs-outside
+  mode: single
+
+- alias: Window Alerts - Close Ground Floor
+  id: window-alerts-close-ground-floor
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.outside_warmer_than_ground_floor
+      to: "on"
+      for:
+        minutes: 5
+  condition:
+    - condition: template
+      value_template: >-
+        {{ states('input_datetime.window_alerts_active_date') | as_datetime | as_local
+             == now().replace(hour=0, minute=0, second=0, microsecond=0) }}
+    - condition: state
+      entity_id: input_boolean.window_close_ground_floor_sent
+      state: "off"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.window_close_ground_floor_sent
+    - service: notify.mobile_app_j16
+      data:
+        title: Close Ground Floor Windows
+        message: >-
+          Outside ({{ states('sensor.openweathermap_temperature') | round(1) }}°C) is now
+          warmer than the ground floor ({{ states('sensor.climate_ground_floor_temperature') | round(1) }}°C).
+        data:
+          url: /dashboard-climate/inside-vs-outside
+  mode: queued
+
+- alias: Window Alerts - Close First Floor
+  id: window-alerts-close-first-floor
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.outside_warmer_than_first_floor
+      to: "on"
+      for:
+        minutes: 5
+  condition:
+    - condition: template
+      value_template: >-
+        {{ states('input_datetime.window_alerts_active_date') | as_datetime | as_local
+             == now().replace(hour=0, minute=0, second=0, microsecond=0) }}
+    - condition: state
+      entity_id: input_boolean.window_close_first_floor_sent
+      state: "off"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.window_close_first_floor_sent
+    - service: notify.mobile_app_j16
+      data:
+        title: Close First Floor Windows
+        message: >-
+          Outside ({{ states('sensor.openweathermap_temperature') | round(1) }}°C) is now
+          warmer than the first floor ({{ states('sensor.climate_first_floor_temperature') | round(1) }}°C).
+        data:
+          url: /dashboard-climate/inside-vs-outside
+  mode: queued
+
+- alias: Window Alerts - Close Second Floor
+  id: window-alerts-close-second-floor
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.outside_warmer_than_second_floor
+      to: "on"
+      for:
+        minutes: 5
+  condition:
+    - condition: template
+      value_template: >-
+        {{ states('input_datetime.window_alerts_active_date') | as_datetime | as_local
+             == now().replace(hour=0, minute=0, second=0, microsecond=0) }}
+    - condition: state
+      entity_id: input_boolean.window_close_second_floor_sent
+      state: "off"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.window_close_second_floor_sent
+    - service: notify.mobile_app_j16
+      data:
+        title: Close Second Floor Windows
+        message: >-
+          Outside ({{ states('sensor.openweathermap_temperature') | round(1) }}°C) is now
+          warmer than the second floor ({{ states('sensor.climate_second_floor_temperature') | round(1) }}°C).
+        data:
+          url: /dashboard-climate/inside-vs-outside
+  mode: queued
+
+- alias: Window Alerts - Open Ground Floor
+  id: window-alerts-open-ground-floor
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.outside_warmer_than_ground_floor
+      from: "on"
+      to: "off"
+      for:
+        minutes: 5
+  condition:
+    - condition: template
+      value_template: >-
+        {{ states('input_datetime.window_alerts_active_date') | as_datetime | as_local
+             == now().replace(hour=0, minute=0, second=0, microsecond=0) }}
+    - condition: state
+      entity_id: input_boolean.window_open_ground_floor_sent
+      state: "off"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.window_open_ground_floor_sent
+    - service: notify.mobile_app_j16
+      data:
+        title: Open Ground Floor Windows
+        message: >-
+          Outside ({{ states('sensor.openweathermap_temperature') | round(1) }}°C) has now
+          dropped below the ground floor ({{ states('sensor.climate_ground_floor_temperature') | round(1) }}°C).
+        data:
+          url: /dashboard-climate/inside-vs-outside
+  mode: queued
+
+- alias: Window Alerts - Open First Floor
+  id: window-alerts-open-first-floor
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.outside_warmer_than_first_floor
+      from: "on"
+      to: "off"
+      for:
+        minutes: 5
+  condition:
+    - condition: template
+      value_template: >-
+        {{ states('input_datetime.window_alerts_active_date') | as_datetime | as_local
+             == now().replace(hour=0, minute=0, second=0, microsecond=0) }}
+    - condition: state
+      entity_id: input_boolean.window_open_first_floor_sent
+      state: "off"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.window_open_first_floor_sent
+    - service: notify.mobile_app_j16
+      data:
+        title: Open First Floor Windows
+        message: >-
+          Outside ({{ states('sensor.openweathermap_temperature') | round(1) }}°C) has now
+          dropped below the first floor ({{ states('sensor.climate_first_floor_temperature') | round(1) }}°C).
+        data:
+          url: /dashboard-climate/inside-vs-outside
+  mode: queued
+
+- alias: Window Alerts - Open Second Floor
+  id: window-alerts-open-second-floor
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.outside_warmer_than_second_floor
+      from: "on"
+      to: "off"
+      for:
+        minutes: 5
+  condition:
+    - condition: template
+      value_template: >-
+        {{ states('input_datetime.window_alerts_active_date') | as_datetime | as_local
+             == now().replace(hour=0, minute=0, second=0, microsecond=0) }}
+    - condition: state
+      entity_id: input_boolean.window_open_second_floor_sent
+      state: "off"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.window_open_second_floor_sent
+    - service: notify.mobile_app_j16
+      data:
+        title: Open Second Floor Windows
+        message: >-
+          Outside ({{ states('sensor.openweathermap_temperature') | round(1) }}°C) has now
+          dropped below the second floor ({{ states('sensor.climate_second_floor_temperature') | round(1) }}°C).
+        data:
+          url: /dashboard-climate/inside-vs-outside
+  mode: queued

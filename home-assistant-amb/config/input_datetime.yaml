@@ -4,3 +4,9 @@ wake_up_light_kids_start_orange:
   has_date: false
   has_time: true
   initial: "06:50"
+
+window_alerts_active_date:
+  icon: "mdi:calendar-alert"
+  name: Window Alerts Active Date
+  has_date: true
+  has_time: false
