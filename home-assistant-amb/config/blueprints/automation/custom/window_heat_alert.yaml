@@ -40,7 +40,8 @@ blueprint:
         entity:
           domain: input_boolean
 
-mode: restart
+mode: queued
+max: 10
 
 variables:
   floor_name: !input floor_name
