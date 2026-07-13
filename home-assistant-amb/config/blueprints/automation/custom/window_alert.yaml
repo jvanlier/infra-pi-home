@@ -1,0 +1,111 @@
+blueprint:
+  name: Window Open/Close Alert
+  description: >
+    Per-floor advisory: notify to close windows when it becomes warmer outside
+    than inside, and to open them again when it cools back below. Guarded by a
+    master "armed" flag and latched once-per-direction-per-day.
+  domain: automation
+
+  input:
+    outside_warmer_sensor:
+      name: Outside-warmer-than-floor sensor
+      description: The floor's binary_sensor.outside_warmer_than_* sensor.
+      selector:
+        entity:
+          domain: binary_sensor
+    floor_name:
+      name: Floor name
+      description: Human readable floor name shown in notifications (e.g. "ground-floor").
+      selector:
+        text: {}
+    inside_sensor:
+      name: Inside temperature sensor
+      description: The floor's average inside temperature sensor (for message text).
+      selector:
+        entity:
+          domain: sensor
+          device_class: temperature
+    outside_sensor:
+      name: Outside temperature sensor
+      description: Outside temperature sensor (for message text).
+      selector:
+        entity:
+          domain: sensor
+          device_class: temperature
+    close_latch:
+      name: Close-alert latch
+      description: input_boolean marking the close alert already sent today.
+      selector:
+        entity:
+          domain: input_boolean
+    open_latch:
+      name: Open-alert latch
+      description: input_boolean marking the open alert already sent today.
+      selector:
+        entity:
+          domain: input_boolean
+
+mode: restart
+
+trigger:
+  - platform: state
+    entity_id: !input outside_warmer_sensor
+  - platform: state
+    entity_id: input_boolean.window_alert_active
+    to: "on"
+
+variables:
+  outside_warmer_sensor: !input outside_warmer_sensor
+  floor_name: !input floor_name
+  inside_sensor: !input inside_sensor
+  outside_sensor: !input outside_sensor
+  close_latch: !input close_latch
+  open_latch: !input open_latch
+
+condition:
+  - condition: state
+    entity_id: input_boolean.window_alert_active
+    state: "on"
+
+action:
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: !input outside_warmer_sensor
+            state: "on"
+          - condition: state
+            entity_id: !input close_latch
+            state: "off"
+        sequence:
+          - service: notify.mobile_app_j16
+            data:
+              title: Windows
+              message: >-
+                🌡️ Close {{ floor_name }} windows — it's now warmer outside
+                ({{ states(outside_sensor) | round(1) }}°) than inside
+                ({{ states(inside_sensor) | round(1) }}°).
+              data:
+                url: /dashboard-climate/inside-vs-outside
+          - service: input_boolean.turn_on
+            target:
+              entity_id: !input close_latch
+      - conditions:
+          - condition: state
+            entity_id: !input outside_warmer_sensor
+            state: "off"
+          - condition: state
+            entity_id: !input open_latch
+            state: "off"
+        sequence:
+          - service: notify.mobile_app_j16
+            data:
+              title: Windows
+              message: >-
+                🪟 Open {{ floor_name }} windows — it's cooler outside
+                ({{ states(outside_sensor) | round(1) }}°) than inside
+                ({{ states(inside_sensor) | round(1) }}°) now.
+              data:
+                url: /dashboard-climate/inside-vs-outside
+          - service: input_boolean.turn_on
+            target:
+              entity_id: !input open_latch
