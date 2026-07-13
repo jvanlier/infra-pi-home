@@ -86,3 +86,12 @@ fan_bedroom_jc_end_pct:
   step: 1
   unit_of_measurement: "%"
   icon: "mdi:fan"
+
+window_alert_temp_threshold:
+  name: Window Alert Temp Threshold
+  initial: 25
+  min: 20
+  max: 35
+  step: 0.5
+  unit_of_measurement: "°C"
+  icon: "mdi:thermometer-alert"
