@@ -1,0 +1,92 @@
+- id: window_heat_alert_daily_activation
+  alias: Window heat alert daily activation
+  trigger:
+    - platform: time
+      at: "08:00:00"
+  variables:
+    today: "{{ now().date() | string }}"
+    forecast_max: >-
+      {% set ns = namespace(maximum=none) %}
+      {% for item in state_attr('sensor.weather_forecast_hourly', 'forecast') | default([], true) %}
+        {% set timestamp = as_datetime(item.datetime, default=none) %}
+        {% set temperature = item.temperature | float(none) %}
+        {% if timestamp is not none and temperature is number and timestamp > now() and as_local(timestamp).date() == now().date() %}
+          {% if ns.maximum is none or temperature > ns.maximum %}
+            {% set ns.maximum = temperature %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {{ ns.maximum }}
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.window_heat_ground_floor_close_sent
+          - input_boolean.window_heat_ground_floor_open_sent
+          - input_boolean.window_heat_first_floor_close_sent
+          - input_boolean.window_heat_first_floor_open_sent
+          - input_boolean.window_heat_second_floor_close_sent
+          - input_boolean.window_heat_second_floor_open_sent
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.window_heat_alert_activation_date
+      data:
+        date: "{{ (now().date() - timedelta(days=1)) | string }}"
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ forecast_max | float(none) is not none and forecast_max | float > 25 }}"
+          sequence:
+            - service: input_datetime.set_datetime
+              target:
+                entity_id: input_datetime.window_heat_alert_activation_date
+              data:
+                date: "{{ today }}"
+            - service: notify.mobile_app_j16
+              data:
+                title: Window alerts activated
+                message: >-
+                  Today's remaining forecast reaches {{ forecast_max | float | round(1) }}°C.
+                  Window guidance is active for all floors.
+                data:
+                  url: /dashboard-climate/inside-vs-outside
+  mode: single
+
+- id: window_heat_alert_ground_floor
+  alias: Window heat alert - Ground floor
+  use_blueprint:
+    path: custom/window_heat_alert.yaml
+    input:
+      floor_name: Ground floor
+      comparison_sensor: sensor.window_heat_ground_floor_comparison
+      indoor_temperature_sensor: sensor.climate_ground_floor_temperature
+      outdoor_temperature_sensor: sensor.openweathermap_temperature
+      activation_date_helper: input_datetime.window_heat_alert_activation_date
+      close_sent_helper: input_boolean.window_heat_ground_floor_close_sent
+      open_sent_helper: input_boolean.window_heat_ground_floor_open_sent
+
+- id: window_heat_alert_first_floor
+  alias: Window heat alert - First floor
+  use_blueprint:
+    path: custom/window_heat_alert.yaml
+    input:
+      floor_name: First floor
+      comparison_sensor: sensor.window_heat_first_floor_comparison
+      indoor_temperature_sensor: sensor.climate_first_floor_temperature
+      outdoor_temperature_sensor: sensor.openweathermap_temperature
+      activation_date_helper: input_datetime.window_heat_alert_activation_date
+      close_sent_helper: input_boolean.window_heat_first_floor_close_sent
+      open_sent_helper: input_boolean.window_heat_first_floor_open_sent
+
+- id: window_heat_alert_second_floor
+  alias: Window heat alert - Second floor
+  use_blueprint:
+    path: custom/window_heat_alert.yaml
+    input:
+      floor_name: Second floor
+      comparison_sensor: sensor.window_heat_second_floor_comparison
+      indoor_temperature_sensor: sensor.climate_second_floor_temperature
+      outdoor_temperature_sensor: sensor.openweathermap_temperature
+      activation_date_helper: input_datetime.window_heat_alert_activation_date
+      close_sent_helper: input_boolean.window_heat_second_floor_close_sent
+      open_sent_helper: input_boolean.window_heat_second_floor_open_sent
