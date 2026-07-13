@@ -27,3 +27,16 @@ wake_up_lights_kids_cycle_in_progress:
   name: Wake Up Lights Kids Cycle In Progress
   icon: mdi:alarm-note
   initial: false
+
+window_heat_ground_floor_close_sent:
+  name: Window Heat Ground Floor Close Sent
+window_heat_ground_floor_open_sent:
+  name: Window Heat Ground Floor Open Sent
+window_heat_first_floor_close_sent:
+  name: Window Heat First Floor Close Sent
+window_heat_first_floor_open_sent:
+  name: Window Heat First Floor Open Sent
+window_heat_second_floor_close_sent:
+  name: Window Heat Second Floor Close Sent
+window_heat_second_floor_open_sent:
+  name: Window Heat Second Floor Open Sent

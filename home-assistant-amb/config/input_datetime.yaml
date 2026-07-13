@@ -4,3 +4,8 @@ wake_up_light_kids_start_orange:
   has_date: false
   has_time: true
   initial: "06:50"
+
+window_heat_alert_activation_date:
+  name: Window Heat Alert Activation Date
+  has_date: true
+  has_time: false
