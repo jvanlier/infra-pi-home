@@ -1,0 +1,32 @@
+- alias: "Window Alert Ground Floor"
+  use_blueprint:
+    path: custom/window_alert.yaml
+    input:
+      outside_warmer_sensor: binary_sensor.outside_warmer_than_ground_floor
+      floor_name: ground-floor
+      inside_sensor: sensor.climate_ground_floor_temperature
+      outside_sensor: sensor.openweathermap_temperature
+      close_latch: input_boolean.window_close_alerted_ground
+      open_latch: input_boolean.window_open_alerted_ground
+
+- alias: "Window Alert First Floor"
+  use_blueprint:
+    path: custom/window_alert.yaml
+    input:
+      outside_warmer_sensor: binary_sensor.outside_warmer_than_first_floor
+      floor_name: first-floor
+      inside_sensor: sensor.climate_first_floor_temperature
+      outside_sensor: sensor.openweathermap_temperature
+      close_latch: input_boolean.window_close_alerted_first
+      open_latch: input_boolean.window_open_alerted_first
+
+- alias: "Window Alert Second Floor"
+  use_blueprint:
+    path: custom/window_alert.yaml
+    input:
+      outside_warmer_sensor: binary_sensor.outside_warmer_than_second_floor
+      floor_name: second-floor
+      inside_sensor: sensor.climate_second_floor_temperature
+      outside_sensor: sensor.openweathermap_temperature
+      close_latch: input_boolean.window_close_alerted_second
+      open_latch: input_boolean.window_open_alerted_second
