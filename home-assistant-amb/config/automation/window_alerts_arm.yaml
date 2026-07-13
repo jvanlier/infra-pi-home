@@ -1,0 +1,53 @@
+- alias: "Window Alerts Morning Arm"
+  mode: single
+  trigger:
+    - platform: time
+      at: "08:00:00"
+  variables:
+    threshold: "{{ states('input_number.window_alert_temp_threshold') | float(25) }}"
+    forecast_max: >-
+      {% set fc = state_attr('sensor.weather_forecast_hourly', 'forecast') %}
+      {% if fc %}
+        {% set ns = namespace(temps=[]) %}
+        {% for e in fc %}
+          {% if e.datetime is defined and e.temperature is defined
+                and as_local(as_datetime(e.datetime)).date() == now().date() %}
+            {% set ns.temps = ns.temps + [e.temperature | float] %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.temps | max if ns.temps | count > 0 else 'none' }}
+      {% else %}
+        none
+      {% endif %}
+  action:
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ forecast_max != 'none'
+                   and (forecast_max | float) >= (threshold | float) }}
+          sequence:
+            - service: input_boolean.turn_off
+              target:
+                entity_id:
+                  - input_boolean.window_close_alerted_ground
+                  - input_boolean.window_close_alerted_first
+                  - input_boolean.window_close_alerted_second
+                  - input_boolean.window_open_alerted_ground
+                  - input_boolean.window_open_alerted_first
+                  - input_boolean.window_open_alerted_second
+            - service: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.window_alert_active
+            - service: notify.mobile_app_j16
+              data:
+                title: Windows
+                message: >-
+                  🪟 Window alerts armed — hot day ahead (max ~{{ forecast_max | float | round(1) }}°).
+                  I'll tell you when to open/close windows per floor.
+                data:
+                  url: /dashboard-climate/inside-vs-outside
+      default:
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.window_alert_active
