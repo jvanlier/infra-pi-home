@@ -1,0 +1,36 @@
+- binary_sensor:
+  - name: Outside Warmer Than Ground Floor
+    unique_id: outside_warmer_than_ground_floor
+    icon: mdi:sun-thermometer
+    availability: >-
+      {{ [
+        states('sensor.openweathermap_temperature') | float(none),
+        states('sensor.climate_ground_floor_temperature') | float(none)
+      ] | select('is_number') | list | count == 2 }}
+    state: >-
+      {{ states('sensor.openweathermap_temperature') | float
+         > states('sensor.climate_ground_floor_temperature') | float }}
+
+  - name: Outside Warmer Than First Floor
+    unique_id: outside_warmer_than_first_floor
+    icon: mdi:sun-thermometer
+    availability: >-
+      {{ [
+        states('sensor.openweathermap_temperature') | float(none),
+        states('sensor.climate_first_floor_temperature') | float(none)
+      ] | select('is_number') | list | count == 2 }}
+    state: >-
+      {{ states('sensor.openweathermap_temperature') | float
+         > states('sensor.climate_first_floor_temperature') | float }}
+
+  - name: Outside Warmer Than Second Floor
+    unique_id: outside_warmer_than_second_floor
+    icon: mdi:sun-thermometer
+    availability: >-
+      {{ [
+        states('sensor.openweathermap_temperature') | float(none),
+        states('sensor.climate_second_floor_temperature') | float(none)
+      ] | select('is_number') | list | count == 2 }}
+    state: >-
+      {{ states('sensor.openweathermap_temperature') | float
+         > states('sensor.climate_second_floor_temperature') | float }}
