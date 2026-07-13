@@ -79,10 +79,16 @@ action:
             entity_id: !input comparison_sensor
             state: warmer
         sequence:
-          - delay: "00:05:00"
+          - wait_for_trigger:
+              - platform: state
+                entity_id: !input comparison_sensor
+                not_to: warmer
+            timeout: "00:05:00"
+            continue_on_timeout: true
           - condition: template
             value_template: >-
-              {{ states(activation_date_helper) == now().date() | string and
+              {{ wait.trigger is none and
+                 states(activation_date_helper) == now().date() | string and
                  states(comparison_sensor) == 'warmer' and
                  is_state(close_sent_helper, 'off') }}
           - service: notify.mobile_app_j16
@@ -105,7 +111,8 @@ action:
               {{ trigger.from_state is not none and
                  trigger.from_state.state in ['warmer', 'equal', 'cooler'] and
                  states(activation_date_helper) == now().date() | string and
-                 is_state(close_sent_helper, 'off') }}
+                 is_state(close_sent_helper, 'off') and
+                 trigger.to_state.last_changed >= (states[activation_date_helper].last_changed if states[activation_date_helper] else trigger.to_state.last_changed) }}
         sequence:
           - service: notify.mobile_app_j16
             data:
@@ -127,7 +134,8 @@ action:
               {{ trigger.from_state is not none and
                  trigger.from_state.state in ['warmer', 'equal'] and
                  states(activation_date_helper) == now().date() | string and
-                 is_state(open_sent_helper, 'off') }}
+                 is_state(open_sent_helper, 'off') and
+                 trigger.to_state.last_changed >= (states[activation_date_helper].last_changed if states[activation_date_helper] else trigger.to_state.last_changed) }}
         sequence:
           - service: notify.mobile_app_j16
             data:
