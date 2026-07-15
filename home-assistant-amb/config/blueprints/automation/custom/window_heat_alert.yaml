@@ -1,0 +1,152 @@
+blueprint:
+  name: Window heat alert
+  description: Send one close and one open window alert for an active floor.
+  domain: automation
+  input:
+    floor_name:
+      name: Floor name
+      selector:
+        text: {}
+    comparison_sensor:
+      name: Comparison sensor
+      selector:
+        entity:
+          domain: sensor
+    indoor_temperature_sensor:
+      name: Indoor temperature sensor
+      selector:
+        entity:
+          domain: sensor
+          device_class: temperature
+    outdoor_temperature_sensor:
+      name: Outdoor temperature sensor
+      selector:
+        entity:
+          domain: sensor
+          device_class: temperature
+    activation_date_helper:
+      name: Activation date helper
+      selector:
+        entity:
+          domain: input_datetime
+    close_sent_helper:
+      name: Close sent helper
+      selector:
+        entity:
+          domain: input_boolean
+    open_sent_helper:
+      name: Open sent helper
+      selector:
+        entity:
+          domain: input_boolean
+
+mode: queued
+max: 10
+
+variables:
+  floor_name: !input floor_name
+  comparison_sensor: !input comparison_sensor
+  indoor_temperature_sensor: !input indoor_temperature_sensor
+  outdoor_temperature_sensor: !input outdoor_temperature_sensor
+  activation_date_helper: !input activation_date_helper
+  close_sent_helper: !input close_sent_helper
+  open_sent_helper: !input open_sent_helper
+
+trigger:
+  - id: close_crossing
+    platform: state
+    entity_id: !input comparison_sensor
+    to: warmer
+    for: "00:05:00"
+  - id: close_activation
+    platform: state
+    entity_id: !input activation_date_helper
+  - id: open_crossing
+    platform: state
+    entity_id: !input comparison_sensor
+    to: cooler
+    for: "00:05:00"
+
+condition: []
+
+action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: close_activation
+          - condition: template
+            value_template: "{{ trigger.to_state.state == now().date() | string }}"
+          - condition: state
+            entity_id: !input comparison_sensor
+            state: warmer
+        sequence:
+          - wait_for_trigger:
+              - platform: state
+                entity_id: !input comparison_sensor
+                not_to: warmer
+            timeout: "00:05:00"
+            continue_on_timeout: true
+          - condition: template
+            value_template: >-
+              {{ wait.trigger is none and
+                 states(activation_date_helper) == now().date() | string and
+                 states(comparison_sensor) == 'warmer' and
+                 is_state(close_sent_helper, 'off') }}
+          - service: notify.mobile_app_j16
+            data:
+              title: "Close windows - {{ floor_name }}"
+              message: >-
+                Outside has been warmer than the {{ floor_name | lower }} for 5 minutes.
+                Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
+                {{ floor_name }}: {{ states(indoor_temperature_sensor) | float | round(1) }}°C.
+              data:
+                url: /dashboard-climate/inside-vs-outside
+          - service: input_boolean.turn_on
+            target:
+              entity_id: !input close_sent_helper
+      - conditions:
+          - condition: trigger
+            id: close_crossing
+          - condition: template
+            value_template: >-
+              {{ trigger.from_state is not none and
+                 trigger.from_state.state in ['warmer', 'equal', 'cooler'] and
+                 states(activation_date_helper) == now().date() | string and
+                 is_state(close_sent_helper, 'off') and
+                 trigger.to_state.last_changed >= (states[activation_date_helper].last_changed if states[activation_date_helper] else trigger.to_state.last_changed) }}
+        sequence:
+          - service: notify.mobile_app_j16
+            data:
+              title: "Close windows - {{ floor_name }}"
+              message: >-
+                Outside has been warmer than the {{ floor_name | lower }} for 5 minutes.
+                Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
+                {{ floor_name }}: {{ states(indoor_temperature_sensor) | float | round(1) }}°C.
+              data:
+                url: /dashboard-climate/inside-vs-outside
+          - service: input_boolean.turn_on
+            target:
+              entity_id: !input close_sent_helper
+      - conditions:
+          - condition: trigger
+            id: open_crossing
+          - condition: template
+            value_template: >-
+              {{ trigger.from_state is not none and
+                 trigger.from_state.state in ['warmer', 'equal'] and
+                 states(activation_date_helper) == now().date() | string and
+                 is_state(open_sent_helper, 'off') and
+                 trigger.to_state.last_changed >= (states[activation_date_helper].last_changed if states[activation_date_helper] else trigger.to_state.last_changed) }}
+        sequence:
+          - service: notify.mobile_app_j16
+            data:
+              title: "Open windows - {{ floor_name }}"
+              message: >-
+                Outside has been cooler than the {{ floor_name | lower }} for 5 minutes.
+                Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
+                {{ floor_name }}: {{ states(indoor_temperature_sensor) | float | round(1) }}°C.
+              data:
+                url: /dashboard-climate/inside-vs-outside
+          - service: input_boolean.turn_on
+            target:
+              entity_id: !input open_sent_helper

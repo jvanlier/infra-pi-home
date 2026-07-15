@@ -1,0 +1,36 @@
+- sensor:
+  - name: Window Heat Ground Floor Comparison
+    unique_id: window_heat_ground_floor_comparison
+    availability: >-
+      {{ [
+        states('sensor.openweathermap_temperature') | float(none),
+        states('sensor.climate_ground_floor_temperature') | float(none)
+      ] | select('is_number') | list | count == 2 }}
+    state: >-
+      {% set outside = states('sensor.openweathermap_temperature') | float(none) %}
+      {% set inside = states('sensor.climate_ground_floor_temperature') | float(none) %}
+      {% if outside > inside %}warmer{% elif outside < inside %}cooler{% else %}equal{% endif %}
+
+  - name: Window Heat First Floor Comparison
+    unique_id: window_heat_first_floor_comparison
+    availability: >-
+      {{ [
+        states('sensor.openweathermap_temperature') | float(none),
+        states('sensor.climate_first_floor_temperature') | float(none)
+      ] | select('is_number') | list | count == 2 }}
+    state: >-
+      {% set outside = states('sensor.openweathermap_temperature') | float(none) %}
+      {% set inside = states('sensor.climate_first_floor_temperature') | float(none) %}
+      {% if outside > inside %}warmer{% elif outside < inside %}cooler{% else %}equal{% endif %}
+
+  - name: Window Heat Second Floor Comparison
+    unique_id: window_heat_second_floor_comparison
+    availability: >-
+      {{ [
+        states('sensor.openweathermap_temperature') | float(none),
+        states('sensor.climate_second_floor_temperature') | float(none)
+      ] | select('is_number') | list | count == 2 }}
+    state: >-
+      {% set outside = states('sensor.openweathermap_temperature') | float(none) %}
+      {% set inside = states('sensor.climate_second_floor_temperature') | float(none) %}
+      {% if outside > inside %}warmer{% elif outside < inside %}cooler{% else %}equal{% endif %}
