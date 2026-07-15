@@ -9,8 +9,8 @@
   action:
     - service: notify.notify
       data:
-        title: Washing machine
-        message: Done
+        title: 🧺 Washing machine
+        message: Done ✅
         data:
           push:
             sound: "washing-machine-done.wav"

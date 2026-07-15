@@ -7,9 +7,9 @@
   action:
     - service: notify.mobile_app_j16
       data:
-        title: Fridge
+        title: 🌡️ Fridge
         message: >-
-          Fridge temperature is high.
+          Fridge temperature is high!
           Measured {{ states('sensor.climate_fridge_temperature') | round(1) }}°C
         data:
           url: /dashboard-power/appliances

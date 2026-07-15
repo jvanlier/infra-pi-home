@@ -87,9 +87,9 @@ action:
                  is_state(close_sent_helper, 'off') }}
           - service: notify.mobile_app_j16
             data:
-              title: "🔥 Close windows - {{ floor_name }}"
+              title: "☀️ Close windows - {{ floor_name }}"
               message: >-
-                It's warmer outside now ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C), so keeping the windows closed will help keep this floor cool.
+                It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
               data:
                 url: /dashboard-climate/inside-vs-outside
           - service: input_boolean.turn_on
@@ -108,9 +108,9 @@ action:
         sequence:
           - service: notify.mobile_app_j16
             data:
-              title: "🔥 Close windows - {{ floor_name }}"
+              title: "☀️ Close windows - {{ floor_name }}"
               message: >-
-                It's warmer outside now ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C), so keeping the windows closed will help keep this floor cool.
+                It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
               data:
                 url: /dashboard-climate/inside-vs-outside
           - service: input_boolean.turn_on
@@ -129,9 +129,9 @@ action:
         sequence:
           - service: notify.mobile_app_j16
             data:
-              title: "🌬️ Open windows - {{ floor_name }}"
+              title: "🍃 Open windows - {{ floor_name }}"
               message: >-
-                It's cooler outside now ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C), so opening the windows can help cool this floor.
+                It is now cooler outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
               data:
                 url: /dashboard-climate/inside-vs-outside
           - service: input_boolean.turn_on
