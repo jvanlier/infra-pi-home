@@ -12,7 +12,7 @@
           Fridge temperature is high!
           Measured {{ states('sensor.climate_fridge_temperature') | round(1) }}°C
         data:
-          clickAction: /dashboard-power/appliances
+          url: /dashboard-power/appliances
           actions:
             - action: "URI"
               title: "Open Appliances"

@@ -49,7 +49,7 @@
                   Today's remaining forecast reaches {{ forecast_max | float | round(1) }}°C.
                   Window guidance is active for all floors.
                 data:
-                  clickAction: /dashboard-climate/inside-vs-outside
+                  url: /dashboard-climate/inside-vs-outside
                   actions:
                     - action: "URI"
                       title: "Open Climate"
