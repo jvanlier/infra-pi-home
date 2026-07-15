@@ -16,3 +16,9 @@
           One of the phases is over 25A.
           L1 (droger, schuur): {{ states('sensor.electricity_meter_current_phase_l1') | round }}A,
           L2 (WM, oven): {{ states('sensor.electricity_meter_current_phase_l2') | round }}A
+        data:
+          clickAction: /dashboard-power/overview
+          actions:
+            - action: "URI"
+              title: "Open Power Dashboard"
+              uri: "/dashboard-power/overview"

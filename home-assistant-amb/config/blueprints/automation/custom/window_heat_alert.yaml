@@ -91,7 +91,11 @@ action:
               message: >-
                 It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
               data:
-                url: /dashboard-climate/inside-vs-outside
+                clickAction: /dashboard-climate/inside-vs-outside
+                actions:
+                  - action: "URI"
+                    title: "Open Climate"
+                    uri: "/dashboard-climate/inside-vs-outside"
           - service: input_boolean.turn_on
             target:
               entity_id: !input close_sent_helper
@@ -112,7 +116,11 @@ action:
               message: >-
                 It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
               data:
-                url: /dashboard-climate/inside-vs-outside
+                clickAction: /dashboard-climate/inside-vs-outside
+                actions:
+                  - action: "URI"
+                    title: "Open Climate"
+                    uri: "/dashboard-climate/inside-vs-outside"
           - service: input_boolean.turn_on
             target:
               entity_id: !input close_sent_helper
@@ -133,7 +141,11 @@ action:
               message: >-
                 It is now cooler outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
               data:
-                url: /dashboard-climate/inside-vs-outside
+                clickAction: /dashboard-climate/inside-vs-outside
+                actions:
+                  - action: "URI"
+                    title: "Open Climate"
+                    uri: "/dashboard-climate/inside-vs-outside"
           - service: input_boolean.turn_on
             target:
               entity_id: !input open_sent_helper
