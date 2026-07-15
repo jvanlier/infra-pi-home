@@ -12,12 +12,6 @@ blueprint:
       selector:
         entity:
           domain: sensor
-    indoor_temperature_sensor:
-      name: Indoor temperature sensor
-      selector:
-        entity:
-          domain: sensor
-          device_class: temperature
     outdoor_temperature_sensor:
       name: Outdoor temperature sensor
       selector:
@@ -46,7 +40,6 @@ max: 10
 variables:
   floor_name: !input floor_name
   comparison_sensor: !input comparison_sensor
-  indoor_temperature_sensor: !input indoor_temperature_sensor
   outdoor_temperature_sensor: !input outdoor_temperature_sensor
   activation_date_helper: !input activation_date_helper
   close_sent_helper: !input close_sent_helper
@@ -96,9 +89,7 @@ action:
             data:
               title: "☀️ Close windows - {{ floor_name }}"
               message: >-
-                Outside has been warmer than the {{ floor_name | lower }} for 5 minutes.
-                Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
-                {{ floor_name }}: {{ states(indoor_temperature_sensor) | float | round(1) }}°C.
+                It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
               data:
                 url: /dashboard-climate/inside-vs-outside
           - service: input_boolean.turn_on
@@ -119,9 +110,7 @@ action:
             data:
               title: "☀️ Close windows - {{ floor_name }}"
               message: >-
-                Outside has been warmer than the {{ floor_name | lower }} for 5 minutes.
-                Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
-                {{ floor_name }}: {{ states(indoor_temperature_sensor) | float | round(1) }}°C.
+                It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
               data:
                 url: /dashboard-climate/inside-vs-outside
           - service: input_boolean.turn_on
@@ -142,9 +131,7 @@ action:
             data:
               title: "🍃 Open windows - {{ floor_name }}"
               message: >-
-                Outside has been cooler than the {{ floor_name | lower }} for 5 minutes.
-                Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
-                {{ floor_name }}: {{ states(indoor_temperature_sensor) | float | round(1) }}°C.
+                It is now cooler outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
               data:
                 url: /dashboard-climate/inside-vs-outside
           - service: input_boolean.turn_on

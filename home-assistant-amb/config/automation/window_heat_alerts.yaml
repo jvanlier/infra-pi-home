@@ -59,7 +59,6 @@
     input:
       floor_name: Ground floor
       comparison_sensor: sensor.window_heat_ground_floor_comparison
-      indoor_temperature_sensor: sensor.climate_ground_floor_temperature
       outdoor_temperature_sensor: sensor.openweathermap_temperature
       activation_date_helper: input_datetime.window_heat_alert_activation_date
       close_sent_helper: input_boolean.window_heat_ground_floor_close_sent
@@ -72,7 +71,6 @@
     input:
       floor_name: First floor
       comparison_sensor: sensor.window_heat_first_floor_comparison
-      indoor_temperature_sensor: sensor.climate_first_floor_temperature
       outdoor_temperature_sensor: sensor.openweathermap_temperature
       activation_date_helper: input_datetime.window_heat_alert_activation_date
       close_sent_helper: input_boolean.window_heat_first_floor_close_sent
@@ -85,7 +83,6 @@
     input:
       floor_name: Second floor
       comparison_sensor: sensor.window_heat_second_floor_comparison
-      indoor_temperature_sensor: sensor.climate_second_floor_temperature
       outdoor_temperature_sensor: sensor.openweathermap_temperature
       activation_date_helper: input_datetime.window_heat_alert_activation_date
       close_sent_helper: input_boolean.window_heat_second_floor_close_sent
