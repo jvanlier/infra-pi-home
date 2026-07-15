@@ -12,12 +12,6 @@ blueprint:
       selector:
         entity:
           domain: sensor
-    indoor_temperature_sensor:
-      name: Indoor temperature sensor
-      selector:
-        entity:
-          domain: sensor
-          device_class: temperature
     outdoor_temperature_sensor:
       name: Outdoor temperature sensor
       selector:
@@ -46,7 +40,6 @@ max: 10
 variables:
   floor_name: !input floor_name
   comparison_sensor: !input comparison_sensor
-  indoor_temperature_sensor: !input indoor_temperature_sensor
   outdoor_temperature_sensor: !input outdoor_temperature_sensor
   activation_date_helper: !input activation_date_helper
   close_sent_helper: !input close_sent_helper
@@ -94,11 +87,9 @@ action:
                  is_state(close_sent_helper, 'off') }}
           - service: notify.mobile_app_j16
             data:
-              title: "Close windows - {{ floor_name }}"
+              title: "🔥 Close windows - {{ floor_name }}"
               message: >-
-                Outside has been warmer than the {{ floor_name | lower }} for 5 minutes.
-                Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
-                {{ floor_name }}: {{ states(indoor_temperature_sensor) | float | round(1) }}°C.
+                It's warmer outside now ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C), so keeping the windows closed will help keep this floor cool.
               data:
                 url: /dashboard-climate/inside-vs-outside
           - service: input_boolean.turn_on
@@ -117,11 +108,9 @@ action:
         sequence:
           - service: notify.mobile_app_j16
             data:
-              title: "Close windows - {{ floor_name }}"
+              title: "🔥 Close windows - {{ floor_name }}"
               message: >-
-                Outside has been warmer than the {{ floor_name | lower }} for 5 minutes.
-                Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
-                {{ floor_name }}: {{ states(indoor_temperature_sensor) | float | round(1) }}°C.
+                It's warmer outside now ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C), so keeping the windows closed will help keep this floor cool.
               data:
                 url: /dashboard-climate/inside-vs-outside
           - service: input_boolean.turn_on
@@ -140,11 +129,9 @@ action:
         sequence:
           - service: notify.mobile_app_j16
             data:
-              title: "Open windows - {{ floor_name }}"
+              title: "🌬️ Open windows - {{ floor_name }}"
               message: >-
-                Outside has been cooler than the {{ floor_name | lower }} for 5 minutes.
-                Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
-                {{ floor_name }}: {{ states(indoor_temperature_sensor) | float | round(1) }}°C.
+                It's cooler outside now ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C), so opening the windows can help cool this floor.
               data:
                 url: /dashboard-climate/inside-vs-outside
           - service: input_boolean.turn_on
