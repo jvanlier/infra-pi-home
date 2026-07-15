@@ -94,7 +94,7 @@ action:
                  is_state(close_sent_helper, 'off') }}
           - service: notify.mobile_app_j16
             data:
-              title: "Close windows - {{ floor_name }}"
+              title: "☀️ Close windows - {{ floor_name }}"
               message: >-
                 Outside has been warmer than the {{ floor_name | lower }} for 5 minutes.
                 Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
@@ -117,7 +117,7 @@ action:
         sequence:
           - service: notify.mobile_app_j16
             data:
-              title: "Close windows - {{ floor_name }}"
+              title: "☀️ Close windows - {{ floor_name }}"
               message: >-
                 Outside has been warmer than the {{ floor_name | lower }} for 5 minutes.
                 Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.
@@ -140,7 +140,7 @@ action:
         sequence:
           - service: notify.mobile_app_j16
             data:
-              title: "Open windows - {{ floor_name }}"
+              title: "🍃 Open windows - {{ floor_name }}"
               message: >-
                 Outside has been cooler than the {{ floor_name | lower }} for 5 minutes.
                 Outside: {{ states(outdoor_temperature_sensor) | float | round(1) }}°C.

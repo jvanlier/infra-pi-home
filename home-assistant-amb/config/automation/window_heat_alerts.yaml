@@ -44,7 +44,7 @@
                 date: "{{ today }}"
             - service: notify.mobile_app_j16
               data:
-                title: Window alerts activated
+                title: ☀️ Window alerts activated
                 message: >-
                   Today's remaining forecast reaches {{ forecast_max | float | round(1) }}°C.
                   Window guidance is active for all floors.
