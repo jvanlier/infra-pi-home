@@ -34,7 +34,7 @@ variables:
 action:
   - service: notify.notify
     data:
-      title: WATER LEAK!
+      title: "🚨 WATER LEAK!"
       message: >
         Water leak detected by {{ states[water_leak_sensor].name }}.
         {{ 'Turning off ' ~ states[device_to_turn_off].name ~ '.' if device_to_turn_off else 'No device configured to turn off.' }}

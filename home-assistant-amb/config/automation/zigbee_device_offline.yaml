@@ -1,7 +1,7 @@
 # Relies on template sensor in sensor/zigbee_device_offline.yaml
 
 - id: zigbee_device_offline_daily_reminder
-  alias: &ref_alias_reminder Zigbee device offline daily reminder
+  alias: Zigbee device offline daily reminder
   trigger:
     - platform: time
       at: "20:00:00"
@@ -13,12 +13,17 @@
   action:
     - service: notify.mobile_app_j16
       data:
-        title: *ref_alias_reminder
+        title: >-
+          {% if states(templ_sensor) == 'No devices offline!' %}
+            ✅ Zigbee devices online
+          {% else %}
+            ⚠️ Zigbee device offline daily reminder
+          {% endif %}
         message: "{{ states(templ_sensor) }}"
   mode: restart
 
 - id: zigbee_device_offline_status_change
-  alias: &ref_alias_change Zigbee device offline status change
+  alias: Zigbee device offline status change
   trigger:
     - platform: state
       entity_id: *templ_sensor
@@ -33,6 +38,11 @@
     - delay: "00:00:30"
     - service: notify.mobile_app_j16
       data:
-        title: *ref_alias_change
+        title: >-
+          {% if states(templ_sensor) == 'No devices offline!' %}
+            ✅ All Zigbee devices online
+          {% else %}
+            ⚠️ Zigbee device offline status change
+          {% endif %}
         message: "{{ states(templ_sensor) }}"
   mode: restart

@@ -20,7 +20,7 @@ blueprint:
       default: 16
       selector:
         number:
-          min: 15  # Condenstation issues may appear below 15 degrees, don't go any lower than this.
+          min: 15
           max: 18
           step: 0.5
 
@@ -45,5 +45,5 @@ variables:
 action:
   - service: notify.notify
     data:
-      title: "Heating needed in {{ room_name }}"
+      title: "❄️ Heating needed in {{ room_name }}"
       message: "The temperature has dropped below {{ threshold }}℃."
