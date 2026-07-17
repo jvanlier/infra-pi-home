@@ -18,6 +18,11 @@ blueprint:
         entity:
           domain: sensor
           device_class: temperature
+    forecast_max_sensor:
+      name: Forecast max sensor
+      selector:
+        entity:
+          domain: sensor
     activation_date_helper:
       name: Activation date helper
       selector:
@@ -41,6 +46,7 @@ variables:
   floor_name: !input floor_name
   comparison_sensor: !input comparison_sensor
   outdoor_temperature_sensor: !input outdoor_temperature_sensor
+  forecast_max_sensor: !input forecast_max_sensor
   activation_date_helper: !input activation_date_helper
   close_sent_helper: !input close_sent_helper
   open_sent_helper: !input open_sent_helper
@@ -85,20 +91,12 @@ action:
                  states(activation_date_helper) == now().date() | string and
                  states(comparison_sensor) == 'warmer' and
                  is_state(close_sent_helper, 'off') }}
-          - service: notify.mobile_app_j16
+          - service: script.window_heat_send_close_alert
             data:
-              title: "☀️ Close windows - {{ floor_name }}"
-              message: >-
-                It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
-              data:
-                url: /dashboard-climate/inside-vs-outside
-                actions:
-                  - action: "URI"
-                    title: "Open Climate"
-                    uri: "/dashboard-climate/inside-vs-outside"
-          - service: input_boolean.turn_on
-            target:
-              entity_id: !input close_sent_helper
+              floor_name: "{{ floor_name }}"
+              outdoor_temperature_sensor: "{{ outdoor_temperature_sensor }}"
+              forecast_max_sensor: "{{ forecast_max_sensor }}"
+              close_sent_helper: "{{ close_sent_helper }}"
       - conditions:
           - condition: trigger
             id: close_crossing
@@ -110,20 +108,12 @@ action:
                  is_state(close_sent_helper, 'off') and
                  trigger.to_state.last_changed >= (states[activation_date_helper].last_changed if states[activation_date_helper] else trigger.to_state.last_changed) }}
         sequence:
-          - service: notify.mobile_app_j16
+          - service: script.window_heat_send_close_alert
             data:
-              title: "☀️ Close windows - {{ floor_name }}"
-              message: >-
-                It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
-              data:
-                url: /dashboard-climate/inside-vs-outside
-                actions:
-                  - action: "URI"
-                    title: "Open Climate"
-                    uri: "/dashboard-climate/inside-vs-outside"
-          - service: input_boolean.turn_on
-            target:
-              entity_id: !input close_sent_helper
+              floor_name: "{{ floor_name }}"
+              outdoor_temperature_sensor: "{{ outdoor_temperature_sensor }}"
+              forecast_max_sensor: "{{ forecast_max_sensor }}"
+              close_sent_helper: "{{ close_sent_helper }}"
       - conditions:
           - condition: trigger
             id: open_crossing

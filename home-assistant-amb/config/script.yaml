@@ -105,6 +105,40 @@ fan_bedroom_jc_turn_on:
           target:
             entity_id: fan.fan_bedroom_jc
 
+window_heat_send_close_alert:
+  alias: "Window heat alert: send close notification"
+  fields:
+    floor_name:
+      description: "Floor name shown in the notification"
+    outdoor_temperature_sensor:
+      description: "Entity id of the outdoor temperature sensor"
+    forecast_max_sensor:
+      description: "Entity id of the forecast max sensor"
+    close_sent_helper:
+      description: "input_boolean entity id to mark as sent"
+  sequence:
+    - condition: template
+      value_template: >-
+        {% set mx = states(forecast_max_sensor) | float(none) %}
+        {% set out = states(outdoor_temperature_sensor) | float(none) %}
+        {{ mx is none or out is none or (mx - out) >= 0.5 }}
+    - service: notify.mobile_app_j16
+      data:
+        title: "☀️ Close windows - {{ floor_name }}"
+        message: >-
+          It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
+          {% set mx = state_attr(forecast_max_sensor, 'day_max') | float(none) %}
+          {% if mx is not none %}Today's high is {{ mx | round(1) }}°C.{% endif %}
+        data:
+          url: /dashboard-climate/inside-vs-outside
+          actions:
+            - action: "URI"
+              title: "Open Climate"
+              uri: "/dashboard-climate/inside-vs-outside"
+    - service: input_boolean.turn_on
+      target:
+        entity_id: "{{ close_sent_helper }}"
+
 wake_up_light_kids_stop_cycle:
   alias: "Wake up light kids: Stop cycle"
   sequence:
