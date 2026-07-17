@@ -5,18 +5,7 @@
       at: "08:00:00"
   variables:
     today: "{{ now().date() | string }}"
-    forecast_max: >-
-      {% set ns = namespace(maximum=none) %}
-      {% for item in state_attr('sensor.weather_forecast_hourly', 'forecast') | default([], true) %}
-        {% set timestamp = as_datetime(item.datetime, default=none) %}
-        {% set temperature = item.temperature | float(none) %}
-        {% if timestamp is not none and temperature is number and timestamp > now() and as_local(timestamp).date() == now().date() %}
-          {% if ns.maximum is none or temperature > ns.maximum %}
-            {% set ns.maximum = temperature %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-      {{ ns.maximum }}
+    forecast_max: "{{ states('sensor.window_heat_forecast_max_today') }}"
   action:
     - service: input_boolean.turn_off
       target:
@@ -35,7 +24,8 @@
     - choose:
         - conditions:
             - condition: template
-              value_template: "{{ forecast_max | float(none) is not none and forecast_max | float > 25 }}"
+              # TEMPORARY (testing): lowered from 25 to 20 to exercise alerts on a mild day. REVERT to 25.
+              value_template: "{{ forecast_max | float(none) is not none and forecast_max | float > 20 }}"
           sequence:
             - service: input_datetime.set_datetime
               target:
@@ -64,6 +54,7 @@
       floor_name: Ground floor
       comparison_sensor: sensor.window_heat_ground_floor_comparison
       outdoor_temperature_sensor: sensor.openweathermap_temperature
+      forecast_max_sensor: sensor.window_heat_forecast_max_today
       activation_date_helper: input_datetime.window_heat_alert_activation_date
       close_sent_helper: input_boolean.window_heat_ground_floor_close_sent
       open_sent_helper: input_boolean.window_heat_ground_floor_open_sent
@@ -76,6 +67,7 @@
       floor_name: First floor
       comparison_sensor: sensor.window_heat_first_floor_comparison
       outdoor_temperature_sensor: sensor.openweathermap_temperature
+      forecast_max_sensor: sensor.window_heat_forecast_max_today
       activation_date_helper: input_datetime.window_heat_alert_activation_date
       close_sent_helper: input_boolean.window_heat_first_floor_close_sent
       open_sent_helper: input_boolean.window_heat_first_floor_open_sent
@@ -88,6 +80,7 @@
       floor_name: Second floor
       comparison_sensor: sensor.window_heat_second_floor_comparison
       outdoor_temperature_sensor: sensor.openweathermap_temperature
+      forecast_max_sensor: sensor.window_heat_forecast_max_today
       activation_date_helper: input_datetime.window_heat_alert_activation_date
       close_sent_helper: input_boolean.window_heat_second_floor_close_sent
       open_sent_helper: input_boolean.window_heat_second_floor_open_sent
