@@ -95,7 +95,7 @@ action:
             value_template: >-
               {% set mx = states(forecast_max_sensor) | float(none) %}
               {% set out = states(outdoor_temperature_sensor) | float(none) %}
-              {{ mx is none or out is none or (mx - out) >= 1 }}
+              {{ mx is none or out is none or (mx - out) >= 0.5 }}
           - service: notify.mobile_app_j16
             data:
               title: "☀️ Close windows - {{ floor_name }}"
@@ -126,7 +126,7 @@ action:
             value_template: >-
               {% set mx = states(forecast_max_sensor) | float(none) %}
               {% set out = states(outdoor_temperature_sensor) | float(none) %}
-              {{ mx is none or out is none or (mx - out) >= 1 }}
+              {{ mx is none or out is none or (mx - out) >= 0.5 }}
         sequence:
           - service: notify.mobile_app_j16
             data:
