@@ -91,27 +91,12 @@ action:
                  states(activation_date_helper) == now().date() | string and
                  states(comparison_sensor) == 'warmer' and
                  is_state(close_sent_helper, 'off') }}
-          - condition: template
-            value_template: >-
-              {% set mx = states(forecast_max_sensor) | float(none) %}
-              {% set out = states(outdoor_temperature_sensor) | float(none) %}
-              {{ mx is none or out is none or (mx - out) >= 0.5 }}
-          - service: notify.mobile_app_j16
+          - service: script.window_heat_send_close_alert
             data:
-              title: "☀️ Close windows - {{ floor_name }}"
-              message: >-
-                It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
-                {% set mx = state_attr(forecast_max_sensor, 'day_max') | float(none) %}
-                {% if mx is not none %}Today's high is {{ mx | round(1) }}°C.{% endif %}
-              data:
-                url: /dashboard-climate/inside-vs-outside
-                actions:
-                  - action: "URI"
-                    title: "Open Climate"
-                    uri: "/dashboard-climate/inside-vs-outside"
-          - service: input_boolean.turn_on
-            target:
-              entity_id: !input close_sent_helper
+              floor_name: "{{ floor_name }}"
+              outdoor_temperature_sensor: "{{ outdoor_temperature_sensor }}"
+              forecast_max_sensor: "{{ forecast_max_sensor }}"
+              close_sent_helper: "{{ close_sent_helper }}"
       - conditions:
           - condition: trigger
             id: close_crossing
@@ -122,28 +107,13 @@ action:
                  states(activation_date_helper) == now().date() | string and
                  is_state(close_sent_helper, 'off') and
                  trigger.to_state.last_changed >= (states[activation_date_helper].last_changed if states[activation_date_helper] else trigger.to_state.last_changed) }}
-          - condition: template
-            value_template: >-
-              {% set mx = states(forecast_max_sensor) | float(none) %}
-              {% set out = states(outdoor_temperature_sensor) | float(none) %}
-              {{ mx is none or out is none or (mx - out) >= 0.5 }}
         sequence:
-          - service: notify.mobile_app_j16
+          - service: script.window_heat_send_close_alert
             data:
-              title: "☀️ Close windows - {{ floor_name }}"
-              message: >-
-                It is now warmer outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
-                {% set mx = state_attr(forecast_max_sensor, 'day_max') | float(none) %}
-                {% if mx is not none %}Today's high is {{ mx | round(1) }}°C.{% endif %}
-              data:
-                url: /dashboard-climate/inside-vs-outside
-                actions:
-                  - action: "URI"
-                    title: "Open Climate"
-                    uri: "/dashboard-climate/inside-vs-outside"
-          - service: input_boolean.turn_on
-            target:
-              entity_id: !input close_sent_helper
+              floor_name: "{{ floor_name }}"
+              outdoor_temperature_sensor: "{{ outdoor_temperature_sensor }}"
+              forecast_max_sensor: "{{ forecast_max_sensor }}"
+              close_sent_helper: "{{ close_sent_helper }}"
       - conditions:
           - condition: trigger
             id: open_crossing
