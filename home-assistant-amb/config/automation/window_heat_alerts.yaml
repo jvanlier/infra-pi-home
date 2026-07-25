@@ -24,15 +24,14 @@
     - choose:
         - conditions:
             - condition: template
-              # TEMPORARY (testing): lowered from 25 to 20 to exercise alerts on a mild day. REVERT to 25.
-              value_template: "{{ forecast_max | float(none) is not none and forecast_max | float > 20 }}"
+              value_template: "{{ forecast_max | float(none) is not none and forecast_max | float > 25 }}"
           sequence:
             - service: input_datetime.set_datetime
               target:
                 entity_id: input_datetime.window_heat_alert_activation_date
               data:
                 date: "{{ today }}"
-            - service: notify.mobile_app_j16
+            - service: notify.notify
               data:
                 title: ☀️ Window alerts activated
                 message: >-

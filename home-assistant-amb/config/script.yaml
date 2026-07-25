@@ -122,7 +122,7 @@ window_heat_send_close_alert:
         {% set mx = states(forecast_max_sensor) | float(none) %}
         {% set out = states(outdoor_temperature_sensor) | float(none) %}
         {{ mx is none or out is none or (mx - out) >= 0.5 }}
-    - service: notify.mobile_app_j16
+    - service: notify.notify
       data:
         title: "☀️ Close windows - {{ floor_name }}"
         message: >-

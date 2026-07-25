@@ -125,7 +125,7 @@ action:
                  is_state(open_sent_helper, 'off') and
                  trigger.to_state.last_changed >= (states[activation_date_helper].last_changed if states[activation_date_helper] else trigger.to_state.last_changed) }}
         sequence:
-          - service: notify.mobile_app_j16
+          - service: notify.notify
             data:
               title: "🍃 Open windows - {{ floor_name }}"
               message: >-
