@@ -24,10 +24,17 @@ guest ok = no
 valid users = media
 ```
 
+Add the SMB user (use the same password):
+
+```bash
+sudo smbpasswd -a media
+```
+
+
 
 ### Mac Time Machine backup
 
-Create a dedicated, writable directory and account rather than reusing the read-only media share:
+Before creating the directory, mount a dedicated, capacity-limited filesystem at `/srv/time-machine` or enforce an equivalent filesystem quota. Do not place Time Machine backups on the host filesystem shared with Home Assistant or the operating system.
 
 ```bash
 sudo adduser --disabled-password --gecos "" time-machine
@@ -46,9 +53,12 @@ guest ok = no
 valid users = time-machine
 vfs objects = catia fruit streams_xattr
 fruit:time machine = yes
+fruit:time machine max size = 1T
 ```
 
 Use `time-machine` and its SMB password when selecting the network disk in macOS Time Machine.
+
+Replace `1T` with the capacity of the dedicated Time Machine filesystem or quota. This limits the size reported to Time Machine; the dedicated filesystem or quota provides the actual enforcement.
 
 Validate the complete configuration, then restart Samba:
 
