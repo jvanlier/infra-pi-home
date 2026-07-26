@@ -35,7 +35,7 @@
               data:
                 title: ☀️ Window alerts activated
                 message: >-
-                  Today's remaining forecast reaches {{ forecast_max | float | round(1) }}°C.
+                  Today's forecast reaches {{ forecast_max | float | round(1) }}°C.
                   Window guidance is active for all floors.
                 data:
                   url: /dashboard-climate/inside-vs-outside
