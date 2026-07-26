@@ -34,7 +34,12 @@ sudo smbpasswd -a media
 
 ### Mac Time Machine backup
 
-Before creating the directory, mount a dedicated, capacity-limited filesystem at `/srv/time-machine` or enforce an equivalent filesystem quota. Do not place Time Machine backups on the host filesystem shared with Home Assistant or the operating system.
+Create the mount point, then mount a dedicated, capacity-limited filesystem there or enforce an equivalent filesystem quota. Do not place Time Machine backups on the host filesystem shared with Home Assistant or the operating system.
+```bash
+sudo install -d -m 0755 /srv/time-machine
+```
+
+After mounting the dedicated filesystem at `/srv/time-machine`, set its ownership and permissions:
 
 ```bash
 sudo adduser --disabled-password --gecos "" time-machine
