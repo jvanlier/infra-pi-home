@@ -6,7 +6,7 @@ Approved design specification.
 
 ## Summary
 
-Add a Home Assistant notification system that recommends closing or opening windows independently for ground, first, and second floors on forecast hot days. System activates at 08:00 only when highest remaining hourly OpenWeatherMap forecast temperature for current local day is strictly above 25°C.
+Add a Home Assistant notification system that recommends closing or opening windows independently for ground, first, and second floors on forecast hot days. System activates at 08:00 only when highest remaining hourly OpenWeatherMap forecast temperature for current local day is strictly above 25°C. Open guidance requires a five-minute, forecast-safe cooling condition: the remaining forecast maximum is no higher than current outside temperature, which is at least 0.5°C cooler than the floor.
 
 On active days, J16 receives one activation confirmation plus at most one close and one open alert per floor. Alerts use existing outside temperature and floor-average temperature entities shown in Inside versus Outside chart.
 
@@ -14,9 +14,9 @@ On active days, J16 receives one activation confirmation plus at most one close 
 
 - Activate window guidance only on qualifying hot days.
 - Confirm activation once at 08:00.
-- Detect inside/outside temperature crossover independently per floor.
-- Send separate close and open notifications for each floor.
-- Require crossover condition to remain stable for five minutes.
+- Detect close crossover and forecast-safe open readiness independently per floor.
+- Send separate close and guarded open notifications for each floor.
+- Require every alert condition to remain stable for five minutes.
 - Prevent duplicate same-day notifications despite temperature fluctuations.
 - Preserve activation and one-shot state across Home Assistant restarts.
 - Reuse per-floor logic through custom automation blueprint.
@@ -70,6 +70,18 @@ Suggested entity IDs:
 - `sensor.window_heat_first_floor_comparison`
 - `sensor.window_heat_second_floor_comparison`
 
+### Remaining forecast maximum and open-readiness sensors
+
+`sensor.window_heat_forecast_max_today` continues to select the maximum numeric future-today forecast temperature for daily activation. Its boolean `remaining_forecast_complete` attribute is false when `forecast` is missing or not a list, any row has a missing or unparseable `datetime`, or any valid future-today row has a missing or nonnumeric `temperature`; otherwise it is true.
+
+Add these binary sensors. Each is unavailable unless its floor temperature, outdoor temperature, and remaining forecast maximum are numeric and `remaining_forecast_complete` is true:
+
+- `binary_sensor.window_heat_ground_floor_safe_to_open`
+- `binary_sensor.window_heat_first_floor_safe_to_open`
+- `binary_sensor.window_heat_second_floor_safe_to_open`
+
+Each readiness sensor is on exactly when `remaining forecast maximum <= current outdoor temperature <= current floor temperature - 0.5°C`.
+
 ### Persistent helpers
 
 Add one date-only helper to `home-assistant-amb/config/input_datetime.yaml`:
@@ -96,14 +108,15 @@ Add `home-assistant-amb/config/blueprints/automation/custom/window_heat_alert.ya
 Blueprint inputs:
 
 - Human-readable floor name
-- Comparison sensor
-- Indoor floor temperature sensor
+- Comparison sensor for close alerts
+- Open-readiness binary sensor (`open_readiness_sensor`)
 - Outdoor temperature sensor
+- Forecast maximum sensor for close-alert forecast guard
 - Activation-date helper
 - Close-sent helper
 - Open-sent helper
 
-Blueprint owns all per-floor crossover, five-minute confirmation, notification, and one-shot behavior. Notification target can remain fixed to J16 because this feature has one selected destination.
+Blueprint owns all per-floor crossover, readiness, five-minute confirmation, notification, and one-shot behavior. Notification target can remain fixed to J16 because this feature has one selected destination.
 
 ### Automation configuration
 
@@ -160,25 +173,25 @@ If system activates while floor comparison is already `warmer`, blueprint must t
 
 ### Open alert
 
-For each floor independently:
-
-- Trigger when comparison enters `cooler` from a valid prior comparison state and remains `cooler` continuously for five minutes.
+- Trigger only when the floor's open-readiness sensor transitions `off -> on` and remains on continuously for five minutes.
+- Open readiness is exactly `remaining forecast maximum <= current outdoor temperature <= current floor temperature - 0.5°C`.
 - Require activation date to equal current local date.
 - Require floor open-sent helper to be off.
+- Require the readiness state to have changed no earlier than daily activation.
 - Send one separate J16 open notification for that floor.
-- Include floor name plus current outside and floor temperatures.
+- Include the cooling margin, current outside temperature, floor name, and confirmation that no warmer temperature is forecast today.
 - Link to existing chart.
 - Turn on floor open-sent helper after notification action.
 
-Open alert must not require close-sent helper to be on. A valid cooler crossover may alert even when no close notification was sent earlier.
+Open alert must not require close-sent helper to be on. A valid readiness transition may alert even when no close notification was sent earlier.
 
-Initial `cooler` state at activation must not produce morning open alert. Open requires a subsequent valid transition into cooler state.
+Initial on state at activation, restart/reload state restoration, and `unknown`/`unavailable -> on` recovery must not produce an open alert. Only a subsequent qualifying `off -> on` transition may start the five-minute timer.
 
 ### Duplicate prevention
 
 - Each sent flag is independent.
 - Once a floor close flag is on, later warmer crossings that day do not notify.
-- Once a floor open flag is on, later cooler crossings that day do not notify.
+- Once a floor open flag is on, later qualifying readiness transitions that day do not notify.
 - Flags reset at next 08:00 evaluation, whether next day qualifies or not.
 - Three floor automations must run independently so simultaneous crossovers cannot suppress another floor's alert.
 
@@ -205,20 +218,20 @@ Close example:
 Open example:
 
 - Title: `Open windows - First floor`
-- Message: `Outside has been cooler than the first floor for 5 minutes. Outside: 23.7°C. First floor: 24.1°C.`
+- Message: `It is now at least 0.5°C cooler outside (23.7°C) than on the first floor. No warmer outdoor temperature is forecast today.`
 
 ## State and restart behavior
 
 - Activation date and sent flags restore across restart.
 - Restart must not clear already-sent state or cause duplicate same-day notifications.
-- Invalid startup transitions from `unknown` or `unavailable` must not count as open crossover.
-- Five-minute `for` timers do not need durable elapsed-time persistence. After restart/reload, implementation may require a fresh stable period or next valid transition, but must never send immediately from stale/unknown data.
-- Existing warmer condition may be safely reconciled for unsent close guidance because closing is actionable whenever active day resumes. Existing cooler condition must not be interpreted as open crossover without valid transition context.
+- Five-minute `for` timers do not need durable elapsed-time persistence. After restart/reload, implementation may require a fresh stable period or next valid transition, but must never send immediately from stale, unknown, or unavailable data.
+- Existing warmer condition may be safely reconciled for unsent close guidance because closing is actionable whenever active day resumes. Open readiness must not be interpreted as an open transition unless its prior state was off.
 
 ## Error handling
 
 - Forecast parsing must tolerate missing attribute, empty list, invalid timestamps, and nonnumeric temperatures.
-- Temperature comparisons must expose unavailable state when either source is unavailable or nonnumeric.
+- A wholly or partially malformed forecast sets `remaining_forecast_complete` false. Open readiness is unavailable and cannot notify, even if a numeric maximum can still be derived from other rows.
+- Temperature comparisons and open readiness must expose unavailable state when their required source states are unavailable or nonnumeric.
 - Do not activate or notify from partial/defaulted values.
 - Notification service failure must be visible through Home Assistant automation trace/log. No retry subsystem is required.
 
@@ -245,24 +258,26 @@ Manual behavior matrix:
 4. Warmer state under five minutes: no close alert.
 5. Warmer state for five minutes: correct floor close alert.
 6. Repeated warmer crossings: no second close alert that day.
-7. Cooler state under five minutes: no open alert.
-8. Cooler state for five minutes: correct floor open alert.
-9. Open crossover with close-sent off: open alert still occurs.
-10. Initial cooler state at activation: no open alert.
-11. Three near-simultaneous floor crossovers: three separate notifications.
-12. Source temperature unavailable: no comparison alert.
-13. Restart after sent alert: no duplicate.
-14. Next qualifying day: flags reset and all alerts can occur again.
+7. After a close alert, a five-minute shallow dip that is less than 0.5°C cooler, or any dip with a forecasted rebound above current outside temperature: no open alert.
+8. Full open-readiness invariant held continuously for five minutes after `off -> on`: exactly one correct-floor open alert.
+9. Missing forecast or mixed valid/malformed forecast: readiness unavailable and no open alert.
+10. Open readiness recovery from `unknown` or `unavailable` directly to on: no open alert.
+11. Open alert with close-sent off: open alert still occurs after a qualifying readiness transition.
+12. Three near-simultaneous floor conditions: three separate notifications.
+13. Source temperature unavailable: no comparison or readiness alert.
+14. Restart after sent alert: no duplicate.
+15. Next qualifying day: flags reset and all alerts can occur again.
 
 ## Acceptance criteria
 
 - At 08:00, system activates only if highest remaining hourly forecast for current local day is greater than 25°C.
 - J16 receives one activation confirmation only on qualifying days.
 - Each floor independently sends no more than one close and one open alert per active day.
-- Every crossover alert requires five continuous minutes in target relation.
+- Every close crossover and open-readiness alert requires five continuous minutes in its target relation.
+- An open alert requires `remaining forecast maximum <= current outdoor temperature <= current floor temperature - 0.5°C`, `remaining_forecast_complete == true`, and an `off -> on` readiness transition after activation.
+- A missing, malformed, or partially malformed forecast and any nonnumeric/unavailable required input cannot produce an open alert.
 - Temperature fluctuations cannot create duplicate same-day alerts.
 - Open alerts do not depend on close notification state.
 - Ground, first, and second floor alerts use existing floor-average entities.
-- Missing or invalid source data cannot produce false alerts.
 - Existing chart and floor averaging remain unchanged.
 - Home Assistant configuration validation and pre-commit checks pass.

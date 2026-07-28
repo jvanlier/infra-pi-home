@@ -40,33 +40,114 @@
     device_class: temperature
     unit_of_measurement: "°C"
     availability: >-
+      {% set forecast = state_attr('sensor.weather_forecast_hourly', 'forecast') %}
       {% set ns = namespace(remaining=none) %}
-      {% for item in state_attr('sensor.weather_forecast_hourly', 'forecast') | default([], true) %}
-        {% set ts = as_datetime(item.datetime, default=none) %}
-        {% set t = item.temperature | float(none) %}
-        {% if ts is not none and t is number and ts > now() and as_local(ts).date() == now().date() %}
-          {% if ns.remaining is none or t > ns.remaining %}{% set ns.remaining = t %}{% endif %}
-        {% endif %}
-      {% endfor %}
-      {{ ns.remaining is not none }}
-    state: >-
-      {% set ns = namespace(remaining=none) %}
-      {% for item in state_attr('sensor.weather_forecast_hourly', 'forecast') | default([], true) %}
-        {% set ts = as_datetime(item.datetime, default=none) %}
-        {% set t = item.temperature | float(none) %}
-        {% if ts is not none and t is number and ts > now() and as_local(ts).date() == now().date() %}
-          {% if ns.remaining is none or t > ns.remaining %}{% set ns.remaining = t %}{% endif %}
-        {% endif %}
-      {% endfor %}
-      {{ ns.remaining | round(1) }}
-    attributes:
-      day_max: >-
-        {% set ns = namespace(full=none) %}
-        {% for item in state_attr('sensor.weather_forecast_hourly', 'forecast') | default([], true) %}
-          {% set ts = as_datetime(item.datetime, default=none) %}
+      {% if forecast is sequence and forecast is not string %}
+        {% for item in forecast if item is mapping %}
+          {% set ts = as_datetime(item.datetime | default(none), default=none) %}
           {% set t = item.temperature | float(none) %}
-          {% if ts is not none and t is number and as_local(ts).date() == now().date() %}
-            {% if ns.full is none or t > ns.full %}{% set ns.full = t %}{% endif %}
+          {% if ts is not none and t is number and ts > now() and as_local(ts).date() == now().date() %}
+            {% if ns.remaining is none or t > ns.remaining %}{% set ns.remaining = t %}{% endif %}
           {% endif %}
         {% endfor %}
+      {% endif %}
+      {{ ns.remaining is not none }}
+    state: >-
+      {% set forecast = state_attr('sensor.weather_forecast_hourly', 'forecast') %}
+      {% set ns = namespace(remaining=none) %}
+      {% if forecast is sequence and forecast is not string %}
+        {% for item in forecast if item is mapping %}
+          {% set ts = as_datetime(item.datetime | default(none), default=none) %}
+          {% set t = item.temperature | float(none) %}
+          {% if ts is not none and t is number and ts > now() and as_local(ts).date() == now().date() %}
+            {% if ns.remaining is none or t > ns.remaining %}{% set ns.remaining = t %}{% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {{ ns.remaining | round(1) if ns.remaining is not none else none }}
+    attributes:
+      remaining_forecast_complete: >-
+        {% set forecast = state_attr('sensor.weather_forecast_hourly', 'forecast') %}
+        {% set ns = namespace(complete=true) %}
+        {% if forecast is not sequence or forecast is string %}
+          {% set ns.complete = false %}
+        {% else %}
+          {% for item in forecast %}
+            {% if item is not mapping %}
+              {% set ns.complete = false %}
+            {% else %}
+              {% set ts = as_datetime(item.datetime | default(none), default=none) %}
+              {% if ts is none %}
+                {% set ns.complete = false %}
+              {% elif ts > now() and as_local(ts).date() == now().date() and item.temperature | float(none) is none %}
+                {% set ns.complete = false %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        {{ ns.complete }}
+      day_max: >-
+        {% set forecast = state_attr('sensor.weather_forecast_hourly', 'forecast') %}
+        {% set ns = namespace(full=none) %}
+        {% if forecast is sequence and forecast is not string %}
+          {% for item in forecast if item is mapping %}
+            {% set ts = as_datetime(item.datetime | default(none), default=none) %}
+            {% set t = item.temperature | float(none) %}
+            {% if ts is not none and t is number and as_local(ts).date() == now().date() %}
+              {% if ns.full is none or t > ns.full %}{% set ns.full = t %}{% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
         {{ ns.full | round(1) if ns.full is not none else none }}
+
+- binary_sensor:
+  - name: Window Heat Ground Floor Safe To Open
+    unique_id: window_heat_ground_floor_safe_to_open
+    availability: >-
+      {{ [
+        states('sensor.openweathermap_temperature') | float(none),
+        states('sensor.climate_ground_floor_temperature') | float(none),
+        states('sensor.window_heat_forecast_max_today') | float(none)
+      ] | select('is_number') | list | count == 3 and
+         state_attr('sensor.window_heat_forecast_max_today', 'remaining_forecast_complete') == true }}
+    state: >-
+      {% set outside = states('sensor.openweathermap_temperature') | float(none) %}
+      {% set inside = states('sensor.climate_ground_floor_temperature') | float(none) %}
+      {% set forecast_max = states('sensor.window_heat_forecast_max_today') | float(none) %}
+      {% if forecast_max is not none and outside is not none and inside is not none %}
+        {{ forecast_max <= outside and outside <= inside - 0.5 }}
+      {% else %}false{% endif %}
+
+  - name: Window Heat First Floor Safe To Open
+    unique_id: window_heat_first_floor_safe_to_open
+    availability: >-
+      {{ [
+        states('sensor.openweathermap_temperature') | float(none),
+        states('sensor.climate_first_floor_temperature') | float(none),
+        states('sensor.window_heat_forecast_max_today') | float(none)
+      ] | select('is_number') | list | count == 3 and
+         state_attr('sensor.window_heat_forecast_max_today', 'remaining_forecast_complete') == true }}
+    state: >-
+      {% set outside = states('sensor.openweathermap_temperature') | float(none) %}
+      {% set inside = states('sensor.climate_first_floor_temperature') | float(none) %}
+      {% set forecast_max = states('sensor.window_heat_forecast_max_today') | float(none) %}
+      {% if forecast_max is not none and outside is not none and inside is not none %}
+        {{ forecast_max <= outside and outside <= inside - 0.5 }}
+      {% else %}false{% endif %}
+
+  - name: Window Heat Second Floor Safe To Open
+    unique_id: window_heat_second_floor_safe_to_open
+    availability: >-
+      {{ [
+        states('sensor.openweathermap_temperature') | float(none),
+        states('sensor.climate_second_floor_temperature') | float(none),
+        states('sensor.window_heat_forecast_max_today') | float(none)
+      ] | select('is_number') | list | count == 3 and
+         state_attr('sensor.window_heat_forecast_max_today', 'remaining_forecast_complete') == true }}
+    state: >-
+      {% set outside = states('sensor.openweathermap_temperature') | float(none) %}
+      {% set inside = states('sensor.climate_second_floor_temperature') | float(none) %}
+      {% set forecast_max = states('sensor.window_heat_forecast_max_today') | float(none) %}
+      {% if forecast_max is not none and outside is not none and inside is not none %}
+        {{ forecast_max <= outside and outside <= inside - 0.5 }}
+      {% else %}false{% endif %}
