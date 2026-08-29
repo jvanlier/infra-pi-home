@@ -1,0 +1,19 @@
+- alias: Switch Wall Hall 2 Upstairs
+  id: switch_wall_hall_2_upstairs
+  use_blueprint:
+    path: custom/hue_wall_switch_dim.yaml
+    input:
+      controller: Switch Wall Hall 2 Upstairs
+      left_light:
+        - light.light_group_hall_2
+      left_dim_direction_entity: input_text.dim_direction_switch_wall_hall_2_upstairs_left
+
+- alias: Switch Wall Hall 2 Downstairs
+  id: switch_wall_hall_2_downstairs
+  use_blueprint:
+    path: custom/hue_wall_switch_dim.yaml
+    input:
+      controller: Switch Wall Hall 2 Downstairs
+      left_light:
+        - light.light_group_hall_2
+      left_dim_direction_entity: input_text.dim_direction_switch_wall_hall_2_downstairs_left

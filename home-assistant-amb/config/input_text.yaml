@@ -37,3 +37,13 @@ dim_direction_switch_wall_study_left:
   name: Dim direction Switch Wall Study Left
   initial: "down_0"
   max: 30
+
+dim_direction_switch_wall_hall_2_upstairs_left:
+  name: Dim direction Switch Wall Hall 2 Upstairs Left
+  initial: "down_0"
+  max: 30
+
+dim_direction_switch_wall_hall_2_downstairs_left:
+  name: Dim direction Switch Wall Hall 2 Downstairs Left
+  initial: "down_0"
+  max: 30

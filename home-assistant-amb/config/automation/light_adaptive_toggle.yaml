@@ -28,4 +28,5 @@
         - switch.adaptive_lighting_bedroom_olivier_ambiance
         - switch.adaptive_lighting_bedroom_olivier_color
         - switch.adaptive_lighting_study
+        - switch.adaptive_lighting_hall_2
   mode: restart
