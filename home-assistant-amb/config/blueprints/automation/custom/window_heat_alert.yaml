@@ -12,6 +12,11 @@ blueprint:
       selector:
         entity:
           domain: sensor
+    open_readiness_sensor:
+      name: Open readiness sensor
+      selector:
+        entity:
+          domain: binary_sensor
     outdoor_temperature_sensor:
       name: Outdoor temperature sensor
       selector:
@@ -62,8 +67,8 @@ trigger:
     entity_id: !input activation_date_helper
   - id: open_crossing
     platform: state
-    entity_id: !input comparison_sensor
-    to: cooler
+    entity_id: !input open_readiness_sensor
+    to: "on"
     for: "00:05:00"
 
 condition: []
@@ -120,7 +125,7 @@ action:
           - condition: template
             value_template: >-
               {{ trigger.from_state is not none and
-                 trigger.from_state.state in ['warmer', 'equal'] and
+                 trigger.from_state.state == 'off' and
                  states(activation_date_helper) == now().date() | string and
                  is_state(open_sent_helper, 'off') and
                  trigger.to_state.last_changed >= (states[activation_date_helper].last_changed if states[activation_date_helper] else trigger.to_state.last_changed) }}
@@ -129,7 +134,7 @@ action:
             data:
               title: "🍃 Open windows - {{ floor_name }}"
               message: >-
-                It is now cooler outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}.
+                It is now at least 0.5°C cooler outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}. No warmer outdoor temperature is forecast today.
               data:
                 url: /dashboard-climate/inside-vs-outside
                 actions:
