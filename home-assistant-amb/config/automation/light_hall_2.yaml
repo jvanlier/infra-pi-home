@@ -1,0 +1,10 @@
+- alias: Motion-activated Light Hall 2
+  id: mal-hall-2
+  use_blueprint:
+    path: custom/light_motion_activated.yaml
+    input:
+      motion_entity: binary_sensor.motion_stairs_1_occupancy
+      device_no_motion_wait: number.motion_stairs_1_detection_interval
+      total_no_motion_wait: 180
+      light_target:
+        entity_id: light.light_group_hall_2

@@ -37,6 +37,7 @@
     - service: "switch.turn_{{ sleep_mode }}"
       entity_id:
         - switch.adaptive_lighting_sleep_mode_laundry
+        - switch.adaptive_lighting_sleep_mode_hall_2
   mode: restart
 
 - alias: "Sleep mode: scheduled on"

@@ -18,6 +18,15 @@
   sleep_transition: 5
   interval: 181
 
+- name: "hall-2"
+  lights: ["light.light_group_hall_2"]
+  min_brightness: 15
+  max_brightness: 25
+  min_color_temp: 2500
+  max_color_temp: 4000
+  sleep_transition: 5
+  only_once: true
+
 - name: "hall-0-wall"
   lights: ["light.light_hall_0_wall"]
   min_brightness: 15
