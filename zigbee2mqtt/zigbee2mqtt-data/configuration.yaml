@@ -245,6 +245,18 @@ devices:
     friendly_name: Light Bedroom Olivier 2
   '0x001788010fa7304a':
     friendly_name: Light Laundry 1
+  '0x001788010cc472f2':
+    friendly_name: Switch Wall Hall 2 Upstairs
+  '0x001788010cc472d7':
+    friendly_name: Switch Wall Hall 2 Downstairs
+  '0x001788010fa960ac':
+    friendly_name: Light Hall 2 1
+  '0x001788010fa96089':
+    friendly_name: Light Hall 2 2
+  '0x001788010ee80a35':
+    friendly_name: Light Hall 2 3
+  '0x001788010faa1d70':
+    friendly_name: Light Hall 2 4
 groups:
   '1':
     friendly_name: Light Group Living Spot
@@ -254,6 +266,8 @@ groups:
     friendly_name: Light Group Kitchen Middle
   '4':
     friendly_name: Light Group Kitchen Countertop
+  '5':
+    friendly_name: Light Group Hall 2
   '6':
     friendly_name: Light Group Bedroom Olivier Ambiance
   '8':
