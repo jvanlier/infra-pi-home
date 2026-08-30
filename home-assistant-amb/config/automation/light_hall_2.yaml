@@ -5,6 +5,6 @@
     input:
       motion_entity: binary_sensor.motion_stairs_1_occupancy
       device_no_motion_wait: number.motion_stairs_1_detection_interval
-      total_no_motion_wait: 180
+      total_no_motion_wait: 300
       light_target:
         entity_id: light.light_group_hall_2
