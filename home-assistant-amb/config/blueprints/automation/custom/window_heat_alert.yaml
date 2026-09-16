@@ -1,6 +1,6 @@
 blueprint:
   name: Window heat alert
-  description: Send one close and one open window alert for an active floor.
+  description: Send one close and one open window alert for an active floor, in that order.
   domain: automation
   input:
     floor_name:
@@ -127,6 +127,7 @@ action:
               {{ trigger.from_state is not none and
                  trigger.from_state.state == 'off' and
                  states(activation_date_helper) == now().date() | string and
+                 is_state(close_sent_helper, 'on') and
                  is_state(open_sent_helper, 'off') and
                  trigger.to_state.last_changed >= (states[activation_date_helper].last_changed if states[activation_date_helper] else trigger.to_state.last_changed) }}
         sequence:
