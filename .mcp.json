@@ -2,7 +2,7 @@
   "mcpServers": {
     "Home Assistant": {
       "type": "http",
-      "url": "http://pi502:8123/api/mcp",
+      "url": "http://pi502.local:8123/api/mcp",
       "headers": {
         "Authorization": "Bearer ${HA_TOKEN}"
       }
