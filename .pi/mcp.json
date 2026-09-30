@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "home-assistant": {
+      "url": "http://pi502.local:8123/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${HA_TOKEN}"
+      }
+    }
+  }
+}
