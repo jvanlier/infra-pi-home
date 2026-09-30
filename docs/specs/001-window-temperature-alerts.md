@@ -6,7 +6,7 @@ Approved design specification.
 
 ## Summary
 
-System activates at 08:00 only when highest remaining hourly OpenWeatherMap forecast temperature for current local day is strictly above 25°C. Open guidance requires a five-minute, forecast-safe cooling condition: the remaining forecast maximum is no higher than current outside temperature, which is at least 0.5°C cooler than the floor, and is sent only after that floor's close alert.
+System activates at 08:00 only when highest remaining hourly OpenWeatherMap forecast temperature for current local day is strictly above 25°C. Open guidance requires a five-minute cooling condition and is sent only after that floor's close alert. For the ground floor, current outside temperature and the remaining forecast maximum must both be at least 0.5°C below the floor temperature. For the first and second floors, the remaining forecast maximum must be no higher than current outside temperature, which must be at least 0.5°C cooler than the floor.
 
 On active days, J16 receives one activation confirmation plus at most one close and one open alert per floor. An open alert is never sent before the corresponding close alert.
 
@@ -80,7 +80,7 @@ Add these binary sensors. Each is unavailable unless its floor temperature, outd
 - `binary_sensor.window_heat_first_floor_safe_to_open`
 - `binary_sensor.window_heat_second_floor_safe_to_open`
 
-Each readiness sensor is on exactly when `remaining forecast maximum <= current outdoor temperature <= current floor temperature - 0.5°C`.
+Ground-floor readiness is on exactly when both `current outdoor temperature <= current floor temperature - 0.5°C` and `remaining forecast maximum <= current floor temperature - 0.5°C`. First- and second-floor readiness is on exactly when `remaining forecast maximum <= current outdoor temperature <= current floor temperature - 0.5°C`.
 
 ### Persistent helpers
 
@@ -112,6 +112,7 @@ Blueprint inputs:
 - Open-readiness binary sensor (`open_readiness_sensor`)
 - Outdoor temperature sensor
 - Forecast maximum sensor for close-alert forecast guard
+- Open notification message, defaulting to the first/second-floor forecast guidance; the ground-floor instance describes its forecast staying below indoor temperature
 - Activation-date helper
 - Close-sent helper
 - Open-sent helper
@@ -125,7 +126,7 @@ Add `home-assistant-amb/config/automation/window_heat_alerts.yaml` containing:
 1. One daily activation automation.
 2. Three concise blueprint instances, one for each floor.
 
-Only floor names and entity mappings should differ between blueprint instances.
+Floor names, entity mappings, and the ground-floor open notification message differ between blueprint instances.
 
 ## Functional behavior
 
@@ -174,13 +175,13 @@ If system activates while floor comparison is already `warmer`, blueprint must t
 ### Open alert
 
 - Trigger only when the floor's open-readiness sensor transitions `off -> on` and remains on continuously for five minutes.
-- Open readiness is exactly `remaining forecast maximum <= current outdoor temperature <= current floor temperature - 0.5°C`.
+- Ground-floor open readiness requires current outside temperature and the remaining forecast maximum to both be at least 0.5°C below its indoor temperature. First- and second-floor readiness is exactly `remaining forecast maximum <= current outdoor temperature <= current floor temperature - 0.5°C`.
 - Require activation date to equal current local date.
 - Require floor close-sent helper to be on.
 - Require floor open-sent helper to be off.
 - Require the readiness state to have changed no earlier than daily activation.
 - Send one separate J16 open notification for that floor.
-- Include the cooling margin, current outside temperature, floor name, and confirmation that no warmer temperature is forecast today.
+- Include the cooling margin, current outside temperature, and floor name. Ground-floor guidance confirms the remaining forecast stays at least 0.5°C below indoor temperature; first- and second-floor guidance confirms no warmer outdoor temperature is forecast today.
 - Link to existing chart.
 - Turn on floor open-sent helper after notification action.
 
@@ -259,7 +260,7 @@ Manual behavior matrix:
 4. Warmer state under five minutes: no close alert.
 5. Warmer state for five minutes: correct floor close alert.
 6. Repeated warmer crossings: no second close alert that day.
-7. After a close alert, a five-minute shallow dip that is less than 0.5°C cooler, or any dip with a forecasted rebound above current outside temperature: no open alert.
+7. After a close alert, a five-minute shallow dip that is less than 0.5°C cooler: no open alert. A forecasted rebound above current outside temperature blocks first/second-floor alerts. For the ground floor, a rebound is allowed only if its forecast remains at least 0.5°C below indoors.
 8. Full open-readiness invariant held continuously for five minutes after `off -> on`, with close-sent on: exactly one correct-floor open alert.
 9. Missing forecast or mixed valid/malformed forecast: readiness unavailable and no open alert.
 10. Open readiness recovery from `unknown` or `unavailable` directly to on: no open alert.
@@ -275,7 +276,7 @@ Manual behavior matrix:
 - J16 receives one activation confirmation only on qualifying days.
 - Each floor independently sends no more than one close and one open alert per active day.
 - Every close crossover and open-readiness alert requires five continuous minutes in its target relation.
-- An open alert requires the corresponding close-sent helper to be on, `remaining forecast maximum <= current outdoor temperature <= current floor temperature - 0.5°C`, `remaining_forecast_complete == true`, and an `off -> on` readiness transition after activation.
+- An open alert requires the corresponding close-sent helper to be on, `remaining_forecast_complete == true`, and an `off -> on` readiness transition after activation. Ground-floor current outside temperature and remaining forecast maximum must both be at least 0.5°C below indoors. First/second-floor alerts require `remaining forecast maximum <= current outdoor temperature <= current floor temperature - 0.5°C`.
 - A missing, malformed, or partially malformed forecast and any nonnumeric/unavailable required input cannot produce an open alert.
 - Temperature fluctuations cannot create duplicate same-day alerts.
 - Open alerts are sent only after the corresponding close notification.
