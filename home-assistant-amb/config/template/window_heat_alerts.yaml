@@ -115,7 +115,7 @@
       {% set inside = states('sensor.climate_ground_floor_temperature') | float(none) %}
       {% set forecast_max = states('sensor.window_heat_forecast_max_today') | float(none) %}
       {% if forecast_max is not none and outside is not none and inside is not none %}
-        {{ forecast_max <= outside and outside <= inside - 0.5 }}
+        {{ outside <= inside - 0.5 and forecast_max <= inside - 0.5 }}
       {% else %}false{% endif %}
 
   - name: Window Heat First Floor Safe To Open
@@ -132,7 +132,7 @@
       {% set inside = states('sensor.climate_first_floor_temperature') | float(none) %}
       {% set forecast_max = states('sensor.window_heat_forecast_max_today') | float(none) %}
       {% if forecast_max is not none and outside is not none and inside is not none %}
-        {{ forecast_max <= outside and outside <= inside - 0.5 }}
+        {{ outside <= inside - 0.5 and forecast_max <= inside - 0.5 }}
       {% else %}false{% endif %}
 
   - name: Window Heat Second Floor Safe To Open
@@ -149,5 +149,5 @@
       {% set inside = states('sensor.climate_second_floor_temperature') | float(none) %}
       {% set forecast_max = states('sensor.window_heat_forecast_max_today') | float(none) %}
       {% if forecast_max is not none and outside is not none and inside is not none %}
-        {{ forecast_max <= outside and outside <= inside - 0.5 }}
+        {{ outside <= inside - 0.5 and forecast_max <= inside - 0.5 }}
       {% else %}false{% endif %}

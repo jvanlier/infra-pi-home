@@ -135,7 +135,7 @@ action:
             data:
               title: "🍃 Open windows - {{ floor_name }}"
               message: >-
-                It is now at least 0.5°C cooler outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}. No warmer outdoor temperature is forecast today.
+                It is at least 0.5°C cooler outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}. Today's remaining forecast also stays at least 0.5°C below the indoor temperature.
               data:
                 url: /dashboard-climate/inside-vs-outside
                 actions:
