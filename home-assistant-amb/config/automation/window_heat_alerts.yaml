@@ -53,8 +53,6 @@
       floor_name: Ground floor
       comparison_sensor: sensor.window_heat_ground_floor_comparison
       open_readiness_sensor: binary_sensor.window_heat_ground_floor_safe_to_open
-      open_message: >-
-        It is at least 0.5°C cooler outside ({{ states(outdoor_temperature_sensor) | float | round(1) }}°C) than on the {{ floor_name | lower }}. Today's remaining forecast also stays at least 0.5°C below the indoor temperature.
       outdoor_temperature_sensor: sensor.openweathermap_temperature
       forecast_max_sensor: sensor.window_heat_forecast_max_today
       activation_date_helper: input_datetime.window_heat_alert_activation_date
